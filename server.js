@@ -9,12 +9,12 @@ var app     = express();
 
 /*app.get("/",function(req,res){
 	
-	 res.sendFile(path.join( __dirname+ "/index.html"));
+	 
 });
 app.listen(port);
 */
 app.get('/', function (req, res) {
-  res.send('Hello World, we are using express correctly!');
+  res.sendFile(path.join( __dirname+ "/index.html"));
 });
 
 app.listen(port, function () {
