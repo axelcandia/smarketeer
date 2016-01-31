@@ -20,8 +20,11 @@ app.get('/login', function (req, res) {
   res.sendFile(path.join( __dirname+ "/Layout/Security/login.html"));
 });
 
-app.get('/login', function (req, res) {
+app.get('/index', function (req, res) {
   res.sendFile(path.join( __dirname+ "/Layout/Dashboard/index.html"));
+});
+app.get('/NewUser', function (req, res) {
+  res.sendFile(path.join( __dirname+ "/Layout/Security/NewUser.html"));
 });
 
 app.listen(port);
