@@ -4,19 +4,20 @@ var express = require("express");
 var path    = require("path");
 var port 	= process.env.PORT || 1337;
 //Start directory
-var app     = express(); 
+var app     = express();
 
+//Comentar esta linea antes de subir
+//app.use(express.static(path.join(__dirname, 'public')));
 
-/*app.get("/",function(req,res){
-	
-	 
-});
-app.listen(port);
-*/
+//Send to the index
+
 app.get('/', function (req, res) {
   res.sendFile(path.join( __dirname+ "/index.html"));
 });
 
-app.listen(port, function () {
-  console.log('Example app listening on port!'+port);
+app.get('/login', function (req, res) {
+  res.sendFile(path.join( __dirname+ "/Layout/Security/login.html"));
 });
+
+
+app.listen(port);
