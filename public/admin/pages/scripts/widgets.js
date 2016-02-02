@@ -2,7 +2,7 @@ var Widgets = function () {
 
 	var handleMapplic = function () {
 		$('#mapplic').mapplic({
-			source: '../../assets/global/plugins/mapplic/world.json',
+			source: 'global/plugins/mapplic/world.json',
 			height: 265,
 			animate: false,
 			sidebar: false,

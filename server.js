@@ -9,7 +9,7 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 //Send to the index
 
@@ -22,7 +22,7 @@ app.get('/login', function (req, res) {
   res.sendFile(path.join( __dirname+ "/Layout/Security/login.html"));
 });
 
-app.get('/index', function (req, res) {
+app.get('/Dashboard', function (req, res) {
   res.sendFile(path.join( __dirname+ "/Layout/Dashboard/index.html"));
 });
 app.get('/NewUser', function (req, res) {
