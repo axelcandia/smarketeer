@@ -35,14 +35,14 @@ app.get('/Proto', function (req, res) {
 /*
 	FUNNELS GETTERS
 */
-app.get("/funnel-leads",function(req,res){
-	res.send(path.join( __dirname + "Layout/Dashboard/funnel/funnel-leads.html"));
+app.get('/funnel-leads',function(req,res){
+	res.sendFile(path.join( __dirname + "Layout/Dashboard/funnel/funnel-leads.html"));
 });
-app.get("/funnel-sales",function(req,res){
-	res.send(path.join( __dirname + "Layout/Dashboard/funnel/funnel-sales.html"));
+app.get('/funnel-sales',function(req,res){
+	res.sendFile(path.join( __dirname + "Layout/Dashboard/funnel/funnel-sales.html"));
 });
-app.get("/funnel-visitors",function(req,res){
-	res.send(path.join( __dirname + "Layout/Dashboard/funnel/funnel-visitors.html"));
+app.get('/funnel-visitors',function(req,res){
+	res.sendFile(path.join( __dirname + "Layout/Dashboard/funnel/funnel-visitors.html"));
 });
 
 
