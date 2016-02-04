@@ -9,7 +9,8 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir
-//app.use(express.static(path.join(__dirname, 'public'))); 
+ app.use(express.static(path.join(__dirname, 'public'))); 
+ app.use(express.static(path.join(__dirname, 'public/global'))); 
 //Send to the index
 
 app.get('/', function (req, res) {
@@ -25,12 +26,8 @@ app.get('/Dashboard', function (req, res) {
   res.sendFile(path.join( __dirname+ "/Layout/Dashboard/index.html"));
 });
 app.get('/NewUser', function (req, res) {
-  res.sendFile(path.join( __dirname+ "/Layout/Security/NewUser.html"));
-}); 
-/*
-	FUNNELS GETTERS
-*/
-
+  res.sendFile(path.join( __dirname+ "/Layout/Security/NewUser.html"));  
+});
 app.get('/home/funnel/leads',function (req,res){
 	res.sendFile(path.join( __dirname + "/Layout/Dashboard/funnel/funnel-leads.html"));
 });
@@ -51,13 +48,6 @@ app.get('/home/MyPlan',function (req,res){
 });
 app.get('/home/campaign-builder',function (req,res){
 	res.sendFile(path.join( __dirname + "/Layout/Dashboard/campaign-builder.html"));
-});
-/*
-To add later
-*/
-app.get('/home/forms/forms',function (req,res){
-	res.sendFile(path.join( __dirname + "/Layout/Dashboard/campaign-builder.html"));
-});
-
+}); 
  
 app.listen(port);
