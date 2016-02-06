@@ -9,7 +9,7 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir  
- app.use(express.static(path.join(__dirname, 'public')));  
+ //app.use(express.static(path.join(__dirname, 'public')));  
 //Send to the index
 app.set('view engine', 'jade');
 
@@ -53,7 +53,6 @@ app.get('/home/forms',function (req,res){
 app.get('/home/formbuilder',function (req,res){
 	res.render(path.join( __dirname + "/Layout/home/formbuilder/index"));
 }); 
-
 
 
 app.get('/user/costs',function (req,res){
