@@ -1,0 +1,1067 @@
+doctype html
+//
+  Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+  Version: 4.1.0
+  Author: KeenThemes
+  Website: http://www.keenthemes.com/
+  Contact: support@keenthemes.com
+  Follow: www.twitter.com/keenthemes
+  Like: www.facebook.com/keenthemes
+  Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+  License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+//if IE 8
+  html.ie8.no-js(lang='en')  
+//if IE 9
+  html.ie9.no-js(lang='en')  
+// [if !IE] <!
+html.no-js(lang='en')
+  // <![endif]
+  // BEGIN HEAD
+  head
+    meta(charset='utf-8')
+    title Smarketeer Dashboard
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1', name='viewport')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL PLUGIN STYLES
+    link(href='global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/fullcalendar/fullcalendar.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/jqvmap/jqvmap/jqvmap.css', rel='stylesheet', type='text/css')
+    // END PAGE LEVEL PLUGIN STYLES
+    // BEGIN PAGE STYLES
+    link(href='/admin/pages/css/tasks.css', rel='stylesheet', type='text/css')
+    // END PAGE STYLES
+    // BEGIN THEME STYLES
+    // DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag
+    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='favicon.ico')
+  // END HEAD
+  // BEGIN BODY
+  // DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices
+  // DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default
+  // DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle
+  // DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle
+  // DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle
+  // DOC: Apply "page-sidebar-fixed" class to have fixed sidebar
+  // DOC: Apply "page-footer-fixed" class to the body element to have fixed footer
+  // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
+  // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      // BEGIN HEADER INNER
+      .page-header-inner.container
+        // BEGIN LOGO
+        .page-logo
+          a(href='index')
+            img.logo-default(src='/Images/dashboard/smarketeer-logo.png', alt='logo')
+          .menu-toggler.sidebar-toggler
+            // DOC: Remove the above "hide" to enable the sidebar toggler button on header
+        // END LOGO
+        // BEGIN RESPONSIVE MENU TOGGLER
+        a.menu-toggler.responsive-toggler(href='javascript:;', data-toggle='collapse', data-target='.navbar-collapse')
+        // END RESPONSIVE MENU TOGGLER
+        // BEGIN PAGE ACTIONS
+        // DOC: Remove "hide" class to enable the page header actions
+        .page-actions.hide
+          .btn-group
+            button.btn.btn-circle.red-pink.dropdown-toggle(type='button', data-toggle='dropdown')
+              i.icon-bar-chart
+              span.hidden-sm.hidden-xs New 
+              i.fa.fa-angle-down
+            ul.dropdown-menu(role='menu')
+              li
+                a(href='javascript:;')
+                  i.icon-user
+                  |  New User
+              li
+                a(href='javascript:;')
+                  i.icon-present
+                  |  New Event 
+                  span.badge.badge-success 4
+              li
+                a(href='javascript:;')
+                  i.icon-basket
+                  |  New order
+              li.divider
+              li
+                a(href='javascript:;')
+                  i.icon-flag
+                  |  Pending Orders 
+                  span.badge.badge-danger 4
+              li
+                a(href='javascript:;')
+                  i.icon-users
+                  |  Pending Users 
+                  span.badge.badge-warning 12
+          .btn-group
+            button.btn.btn-circle.green-haze.dropdown-toggle(type='button', data-toggle='dropdown')
+              i.icon-bell
+              span.hidden-sm.hidden-xs Post 
+              i.fa.fa-angle-down
+            ul.dropdown-menu(role='menu')
+              li
+                a(href='javascript:;')
+                  i.icon-docs
+                  |  New Post
+              li
+                a(href='javascript:;')
+                  i.icon-tag
+                  |  New Comment
+              li
+                a(href='javascript:;')
+                  i.icon-share
+                  |  Share
+              li.divider
+              li
+                a(href='javascript:;')
+                  i.icon-flag
+                  |  Comments 
+                  span.badge.badge-success 4
+              li
+                a(href='javascript:;')
+                  i.icon-users
+                  |  Feedbacks 
+                  span.badge.badge-danger 2
+        // END PAGE ACTIONS
+        // BEGIN PAGE TOP
+        .page-top
+          // BEGIN TOP NAVIGATION MENU
+          .top-menu
+            ul.nav.navbar-nav.pull-right
+              // BEGIN NOTIFICATION DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                  i.icon-bell
+                  span.badge.badge-default
+                    | 7
+                ul.dropdown-menu
+                  li.external
+                    h3
+                      span.bold 12 pending
+                      |  notifications
+                  li
+                    ul.dropdown-menu-list.scroller(style='height: 250px;', data-handle-color='#637283')
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New lead registered!
+                      li
+                        a(href='javascript:;')
+                          span.time 2 days
+                          span.details
+                            span.label.label-sm.label-icon.label-danger
+                              i.fa.fa-bolt
+                            | 										More than 1000 visitors at your site!
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New lead registered!
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New sale registered!
+                      li
+                        a(href='javascript:;')
+                          span.time 2 days
+                          span.details
+                            span.label.label-sm.label-icon.label-danger
+                              i.fa.fa-bolt
+                            | 										More than 2000 visitors at your site!
+              // END NOTIFICATION DROPDOWN
+              // BEGIN USER LOGIN DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li.dropdown.dropdown-user
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                  img.img-circle(alt='', src='/Images/dashboard/daniel-digifianz-academy.png')
+                  span.username.username-hide-on-mobile
+                    | Daniel
+                  i.fa.fa-angle-down
+                ul.dropdown-menu.dropdown-menu-default
+                  li
+                    a(href='extra_profile_account')
+                      i.icon-user
+                      |  My Profile
+                  li
+                    a(href='page_todo')
+                      i.icon-rocket
+                      |  Subscription Plan
+                  li.divider
+                  li
+                    a(href='login')
+                      i.icon-key
+                      |  Log Out
+              // END USER LOGIN DROPDOWN
+              // BEGIN USER LOGIN DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li.dropdown.dropdown-extended.quick-sidebar-toggler
+                span.sr-only Toggle Quick Sidebar
+                i.icon-logout
+              // END USER LOGIN DROPDOWN
+          // END TOP NAVIGATION MENU
+        // END PAGE TOP
+      // END HEADER INNER
+    // END HEADER
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        // BEGIN SIDEBAR
+        .page-sidebar-wrapper
+          // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+          // DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed
+          .page-sidebar.navbar-collapse.collapse
+            // BEGIN SIDEBAR MENU
+            // DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders)
+            // DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode
+            // DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode
+            // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+            // DOC: Set data-keep-expand="true" to keep the submenues expanded
+            // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
+            ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
+              li.start.active
+                a(href='index')
+                  i.icon-home
+                  span.title Dashboard
+                  span.selected
+              li
+                a(href='visitors')
+                  i.icon-basket
+                  span.title Funnel
+                  span.arrow
+                ul.sub-menu
+                  li
+                    a(href='visitors')
+                      i.icon-home
+                      | 								Visitors
+                  li
+                    a(href='/leads')
+                      i.icon-basket
+                      | 								Leads
+                  li
+                    a(href='/sales')
+                      i.icon-tag
+                      | 								Sales
+              li
+                a(href='/campaign-builder')
+                  i.icon-rocket
+                  span.title Campaigns
+                  span.arrow
+              li
+                a(href='forms')
+                  i.icon-puzzle
+                  span.title Forms
+                  span.arrow
+                ul.sub-menu
+                  li
+                    a(href='forms')
+                      i.icon-home
+                      | 								View All Forms
+                  li
+                    a(href='formbuilder/index')
+                      i.icon-basket
+                      | 								Form Builder
+              li
+                a(href='reporting')
+                  i.icon-bar-chart
+                  span.title Reporting
+                  span.arrow
+              li
+                a(href='costs')
+                  i.icon-wallet
+                  span.title Advertising Costs
+                  span.arrow
+            // END SIDEBAR MENU
+        // END SIDEBAR
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+                i.icon-settings
+              .toggler-close
+                i.icon-close
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+                    h4.modal-title Install Smarketeer on your website
+                  .modal-body
+                    | Copy & paste the following code into the head of your HTML
+                    form(action='#')
+                      textarea(rows='4', cols='50')
+                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                  .modal-footer
+                    button.btn.default(type='button', data-dismiss='modal') Close
+                    button.btn.blue(type='button') Verify Code
+                // /.modal-content
+              // /.modal-dialog
+            // CODE MODAL
+            // BEGIN PAGE HEADER
+            h3.page-title
+              | Real-Time Dashboard
+            .page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='index') Home
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Real-Time Dashboard
+              .page-toolbar
+                #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
+                  i.icon-calendar
+                  i.fa.fa-angle-down
+                  //
+                    uncomment this to display selected daterange in the button
+                    &nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp;
+                    <i class="fa fa-angle-down"></i>
+            // END PAGE HEADER
+            // BEGIN DASHBOARD STATS
+            .row
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='visitors')
+                  .visual
+                    i.fa.fa-comments
+                  .details
+                    .number
+                      | 23495
+                    .desc
+                      | visitors
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='home/funnel/leads')
+                  .visual
+                    i.fa.fa-trophy
+                  .details
+                    .number
+                      | 834
+                    .desc
+                      | Leads
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='home/funnel/sales')
+                  .visual
+                    i.fa.fa-shopping-cart
+                  .details
+                    .number
+                      | 124
+                    .desc
+                      | Sales
+            // END DASHBOARD STATS
+            .clearfix.text-center.attribution-button
+              h3 Attribution
+              .btn-group.btn-group-circle(data-toggle='buttons')
+                label.btn.blue.active
+                  input.toggle(type='radio')
+                  |  First Interaction
+                label.btn.blue
+                  input.toggle(type='radio')
+                  |  Linear
+                label.btn.blue
+                  input.toggle(type='radio')
+                  |  Last Interaction
+            .clearfix
+            .row
+              .col-md-6.col-sm-6
+                .portlet.box.blue
+                  .portlet-title
+                    .caption
+                      i.fa.fa-gift
+                      | Leads By Channel
+                    .tools
+                      a.config(href='#portlet-config', data-toggle='modal')
+                      a.reload(href='javascript:;')
+                  .portlet-body
+                    #donut.chart
+              .col-md-6.col-sm-6
+                .portlet.box.blue
+                  .portlet-title
+                    .caption
+                      i.fa.fa-gift
+                      | Sales By Channel
+                    .tools
+                      a.config(href='#portlet-config', data-toggle='modal')
+                      a.reload(href='javascript:;')
+                  .portlet-body
+                    #donut.chart
+            // BEGIN STACK CHART CONTROLS PORTLET
+            .row
+              .col-md-12.col-sm-12
+                .portlet.box.yellow
+                  .portlet-title
+                    .caption
+                      i.fa.fa-gift
+                      | Revenue & Cost By Source
+                    .tools
+                      a.collapse(href='javascript:;')
+                      a.config(href='#portlet-config', data-toggle='modal')
+                      a.reload(href='javascript:;')
+                      a.remove(href='javascript:;')
+                  .portlet-body
+                    #chart_5(style='height:350px;')
+                    .btn-toolbar
+                      .btn-group.stackControls
+                        input.btn.blue(type='button', value='With stacking')
+                        input.btn.red(type='button', value='Without stacking')
+                      .space5
+                      .btn-group.graphControls
+                        input.btn(type='button', value='Bars')
+                        input.btn(type='button', value='Lines')
+                        input.btn(type='button', value='Lines with steps')
+            // END STACK CHART CONTROLS PORTLET
+            .row
+              .col-md-6.col-sm-6
+                // BEGIN PORTLET
+                .portlet.light
+                  .portlet-title
+                    .caption
+                      i.icon-bar-chart.font-green-sharp.hide
+                      span.caption-subject.font-green-sharp.bold.uppercase Site Visits
+                      span.caption-helper weekly stats...
+                    .actions
+                      .btn-group.btn-group-devided(data-toggle='buttons')
+                        label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm.active
+                          input#option1.toggle(type='radio', name='options')
+                          | New
+                        label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
+                          input#option2.toggle(type='radio', name='options')
+                          | Returning
+                  .portlet-body
+                    #site_statistics_loading
+                      img(src='/Images/dashboard/loading.gif', alt='loading')
+                    #site_statistics_content.display-none
+                      #site_statistics.chart
+                // END PORTLET
+              .col-md-6.col-sm-6
+                // BEGIN PORTLET
+                .portlet.light
+                  .portlet-title
+                    .caption
+                      i.icon-share.font-red-sunglo.hide
+                      span.caption-subject.font-red-sunglo.bold.uppercase Revenue
+                      span.caption-helper monthly stats...
+                    .actions
+                      .btn-group
+                        a.btn.grey-salsa.btn-circle.btn-sm.dropdown-toggle(href='', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                          | Filter Range 
+                          span.fa.fa-angle-down
+                        ul.dropdown-menu.pull-right
+                          li
+                            a(href='javascript:;')
+                              | Q1 2014 
+                              span.label.label-sm.label-default
+                                | past
+                          li
+                            a(href='javascript:;')
+                              | Q2 2014 
+                              span.label.label-sm.label-default
+                                | past
+                          li.active
+                            a(href='javascript:;')
+                              | Q3 2014 
+                              span.label.label-sm.label-success
+                                | current
+                          li
+                            a(href='javascript:;')
+                              | Q4 2014 
+                              span.label.label-sm.label-warning
+                                | upcoming
+                  .portlet-body
+                    #site_activities_loading
+                      img(src='/Images/dashboard/loading.gif', alt='loading')
+                    #site_activities_content.display-none
+                      #site_activities(style='height: 228px;')
+                    div(style='margin: 20px 0 10px 30px')
+                      .row
+                        .col-md-3.col-sm-3.col-xs-6.text-stat
+                          span.label.label-sm.label-success
+                            | Revenue:
+                          h3 $13,234
+                        .col-md-3.col-sm-3.col-xs-6.text-stat
+                          span.label.label-sm.label-danger
+                            | Shipment:
+                          h3 $1,134
+                        .col-md-3.col-sm-3.col-xs-6.text-stat
+                          span.label.label-sm.label-primary
+                            | Orders:
+                          h3 235090
+                // END PORTLET
+            .clearfix
+            .row
+              .col-md-6.col-sm-6
+                .portlet.light
+                  .portlet-title
+                    .caption
+                      i.icon-cursor.font-purple-intense.hide
+                      span.caption-subject.font-purple-intense.bold.uppercase Revenue Stats
+                    .actions
+                      a.btn.btn-sm.btn-circle.btn-default.easy-pie-chart-reload(href='javascript:;')
+                        i.fa.fa-repeat
+                        |  Reload
+                  .portlet-body
+                    .row
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.transactions(data-percent='55')
+                            span
+                              | +55
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Value Per Lead 
+                            i.icon-arrow-right
+                      .margin-bottom-10.visible-sm
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.visits(data-percent='85')
+                            span
+                              | +85
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Value Per Sale 
+                            i.icon-arrow-right
+                      .margin-bottom-10.visible-sm
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.bounce(data-percent='46')
+                            span
+                              | +46
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Revenue 
+                            i.icon-arrow-right
+              .col-md-6.col-sm-6
+                .portlet.light
+                  .portlet-title
+                    .caption
+                      i.icon-cursor.font-purple-intense.hide
+                      span.caption-subject.font-purple-intense.bold.uppercase Cost Stats
+                    .actions
+                      a.btn.btn-sm.btn-circle.btn-default.easy-pie-chart-reload(href='javascript:;')
+                        i.fa.fa-repeat
+                        |  Reload
+                  .portlet-body
+                    .row
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.transactions(data-percent='55')
+                            span
+                              | -55
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Cost Per Lead 
+                            i.icon-arrow-right
+                      .margin-bottom-10.visible-sm
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.visits(data-percent='85')
+                            span
+                              | -85
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Cost Per Sale 
+                            i.icon-arrow-right
+                      .margin-bottom-10.visible-sm
+                      .col-md-4
+                        .easy-pie-chart
+                          .number.bounce(data-percent='46')
+                            span
+                              | -46
+                            | 												%
+                          a.title(href='javascript:;')
+                            | Costs 
+                            i.icon-arrow-right
+            .clearfix
+          // BEGIN QUICK SIDEBAR
+          a.page-quick-sidebar-toggler(href='javascript:;')
+            i.icon-login
+          .page-quick-sidebar-wrapper
+            .page-quick-sidebar
+              .nav-justified
+                ul.nav.nav-tabs.nav-justified
+                  li.active
+                    a(href='#quick_sidebar_tab_1', data-toggle='tab')
+                      | Users 
+                      span.badge.badge-danger 2
+                  li
+                    a(href='#quick_sidebar_tab_2', data-toggle='tab')
+                      | Alerts 
+                      span.badge.badge-success 7
+                  li.dropdown
+                    a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                      | More
+                      i.fa.fa-angle-down
+                    ul.dropdown-menu.pull-right(role='menu')
+                      li
+                        a(href='#quick_sidebar_tab_3', data-toggle='tab')
+                          i.icon-bell
+                          |  Alerts
+                      li
+                        a(href='#quick_sidebar_tab_3', data-toggle='tab')
+                          i.icon-info
+                          |  Notifications
+                      li
+                        a(href='#quick_sidebar_tab_3', data-toggle='tab')
+                          i.icon-speech
+                          |  Activities
+                      li.divider
+                      li
+                        a(href='#quick_sidebar_tab_3', data-toggle='tab')
+                          i.icon-settings
+                          |  Settings
+                      li
+                        a(href='login')
+                          i.icon-logout
+                          |  Logout
+                .tab-content
+                  #quick_sidebar_tab_1.tab-pane.active.page-quick-sidebar-chat
+                    .page-quick-sidebar-chat-users(data-rail-color='#ddd', data-wrapper-class='page-quick-sidebar-list')
+                      h3.list-heading Staff
+                      ul.media-list.list-items
+                        li.media
+                          .media-status
+                            span.badge.badge-success 8
+                          img.media-object(src='/admin/layout/img/avatar3.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Bob Nilson
+                            .media-heading-sub
+                              | Project Manager
+                        li.media
+                          img.media-object(src='/admin/layout/img/avatar1.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Nick Larson
+                            .media-heading-sub
+                              | Art Director
+                        li.media
+                          .media-status
+                            span.badge.badge-danger 3
+                          img.media-object(src='/admin/layout/img/avatar4.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Deon Hubert
+                            .media-heading-sub
+                              | CTO
+                        li.media
+                          img.media-object(src='/admin/layout/img/avatar2.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Ella Wong
+                            .media-heading-sub
+                              | CEO
+                      h3.list-heading Customers
+                      ul.media-list.list-items
+                        li.media
+                          .media-status
+                            span.badge.badge-warning 2
+                          img.media-object(src='/admin/layout/img/avatar6.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Lara Kunis
+                            .media-heading-sub
+                              | CEO, Loop Inc
+                            .media-heading-small
+                              | Last seen 03:10 AM
+                        li.media
+                          .media-status
+                            span.label.label-sm.label-success new
+                          img.media-object(src='/admin/layout/img/avatar7.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Ernie Kyllonen
+                            .media-heading-sub
+                              | Project Manager,
+                              br
+                              | 													 SmartBizz PTL
+                        li.media
+                          img.media-object(src='/admin/layout/img/avatar8.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Lisa Stone
+                            .media-heading-sub
+                              | CTO, Keort Inc
+                            .media-heading-small
+                              | Last seen 13:10 PM
+                        li.media
+                          .media-status
+                            span.badge.badge-success 7
+                          img.media-object(src='/admin/layout/img/avatar9.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Deon Portalatin
+                            .media-heading-sub
+                              | CFO, H&D LTD
+                        li.media
+                          img.media-object(src='/admin/layout/img/avatar10.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Irina Savikova
+                            .media-heading-sub
+                              | CEO, Tizda Motors Inc
+                        li.media
+                          .media-status
+                            span.badge.badge-danger 4
+                          img.media-object(src='/admin/layout/img/avatar11.jpg', alt='...')
+                          .media-body
+                            h4.media-heading Maria Gomez
+                            .media-heading-sub
+                              | Manager, Infomatic Inc
+                            .media-heading-small
+                              | Last seen 03:10 AM
+                    .page-quick-sidebar-item
+                      .page-quick-sidebar-chat-user
+                        .page-quick-sidebar-nav
+                          a.page-quick-sidebar-back-to-list(href='javascript:;')
+                            i.icon-arrow-left
+                            | Back
+                        .page-quick-sidebar-chat-user-messages
+                          .post.out
+                            img.avatar(alt='', src='/admin/layout/img/avatar3.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Bob Nilson
+                              span.datetime 20:15
+                              span.body
+                                | When could you send me the report ?
+                          .post.in
+                            img.avatar(alt='', src='/admin/layout/img/avatar2.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Ella Wong
+                              span.datetime 20:15
+                              span.body
+                                | Its almost done. I will be sending it shortly
+                          .post.out
+                            img.avatar(alt='', src='/admin/layout/img/avatar3.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Bob Nilson
+                              span.datetime 20:15
+                              span.body
+                                | Alright. Thanks! :)
+                          .post.in
+                            img.avatar(alt='', src='/admin/layout/img/avatar2.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Ella Wong
+                              span.datetime 20:16
+                              span.body
+                                | You are most welcome. Sorry for the delay.
+                          .post.out
+                            img.avatar(alt='', src='/admin/layout/img/avatar3.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Bob Nilson
+                              span.datetime 20:17
+                              span.body
+                                | No probs. Just take your time :)
+                          .post.in
+                            img.avatar(alt='', src='/admin/layout/img/avatar2.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Ella Wong
+                              span.datetime 20:40
+                              span.body
+                                | Alright. I just emailed it to you.
+                          .post.out
+                            img.avatar(alt='', src='/admin/layout/img/avatar3.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Bob Nilson
+                              span.datetime 20:17
+                              span.body
+                                | Great! Thanks. Will check it right away.
+                          .post.in
+                            img.avatar(alt='', src='/admin/layout/img/avatar2.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Ella Wong
+                              span.datetime 20:40
+                              span.body
+                                | Please let me know if you have any comment.
+                          .post.out
+                            img.avatar(alt='', src='/admin/layout/img/avatar3.jpg')
+                            .message
+                              span.arrow
+                              a.name(href='javascript:;') Bob Nilson
+                              span.datetime 20:17
+                              span.body
+                                | Sure. I will check and buzz you if anything needs to be corrected.
+                        .page-quick-sidebar-chat-user-form
+                          .input-group
+                            input.form-control(type='text', placeholder='Type a message here...')
+                            .input-group-btn
+                              button.btn.blue(type='button')
+                                i.icon-paper-clip
+                  #quick_sidebar_tab_2.tab-pane.page-quick-sidebar-alerts
+                    .page-quick-sidebar-alerts-list
+                      h3.list-heading General
+                      ul.feeds.list-items
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-info
+                                  i.fa.fa-shopping-cart
+                              .cont-col2
+                                .desc
+                                  | New order received with 
+                                  span.label.label-sm.label-danger
+                                    | Reference Number: DR23923
+                          .col2
+                            .date
+                              | 30 mins
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-success
+                                  i.fa.fa-user
+                              .cont-col2
+                                .desc
+                                  | You have 5 pending membership that requires a quick review.
+                          .col2
+                            .date
+                              | 24 mins
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-danger
+                                  i.fa.fa-bell-o
+                              .cont-col2
+                                .desc
+                                  | Web server hardware needs to be upgraded. 
+                                  span.label.label-sm.label-warning
+                                    | Overdue
+                          .col2
+                            .date
+                              | 2 hours
+                        li
+                          a(href='javascript:;')
+                            .col1
+                              .cont
+                                .cont-col1
+                                  .label.label-sm.label-default
+                                    i.fa.fa-briefcase
+                                .cont-col2
+                                  .desc
+                                    | IPO Report for year 2013 has been released.
+                            .col2
+                              .date
+                                | 20 mins
+                      h3.list-heading System
+                      ul.feeds.list-items
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-info
+                                  i.fa.fa-shopping-cart
+                              .cont-col2
+                                .desc
+                                  | New order received with 
+                                  span.label.label-sm.label-success
+                                    | Reference Number: DR23923
+                          .col2
+                            .date
+                              | 30 mins
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-success
+                                  i.fa.fa-user
+                              .cont-col2
+                                .desc
+                                  | You have 5 pending membership that requires a quick review.
+                          .col2
+                            .date
+                              | 24 mins
+                        li
+                          .col1
+                            .cont
+                              .cont-col1
+                                .label.label-sm.label-warning
+                                  i.fa.fa-bell-o
+                              .cont-col2
+                                .desc
+                                  | Web server hardware needs to be upgraded. 
+                                  span.label.label-sm.label-default
+                                    | Overdue
+                          .col2
+                            .date
+                              | 2 hours
+                        li
+                          a(href='javascript:;')
+                            .col1
+                              .cont
+                                .cont-col1
+                                  .label.label-sm.label-info
+                                    i.fa.fa-briefcase
+                                .cont-col2
+                                  .desc
+                                    | IPO Report for year 2013 has been released.
+                            .col2
+                              .date
+                                | 20 mins
+                  #quick_sidebar_tab_3.tab-pane.page-quick-sidebar-settings
+                    .page-quick-sidebar-settings-list
+                      h3.list-heading General Settings
+                      ul.list-items.borderless
+                        li
+                          | Enable Notifications 
+                          input.make-switch(type='checkbox', checked='', data-size='small', data-on-color='success', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                        li
+                          | Allow Tracking 
+                          input.make-switch(type='checkbox', data-size='small', data-on-color='info', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                        li
+                          | Log Errors 
+                          input.make-switch(type='checkbox', checked='', data-size='small', data-on-color='danger', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                        li
+                          | Auto Sumbit Issues 
+                          input.make-switch(type='checkbox', data-size='small', data-on-color='warning', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                        li
+                          | Enable SMS Alerts 
+                          input.make-switch(type='checkbox', checked='', data-size='small', data-on-color='success', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                      h3.list-heading System Settings
+                      ul.list-items.borderless
+                        li
+                          | Security Level
+                          select.form-control.input-inline.input-sm.input-small
+                            option(value='1') Normal
+                            option(value='2', selected='') Medium
+                            option(value='e') High
+                        li
+                          | Failed Email Attempts 
+                          input.form-control.input-inline.input-sm.input-small(value='5')
+                        li
+                          | Secondary SMTP Port 
+                          input.form-control.input-inline.input-sm.input-small(value='3560')
+                        li
+                          | Notify On System Error 
+                          input.make-switch(type='checkbox', checked='', data-size='small', data-on-color='danger', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                        li
+                          | Notify On SMTP Error 
+                          input.make-switch(type='checkbox', checked='', data-size='small', data-on-color='warning', data-on-text='ON', data-off-color='default', data-off-text='OFF')
+                      .inner-content
+                        button.btn.btn-success
+                          i.icon-settings
+                          |  Save Changes
+          // END QUICK SIDEBAR
+        // END CONTENT
+        // BEGIN QUICK SIDEBAR
+        // Cooming Soon...
+        // END QUICK SIDEBAR
+      // END CONTAINER
+    // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
+    // BEGIN CORE PLUGINS
+    //if lt IE 9
+      script(src='global/plugins/respond.min.js')
+      script(src='global/plugins/excanvas.min.js')
+    script(src='global/plugins/jquery.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(src='global/plugins/jqvmap/jqvmap/jquery.vmap.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js', type='text/javascript')
+    script(src='global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js', type='text/javascript')
+    script(src='global/plugins/flot/jquery.flot.min.js', type='text/javascript')
+    script(src='global/plugins/flot/jquery.flot.resize.min.js', type='text/javascript')
+    script(src='global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.pulsate.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-daterangepicker/moment.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-daterangepicker/daterangepicker.js', type='text/javascript')
+    // IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support
+    script(src='global/plugins/fullcalendar/fullcalendar.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-easypiechart/jquery.easypiechart.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/quick-sidebar.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/index.js', type='text/javascript')
+    script(src='/admin/pages/scripts/tasks.js', type='text/javascript')
+    // END PAGE LEVEL SCRIPTS
+    script.
+      jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core componets
+      Layout.init(); // init layout
+      Demo.init(); // init demo features
+      QuickSidebar.init(); // init quick sidebar
+      Index.init();
+      Index.initDashboardDaterange();
+      Index.initJQVMAP(); // init index page's custom scripts
+      Index.initCalendar(); // init index page's custom scripts
+      Index.initCharts(); // init index page's custom scripts
+      Index.initChat();
+      Index.initMiniCharts();
+      Tasks.initDashboardWidget();
+      });
+    // BEGIN CHARTS PLUGINS
+    script(src='global/plugins/flot/jquery.flot.min.js')
+    script(src='global/plugins/flot/jquery.flot.resize.min.js')
+    script(src='global/plugins/flot/jquery.flot.pie.min.js')
+    script(src='global/plugins/flot/jquery.flot.stack.min.js')
+    script(src='global/plugins/flot/jquery.flot.crosshair.min.js')
+    script(src='global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
+    // END CHARTS PLUGINS
+    // BEGIN CHARTS SCRIPTS
+    script(src='global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/charts-flotcharts.js')
+    script.
+      jQuery(document).ready(function() {
+      // initiate layout and plugins
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features
+      ChartsFlotcharts.init();
+      ChartsFlotcharts.initCharts();
+      ChartsFlotcharts.initPieCharts();
+      ChartsFlotcharts.initBarCharts();
+      });
+    script.
+      jQuery(document).ready(function() {
+      // initiate layout and plugins
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features  // set current page
+      ComponentsIonSliders.init();
+      });
+    // END CHARTS SCRIPTS
+    // END JAVASCRIPTS
+  // END BODY

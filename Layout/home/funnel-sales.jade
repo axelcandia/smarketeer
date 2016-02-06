@@ -1,0 +1,541 @@
+doctype html
+//
+  Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+  Version: 4.1.0
+  Author: KeenThemes
+  Website: http://www.keenthemes.com/
+  Contact: support@keenthemes.com
+  Follow: www.twitter.com/keenthemes
+  Like: www.facebook.com/keenthemes
+  Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+  License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+//if IE 8
+  html.ie8.no-js(lang='en')  
+//if IE 9
+  html.ie9.no-js(lang='en')  
+// [if !IE] <!
+html(lang='en')
+  // <![endif]
+  // BEGIN HEAD
+  head
+    meta(charset='utf-8')
+    title Smarketeer - Funnel Visualization
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL STYLES
+    link(rel='stylesheet', type='text/css', href='global/plugins/select2/select2.css')
+    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css')
+    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')
+    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='favicon.ico')
+  // END HEAD
+  // BEGIN BODY
+  // DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices
+  // DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default
+  // DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle
+  // DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle
+  // DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle
+  // DOC: Apply "page-sidebar-fixed" class to have fixed sidebar
+  // DOC: Apply "page-footer-fixed" class to the body element to have fixed footer
+  // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
+  // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      // BEGIN HEADER INNER
+      .page-header-inner.container
+        // BEGIN LOGO
+        .page-logo
+          a(href='index')
+            img.logo-default(src='Images/dashboard/smarketeer-logo.png', alt='logo')
+          .menu-toggler.sidebar-toggler
+            // DOC: Remove the above "hide" to enable the sidebar toggler button on header
+        // END LOGO
+        // BEGIN RESPONSIVE MENU TOGGLER
+        a.menu-toggler.responsive-toggler(href='javascript:;', data-toggle='collapse', data-target='.navbar-collapse')
+        // END RESPONSIVE MENU TOGGLER
+        // BEGIN PAGE ACTIONS
+        // DOC: Remove "hide" class to enable the page header actions
+        .page-actions.hide
+          .btn-group
+            button.btn.btn-circle.red-pink.dropdown-toggle(type='button', data-toggle='dropdown')
+              i.icon-bar-chart
+              span.hidden-sm.hidden-xs New 
+              i.fa.fa-angle-down
+            ul.dropdown-menu(role='menu')
+              li
+                a(href='javascript:;')
+                  i.icon-user
+                  |  New User
+              li
+                a(href='javascript:;')
+                  i.icon-present
+                  |  New Event 
+                  span.badge.badge-success 4
+              li
+                a(href='javascript:;')
+                  i.icon-basket
+                  |  New order
+              li.divider
+              li
+                a(href='javascript:;')
+                  i.icon-flag
+                  |  Pending Orders 
+                  span.badge.badge-danger 4
+              li
+                a(href='javascript:;')
+                  i.icon-users
+                  |  Pending Users 
+                  span.badge.badge-warning 12
+          .btn-group
+            button.btn.btn-circle.green-haze.dropdown-toggle(type='button', data-toggle='dropdown')
+              i.icon-bell
+              span.hidden-sm.hidden-xs Post 
+              i.fa.fa-angle-down
+            ul.dropdown-menu(role='menu')
+              li
+                a(href='javascript:;')
+                  i.icon-docs
+                  |  New Post
+              li
+                a(href='javascript:;')
+                  i.icon-tag
+                  |  New Comment
+              li
+                a(href='javascript:;')
+                  i.icon-share
+                  |  Share
+              li.divider
+              li
+                a(href='javascript:;')
+                  i.icon-flag
+                  |  Comments 
+                  span.badge.badge-success 4
+              li
+                a(href='javascript:;')
+                  i.icon-users
+                  |  Feedbacks 
+                  span.badge.badge-danger 2
+        // END PAGE ACTIONS
+        // BEGIN PAGE TOP
+        .page-top
+          // BEGIN TOP NAVIGATION MENU
+          .top-menu
+            ul.nav.navbar-nav.pull-right
+              // BEGIN NOTIFICATION DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                  i.icon-bell
+                  span.badge.badge-default
+                    | 7
+                ul.dropdown-menu
+                  li.external
+                    h3
+                      span.bold 12 pending
+                      |  notifications
+                  li
+                    ul.dropdown-menu-list.scroller(style='height: 250px;', data-handle-color='#637283')
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New lead registered!
+                      li
+                        a(href='javascript:;')
+                          span.time 2 days
+                          span.details
+                            span.label.label-sm.label-icon.label-danger
+                              i.fa.fa-bolt
+                            | 										More than 1000 visitors at your site!
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New lead registered!
+                      li
+                        a(href='javascript:;')
+                          span.time just now
+                          span.details
+                            span.label.label-sm.label-icon.label-success
+                              i.fa.fa-plus
+                            | 										New sale registered!
+                      li
+                        a(href='javascript:;')
+                          span.time 2 days
+                          span.details
+                            span.label.label-sm.label-icon.label-danger
+                              i.fa.fa-bolt
+                            | 										More than 2000 visitors at your site!
+              // END NOTIFICATION DROPDOWN
+              // BEGIN USER LOGIN DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li.dropdown.dropdown-user
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                  img.img-circle(alt='', src='Images/dashboard/daniel-digifianz-academy.png')
+                  span.username.username-hide-on-mobile
+                    | Daniel
+                  i.fa.fa-angle-down
+                ul.dropdown-menu.dropdown-menu-default
+                  li
+                    a(href='extra_profile_account')
+                      i.icon-user
+                      |  My Profile
+                  li
+                    a(href='page_todo')
+                      i.icon-rocket
+                      |  Subscription Plan
+                  li.divider
+                  li
+                    a(href='login')
+                      i.icon-key
+                      |  Log Out
+              // END USER LOGIN DROPDOWN
+              // BEGIN USER LOGIN DROPDOWN
+              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
+              li.dropdown.dropdown-extended.quick-sidebar-toggler
+                span.sr-only Toggle Quick Sidebar
+                i.icon-logout
+              // END USER LOGIN DROPDOWN
+          // END TOP NAVIGATION MENU
+        // END PAGE TOP
+      // END HEADER INNER
+    // END HEADER
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        // BEGIN SIDEBAR
+        .page-sidebar-wrapper
+          // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+          // DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed
+          .page-sidebar.navbar-collapse.collapse
+            // BEGIN SIDEBAR MENU
+            // DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders)
+            // DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode
+            // DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode
+            // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+            // DOC: Set data-keep-expand="true" to keep the submenues expanded
+            // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
+            ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
+              li
+                a(href='index')
+                  i.icon-home
+                  span.title Dashboard
+                  span.selected
+              li.start.active
+                a(href='visitors')
+                  i.icon-basket
+                  span.title Funnel
+                  span.arrow
+                ul.sub-menu
+                  li
+                    a(href='visitors')
+                      i.icon-home
+                      | 								Visitors
+                  li
+                    a(href='leads')
+                      i.icon-basket
+                      | 								Leads
+                  li
+                    a(href='sales')
+                      i.icon-tag
+                      | 								Sales
+              li
+                a(href='campaign-builder')
+                  i.icon-rocket
+                  span.title Campaigns
+                  span.arrow
+              li
+                a(href='forms')
+                  i.icon-puzzle
+                  span.title Forms
+                  span.arrow
+                ul.sub-menu
+                  li
+                    a(href='forms')
+                      i.icon-home
+                      | 								View All Forms
+                  li
+                    a(href='formbuilder/index')
+                      i.icon-basket
+                      | 								Form Builder
+              li
+                a(href='reporting')
+                  i.icon-bar-chart
+                  span.title Reporting
+                  span.arrow
+              li
+                a(href='costs')
+                  i.icon-wallet
+                  span.title Advertising Costs
+                  span.arrow
+            // END SIDEBAR MENU
+        // END SIDEBAR
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+                i.icon-settings
+              .toggler-close
+                i.icon-close
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+                    h4.modal-title Install Smarketeer on your website
+                  .modal-body
+                    | Copy & paste the following code into the head of your HTML
+                    form(action='#')
+                      textarea(rows='4', cols='50')
+                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                  .modal-footer
+                    button.btn.default(type='button', data-dismiss='modal') Close
+                    button.btn.blue(type='button') Verify Code
+                // /.modal-content
+              // /.modal-dialog
+            // CODE MODAL
+            // BEGIN PAGE HEADER
+            h3.page-title
+              | Funnels Visualization 
+              small advanced datatables
+            .page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='index') Home
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Data Tables
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Advanced Datatables
+              .page-toolbar
+                .btn-group.pull-right
+                  button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
+                    | Actions 
+                    i.fa.fa-angle-down
+                  ul.dropdown-menu.pull-right(role='menu')
+                    li
+                      a(href='#') Export to Excel
+                    li
+                      a(href='#') Export to CSV
+                    li
+                      a(href='#') Export to PDF
+              .page-toolbar
+                #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
+                  i.icon-calendar
+                  i.fa.fa-angle-down
+                  //
+                    uncomment this to display selected daterange in the button
+                    &nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp;
+                    <i class="fa fa-angle-down"></i>
+            // END PAGE HEADER
+            // BEGIN PAGE CONTENT
+            .row
+              .col-md-12
+                // BEGIN EXAMPLE TABLE PORTLET
+                .portlet.box.blue
+                  .portlet-title
+                    .caption
+                      i.fa.fa-globe
+                      | Sales
+                    .actions
+                      .btn-group
+                        a.btn.default(href='javascript:;', data-toggle='dropdown')
+                          | Columns 
+                          i.fa.fa-angle-down
+                        #sample_4_column_toggler.dropdown-menu.hold-on-click.dropdown-checkboxes.pull-right
+                          label
+                            input(type='checkbox', checked='', data-column='0')
+                            | E-mail
+                          label
+                            input(type='checkbox', checked='', data-column='1')
+                            | Campaign
+                          label
+                            input(type='checkbox', checked='', data-column='2')
+                            | Source
+                          label
+                            input(type='checkbox', checked='', data-column='3')
+                            | Medium
+                          label
+                            input(type='checkbox', checked='', data-column='4')
+                            | Content
+                          label
+                            input(type='checkbox', checked='', data-column='5')
+                            | Referral URL
+                          label
+                            input(type='checkbox', checked='', data-column='6')
+                            | Landing Page URL
+                          label
+                            input(type='checkbox', checked='', data-column='7')
+                            | Sold
+                          label
+                            input(type='checkbox', checked='', data-column='8')
+                            | Amount
+                          label
+                            input(type='checkbox', checked='', data-column='9')
+                            | Status
+                  .portlet-body
+                    table#sample_4.table.table-striped.table-bordered.table-hover
+                      thead
+                        tr
+                          th.hidden-xs
+                            | E-mail
+                          th.hidden-xs
+                            | Campaign
+                          th.hidden-xs
+                            | Source
+                          th.hidden-xs
+                            | Medium
+                          th.hidden-xs
+                            | Content
+                          th.hidden-xs
+                            | Referral URL
+                          th.hidden-xs
+                            | Landing Page URL
+                          th.hidden-xs
+                            | Sold
+                          th.hidden-xs
+                            | Amount
+                          th.hidden-xs
+                            | Status
+                      tbody
+                        tr
+                          td
+                            | blake@facebook.com
+                          td
+                            | CyberMonday
+                          td
+                            | Facebook
+                          td
+                            | CPC
+                          td
+                            | Beach-Image
+                          td
+                            | http://facebook.com
+                          td
+                            | http://digifianz.com/lp1
+                          td
+                            input(type='checkbox', checked='')
+                          td
+                            input(type='number', value='8203.65')
+                          td
+                            span.label.label-sm.label-success
+                              | Sold
+                        tr
+                          td
+                            | james@coca-cola.com
+                          td
+                            | CyberMonday
+                          td
+                            | Twitter
+                          td
+                            | Organic
+                          td
+                            | Beach-Image
+                          td
+                            | http://twitter.com
+                          td
+                            | http://digifianz.com/lp5
+                          td
+                            input(type='checkbox', checked='')
+                          td
+                            input(type='number', value='4050.39')
+                          td
+                            span.label.label-sm.label-success
+                              | Sold
+                        tr
+                          td
+                            | adam@twitter.com
+                          td
+                            | CyberMonday
+                          td
+                            | Google
+                          td
+                            | CPC
+                          td
+                            | Beach-Image
+                          td
+                            | http://google.com
+                          td
+                            | http://digifianz.com/lp3
+                          td
+                            input(type='checkbox', checked='')
+                          td
+                            input(type='number', value='3403.93')
+                          td
+                            span.label.label-sm.label-success
+                              | Sold
+                // END EXAMPLE TABLE PORTLET
+            // END PAGE CONTENT
+        // END CONTENT
+        // BEGIN QUICK SIDEBAR
+        // Cooming Soon...
+        // END QUICK SIDEBAR
+      // END CONTAINER
+    // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
+    // BEGIN CORE PLUGINS
+    //if lt IE 9
+      script(src='global/plugins/respond.min.js')
+      script(src='global/plugins/excanvas.min.js')
+    script(src='global/plugins/jquery.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(type='text/javascript', src='global/plugins/select2/select2.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/media/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='global/scripts/metronic.js', type='text/javascript')
+    script(src='admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='admin/pages/scripts/table-advanced.js')
+    script.
+      jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features
+      TableAdvanced.init();
+      });
+  // END BODY

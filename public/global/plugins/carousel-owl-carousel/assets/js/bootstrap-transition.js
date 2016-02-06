@@ -1,6 +1,6 @@
 /* ===================================================
  * bootstrap-transition.js v2.3.2
- * http://twitter.github.com/bootstrap/javascript.html#transitions
+ * http://twitter.github.com/bootstrap/javascript.jade#transitions
  * ===================================================
  * Copyright 2012 Twitter, Inc.
  *
