@@ -1,11 +1,15 @@
-html.no-js(lang='en')
-  // <![endif]
-  // BEGIN HEAD 
-  body
-      .page-container 
-        .page-sidebar-wrapper 
+// BEGIN SIDEBAR
+.page-sidebar-wrapper
+          // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+          // DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed
           .page-sidebar.navbar-collapse.collapse
-            
+            // BEGIN SIDEBAR MENU
+            // DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders)
+            // DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode
+            // DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode
+            // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
+            // DOC: Set data-keep-expand="true" to keep the submenues expanded
+            // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
             ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
               li.start.active
                 a(href='index')
@@ -13,25 +17,25 @@ html.no-js(lang='en')
                   span.title Dashboard
                   span.selected
               li
-                a(href='visitors')
+                a(href='funnel-visitors')
                   i.icon-basket
                   span.title Funnel
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='visitors')
+                    a(href='funnel-visitors')
                       i.icon-home
-                      | 								Visitors
+                      |                 Visitors
                   li
-                    a(href='/leads')
+                    a(href='funnel-leads')
                       i.icon-basket
-                      | 								Leads
+                      |                 Leads
                   li
-                    a(href='/sales')
+                    a(href='funnel-sales')
                       i.icon-tag
-                      | 								Sales
+                      |                 Sales
               li
-                a(href='/campaign-builder')
+                a(href='campaign-builder')
                   i.icon-rocket
                   span.title Campaigns
                   span.arrow
@@ -44,11 +48,11 @@ html.no-js(lang='en')
                   li
                     a(href='forms')
                       i.icon-home
-                      | 								View All Forms
+                      |                 View All Forms
                   li
                     a(href='formbuilder/index')
                       i.icon-basket
-                      | 								Form Builder
+                      |                 Form Builder
               li
                 a(href='reporting')
                   i.icon-bar-chart

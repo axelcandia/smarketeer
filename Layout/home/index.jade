@@ -69,73 +69,7 @@ html.no-js(lang='en')
     // BEGIN CONTAINER
     .container
       .page-container
-        // BEGIN SIDEBAR
-        .page-sidebar-wrapper
-          // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
-          // DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed
-          .page-sidebar.navbar-collapse.collapse
-            // BEGIN SIDEBAR MENU
-            // DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders)
-            // DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode
-            // DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode
-            // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
-            // DOC: Set data-keep-expand="true" to keep the submenues expanded
-            // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
-            ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
-              li.start.active
-                a(href='index')
-                  i.icon-home
-                  span.title Dashboard
-                  span.selected
-              li
-                a(href='visitors')
-                  i.icon-basket
-                  span.title Funnel
-                  span.arrow
-                ul.sub-menu
-                  li
-                    a(href='visitors')
-                      i.icon-home
-                      | 								Visitors
-                  li
-                    a(href='/leads')
-                      i.icon-basket
-                      | 								Leads
-                  li
-                    a(href='/sales')
-                      i.icon-tag
-                      | 								Sales
-              li
-                a(href='/campaign-builder')
-                  i.icon-rocket
-                  span.title Campaigns
-                  span.arrow
-              li
-                a(href='forms')
-                  i.icon-puzzle
-                  span.title Forms
-                  span.arrow
-                ul.sub-menu
-                  li
-                    a(href='forms')
-                      i.icon-home
-                      | 								View All Forms
-                  li
-                    a(href='formbuilder/index')
-                      i.icon-basket
-                      | 								Form Builder
-              li
-                a(href='reporting')
-                  i.icon-bar-chart
-                  span.title Reporting
-                  span.arrow
-              li
-                a(href='costs')
-                  i.icon-wallet
-                  span.title Advertising Costs
-                  span.arrow
-            // END SIDEBAR MENU
-        // END SIDEBAR
+        include ../shared/leftBar.jade
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
