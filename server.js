@@ -9,7 +9,7 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir  
- //app.use(express.static(path.join(__dirname, 'public')));  
+ app.use(express.static(path.join(__dirname, 'public')));  
 //Send to the index
 app.set('view engine', 'jade');
 
@@ -25,8 +25,7 @@ app.get('/login', function (req, res) {
 app.get('/home/dashboard', function (req, res) {
   res.render(path.join( __dirname+ "/Layout/home/index"));
 });
-app.get('/NewUser', function (req, res) {
-<<<<<<< HEAD
+app.get('/NewUser', function (req, res) { 
   res.render(path.join( __dirname+ "/Layout/Security/NewUser"));
 }); 
 /*
@@ -62,6 +61,10 @@ app.get('/user/costs',function (req,res){
 }); 
 app.get('/user/MyPlan',function (req,res){
 	res.render(path.join( __dirname + "/Layout/user/MyPlan"));
+});
+
+app.get('/left-bar',function (req,res){
+	res.render(path.join( __dirname + "/Layout/left-bar"));
 });
  
  
