@@ -9,7 +9,7 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir  
- app.use(express.static(path.join(__dirname, 'public')));  
+ app.use(express.static(path.join(__dirname, 'public')));    
 //Send to the index
 app.set('view engine', 'jade');
 
@@ -17,17 +17,19 @@ app.get('/', function (req, res) {
   res.render(path.join( __dirname+ "/index"));
 });
 
-
+/*
+	Login and security
+*/
 app.get('/login', function (req, res) {
   res.render(path.join( __dirname+ "/Layout/Security/login"));
 });
 
-app.get('/home/dashboard', function (req, res) {
-  res.render(path.join( __dirname+ "/Layout/home/index"));
-});
 app.get('/NewUser', function (req, res) { 
   res.render(path.join( __dirname+ "/Layout/Security/NewUser"));
 }); 
+
+
+
 /*
 	FUNNELS GETTERS
 */
@@ -48,12 +50,15 @@ app.get('/home/campaign-builder',function (req,res){
 	FORMS
 */
 app.get('/home/forms',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/forms"));
+	res.render(path.join( __dirname + "/Layout/home/forms/forms"));
 }); 
-app.get('/home/formbuilder',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/formbuilder/index"));
+app.get('/home/forms/formbuilder',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/forms/formbuilder"));
 });  
 
+/*
+	Dashboards and other in home
+*/
 app.get('/home/costs',function (req,res){
 	res.render(path.join( __dirname + "/Layout/home/costs"));
 }); 
@@ -63,6 +68,10 @@ app.get('/home/MyPlan',function (req,res){
 
 app.get('/home/reporting',function (req,res){
 	res.render(path.join( __dirname + "/Layout/home/reporting"));
+});
+
+app.get('/home/dashboard', function (req, res) {
+  res.render(path.join( __dirname+ "/Layout/home/index"));
 });
  
  
