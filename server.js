@@ -50,10 +50,10 @@ app.get('/home/campaign-builder',function (req,res){
 	FORMS
 */
 app.get('/home/forms',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/forms/forms"));
+	res.render(path.join( __dirname + "/Layout/home/forms"));
 }); 
 app.get('/home/forms/formbuilder',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/forms/formbuilder"));
+	res.render(path.join( __dirname + "/Layout/home/formbuilder"));
 });  
 
 /*
