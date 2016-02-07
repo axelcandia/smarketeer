@@ -27,22 +27,22 @@ html(lang='en')
     meta(content='', name='author')
     // BEGIN GLOBAL MANDATORY STYLES
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
     // END GLOBAL MANDATORY STYLES
     // BEGIN PAGE LEVEL STYLES
-    link(rel='stylesheet', type='text/css', href='../../assets/global/plugins/select2/select2.css')
-    link(rel='stylesheet', type='text/css', href='../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='global/plugins/select2/select2.css')
+    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')
     // END PAGE LEVEL STYLES
     // BEGIN THEME STYLES
-    link#style_components(href='../../assets/global/css/components.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/global/css/plugins.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
-    link#style_color(href='../../assets/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
-    link(href='../../assets/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
   // END HEAD
@@ -58,240 +58,12 @@ html(lang='en')
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
-      // BEGIN HEADER INNER
-      .page-header-inner.container
-        // BEGIN LOGO
-        .page-logo
-          a(href='index')
-            img.logo-default(src='../../assets/Images/dashboard/smarketeer-logo.png', alt='logo')
-          .menu-toggler.sidebar-toggler
-            // DOC: Remove the above "hide" to enable the sidebar toggler button on header
-        // END LOGO
-        // BEGIN RESPONSIVE MENU TOGGLER
-        a.menu-toggler.responsive-toggler(href='javascript:;', data-toggle='collapse', data-target='.navbar-collapse')
-        // END RESPONSIVE MENU TOGGLER
-        // BEGIN PAGE ACTIONS
-        // DOC: Remove "hide" class to enable the page header actions
-        .page-actions.hide
-          .btn-group
-            button.btn.btn-circle.red-pink.dropdown-toggle(type='button', data-toggle='dropdown')
-              i.icon-bar-chart
-              span.hidden-sm.hidden-xs New 
-              i.fa.fa-angle-down
-            ul.dropdown-menu(role='menu')
-              li
-                a(href='javascript:;')
-                  i.icon-user
-                  |  New User
-              li
-                a(href='javascript:;')
-                  i.icon-present
-                  |  New Event 
-                  span.badge.badge-success 4
-              li
-                a(href='javascript:;')
-                  i.icon-basket
-                  |  New order
-              li.divider
-              li
-                a(href='javascript:;')
-                  i.icon-flag
-                  |  Pending Orders 
-                  span.badge.badge-danger 4
-              li
-                a(href='javascript:;')
-                  i.icon-users
-                  |  Pending Users 
-                  span.badge.badge-warning 12
-          .btn-group
-            button.btn.btn-circle.green-haze.dropdown-toggle(type='button', data-toggle='dropdown')
-              i.icon-bell
-              span.hidden-sm.hidden-xs Post 
-              i.fa.fa-angle-down
-            ul.dropdown-menu(role='menu')
-              li
-                a(href='javascript:;')
-                  i.icon-docs
-                  |  New Post
-              li
-                a(href='javascript:;')
-                  i.icon-tag
-                  |  New Comment
-              li
-                a(href='javascript:;')
-                  i.icon-share
-                  |  Share
-              li.divider
-              li
-                a(href='javascript:;')
-                  i.icon-flag
-                  |  Comments 
-                  span.badge.badge-success 4
-              li
-                a(href='javascript:;')
-                  i.icon-users
-                  |  Feedbacks 
-                  span.badge.badge-danger 2
-        // END PAGE ACTIONS
-        // BEGIN PAGE TOP
-        .page-top
-          // BEGIN TOP NAVIGATION MENU
-          .top-menu
-            ul.nav.navbar-nav.pull-right
-              // BEGIN NOTIFICATION DROPDOWN
-              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
-              li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
-                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                  i.icon-bell
-                  span.badge.badge-default
-                    | 7
-                ul.dropdown-menu
-                  li.external
-                    h3
-                      span.bold 12 pending
-                      |  notifications
-                  li
-                    ul.dropdown-menu-list.scroller(style='height: 250px;', data-handle-color='#637283')
-                      li
-                        a(href='javascript:;')
-                          span.time just now
-                          span.details
-                            span.label.label-sm.label-icon.label-success
-                              i.fa.fa-plus
-                            | 										New lead registered!
-                      li
-                        a(href='javascript:;')
-                          span.time 2 days
-                          span.details
-                            span.label.label-sm.label-icon.label-danger
-                              i.fa.fa-bolt
-                            | 										More than 1000 visitors at your site!
-                      li
-                        a(href='javascript:;')
-                          span.time just now
-                          span.details
-                            span.label.label-sm.label-icon.label-success
-                              i.fa.fa-plus
-                            | 										New lead registered!
-                      li
-                        a(href='javascript:;')
-                          span.time just now
-                          span.details
-                            span.label.label-sm.label-icon.label-success
-                              i.fa.fa-plus
-                            | 										New sale registered!
-                      li
-                        a(href='javascript:;')
-                          span.time 2 days
-                          span.details
-                            span.label.label-sm.label-icon.label-danger
-                              i.fa.fa-bolt
-                            | 										More than 2000 visitors at your site!
-              // END NOTIFICATION DROPDOWN
-              // BEGIN USER LOGIN DROPDOWN
-              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
-              li.dropdown.dropdown-user
-                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                  img.img-circle(alt='', src='../../assets/Images/dashboard/daniel-digifianz-academy.png')
-                  span.username.username-hide-on-mobile
-                    | Daniel
-                  i.fa.fa-angle-down
-                ul.dropdown-menu.dropdown-menu-default
-                  li
-                    a(href='extra_profile_account')
-                      i.icon-user
-                      |  My Profile
-                  li
-                    a(href='page_todo')
-                      i.icon-rocket
-                      |  Subscription Plan
-                  li.divider
-                  li
-                    a(href='login')
-                      i.icon-key
-                      |  Log Out
-              // END USER LOGIN DROPDOWN
-              // BEGIN USER LOGIN DROPDOWN
-              // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
-              li.dropdown.dropdown-extended.quick-sidebar-toggler
-                span.sr-only Toggle Quick Sidebar
-                i.icon-logout
-              // END USER LOGIN DROPDOWN
-          // END TOP NAVIGATION MENU
-        // END PAGE TOP
-      // END HEADER INNER
-    // END HEADER
+      include ../shared/pageTop
     .clearfix
     // BEGIN CONTAINER
     .container
       .page-container
-        // BEGIN SIDEBAR
-        .page-sidebar-wrapper
-          // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
-          // DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed
-          .page-sidebar.navbar-collapse.collapse
-            // BEGIN SIDEBAR MENU
-            // DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders)
-            // DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode
-            // DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode
-            // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
-            // DOC: Set data-keep-expand="true" to keep the submenues expanded
-            // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
-            ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
-              li
-                a(href='index')
-                  i.icon-home
-                  span.title Dashboard
-                  span.selected
-              li
-                a(href='visitors')
-                  i.icon-basket
-                  span.title Funnel
-                  span.arrow
-                ul.sub-menu
-                  li
-                    a(href='visitors')
-                      i.icon-home
-                      | 								Visitors
-                  li
-                    a(href='leads')
-                      i.icon-basket
-                      | 								Leads
-                  li
-                    a(href='sales')
-                      i.icon-tag
-                      | 								Sales
-              li
-                a(href='campaign-builder')
-                  i.icon-rocket
-                  span.title Campaigns
-                  span.arrow
-              li
-                a(href='forms')
-                  i.icon-puzzle
-                  span.title Forms
-                  span.arrow
-                ul.sub-menu
-                  li
-                    a(href='forms')
-                      i.icon-home
-                      | 								View All Forms
-                  li
-                    a(href='formbuilder/index')
-                      i.icon-basket
-                      | 								Form Builder
-              li
-                a(href='reporting')
-                  i.icon-bar-chart
-                  span.title Reporting
-                  span.arrow
-              li.start.active
-                a(href='costs')
-                  i.icon-wallet
-                  span.title Advertising Costs
-                  span.arrow
-            // END SIDEBAR MENU
-        // END SIDEBAR
+        include ../shared/leftBar
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
@@ -532,30 +304,30 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='../../assets/global/plugins/respond.min.js')
-      script(src='../../assets/global/plugins/excanvas.min.js')
-    script(src='../../assets/global/plugins/jquery.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/jquery-migrate.min.js', type='text/javascript')
+      script(src='global/plugins/respond.min.js')
+      script(src='global/plugins/excanvas.min.js')
+    script(src='global/plugins/jquery.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='../../assets/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL PLUGINS
-    script(type='text/javascript', src='../../assets/global/plugins/select2/select2.min.js')
-    script(type='text/javascript', src='../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js')
-    script(type='text/javascript', src='../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')
+    script(type='text/javascript', src='global/plugins/select2/select2.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/media/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')
     // END PAGE LEVEL PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
-    script(src='../../assets/global/scripts/metronic.js', type='text/javascript')
-    script(src='../../assets/admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='../../assets/admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='../../assets/admin/pages/scripts/table-editable.js')
+    script(src='global/scripts/metronic.js', type='text/javascript')
+    script(src='admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='admin/pages/scripts/table-editable.js')
     script.
       jQuery(document).ready(function() {
       Metronic.init(); // init metronic core components

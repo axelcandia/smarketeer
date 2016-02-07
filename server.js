@@ -9,7 +9,7 @@ var port 	= process.env.PORT || 1337;
 var app     = express();
 
 //Comentar esta linea antes de subir  
- //app.use(express.static(path.join(__dirname, 'public')));  
+ app.use(express.static(path.join(__dirname, 'public')));  
 //Send to the index
 app.set('view engine', 'jade');
 
@@ -61,8 +61,8 @@ app.get('/home/MyPlan',function (req,res){
 	res.render(path.join( __dirname + "/Layout/home/MyPlan"));
 });
 
-app.get('/left-bar',function (req,res){
-	res.render(path.join( __dirname + "/Layout/left-bar"));
+app.get('/home/reporting',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/reporting"));
 });
  
  
