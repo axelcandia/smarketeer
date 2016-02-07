@@ -49,11 +49,11 @@ app.get('/home/campaign-builder',function (req,res){
 /*
 	FORMS
 */
-app.get('/home/forms',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/forms"));
+app.get('/home/allforms',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/allforms"));
 }); 
 app.get('/home/forms/formbuilder',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/formbuilder"));
+	res.render(path.join( __dirname + "/Layout/home/forms/formbuilder"));
 });  
 
 /*
