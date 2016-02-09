@@ -60,12 +60,12 @@ html(lang='en')
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
-      include ../shared/pageTop
+      include ../../shared/pageTop
     .clearfix
     // BEGIN CONTAINER
     .container
       .page-container
-        include ../shared/leftBar.jade
+        include ../../shared/leftBar
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
@@ -112,7 +112,7 @@ html(lang='en')
               .page-toolbar
                 .btn-group.pull-right
                   button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Export 
+                    | Actions 
                     i.fa.fa-angle-down
                   ul.dropdown-menu.pull-right(role='menu')
                     li
@@ -134,11 +134,11 @@ html(lang='en')
             .row
               .col-md-12
                 // BEGIN EXAMPLE TABLE PORTLET
-                .portlet.box.green
+                .portlet.box.blue
                   .portlet-title
                     .caption
                       i.fa.fa-globe
-                      | Leads
+                      | Sales
                     .actions
                       .btn-group
                         a.btn.default(href='javascript:;', data-toggle='dropdown')
@@ -202,7 +202,7 @@ html(lang='en')
                       tbody
                         tr
                           td
-                            | adam@twitter.com
+                            | blake@facebook.com
                           td
                             | CyberMonday
                           td
@@ -216,15 +216,15 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp1
                           td
-                            input(type='checkbox')
+                            input(type='checkbox', checked='')
                           td
-                            input(type='number')
+                            input(type='number', value='8203.65')
                           td
                             span.label.label-sm.label-success
-                              | Lead
+                              | Sold
                         tr
                           td
-                            | blake@coca-cola.com
+                            | james@coca-cola.com
                           td
                             | CyberMonday
                           td
@@ -238,15 +238,15 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp5
                           td
-                            input(type='checkbox')
+                            input(type='checkbox', checked='')
                           td
-                            input(type='number')
+                            input(type='number', value='4050.39')
                           td
-                            span.label.label-sm.label-warning
-                              | Contacted
+                            span.label.label-sm.label-success
+                              | Sold
                         tr
                           td
-                            | james@facebook.com
+                            | adam@twitter.com
                           td
                             | CyberMonday
                           td
@@ -260,12 +260,12 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp3
                           td
-                            input(type='checkbox')
+                            input(type='checkbox', checked='')
                           td
-                            input(type='number')
+                            input(type='number', value='3403.93')
                           td
-                            span.label.label-sm.label-danger
-                              | Not sold
+                            span.label.label-sm.label-success
+                              | Sold
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT

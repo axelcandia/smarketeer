@@ -60,12 +60,12 @@ html(lang='en')
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
-      include ../shared/pageTop
+      include ../../shared/pageTop
     .clearfix
     // BEGIN CONTAINER
     .container
       .page-container
-        include ../shared/leftBar
+        include ../../shared/leftBar
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
@@ -134,11 +134,11 @@ html(lang='en')
             .row
               .col-md-12
                 // BEGIN EXAMPLE TABLE PORTLET
-                .portlet.box.blue
+                .portlet.box.red-intense
                   .portlet-title
                     .caption
                       i.fa.fa-globe
-                      | Sales
+                      | Visitors
                     .actions
                       .btn-group
                         a.btn.default(href='javascript:;', data-toggle='dropdown')
@@ -147,7 +147,7 @@ html(lang='en')
                         #sample_4_column_toggler.dropdown-menu.hold-on-click.dropdown-checkboxes.pull-right
                           label
                             input(type='checkbox', checked='', data-column='0')
-                            | E-mail
+                            | Anonymous ID
                           label
                             input(type='checkbox', checked='', data-column='1')
                             | Campaign
@@ -180,7 +180,7 @@ html(lang='en')
                       thead
                         tr
                           th.hidden-xs
-                            | E-mail
+                            | Anonymous ID
                           th.hidden-xs
                             | Campaign
                           th.hidden-xs
@@ -202,7 +202,7 @@ html(lang='en')
                       tbody
                         tr
                           td
-                            | blake@facebook.com
+                            | a98f34f
                           td
                             | CyberMonday
                           td
@@ -216,15 +216,15 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp1
                           td
-                            input(type='checkbox', checked='')
+                            input(type='checkbox')
                           td
-                            input(type='number', value='8203.65')
+                            input(type='number')
                           td
                             span.label.label-sm.label-success
-                              | Sold
+                              | Lead
                         tr
                           td
-                            | james@coca-cola.com
+                            | me394xc
                           td
                             | CyberMonday
                           td
@@ -238,15 +238,15 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp5
                           td
-                            input(type='checkbox', checked='')
+                            input(type='checkbox')
                           td
-                            input(type='number', value='4050.39')
+                            input(type='number')
                           td
-                            span.label.label-sm.label-success
-                              | Sold
+                            span.label.label-sm.label-warning
+                              | Contacted
                         tr
                           td
-                            | adam@twitter.com
+                            | bg93fc4
                           td
                             | CyberMonday
                           td
@@ -260,12 +260,12 @@ html(lang='en')
                           td
                             | http://digifianz.com/lp3
                           td
-                            input(type='checkbox', checked='')
+                            input(type='checkbox')
                           td
-                            input(type='number', value='3403.93')
+                            input(type='number')
                           td
-                            span.label.label-sm.label-success
-                              | Sold
+                            span.label.label-sm.label-danger
+                              | Not sold
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT

@@ -34,14 +34,14 @@ app.get('/NewUser', function (req, res) {
 	FUNNELS GETTERS
 */
 
-app.get('/home/funnel-leads',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/funnel-leads"));
+app.get('/home/funnel/leads',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/funnel/leads"));
 });
-app.get('/home/funnel-sales',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/funnel-sales"));
+app.get('/home/funnel/sales',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/funnel/sales"));
 });
-app.get('/home/funnel-visitors',function (req,res){
-	res.render(path.join( __dirname + "/Layout/home/funnel-visitors"));
+app.get('/home/funnel/visitors',function (req,res){
+	res.render(path.join( __dirname + "/Layout/home/funnel/visitors"));
 }); 
 app.get('/home/campaign-builder',function (req,res){ 
 	res.render(path.join( __dirname + "/Layout/home/campaign-builder"));
