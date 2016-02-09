@@ -27,23 +27,23 @@ html(lang='en')
     meta(content='', name='author')
     // BEGIN GLOBAL MANDATORY STYLES
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
-    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    link(href='../global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='../global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='../global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='../global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='../global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
     // END GLOBAL MANDATORY STYLES
     // BEGIN PAGE LEVEL STYLES
-    link(rel='stylesheet', type='text/css', href='global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')
-    link(rel='stylesheet', type='text/css', href='global/plugins/select2/select2.css')
+    link(rel='stylesheet', type='text/css', href='../global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')
+    link(rel='stylesheet', type='text/css', href='../global/plugins/select2/select2.css')
     // END PAGE LEVEL STYLES
     // BEGIN THEME STYLES
-    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
-    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
-    link(href='admin/pages/css/todo.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
-    link#style_color(href='admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    link#style_components(href='../global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='../global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='../admin/pages/css/todo.css', rel='stylesheet', type='text/css')
+    link(href='../admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='../admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='../admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
   // END HEAD
@@ -64,8 +64,8 @@ html(lang='en')
       .page-header-inner.container
         // BEGIN LOGO
         .page-logo
-          a(href='index')
-            img.logo-default(src='Images/dashboard/logo-default.png', alt='logo')
+          a(href='index.html')
+            img.logo-default(src='../admin/layout2/img/logo-default.png', alt='logo')
           .menu-toggler.sidebar-toggler
             // DOC: Remove the above "hide" to enable the sidebar toggler button on header
         // END LOGO
@@ -139,7 +139,7 @@ html(lang='en')
         .page-top
           // BEGIN HEADER SEARCH BOX
           // DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box
-          form.search-form.search-form-expanded(action='extra_search', method='GET')
+          form.search-form.search-form-expanded(action='extra_search.html', method='GET')
             .input-group
               input.form-control(type='text', placeholder='Search...', name='query')
               span.input-group-btn
@@ -161,7 +161,7 @@ html(lang='en')
                     h3
                       span.bold 12 pending
                       |  notifications
-                    a(href='extra_profile') view all
+                    a(href='extra_profile.html') view all
                   li
                     ul.dropdown-menu-list.scroller(style='height: 250px;', data-handle-color='#637283')
                       li
@@ -170,63 +170,63 @@ html(lang='en')
                           span.details
                             span.label.label-sm.label-icon.label-success
                               i.fa.fa-plus
-                            | 										New user registered.
+                            |                     New user registered.
                       li
                         a(href='javascript:;')
                           span.time 3 mins
                           span.details
                             span.label.label-sm.label-icon.label-danger
                               i.fa.fa-bolt
-                            | 										Server #12 overloaded.
+                            |                     Server #12 overloaded.
                       li
                         a(href='javascript:;')
                           span.time 10 mins
                           span.details
                             span.label.label-sm.label-icon.label-warning
                               i.fa.fa-bell-o
-                            | 										Server #2 not responding.
+                            |                     Server #2 not responding.
                       li
                         a(href='javascript:;')
                           span.time 14 hrs
                           span.details
                             span.label.label-sm.label-icon.label-info
                               i.fa.fa-bullhorn
-                            | 										Application error.
+                            |                     Application error.
                       li
                         a(href='javascript:;')
                           span.time 2 days
                           span.details
                             span.label.label-sm.label-icon.label-danger
                               i.fa.fa-bolt
-                            | 										Database overloaded 68%.
+                            |                     Database overloaded 68%.
                       li
                         a(href='javascript:;')
                           span.time 3 days
                           span.details
                             span.label.label-sm.label-icon.label-danger
                               i.fa.fa-bolt
-                            | 										A user IP blocked.
+                            |                     A user IP blocked.
                       li
                         a(href='javascript:;')
                           span.time 4 days
                           span.details
                             span.label.label-sm.label-icon.label-warning
                               i.fa.fa-bell-o
-                            | 										Storage Server #4 not responding dfdfdfd.
+                            |                     Storage Server #4 not responding dfdfdfd.
                       li
                         a(href='javascript:;')
                           span.time 5 days
                           span.details
                             span.label.label-sm.label-icon.label-info
                               i.fa.fa-bullhorn
-                            | 										System Error.
+                            |                     System Error.
                       li
                         a(href='javascript:;')
                           span.time 9 days
                           span.details
                             span.label.label-sm.label-icon.label-danger
                               i.fa.fa-bolt
-                            | 										Storage server failed.
+                            |                     Storage server failed.
               // END NOTIFICATION DROPDOWN
               // BEGIN INBOX DROPDOWN
               // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
@@ -241,13 +241,13 @@ html(lang='en')
                       | You have 
                       span.bold 7 New
                       |  Messages
-                    a(href='page_inbox') view all
+                    a(href='page_inbox.html') view all
                   li
                     ul.dropdown-menu-list.scroller(style='height: 275px;', data-handle-color='#637283')
                       li
-                        a(href='inbox?a=view')
+                        a(href='inbox.html?a=view')
                           span.photo
-                            img.img-circle(src='admin/layout3/img/avatar2.jpg', alt='')
+                            img.img-circle(src='../admin/layout3/img/avatar2.jpg', alt='')
                           span.subject
                             span.from
                               | Lisa Wong
@@ -255,9 +255,9 @@ html(lang='en')
                           span.message
                             | Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh...
                       li
-                        a(href='inbox?a=view')
+                        a(href='inbox.html?a=view')
                           span.photo
-                            img.img-circle(src='admin/layout3/img/avatar3.jpg', alt='')
+                            img.img-circle(src='../admin/layout3/img/avatar3.jpg', alt='')
                           span.subject
                             span.from
                               | Richard Doe
@@ -265,9 +265,9 @@ html(lang='en')
                           span.message
                             | Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh...
                       li
-                        a(href='inbox?a=view')
+                        a(href='inbox.html?a=view')
                           span.photo
-                            img.img-circle(src='admin/layout3/img/avatar1.jpg', alt='')
+                            img.img-circle(src='../admin/layout3/img/avatar1.jpg', alt='')
                           span.subject
                             span.from
                               | Bob Nilson
@@ -275,9 +275,9 @@ html(lang='en')
                           span.message
                             | Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh...
                       li
-                        a(href='inbox?a=view')
+                        a(href='inbox.html?a=view')
                           span.photo
-                            img.img-circle(src='admin/layout3/img/avatar2.jpg', alt='')
+                            img.img-circle(src='../admin/layout3/img/avatar2.jpg', alt='')
                           span.subject
                             span.from
                               | Lisa Wong
@@ -285,9 +285,9 @@ html(lang='en')
                           span.message
                             | Vivamus sed auctor 40% nibh congue nibh...
                       li
-                        a(href='inbox?a=view')
+                        a(href='inbox.html?a=view')
                           span.photo
-                            img.img-circle(src='admin/layout3/img/avatar3.jpg', alt='')
+                            img.img-circle(src='../admin/layout3/img/avatar3.jpg', alt='')
                           span.subject
                             span.from
                               | Richard Doe
@@ -308,7 +308,7 @@ html(lang='en')
                       | You have 
                       span.bold 12 pending
                       |  tasks
-                    a(href='page_todo') view all
+                    a(href='page_todo.html') view all
                   li
                     ul.dropdown-menu-list.scroller(style='height: 275px;', data-handle-color='#637283')
                       li
@@ -372,38 +372,38 @@ html(lang='en')
               // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
               li.dropdown.dropdown-user
                 a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                  img.img-circle(alt='', src='Images/dashboard/avatar3_small.jpg')
+                  img.img-circle(alt='', src='../admin/layout2/img/avatar3_small.jpg')
                   span.username.username-hide-on-mobile
                     | Nick
                   i.fa.fa-angle-down
                 ul.dropdown-menu.dropdown-menu-default
                   li
-                    a(href='extra_profile')
+                    a(href='extra_profile.html')
                       i.icon-user
                       |  My Profile
                   li
-                    a(href='page_calendar')
+                    a(href='page_calendar.html')
                       i.icon-calendar
                       |  My Calendar
                   li
-                    a(href='inbox')
+                    a(href='inbox.html')
                       i.icon-envelope-open
                       |  My Inbox 
                       span.badge.badge-danger
                         | 3
                   li
-                    a(href='page_todo')
+                    a(href='page_todo.html')
                       i.icon-rocket
                       |  My Tasks 
                       span.badge.badge-success
                         | 7
                   li.divider
                   li
-                    a(href='extra_lock')
+                    a(href='extra_lock.html')
                       i.icon-lock
                       |  Lock Screen
                   li
-                    a(href='login')
+                    a(href='login.html')
                       i.icon-key
                       |  Log Out
               // END USER LOGIN DROPDOWN
@@ -429,7 +429,7 @@ html(lang='en')
             // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
             ul.page-sidebar-menu.page-sidebar-menu-closed(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
               li.start
-                a(href='index')
+                a(href='index.html')
                   i.icon-home
                   span.title Dashboard
               li
@@ -439,25 +439,25 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='ecommerce_index')
+                    a(href='ecommerce_index.html')
                       i.icon-home
-                      | 								Dashboard
+                      |                 Dashboard
                   li
-                    a(href='ecommerce_orders')
+                    a(href='ecommerce_orders.html')
                       i.icon-basket
-                      | 								Orders
+                      |                 Orders
                   li
-                    a(href='ecommerce_orders_view')
+                    a(href='ecommerce_orders_view.html')
                       i.icon-tag
-                      | 								Order View
+                      |                 Order View
                   li
-                    a(href='ecommerce_products')
+                    a(href='ecommerce_products.html')
                       i.icon-handbag
-                      | 								Products
+                      |                 Products
                   li
-                    a(href='ecommerce_products_edit')
+                    a(href='ecommerce_products_edit.html')
                       i.icon-pencil
-                      | 								Product Edit
+                      |                 Product Edit
               li
                 a(href='javascript:;')
                   i.icon-rocket
@@ -465,40 +465,40 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='layout_fontawesome_icons')
+                    a(href='layout_fontawesome_icons.html')
                       span.badge.badge-roundless.badge-danger new
                       | Layout with Fontawesome Icons
                   li
-                    a(href='layout_glyphicons')
+                    a(href='layout_glyphicons.html')
                       | Layout with Glyphicon
                   li
-                    a(href='layout_full_height_content')
+                    a(href='layout_full_height_content.html')
                       span.badge.badge-roundless.badge-warning new
                       | Full Height Content
                   li
-                    a(href='layout_sidebar_reversed')
+                    a(href='layout_sidebar_reversed.html')
                       span.badge.badge-roundless.badge-warning new
                       | Right Sidebar Page
                   li
-                    a(href='layout_sidebar_fixed')
+                    a(href='layout_sidebar_fixed.html')
                       | Sidebar Fixed Page
                   li
-                    a(href='layout_sidebar_closed')
+                    a(href='layout_sidebar_closed.html')
                       | Sidebar Closed Page
                   li
-                    a(href='layout_ajax')
+                    a(href='layout_ajax.html')
                       | Content Loading via Ajax
                   li
-                    a(href='layout_disabled_menu')
+                    a(href='layout_disabled_menu.html')
                       | Disabled Menu Links
                   li
-                    a(href='layout_blank_page')
+                    a(href='layout_blank_page.html')
                       | Blank Page
                   li
-                    a(href='layout_fluid_page')
+                    a(href='layout_fluid_page.html')
                       | Fluid Page
                   li
-                    a(href='layout_language_bar')
+                    a(href='layout_language_bar.html')
                       | Language Switch Bar
               li
                 a(href='javascript:;')
@@ -507,70 +507,70 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='ui_general')
+                    a(href='ui_general.html')
                       | General Components
                   li
-                    a(href='ui_buttons')
+                    a(href='ui_buttons.html')
                       | Buttons
                   li
-                    a(href='ui_icons')
+                    a(href='ui_icons.html')
                       span.badge.badge-roundless.badge-danger new
                       | Font Icons
                   li
-                    a(href='ui_colors')
+                    a(href='ui_colors.html')
                       | Flat UI Colors
                   li
-                    a(href='ui_typography')
+                    a(href='ui_typography.html')
                       | Typography
                   li
-                    a(href='ui_tabs_accordions_navs')
+                    a(href='ui_tabs_accordions_navs.html')
                       | Tabs, Accordions & Navs
                   li
-                    a(href='ui_tree')
+                    a(href='ui_tree.html')
                       span.badge.badge-roundless.badge-danger new
                       | Tree View
                   li
-                    a(href='ui_page_progress_style_1')
+                    a(href='ui_page_progress_style_1.html')
                       span.badge.badge-roundless.badge-warning new
                       | Page Progress Bar
                   li
-                    a(href='ui_blockui')
+                    a(href='ui_blockui.html')
                       | Block UI
                   li
-                    a(href='ui_bootstrap_growl')
+                    a(href='ui_bootstrap_growl.html')
                       span.badge.badge-roundless.badge-warning new
                       | Bootstrap Growl Notifications
                   li
-                    a(href='ui_notific8')
+                    a(href='ui_notific8.html')
                       | Notific8 Notifications
                   li
-                    a(href='ui_toastr')
+                    a(href='ui_toastr.html')
                       | Toastr Notifications
                   li
-                    a(href='ui_alert_dialog_api')
+                    a(href='ui_alert_dialog_api.html')
                       span.badge.badge-roundless.badge-danger new
                       | Alerts & Dialogs API
                   li
-                    a(href='ui_session_timeout')
+                    a(href='ui_session_timeout.html')
                       | Session Timeout
                   li
-                    a(href='ui_idle_timeout')
+                    a(href='ui_idle_timeout.html')
                       | User Idle Timeout
                   li
-                    a(href='ui_modals')
+                    a(href='ui_modals.html')
                       | Modals
                   li
-                    a(href='ui_extended_modals')
+                    a(href='ui_extended_modals.html')
                       | Extended Modals
                   li
-                    a(href='ui_tiles')
+                    a(href='ui_tiles.html')
                       | Tiles
                   li
-                    a(href='ui_datepaginator')
+                    a(href='ui_datepaginator.html')
                       span.badge.badge-roundless.badge-success new
                       | Date Paginator
                   li
-                    a(href='ui_nestable')
+                    a(href='ui_nestable.html')
                       | Nestable List
               li
                 a(href='javascript:;')
@@ -579,34 +579,34 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='components_pickers')
+                    a(href='components_pickers.html')
                       | Date & Time Pickers
                   li
-                    a(href='components_context_menu')
+                    a(href='components_context_menu.html')
                       | Context Menu
                   li
-                    a(href='components_dropdowns')
+                    a(href='components_dropdowns.html')
                       | Custom Dropdowns
                   li
-                    a(href='components_form_tools')
+                    a(href='components_form_tools.html')
                       | Form Widgets & Tools
                   li
-                    a(href='components_form_tools2')
+                    a(href='components_form_tools2.html')
                       | Form Widgets & Tools 2
                   li
-                    a(href='components_editors')
+                    a(href='components_editors.html')
                       | Markdown & WYSIWYG Editors
                   li
-                    a(href='components_ion_sliders')
+                    a(href='components_ion_sliders.html')
                       | Ion Range Sliders
                   li
-                    a(href='components_noui_sliders')
+                    a(href='components_noui_sliders.html')
                       | NoUI Range Sliders
                   li
-                    a(href='components_jqueryui_sliders')
+                    a(href='components_jqueryui_sliders.html')
                       | jQuery UI Sliders
                   li
-                    a(href='components_knob_dials')
+                    a(href='components_knob_dials.html')
                       | Knob Circle Dials
               // BEGIN ANGULARJS LINK
               li.tooltips(data-container='body', data-placement='right', data-html='true', data-original-title='AngularJS version demo')
@@ -622,41 +622,41 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='form_controls_md')
+                    a(href='form_controls_md.html')
                       span.badge.badge-roundless.badge-danger new
                       | Material Design
                       br
-                      | 								Form Controls
+                      |                 Form Controls
                   li
-                    a(href='form_controls')
+                    a(href='form_controls.html')
                       | Bootstrap
                       br
-                      | 								Form Controls
+                      |                 Form Controls
                   li
-                    a(href='form_icheck')
+                    a(href='form_icheck.html')
                       | iCheck Controls
                   li
-                    a(href='form_layouts')
+                    a(href='form_layouts.html')
                       | Form Layouts
                   li
-                    a(href='form_editable')
+                    a(href='form_editable.html')
                       span.badge.badge-roundless.badge-warning new
                       | Form X-editable
                   li
-                    a(href='form_wizard')
+                    a(href='form_wizard.html')
                       | Form Wizard
                   li
-                    a(href='form_validation')
+                    a(href='form_validation.html')
                       | Form Validation
                   li
-                    a(href='form_image_crop')
+                    a(href='form_image_crop.html')
                       span.badge.badge-roundless.badge-danger new
                       | Image Cropping
                   li
-                    a(href='form_fileupload')
+                    a(href='form_fileupload.html')
                       | Multiple File Upload
                   li
-                    a(href='form_dropzone')
+                    a(href='form_dropzone.html')
                       | Dropzone File Upload
               li
                 a(href='javascript:;')
@@ -665,25 +665,25 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='table_basic')
+                    a(href='table_basic.html')
                       | Basic Datatables
                   li
-                    a(href='table_tree')
+                    a(href='table_tree.html')
                       | Tree Datatables
                   li
-                    a(href='table_responsive')
+                    a(href='table_responsive.html')
                       | Responsive Datatables
                   li
-                    a(href='table_managed')
+                    a(href='table_managed.html')
                       | Managed Datatables
                   li
-                    a(href='table_editable')
+                    a(href='table_editable.html')
                       | Editable Datatables
                   li
-                    a(href='table_advanced')
+                    a(href='table_advanced.html')
                       | Advanced Datatables
                   li
-                    a(href='table_ajax')
+                    a(href='table_ajax.html')
                       | Ajax Datatables
               li
                 a(href='javascript:;')
@@ -692,21 +692,21 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='portlet_general')
+                    a(href='portlet_general.html')
                       | General Portlets
                   li
-                    a(href='portlet_general2')
+                    a(href='portlet_general2.html')
                       span.badge.badge-roundless.badge-danger new
                       | New Portlets #1
                   li
-                    a(href='portlet_general3')
+                    a(href='portlet_general3.html')
                       span.badge.badge-roundless.badge-danger new
                       | New Portlets #2
                   li
-                    a(href='portlet_ajax')
+                    a(href='portlet_ajax.html')
                       | Ajax Portlets
                   li
-                    a(href='portlet_draggable')
+                    a(href='portlet_draggable.html')
                       | Draggable Portlets
               li
                 a(href='javascript:;')
@@ -715,10 +715,10 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='charts_amcharts')
+                    a(href='charts_amcharts.html')
                       | amChart
                   li
-                    a(href='charts_flotcharts')
+                    a(href='charts_flotcharts.html')
                       | Flotchart
               li.active.open
                 a(href='javascript:;')
@@ -728,72 +728,72 @@ html(lang='en')
                   span.arrow.open
                 ul.sub-menu
                   li
-                    a(href='page_timeline')
+                    a(href='page_timeline.html')
                       i.icon-paper-plane
                       span.badge.badge-warning 2
                       | New Timeline
                   li
-                    a(href='extra_profile')
+                    a(href='extra_profile.html')
                       i.icon-user-following
                       span.badge.badge-success.badge-roundless new
                       | New User Profile
                   li.active
-                    a(href='page_todo')
+                    a(href='page_todo.html')
                       i.icon-hourglass
                       span.badge.badge-danger 4
                       | Todo
                   li
-                    a(href='inbox')
+                    a(href='inbox.html')
                       i.icon-envelope
                       span.badge.badge-danger 4
                       | Inbox
                   li
-                    a(href='extra_faq')
+                    a(href='extra_faq.html')
                       i.icon-info
-                      | 								FAQ
+                      |                 FAQ
                   li
-                    a(href='page_portfolio')
+                    a(href='page_portfolio.html')
                       i.icon-feed
-                      | 								Portfolio
+                      |                 Portfolio
                   li
-                    a(href='page_coming_soon')
+                    a(href='page_coming_soon.html')
                       i.icon-flag
-                      | 								Coming Soon
+                      |                 Coming Soon
                   li
-                    a(href='page_calendar')
+                    a(href='page_calendar.html')
                       i.icon-calendar
                       span.badge.badge-danger 14
                       | Calendar
                   li
-                    a(href='extra_invoice')
+                    a(href='extra_invoice.html')
                       i.icon-flag
-                      | 								Invoice
+                      |                 Invoice
                   li
-                    a(href='page_blog')
+                    a(href='page_blog.html')
                       i.icon-speech
-                      | 								Blog
+                      |                 Blog
                   li
-                    a(href='page_blog_item')
+                    a(href='page_blog_item.html')
                       i.icon-link
-                      | 								Blog Post
+                      |                 Blog Post
                   li
-                    a(href='page_news')
+                    a(href='page_news.html')
                       i.icon-eye
                       span.badge.badge-success 9
                       | News
                   li
-                    a(href='page_news_item')
+                    a(href='page_news_item.html')
                       i.icon-bell
-                      | 								News View
+                      |                 News View
                   li
-                    a(href='page_timeline_old')
+                    a(href='page_timeline_old.html')
                       i.icon-paper-plane
                       span.badge.badge-warning 2
                       | Old Timeline
                   li
-                    a(href='extra_profile_old')
+                    a(href='extra_profile_old.html')
                       i.icon-user
-                      | 								Old User Profile
+                      |                 Old User Profile
               li
                 a(href='javascript:;')
                   i.icon-present
@@ -801,31 +801,31 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='page_about')
+                    a(href='page_about.html')
                       | About Us
                   li
-                    a(href='page_contact')
+                    a(href='page_contact.html')
                       | Contact Us
                   li
-                    a(href='extra_search')
+                    a(href='extra_search.html')
                       | Search Results
                   li
-                    a(href='extra_pricing_table')
+                    a(href='extra_pricing_table.html')
                       | Pricing Tables
                   li
-                    a(href='extra_404_option1')
+                    a(href='extra_404_option1.html')
                       | 404 Page Option 1
                   li
-                    a(href='extra_404_option2')
+                    a(href='extra_404_option2.html')
                       | 404 Page Option 2
                   li
-                    a(href='extra_404_option3')
+                    a(href='extra_404_option3.html')
                       | 404 Page Option 3
                   li
-                    a(href='extra_500_option1')
+                    a(href='extra_500_option1.html')
                       | 500 Page Option 1
                   li
-                    a(href='extra_500_option2')
+                    a(href='extra_500_option2.html')
                       | 500 Page Option 2
               li
                 a(href='javascript:;')
@@ -842,7 +842,7 @@ html(lang='en')
                       li
                         a(href='javascript:;')
                           i.icon-user
-                          | 										Sample Link 1 
+                          |                     Sample Link 1 
                           span.arrow
                         ul.sub-menu
                           li
@@ -890,7 +890,7 @@ html(lang='en')
                   li
                     a(href='#')
                       i.icon-bar-chart
-                      | 								Item 3
+                      |                 Item 3
               li
                 a(href='javascript:;')
                   i.icon-user
@@ -898,22 +898,22 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='login')
+                    a(href='login.html')
                       | Login Form 1
                   li
-                    a(href='login_2')
+                    a(href='login_2.html')
                       | Login Form 2
                   li
-                    a(href='login_3')
+                    a(href='login_3.html')
                       | Login Form 3
                   li
-                    a(href='login_soft')
+                    a(href='login_soft.html')
                       | Login Form 4
                   li
-                    a(href='extra_lock')
+                    a(href='extra_lock.html')
                       | Lock Screen 1
                   li
-                    a(href='extra_lock2')
+                    a(href='extra_lock2.html')
                       | Lock Screen 2
               li.last
                 a(href='javascript:;')
@@ -922,10 +922,10 @@ html(lang='en')
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='maps_google')
+                    a(href='maps_google.html')
                       | Google Maps
                   li
-                    a(href='maps_vector')
+                    a(href='maps_vector.html')
                       | Vector Maps
             // END SIDEBAR MENU
         // END SIDEBAR
@@ -1027,7 +1027,7 @@ html(lang='en')
               ul.page-breadcrumb
                 li
                   i.fa.fa-home
-                  a(href='index') Home
+                  a(href='index.html') Home
                   i.fa.fa-angle-right
                 li
                   a(href='#') Pages
@@ -1166,7 +1166,7 @@ html(lang='en')
                           .scroller(style='max-height: 800px;', data-always-visible='0', data-rail-visible='0', data-handle-color='#dae3e7')
                             .todo-tasklist
                               .todo-tasklist-item.todo-tasklist-item-border-green
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar4.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Slider Redesign
                                 .todo-tasklist-item-text
@@ -1177,7 +1177,7 @@ html(lang='en')
                                     |  21 Sep 2014
                                   span.todo-tasklist-badge.badge.badge-roundless Urgent
                               .todo-tasklist-item.todo-tasklist-item-border-red
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar5.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Homepage Alignments to adjust
                                 .todo-tasklist-item-text
@@ -1188,7 +1188,7 @@ html(lang='en')
                                     |  14 Sep 2014
                                   span.todo-tasklist-badge.badge.badge-roundless Important
                               .todo-tasklist-item.todo-tasklist-item-border-green
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar9.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar9.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Slider Redesign
                                 .todo-tasklist-controls.pull-left
@@ -1197,7 +1197,7 @@ html(lang='en')
                                     |  10 Feb 2015
                                   span.todo-tasklist-badge.badge.badge-roundless Important
                               .todo-tasklist-item.todo-tasklist-item-border-blue
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar6.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Contact Us Map Location changes
                                 .todo-tasklist-item-text
@@ -1209,7 +1209,7 @@ html(lang='en')
                                   span.todo-tasklist-badge.badge.badge-roundless Postponed
                                   span.todo-tasklist-badge.badge.badge-roundless Test
                               .todo-tasklist-item.todo-tasklist-item-border-purple
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar7.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar7.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Projects list new Forms
                                 .todo-tasklist-item-text
@@ -1219,7 +1219,7 @@ html(lang='en')
                                     i.fa.fa-calendar
                                     |  19 Dec 2014
                               .todo-tasklist-item.todo-tasklist-item-border-yellow
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar8.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar8.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | New Search Keywords
                                 .todo-tasklist-item-text
@@ -1230,7 +1230,7 @@ html(lang='en')
                                     |  02 Feb 2015
                                   span.todo-tasklist-badge.badge.badge-roundless Postponed
                               .todo-tasklist-item.todo-tasklist-item-border-green
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar9.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar9.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Slider Redesign
                                 .todo-tasklist-controls.pull-left
@@ -1239,7 +1239,7 @@ html(lang='en')
                                     |  10 Feb 2015
                                   span.todo-tasklist-badge.badge.badge-roundless Important
                               .todo-tasklist-item.todo-tasklist-item-border-red
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar5.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Homepage Alignments to adjust
                                 .todo-tasklist-item-text
@@ -1250,7 +1250,7 @@ html(lang='en')
                                     |  14 Sep 2014
                                   span.todo-tasklist-badge.badge.badge-roundless Important
                               .todo-tasklist-item.todo-tasklist-item-border-blue
-                                img.todo-userpic.pull-left(src='Images/dashboard/avatar6.jpg', width='27px', height='27px')
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
                                 .todo-tasklist-item-title
                                   | Contact Us Improvement
                                 .todo-tasklist-item-text
@@ -1270,7 +1270,7 @@ html(lang='en')
                                 .form-group
                                   .col-md-8.col-sm-8
                                     .todo-taskbody-user
-                                      img.todo-userpic.pull-left(src='Images/dashboard/avatar6.jpg', width='50px', height='50px')
+                                      img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='50px', height='50px')
                                       span.todo-username.pull-left Vanessa Bond
                                       button.todo-username-btn.btn.btn-circle.btn-default.btn-xs(type='button')  edit 
                                   .col-md-4.col-sm-4
@@ -1316,7 +1316,7 @@ html(lang='en')
                                         ul.media-list
                                           li.media
                                             a.pull-left(href='javascript:;')
-                                              img.todo-userpic(src='Images/dashboard/avatar8.jpg', width='27px', height='27px')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar8.jpg', width='27px', height='27px')
                                             .media-body.todo-comment
                                               button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
                                               p.todo-comment-head
@@ -1328,7 +1328,7 @@ html(lang='en')
                                               // Nested media object
                                               .media
                                                 a.pull-left(href='javascript:;')
-                                                  img.todo-userpic(src='Images/dashboard/avatar4.jpg', width='27px', height='27px')
+                                                  img.todo-userpic(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
                                                 .media-body
                                                   p.todo-comment-head
                                                     span.todo-comment-username Carles Puyol
@@ -1337,7 +1337,7 @@ html(lang='en')
                                                     | Thanks so much my dear!
                                           li.media
                                             a.pull-left(href='javascript:;')
-                                              img.todo-userpic(src='Images/dashboard/avatar5.jpg', width='27px', height='27px')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
                                             .media-body.todo-comment
                                               button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
                                               p.todo-comment-head
@@ -1348,7 +1348,7 @@ html(lang='en')
                                                 br
                                           li.media
                                             a.pull-left(href='javascript:;')
-                                              img.todo-userpic(src='Images/dashboard/avatar6.jpg', width='27px', height='27px')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
                                             .media-body.todo-comment
                                               button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
                                               p.todo-comment-head
@@ -1363,7 +1363,7 @@ html(lang='en')
                                       .col-md-12
                                         ul.media-list
                                           li.media
-                                            img.todo-userpic.pull-left(src='Images/dashboard/avatar4.jpg', width='27px', height='27px')
+                                            img.todo-userpic.pull-left(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
                                             .media-body
                                               textarea.form-control.todo-taskbody-taskdesc(rows='4', placeholder='Type comment...')
                                         button.pull-right.btn.btn-sm.btn-circle.green-haze(type='button')    Submit   
@@ -1408,28 +1408,28 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='global/plugins/respond.min.js')
-      script(src='global/plugins/excanvas.min.js')
-    script(src='global/plugins/jquery.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
+      script(src='../global/plugins/respond.min.js')
+      script(src='../global/plugins/excanvas.min.js')
+    script(src='../global/plugins/jquery.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='../global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE PLUGINS & SCRIPTS
-    script(type='text/javascript', src='global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')
-    script(type='text/javascript', src='global/plugins/select2/select2.min.js')
-    script(src='admin/pages/scripts/todo.js', type='text/javascript')
+    script(type='text/javascript', src='../global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')
+    script(type='text/javascript', src='../global/plugins/select2/select2.min.js')
+    script(src='../admin/pages/scripts/todo.js', type='text/javascript')
     // END PAGE PLUGINS & SCRIPTS
-    script(src='global/scripts/metronic.js', type='text/javascript')
-    script(src='admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='../global/scripts/metronic.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/demo.js', type='text/javascript')
     script.
       jQuery(document).ready(function() {
       Metronic.init(); // init metronic core components

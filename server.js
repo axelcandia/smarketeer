@@ -74,5 +74,16 @@ app.get('/home/dashboard', function (req, res) {
   res.render(path.join( __dirname+ "/Layout/home/index"));
 });
  
- 
+/*
+	User
+*/
+app.get('/user/costs', function (req, res) {
+  res.render(path.join( __dirname+ "/Layout/user/costs"));
+});
+app.get('/user/MyPlan', function (req, res) {
+  res.render(path.join( __dirname+ "/Layout/user/MyPlan"));
+});
+app.get('/user/MyProfile', function (req, res) {
+  res.render(path.join( __dirname+ "/Layout/user/MyProfile"));
+});
 app.listen(port);
