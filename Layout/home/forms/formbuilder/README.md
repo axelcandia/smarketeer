@@ -74,7 +74,7 @@ Which outputs JSON that looks something like:
     "field_options": {},
     "cid": "c6"
 }, {
-    "label": "Security personnel #82?",
+    "label": "security personnel #82?",
     "field_type": "radio",
     "required": true,
     "field_options": {

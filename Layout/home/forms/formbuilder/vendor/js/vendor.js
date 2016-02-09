@@ -3242,7 +3242,7 @@ jQuery.support = (function( support ) {
 	support.checkClone = fragment.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
 	// Support: Firefox, Chrome, Safari
-	// Beware of CSP restrictions (https://developer.mozilla.org/en/Security/CSP)
+	// Beware of CSP restrictions (https://developer.mozilla.org/en/security/CSP)
 	support.focusinBubbles = "onfocusin" in window;
 
 	div.style.backgroundClip = "content-box";

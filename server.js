@@ -21,11 +21,11 @@ app.get('/', function (req, res) {
 	Login and security
 */
 app.get('/login', function (req, res) {
-  res.render(path.join( __dirname+ "/Layout/Security/login"));
+  res.render(path.join( __dirname+ "/Layout/security/login"));
 });
 
 app.get('/NewUser', function (req, res) { 
-  res.render(path.join( __dirname+ "/Layout/Security/NewUser"));
+  res.render(path.join( __dirname+ "/Layout/security/NewUser"));
 }); 
 
 
