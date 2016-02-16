@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Sign In with Auth0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
+    <script src="https://cdn.auth0.com/client/uIFEZxZWrVlLsHeRCSRqfuaFzJGvPUbm.js?t1455562167395">
+
+      <!-- BEGIN GLOBAL MANDATORY STYLES-->
+    </script>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>
+    <link href="global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES-->
+    <!-- BEGIN PAGE LEVEL STYLES-->
+    <link href="admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL SCRIPTS-->
+    <!-- BEGIN THEME STYLES-->
+    <link id="style_components" href="global/css/components.css" rel="stylesheet" type="text/css"/>
+    <link href="global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+    <link href="admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES-->
+    <link rel="shortcut icon" href="favicon.ico"/>
+  </head>
+  <body>
+    <div class="table">
+      <div class="cell">
+        <div class="content">
+          <!-- WIDGET-->
+          <div id="widget-container">
+            <div id="a0-lock" dir="auto" class="a0-lock a0-theme-default">
+              <div class="a0-signin">
+                <div class="a0-popup">
+                  <div class="a0-active">
+                    <div class="a0-nocentrix">
+                      <div id="a0-onestep" class="a0-panel a0-onestep a0-free-subscription a0-active">
+                        <div class="a0-header a0-top-header">
+                          <div class="a0-bg-gradient a0-blur-support">
+                            <div class="a0-avatar a0-hide"><img src=""/></div>
+                            <div class="a0-image"><img src="//cdn.auth0.com/styleguide/1.0.0/img/badge.png" class="a0-avatar-guest"/></div>
+                            <div style="background-color: #ea5323" class="a0-bg-solid-color"></div>
+                          </div>
+                          <div class="a0-icon-container">
+                            <div class="a0-avatar a0-hide"><img src=""/></div>
+                            <div class="a0-image"><img src="//cdn.auth0.com/styleguide/1.0.0/img/badge.png" class="a0-avatar-guest"/></div>
+                            <div class="a0-blank-space"></div>
+                            <h1>Sign Up</h1>
+                          </div>
+                          <h2 class="a0-error a0-hide"></h2>
+                          <h2 class="a0-success a0-hide"> </h2>
+                          <!-- if standalone, you shouldn't be able to close the widget--><a href="#" class="a0-close a0-hide">
+                            <svg enable-background="new 0 0 128 128" version="1.1" viewbox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <g>
+                                <polygon fill="#373737" points="123.5429688,11.59375 116.4765625,4.5185547 64.0019531,56.9306641 11.5595703,4.4882813     4.4882813,11.5595703 56.9272461,63.9970703 4.4570313,116.4052734 11.5244141,123.4814453 63.9985352,71.0683594     116.4423828,123.5117188 123.5126953,116.4414063 71.0732422,64.0019531   "></polygon>
+                              </g>
+                            </svg></a>
+                        </div>
+                        <div class="a0-mode-container">
+                          <div class="a0-signup a0-mode">
+                            <form novalidate="">
+                              <div class="a0-body-content">
+                                <div class="a0-options"><a href="javascript: {}" class="a0-centered a0-cancel a0-switch a0-clearfix"><span>Log In</span><span class="a0-active">Sign Up</span></a></div>
+                                <div class="a0-header"></div>
+                                 <div class="login-options">
+                                  <ul class="social-icons">
+                                    <li><a data-original-title="facebook" href="javascript:;" data-strategy="facebook" class="social-icon-color facebook"></a></li> 
+                                    </li>
+                                    <li><a data-original-title="Goole Plus" href="javascript:;" class="social-icon-color googleplus" data-strategy="google-oauth2" title="Signup with Google"></a></li> 
+                                    
+                                  <div class="a0-separator a0-instructions">or <span>Please enter your email and password</span></div>
+                                </div>
+                                <div class="a0-emailPassword">
+                                  <div class="a0-inputs-wrapper">
+                                    <div class="a0-inputs">
+                                      <div class="a0-username">
+                                        <label for="a0-signup_easy_username" class="a0-sad-placeholder">Username</label>
+                                        <div class="a0-input-box"><i class="a0-icon-budicon-1"></i>
+                                          <input id="a0-signup_easy_username" name="username" type="text" value="" placeholder="Username" title="Username"/>
+                                        </div>
+                                      </div>
+                                      <div class="a0-email">
+                                        <label for="a0-signup_easy_email" class="a0-sad-placeholder">Email</label>
+                                        <div class="a0-input-box"><i class="a0-icon-budicon-5"></i>
+                                          <input id="a0-signup_easy_email" name="email" type="email" value="" placeholder="Email" title="Email"/>
+                                        </div>
+                                      </div>
+                                      <div class="a0-password">
+                                        <label for="a0-signup_easy_password" class="a0-sad-placeholder">Create a Password</label>
+                                        <div class="a0-input-box"><i class="a0-icon-budicon"></i>
+                                          <input id="a0-signup_easy_password" name="password" type="password" value="" placeholder="Create a Password" title="Create a Password"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="a0-password_policy"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="bottom-content">
+                                <div class="a0-action">
+                                  <button type="submit" style="background-color: #ea5323" class="a0-primary a0-next">Sign Up</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="a0-footer"><a href="http://auth0.com" target="_new" class="a0-logo"><i class="a0-icon-badge"></i></a></div>
+                      </div> 
+    </div>
+    <!--if IE 8script(src='//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js')
+    -->
+    <!--if lte IE 9
+    script(src='https://cdn.auth0.com/js/base64.js')
+    script(src='https://cdn.auth0.com/js/es5-shim.min.js')
+    -->
+    <script src="https://cdn.auth0.com/js/lock-8.2.js"></script>
+    <script>
+      // Decode utf8 characters properly
+      var config = JSON.parse(decodeURIComponent(escape(window.atob('eyJhdXRoMERvbWFpbiI6InNtYXJrZXRlZXIuYXV0aDAuY29tIiwiY2FsbGJhY2tPbkxvY2F0aW9uSGFzaCI6ZmFsc2UsImNhbGxiYWNrVVJMIjoiaHR0cDovL3NtYXJrZXRlZXIvbG9naW4iLCJjZG4iOiJodHRwczovL3Nkay5hdXRoMC5jb20vIiwiY2xpZW50SUQiOiJ1SUZFWnhaV3JWbExzSGVSQ1NScWZ1YUZ6Skd2UFVibSIsImRpY3QiOnsic2lnbmluIjp7InRpdGxlIjoiU21hcmtldGVlciJ9fSwiZXh0cmFQYXJhbXMiOnt9LCJpbnRlcm5hbE9wdGlvbnMiOnt9LCJwcm9tcHQiOmZhbHNlLCJ3aWRnZXRVcmwiOiJodHRwczovL2Nkbi5hdXRoMC5jb20vdzIvYXV0aDAtd2lkZ2V0LTUuMS5taW4uanMifQ=='))));
+      var connection = config.connection;
+      var prompt = config.prompt;
+      var initializationOptions = {
+      assetsUrl:  config.assetsUrl,
+      cdn:        config.cdn
+      };
+      var lock = new Auth0Lock(config.clientID, config.auth0Domain, initializationOptions);
+      lock.show({
+      // icon:            '{YOUR_LOGO_URL}',
+      callbackURL:        config.callbackURL,
+      responseType:       config.callbackOnLocationHash ? 'token' : 'code',
+      dict:               config.dict,
+      connections:        connection ? [connection] : null,
+      rememberLastLogin:  !prompt,
+      container:          'widget-container',
+      authParams:         config.internalOptions
+      });
+    </script>
+    <script src="global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS-->
+    <!-- BEGIN PAGE LEVEL PLUGINS-->
+    <script src="global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS-->
+    <!-- BEGIN PAGE LEVEL SCRIPTS-->
+    <script src="global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="admin/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <script src="admin/pages/scripts/login.js" type="text/javascript">
+      <script src="https://cdn.auth0.com/w2/auth0-6.7.js"></script>
+    </script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- END PAGE LEVEL SCRIPTS-->
+    <script>
+      jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Login.init();
+      Demo.init();
+      });
+    </script>
+    <!-- END JAVASCRIPTS-->
+  </body>
+  <!-- END BODY-->
+</html>
