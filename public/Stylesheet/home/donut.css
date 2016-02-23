@@ -1,8 +1,8 @@
  
 .legend {
     width: 10em; 
-    padding-left:80%;
-    float:left; 
+    padding-left:80%; 
+    position: absolute;
 }
 
 .legend .title {
@@ -27,5 +27,6 @@
 @media only screen and (max-device-width: 480px){
     .legend{
         padding-left: 70%;
+        position: relative;
     }
 }
