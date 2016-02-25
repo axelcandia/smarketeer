@@ -76,7 +76,7 @@ var db = mongoose(),
 
  module.exports = app;
 
-app.listen(process.env.PORT || 1337);//(config.port);
+app.listen(process.env.PORT);//(config.port);
 
 
 console.log(process.env.NODE_ENV + ' server running at http://localhost:' + config.port);
