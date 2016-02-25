@@ -74,9 +74,9 @@ var db = mongoose(),
 	});
 
 
+ module.exports = app;
+
+app.listen(process.env.PORT || 1337);//(config.port);
 
 
-app.listen(config.port);
-
-module.exports = app;
 console.log(process.env.NODE_ENV + ' server running at http://localhost:' + config.port);
