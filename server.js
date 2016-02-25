@@ -12,7 +12,7 @@ var db = mongoose(),
 
 
 //IMPORTANT THE SECTION BELOW HAS TO BE DELETED ASAP AND IMPORTED TO module.exports = app;
-
+var port 	= process.env.PORT || 1337;
 	/*
 		FUNNELS GETTERS
 	*/
@@ -76,7 +76,4 @@ var db = mongoose(),
 
  module.exports = app;
 
-app.listen(process.env.PORT);//(config.port);
-
-
-console.log(process.env.NODE_ENV + ' server running at http://localhost:' + config.port);
+app.listen(port);//(config.port);
