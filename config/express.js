@@ -28,6 +28,7 @@ module.exports = function() {
 	app.use(passport.session());
  
 	require('../app/routes/users.server.routes.js')(app);
+	require('../app/routes/dashboard.server.routes.js')(app);
 
 	app.use(express.static('./public'));
 

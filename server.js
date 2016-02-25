@@ -55,10 +55,6 @@ var port 	= process.env.PORT || 1337;
 	app.get('/home/reporting',function (req,res){
 		res.render(path.join( __dirname + "/app/views/home/reporting"));
 	});
-
-	app.get('/home/dashboard', function (req, res) {
-	  res.render(path.join( __dirname+ "/app/views/home/index"));
-	});
 	 
 	/*
 		User

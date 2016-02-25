@@ -4,13 +4,13 @@ module.exports = {
 	port: port,
 	db: 'mongodb://db-smarketeer.cloudapp.net/Production',
 	facebook: {
-		clientID: '513828288756645',
-		clientSecret: '2d7cc991efddb864e9af61f307980b9a',
-		callbackURL: 'http://localhost:'+ port +'/oauth/facebook/callback'
+		clientID: '1539348089726612',
+		clientSecret: '3cf68a04a1859ab4ab158a54ef34f4fe',
+		callbackURL: 'http://smarketeer.io/oauth/facebook/callback'
 	},
 	twitter: {
 		clientID: 'yFntGKkvMZkDKL47XGtzLNdRA',
 		clientSecret: 'EAiPTjPYLX5nrkpRtxYQflbWpRTqqLwwBHRLh7WpdQ1P69Tre6',
-		callbackURL: 'http://localhost:'+ port +'/oauth/twitter/callback'
+		callbackURL: 'http://smarketeer.io/oauth/twitter/callback'
 	}
 };
