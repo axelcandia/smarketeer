@@ -74,6 +74,7 @@ exports.register = function(req, res, next) {
 
 exports.logout = function(req, res) {
 	req.logout();
+	req.session = null
 	res.redirect('/');
 };
 
@@ -145,7 +146,7 @@ exports.delete = function(req, res, next) {
 
 exports.isLoggedIn =function (req, res, next) { 
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
+    if (req.session.isPopulated )
         return next();
     //TODO: Add error?
     // if they aren't redirect them to the home page

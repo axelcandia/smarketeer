@@ -19,11 +19,9 @@ module.exports = function(app) {
 			failureRedirect: '/login',
 			failureFlash: true
 		}));
-	app.get('/logout', users.logout); 
-	// facebook -------------------------------
 
-		// send to facebook to do the authentication
-		app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+	app.get('/logout', users.logout);
+	app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 		// handle the callback after facebook has authenticated the user
 		app.get('/auth/facebook/callback',
@@ -32,7 +30,6 @@ module.exports = function(app) {
 				failureRedirect : '/'
 			}));
 
-	
 	// twitter --------------------------------
 
 		// send to twitter to do the authentication
@@ -52,11 +49,11 @@ module.exports = function(app) {
 		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
 		// the callback after google has authenticated the user
-		app.get( '/auth/google/callback', 
-		    passport.authenticate( 'google', { 
-		        successRedirect: '/home/dashboard',
-		        failureRedirect: '/auth/google/failure'
-		}));
+		app.get('/auth/google/callback',
+			passport.authenticate('google', {
+				successRedirect : '/home/dashboard',
+				failureRedirect : '/'
+			}));
 
 	/*
 	UNLINK SOCIAL MEDIA
