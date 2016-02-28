@@ -4,7 +4,7 @@ var config 			= require('./config'),
 	passport 		= require('passport'),
 	flash 			= require('connect-flash'), 
 	cookieParser 	= require('cookie-parser');
-	session 		= require('express-session');
+	cookieSession 	= require('cookie-session');
 
 module.exports = function() {
 	var app = express();
@@ -13,19 +13,15 @@ module.exports = function() {
 		extended: true
 	})); 
 	app.use(bodyParser.json());
-
-	app.use(session({
-		saveUninitialized: true,
-		resave: true,
-		secret: 'OurSuperSecretCookieSecret'
-	}));
+ 
 
 	app.set('views', './app/views');
 	app.set('view engine', 'jade');//TODO
 
 	app.use(flash());
 	app.use(passport.initialize());
-	app.use(passport.session());
+	app.use(passport.session()); 
+ 	app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
 	app.use(cookieParser());
  
 	require('../app/routes/users.server.routes.js')(app);

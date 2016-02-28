@@ -9,8 +9,8 @@ module.exports = {
 		callbackURL 	: 'http://smarketeer.io/auth/facebook/callback'
 	},
 	twitter : {
-		consumerKey		: 'your-consumer-key-here',
-		consumerSecret 	: 'your-client-secret-here',
+		consumerKey		: '5H9sw7LGU9ZQekpdl1HKH7ob2',
+		consumerSecret 	: 'il8xYuImWL2KiTlo8ToC7rQSAY2DIUIHYpgz6s8UiCaVqvl452',
 		callbackURL 	: 'http://smarketeer.io/auth/twitter/callback'
 	},
 
