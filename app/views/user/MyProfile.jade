@@ -69,13 +69,7 @@ html(lang='en')
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
-            // BEGIN STYLE CUSTOMIZER
-            .theme-panel
-              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
-                i.icon-settings
-              .toggler-close
-                i.icon-close
-            // END STYLE CUSTOMIZER
+            
             // CODE MODAL
             #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
               .modal-dialog
@@ -87,7 +81,7 @@ html(lang='en')
                     | Copy & paste the following code into the head of your HTML
                     form(action='#')
                       textarea(rows='4', cols='50')
-                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                        script(src='..///load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -96,31 +90,7 @@ html(lang='en')
             // CODE MODAL
             // BEGIN PAGE HEADER
             h3.page-title
-              | Profile 
-              small Your user account
-            .page-bar
-              ul.page-breadcrumb
-                li
-                  i.fa.fa-home
-                  a(href='index') Home
-                  i.fa.fa-angle-right
-                li
-                  a(href='#') User Account
-              .page-toolbar
-                .btn-group.pull-right
-                  button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Actions 
-                    i.fa.fa-angle-down
-                  ul.dropdown-menu.pull-right(role='menu')
-                    li
-                      a(href='#') Action
-                    li
-                      a(href='#') Another action
-                    li
-                      a(href='#') Something else here
-                    li.divider
-                    li
-                      a(href='#') Separated link
+              | Profile
             // END PAGE HEADER
             // BEGIN PAGE CONTENT
             .row
@@ -131,7 +101,7 @@ html(lang='en')
                   .portlet.light.profile-sidebar-portlet
                     // SIDEBAR USERPIC
                     .profile-userpic
-                      img.img-responsive(src='Images/dashboard/daniel-digifianz-academy2.png', alt='')
+                      img.img-responsive(src='../Images/dashboard/daniel-digifianz-academy2.png', alt='')
                     // END SIDEBAR USERPIC
                     // SIDEBAR USER TITLE
                     .profile-usertitle
@@ -169,17 +139,15 @@ html(lang='en')
                             span.caption-subject.font-blue-madison.bold.uppercase Profile Account
                           ul.nav.nav-tabs
                             li.active
-                              a(href='#tab_1_1', data-toggle='tab') Personal Info
+                              a(href='#personalInfo', data-toggle='tab') Personal Info
                             li
-                              a(href='#tab_1_2', data-toggle='tab') Change Avatar
+                              a(href='#avatar', data-toggle='tab') Change Avatar
                             li
-                              a(href='#tab_1_3', data-toggle='tab') Access Details
-                            li
-                              a(href='#tab_1_4', data-toggle='tab') Additional Information
+                              a(href='#acces', data-toggle='tab') Access Details
                         .portlet-body
                           .tab-content
                             // PERSONAL INFO TAB
-                            #tab_1_1.tab-pane.active
+                            #personalInfo.tab-pane.active
                               form(role='form', action='#')
                                 .form-group
                                   label.control-label First Name
@@ -190,9 +158,7 @@ html(lang='en')
                                 .form-group
                                   label.control-label Company Name
                                   input.form-control(type='text', placeholder='Company Name')
-                                .form-group
-                                  label.control-label Website Url
-                                  input.form-control(type='text', placeholder='http://www.mywebsite.com')
+                                
                                 .margiv-top-10
                                   a.btn.green-haze(href='javascript:;')
                                     | Save Changes
@@ -200,12 +166,12 @@ html(lang='en')
                                     | Cancel
                             // END PERSONAL INFO TAB
                             // CHANGE AVATAR TAB
-                            #tab_1_2.tab-pane
+                            #avatar.tab-pane
                               form(action='#', role='form')
                                 .form-group
                                   .fileinput.fileinput-new(data-provides='fileinput')
                                     .fileinput-new.thumbnail(style='width: 200px; height: 150px;')
-                                      img(src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image', alt='')
+                                      img(src='../http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image', alt='')
                                     .fileinput-preview.fileinput-exists.thumbnail(style='max-width: 200px; max-height: 150px;')
                                     div
                                       span.btn.default.btn-file
@@ -223,7 +189,7 @@ html(lang='en')
                                     | Cancel
                             // END CHANGE AVATAR TAB
                             // CHANGE PASSWORD TAB
-                            #tab_1_3.tab-pane
+                            #acces.tab-pane
                               form(action='#')
                                 .form-group
                                   label.control-label E-mail Address
@@ -244,57 +210,7 @@ html(lang='en')
                                     | Cancel
                             // END CHANGE PASSWORD TAB
                             // PRIVACY SETTINGS TAB
-                            #tab_1_4.tab-pane
-                              form(action='#')
-                                .form-group
-                                  label.control-label Occupation
-                                  input.form-control(type='text', placeholder='Digital Marketer')
-                                .form-group
-                                  label.control-label Address Line 1
-                                  input.form-control(type='text', placeholder='123 Main St.')
-                                .form-group
-                                  label.control-label Address Line 2
-                                  input.form-control(type='text', placeholder='Dept D')
-                                .form-group
-                                  label.control-label City
-                                  input.form-control(type='text', placeholder='Buenos Aires')
-                                .form-group
-                                  label.control-label State/Province
-                                  input.form-control(type='text', placeholder='Buenos Aires')
-                                .form-group
-                                  label.control-label Zip/Postal Code
-                                  input.form-control(type='text', placeholder='1425')
-                                .form-group
-                                  label.control-label Additional Details
-                                  input.form-control(type='text', placeholder='Digital Marketing Agency')
-                                .form-group
-                                  label.control-label Mobile Number
-                                  input.form-control(type='text', placeholder='+1 646 580 6284')
-                                table.table.table-light.table-hover
-                                  tr
-                                    td
-                                      | Receive weekly newsletters
-                                    td
-                                      label.uniform-inline
-                                        input(type='radio', name='optionsRadios1', value='option1')
-                                        | 																Yes
-                                      label.uniform-inline
-                                        input(type='radio', name='optionsRadios1', value='option2', checked='')
-                                        | 																No
-                                  tr
-                                    td
-                                      | Send daily reports
-                                    td
-                                      label.uniform-inline
-                                        input(type='checkbox', value='')
-                                        |  Yes
-                                // end profile-settings
-                                .margin-top-10
-                                  a.btn.green-haze(href='javascript:;')
-                                    | Save Changes
-                                  a.btn.default(href='javascript:;')
-                                    | Cancel
-                            // END PRIVACY SETTINGS TAB
+                            
                 // END PROFILE CONTENT
             // END PAGE CONTENT
         // END CONTENT
@@ -305,29 +221,29 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='global/plugins/respond.min.js')
-      script(src='global/plugins/excanvas.min.js')
-    script(src='global/plugins/jquery.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
+      script(src='../global/plugins/respond.min.js')
+      script(src='../global/plugins/excanvas.min.js')
+    script(src='../global/plugins/jquery.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='../global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL PLUGINS
-    script(src='global/plugins/bootstrap-fileinput/bootstrap-fileinput.js', type='text/javascript')
-    script(src='global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-fileinput/bootstrap-fileinput.js', type='text/javascript')
+    script(src='../global/plugins/jquery.sparkline.min.js', type='text/javascript')
     // END PAGE LEVEL PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
-    script(src='global/scripts/metronic.js', type='text/javascript')
-    script(src='admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='admin/pages/scripts/profile.js', type='text/javascript')
+    script(src='../global/scripts/metronic.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='../admin/pages/scripts/profile.js', type='text/javascript')
     // END PAGE LEVEL SCRIPTS
     script.
       jQuery(document).ready(function() {
