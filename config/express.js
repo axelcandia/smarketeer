@@ -1,17 +1,17 @@
-var config = require('./config'),
-	express = require('express'),
-	bodyParser = require('body-parser'),
-	passport = require('passport'),
-	flash = require('connect-flash'),
-	session = require('express-session');
+var config 			= require('./config'),
+	express 		= require('express'),
+	bodyParser 		= require('body-parser'),
+	passport 		= require('passport'),
+	flash 			= require('connect-flash'), 
+	cookieParser 	= require('cookie-parser');
+	session 		= require('express-session');
 
 module.exports = function() {
 	var app = express();
 
 	app.use(bodyParser.urlencoded({
 		extended: true
-	}));
-
+	})); 
 	app.use(bodyParser.json());
 
 	app.use(session({
@@ -26,6 +26,7 @@ module.exports = function() {
 	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session());
+	app.use(cookieParser());
  
 	require('../app/routes/users.server.routes.js')(app);
 	require('../app/routes/dashboard.server.routes.js')(app);

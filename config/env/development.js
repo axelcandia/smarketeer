@@ -2,15 +2,22 @@ var port = process.env.PORT || 1337;
 
 module.exports = {
 	port: port,
-	db: 'mongodb://db-smarketeer.cloudapp.net/Production',
-	facebook: {
-		clientID: '1539348089726612',
-		clientSecret: '3cf68a04a1859ab4ab158a54ef34f4fe',
-		callbackURL: 'http://smarketeer.io/oauth/facebook/callback'
+	db: 'mongodb://db-smarketeer.cloudapp.net/Development',
+	facebook : {
+		clientID 		: '1539348089726612', // your App ID
+		clientSecret 	: '3cf68a04a1859ab4ab158a54ef34f4fe', // your App Secret
+		callbackURL 	: 'http://localhost:1337/auth/facebook/callback'
 	},
-	twitter: {
-		clientID: 'yFntGKkvMZkDKL47XGtzLNdRA',
-		clientSecret: 'EAiPTjPYLX5nrkpRtxYQflbWpRTqqLwwBHRLh7WpdQ1P69Tre6',
-		callbackURL: 'http://smarketeer.io/oauth/twitter/callback'
+	twitter : {
+		consumerKey		: 'your-consumer-key-here',
+		consumerSecret 	: 'your-client-secret-here',
+		callbackURL 	: 'http://localhost:1337/auth/twitter/callback'
+	},
+
+	google : {
+		clientID 		: 'your-secret-clientID-here',
+		clientSecret 	: 'your-client-secret-here',
+		callbackURL 	: 'http://localhost:1337/auth/google/callback'
 	}
+	
 };

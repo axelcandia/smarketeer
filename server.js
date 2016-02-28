@@ -11,8 +11,7 @@ var db = mongoose(),
 	passport = passport();
 
 
-//IMPORTANT THE SECTION BELOW HAS TO BE DELETED ASAP AND IMPORTED TO module.exports = app;
-var port 	= process.env.PORT || 1337;
+//IMPORTANT THE SECTION BELOW HAS TO BE DELETED ASAP AND IMPORTED TO module.exports = app; 
 	/*
 		FUNNELS GETTERS
 	*/
@@ -72,4 +71,4 @@ var port 	= process.env.PORT || 1337;
 
  module.exports = app;
 
-app.listen(port);//(config.port);
+app.listen(config.port);//;

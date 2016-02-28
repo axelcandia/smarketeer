@@ -63,11 +63,11 @@ html(lang='en')
         .alert.alert-danger.display-hide
           button.close(data-close='alert')
           span
-            | Enter your username and password.
+            | Enter your email and password.
         .form-group
           // ie8, ie9 does not support html5 placeholder, so we just show field title for that
-          label.control-label.visible-ie8.visible-ie9 User Name
-          input.form-control.form-control-solid.placeholder-no-fix(type='text', autocomplete='off', placeholder='User Name',name="username")
+          label.control-label.visible-ie8.visible-ie9 Email
+          input.form-control.form-control-solid.placeholder-no-fix(type='text', autocomplete='off', placeholder='Email',name="email")
         .form-group
           label.control-label.visible-ie8.visible-ie9 Password
           input.form-control.form-control-solid.placeholder-no-fix(type='password', autocomplete='off', placeholder='Password', name='password')
@@ -75,11 +75,11 @@ html(lang='en')
           h4 Sign in using
           ul.social-icons
             li
-              a.social-icon-color.facebook(data-original-title='facebook', href='/oauth/facebook')
+              a.social-icon-color.facebook(data-original-title='facebook', href='/auth/facebook')
             li
-              a.social-icon-color.twitter(data-original-title='Twitter', href='/oauth/twitter')
+              a.social-icon-color.twitter(data-original-title='Twitter', href='/auth/twitter')
 
-            //li
+            li
               a.social-icon-color.googleplus(data-original-title='Goole Plus', href='javascript:;')
             //li
               a.social-icon-color.linkedin(data-original-title='Linkedin', href='javascript:;')
