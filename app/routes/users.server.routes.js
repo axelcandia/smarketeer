@@ -52,11 +52,11 @@ module.exports = function(app) {
 		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
 		// the callback after google has authenticated the user
-		app.get('/auth/google/callback',
-			passport.authenticate('google', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+		app.get( '/auth/google/callback', 
+		    passport.authenticate( 'google', { 
+		        successRedirect: '/home/dashboard',
+		        failureRedirect: '/auth/google/failure'
+		}));
 
 	/*
 	UNLINK SOCIAL MEDIA
