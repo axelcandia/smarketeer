@@ -1,15 +1,1 @@
 loggingEnabled: true
-<system.webServer>
-  <rewrite>
-    <rules>
-      <clear />
-      <rule name="WWW Rewrite" stopProcessing="true" enabled="true">
-        <match url=".*" />
-        <conditions>
-          <add input="{HTTP_HOST}" pattern="^www[.](.+)" />
-        </conditions>
-        <action type="Redirect" url="http://smarketeer.io" redirectType="Permanent" />
-      </rule>
-    </rules>
-  </rewrite>
-</system.webServer>
