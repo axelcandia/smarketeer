@@ -1,14 +1,18 @@
 var passport = require('passport');
-
+ 
 
 exports.renderDashboard = function(req, res, next) {
-	if (!req.user) {
-		res.render('/home/dashboard', {
+	if (!req.session.isPopulated) {
+		res.render('security/login', {
 			title: 'Log-in Form',
 			messages: req.flash('error') || req.flash('info')
 		});
 	}
-	else {
-		return res.redirect('/user/MyPlan');
+	else { 
+		res.render('home/Dashboard', {
+			title: 'Log-in Form',
+			username: "holuuu",
+			messages: req.flash('error') || req.flash('info')
+		});  
 	}
-}; 
+};

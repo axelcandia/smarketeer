@@ -30,7 +30,7 @@ exports.renderLogin = function(req, res, next) {
 			messages: req.flash('error') || req.flash('info')
 		});
 	}
-	else {
+	else { 
 		return res.redirect('/home/dashboard');
 	}
 };

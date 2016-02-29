@@ -17,7 +17,9 @@ module.exports = function() {
 
 	app.set('views', './app/views');
 	app.set('view engine', 'jade');//TODO
-
+	app.set('view options', {
+	    layout: false
+	});
 	app.use(flash());
 	app.use(passport.initialize());
 	app.use(passport.session()); 
