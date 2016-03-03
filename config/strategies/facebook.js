@@ -1,7 +1,6 @@
 var passport         = require('passport'),
     url              = require('url'),
     FacebookStrategy = require('passport-facebook').Strategy,
-    User             = require('mongoose').model('User');
     config           = require('../config');
 
 

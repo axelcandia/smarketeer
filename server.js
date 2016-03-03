@@ -15,18 +15,20 @@ var db = mongoose(),
 	/*
 		FUNNELS GETTERS
 	*/
+	app.get('/home/funnel/leads',function (req,res){
+			res.render("home/funnel/leads");
+		});
+		app.get('/home/funnel/sales',function (req,res){
+			res.render(path.join( __dirname + "/app/views/home/funnel/sales"));
+		});
+		app.get('/home/funnel/visitors',function (req,res){
+			res.render(path.join( __dirname + "/app/views/home/funnel/visitors"));
+		}); 
+
+
+		
 	app.get('/',function (req,res){
 		res.render(path.join( __dirname + "/app/views/intro"));
-	});
-
-	app.get('/home/funnel/leads',function (req,res){
-		res.render(path.join( __dirname + "/app/views/home/funnel/leads"));
-	});
-	app.get('/home/funnel/sales',function (req,res){
-		res.render(path.join( __dirname + "/app/views/home/funnel/sales"));
-	});
-	app.get('/home/funnel/visitors',function (req,res){
-		res.render(path.join( __dirname + "/app/views/home/funnel/visitors"));
 	}); 
 	app.get('/home/campaign-builder',function (req,res){ 
 		res.render(path.join( __dirname + "/app/views/home/campaign-builder"));

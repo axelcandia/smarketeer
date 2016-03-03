@@ -1,3 +1,9 @@
+// preset form values if we receive a userdata object //
+- user = typeof(udata) != 'undefined' ? udata : { }
+// store the userId on the client side in a hidden input field //
+input(type='hidden', value= user._id)#userId
+
+
 // BEGIN HEADER INNER
 .page-header-inner.container
         // BEGIN LOGO
@@ -72,7 +78,7 @@
               li.dropdown.dropdown-user
                 a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
                   img.img-circle(alt='', src='/Images/dashboard/default.png')
-                  span.username.username-hide-on-mobile #{username}
+                  span.username.username-hide-on-mobile  #{user.user}
                   i.fa.fa-angle-down
                 ul.dropdown-menu.dropdown-menu-default
                   li

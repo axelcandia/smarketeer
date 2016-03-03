@@ -1,7 +1,6 @@
 var passport = require('passport'),
 	GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-    config = require('../config'),
-	User = require('mongoose').model('User');
+    config = require('../config');
 
 module.exports = function() {
 	passport.use(new GoogleStrategy({

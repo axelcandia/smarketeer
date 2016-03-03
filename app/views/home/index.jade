@@ -1,14 +1,10 @@
+// preset form values if we receive a userdata object //
+- user = typeof(udata) != 'undefined' ? udata : { }
+// store the userId on the client side in a hidden input field //
+input(type='hidden', value= user._id)#userId
+
 doctype html
-//
-  Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
-  Version: 4.1.0
-  Author: KeenThemes
-  Website: http://www.keenthemes.com/
-  Contact: support@keenthemes.com
-  Follow: www.twitter.com/keenthemes
-  Like: www.facebook.com/keenthemes
-  Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-  License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+
 //if IE 8
   html.ie8.no-js(lang='en')  
 //if IE 9

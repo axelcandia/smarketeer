@@ -2,7 +2,7 @@ var passport = require('passport'),
 	mongoose = require('mongoose');
 
 module.exports = function() {
-	var User = mongoose.model('User');
+	//var User = mongoose.model('User');
 
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
@@ -17,9 +17,10 @@ module.exports = function() {
 			}
 		);
 	});
-
+	
+	/*
 	require('./strategies/local.js')();
 	require('./strategies/facebook.js')();
 	require('./strategies/twitter.js')();
-	require('./strategies/google.js')();
+	require('./strategies/google.js')();*/
 };
