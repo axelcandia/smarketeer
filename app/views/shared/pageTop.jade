@@ -78,7 +78,8 @@ input(type='hidden', value= user._id)#userId
               li.dropdown.dropdown-user
                 a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
                   img.img-circle(alt='', src='/Images/dashboard/default.png')
-                  span.username.username-hide-on-mobile  #{user.user}
+                  span.username.username-hide-on-mobile 
+                  //#{user.user}
                   i.fa.fa-angle-down
                 ul.dropdown-menu.dropdown-menu-default
                   li
