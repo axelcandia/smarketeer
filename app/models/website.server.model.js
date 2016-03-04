@@ -6,7 +6,7 @@ var bcrypt   = require('bcrypt-nodejs');
 var websiteSchema = mongoose.Schema({
 {
 
-    userId							: ObjectId,
+    userId							: Object,
     slug							: String, //short path to acces
     created							: Date,
     visitors						:{

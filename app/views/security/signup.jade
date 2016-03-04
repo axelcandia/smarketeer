@@ -1,15 +1,31 @@
 
 extends layout
 
-block content
-	include account
-	include modals/alert
+
+block content 
+
+  .login-container
+    form( method="post")#login-form.well.span4
+      h1 Sign Up!
+      p.subheading Please tell us a little about yourself.
+      label(for='email')  
+      input(type='email', name='email', id='email', placeholder='juan@awesome.com', autofocus=true).span4.required
+      label(for='password') 
+      input(type='password', name='password', id='password', placeholder='Password').span4.required
+      label(for='confirmPassword') 
+      input(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password').span4.required
+      div.clear-fix
+      hr
+      .form-buttons
+        a.btn.btn-default(role='button',href="/") Cancel
+        input.btn.btn-default.pad(type='submit', value='Submit')
+      input(type='hidden', name='_csrf', value=_csrf)
+
+  //include modals/alert
+  //include modals/lost-password
 
 block scripts
-	script(src='/vendor/jquery.min.js')
-	script(src='/vendor/jquery.form.js')
-	script(src='/vendor/bootstrap-modal.js')
-	script(src='/vendor/bootstrap-transition.js')
-	script(src='/js/views/signup.js')
-	script(src='/js/controllers/signupController.js')
-	script(src='/js/form-validators/accountValidator.js')
+  script(src='/vendor/jquery.min.js')
+  script(src='/vendor/jquery.form.js')
+  script(src='/vendor/bootstrap-modal.js')
+  script(src='/vendor/bootstrap-transition.js')

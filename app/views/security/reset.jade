@@ -1,13 +1,17 @@
-
 extends layout
 
 block content
-	include modals/reset-password
-
-block scripts
-	script(src='/vendor/jquery.min.js')
-	script(src='/vendor/jquery.form.js')
-	script(src='/vendor/bootstrap-modal.js')
-	script(src='/vendor/bootstrap-transition.js')
-	script(src='/js/views/reset.js')
-	script(src='/js/form-validators/resetValidator.js')
+  .col-sm-8.col-sm-offset-2
+    form(method='POST')
+      legend Reset Password
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        label(for='password') New Password
+        input.form-control(type='password', name='password', value='', placeholder='New password', autofocus=true)
+      .form-group
+        label(for='confirm') Confirm Password
+        input.form-control(type='password', name='confirm', value='', placeholder='Confirm password')
+      .form-group
+        button.btn.btn-primary.btn-reset(type='submit')
+          i.fa.fa-keyboard-o
+          | Change Password

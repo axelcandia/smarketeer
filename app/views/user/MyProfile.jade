@@ -101,14 +101,17 @@ html(lang='en')
                   .portlet.light.profile-sidebar-portlet
                     // SIDEBAR USERPIC
                     .profile-userpic
-                      img.img-responsive(src='../Images/dashboard/daniel-digifianz-academy2.png', alt='')
+                      if user.profile.picture
+                        img.img-responsive(src='#{user.profile.picture}')
+                      else
+                        img.img-responsive(src='#{user.gravatar(60)}') 
                     // END SIDEBAR USERPIC
                     // SIDEBAR USER TITLE
                     .profile-usertitle
                       .profile-usertitle-name
-                        | Daniel Patiño
+                        | #{user.profile.name || user.email || user.id}&nbsp;
                       .profile-usertitle-job
-                        | Digital Marketer
+                        | #{user.company}
                     // END SIDEBAR USER TITLE
                     // SIDEBAR BUTTONS
                     .profile-userbuttons
@@ -150,18 +153,19 @@ html(lang='en')
                             #personalInfo.tab-pane.active
                               form(role='form', action='#')
                                 .form-group
-                                  label.control-label First Name
-                                  input.form-control(type='text', placeholder='John')
+                                  label.control-label Email
+                                  input.form-control(type='text', placeholder='#{user.email}')
                                 .form-group
-                                  label.control-label Last Name
-                                  input.form-control(type='text', placeholder='Doe')
+                                  label.control-label Name
+                                  input.form-control(type='text', placeholder='#{user.profile.name}')
                                 .form-group
                                   label.control-label Company Name
                                   input.form-control(type='text', placeholder='Company Name')
                                 
                                 .margiv-top-10
-                                  a.btn.green-haze(href='javascript:;')
+                                  a.b(href='javascript:;')
                                     | Save Changes
+                                  button.btn.green-haze(type='submit' value="Save Changes")
                                   a.btn.default(href='javascript:;')
                                     | Cancel
                             // END PERSONAL INFO TAB

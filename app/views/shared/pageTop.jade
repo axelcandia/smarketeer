@@ -1,8 +1,3 @@
-// preset form values if we receive a userdata object //
-- user = typeof(udata) != 'undefined' ? udata : { }
-// store the userId on the client side in a hidden input field //
-input(type='hidden', value= user._id)#userId
-
 
 // BEGIN HEADER INNER
 .page-header-inner.container
@@ -77,9 +72,12 @@ input(type='hidden', value= user._id)#userId
               // DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte
               li.dropdown.dropdown-user
                 a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                  img.img-circle(alt='', src='/Images/dashboard/default.png')
-                  span.username.username-hide-on-mobile 
-                  //#{user.user}
+                  if user.profile.picture
+                    img.img-circle(src='#{user.profile.picture}')
+                  else
+                    img.img-circle(src='#{user.gravatar(60)}')
+                  //img(src="#{user.gravatar()}", class='profile', width='100', height='100')
+                  span.username.username-hide-on-mobile  #{user.profile.name || user.email || user.id}&nbsp;
                   i.fa.fa-angle-down
                 ul.dropdown-menu.dropdown-menu-default
                   li
@@ -92,7 +90,7 @@ input(type='hidden', value= user._id)#userId
                       |  Subscription Plan
                   li.divider
                   li
-                    a(href='/logout')
+                    a#btn-logout(href='/logout')
                       i.icon-key
                       |  Log Out
               // END USER LOGIN DROPDOWN

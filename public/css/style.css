@@ -4,31 +4,31 @@ body {
   height: 100%;
   background: #364150;
 }
-#login-container {
+.login-container {
   width: 340px;
   margin: 160px auto;
 }
-#login-container label {
+.login-container label {
   margin: 15px 0 5px 5px;
 }
-#login-container button {
+.login-container button {
   width: 150px;
   padding: 6px 40px 6px 40px;
   float: left;
   margin-top: 15px;
 }
-#login-container .checkbox {
+.login-container .checkbox {
   margin: 23px 0 0 180px;
 }
-#login-container .btm-links {
+.login-container .btm-links {
   text-align: center;
   margin-top: 10px;
 }
-#login-container #create-account {
+.login-container #create-account {
   float: right;
   margin-right: 13px;
 }
-#login-container #forgot-password {
+.login-container #forgot-password {
   float: left;
   margin-left: 10px;
 }
@@ -104,11 +104,10 @@ body {
 .form-horizontal .controls {
   margin-left: 120px;
 }
-.form-horizontal .form-buttons {
+ .form-buttons{
   float: right;
-  margin-right: 30px;
-}
-.form-horizontal .form-buttons .btn {
+ }
+.form-buttons .btn {
   width: 80px;
   margin-left: 8px;
 }

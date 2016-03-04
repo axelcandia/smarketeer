@@ -1,10 +1,23 @@
 doctype html
 html
-	head
-		title Node.js Login
-		link(rel='stylesheet', href='/vendor/bootstrap.min.css')
-		link(rel='stylesheet', href='/css/style.css')
-	body
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='csrf-token', content=_csrf)
+    link(rel='shortcut icon', href='/favicon.png') 
+    link(rel='stylesheet', href='/vendor/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    link(rel="stylesheet", href='/vendor/bootstrap-social.css')
+    link(rel="stylesheet", href='/global/plugins/font-awesome/css/font-awesome.css')
+  body
 
-	block content
-	block scripts
+    .container
+      include partials/flash
+      block content
+
+    script(src='/js/lib/jquery-2.2.0.min.js')
+    script(src='/js/lib/bootstrap.min.js')
+    script(src='/js/main.js')
+
+    block scripts
