@@ -10,7 +10,7 @@
     },
    "engines": {
     "node": "4.3.1"
-  }
+  },
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
