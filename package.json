@@ -6,7 +6,11 @@
     "url": "https://github.com/axelcandia/smarketeer.git"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.js"
+    },
+   "engines": {
+    "node": "4.3.1"
+  }
   "dependencies": {
     "async": "^1.5.2",
     "bcrypt-nodejs": "^0.0.3",
