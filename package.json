@@ -57,7 +57,10 @@
     "validator": "^5.1.0",
     "yui": "^3.18.1"
   },
-  "devDependencies": {
+   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
   },
   "license": "MIT"
 }
