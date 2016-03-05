@@ -12,7 +12,7 @@ var errorHandler      = require('errorhandler');
 var lusca             = require('lusca');
 var methodOverride    = require('method-override');
 var dotenv            = require('dotenv');
-var MongoStore        = require('connect-mongo/es5')(session);
+var MongoStore        = require('connect-mongo')(session);
 var flash             = require('express-flash');
 var path              = require('path');
 var mongoose          = require('mongoose');
@@ -22,6 +22,7 @@ var sass              = require('node-sass-middleware');
 var multer            = require('multer');
 var upload            = multer({ dest: path.join(__dirname, 'uploads') });
 var mongoose          = require('./app/config/mongoose');
+var config            = require("./app/config/config.js");
 
 
 var db = mongoose();
@@ -74,9 +75,9 @@ app.use(cookieParser());
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET,
+  secret: config.secret,
   store: new MongoStore({
-    url: process.env.MONGODB || process.env.MONGOLAB_URI,
+    url: config.db,
     autoReconnect: true
   })
 }));
