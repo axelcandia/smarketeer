@@ -6,11 +6,9 @@ var source = window.location.href;
 $.get("http://ipinfo.io", function(response) {
     ip=response.ip;
     $.ajax({
-    	 type: 'GET',
-    	dataType: 'jsonp',
+    	type: 'POST',
+    	dataType: 'json',
     	data: "data="+ip,
-    	jsonp : false,
-    	jsonpCallback: 'jsonCallback',
     	url: 'http://127.0.0.1:1337/tracker',
     	success: function(data) {
     		console.log('success');
