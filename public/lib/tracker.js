@@ -6,10 +6,12 @@ var source = window.location.href;
 $.get("http://ipinfo.io", function(response) {
     ip=response.ip;
     $.ajax({
+    	 type: 'GET',
     	dataType: 'jsonp',
     	data: "data="+ip,
-    	jsonp: 'callback',
-    	url: 'http://127.0.0.1:3000/endpoint?callback=?',
+    	jsonp : false,
+    	jsonpCallback: 'jsonCallback',
+    	url: 'http://127.0.0.1:1337/tracker',
     	success: function(data) {
     		console.log('success');
     		console.log(JSON.stringify(data)); 
