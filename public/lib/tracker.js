@@ -10,8 +10,9 @@ $.get("http://ipinfo.io", function(response) {
     	dataType: 'jsonp',
     	data: "data="+ip,
     	jsonp : false,
-    	jsonpCallback: 'jsonCallback',
-    	url: 'http://127.0.0.1:1337/tracker',
+    	dataType: 'jsonp',               
+        jsonp: 'callback',
+    	url: 'http://127.0.0.1:1337/tracker?callback=?',
     	success: function(data) {
     		console.log('success');
     		console.log(JSON.stringify(data)); 

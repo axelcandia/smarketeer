@@ -1,10 +1,10 @@
-var _ = require('lodash');
-var async = require('async');
-var crypto = require('crypto');
-var nodemailer = require('nodemailer');
-var passport = require('passport');
-var User = require('../models/User');
-
+var _           = require('lodash');
+var async       = require('async');
+var crypto      = require('crypto');
+var nodemailer  = require('nodemailer');
+var passport    = require('passport');
+var User        = require('../models/User');
+var Website     = require('../models/website.server.model');
 /**
  * GET /login
  * Login page.
@@ -81,6 +81,7 @@ exports.postSignup = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('mainWebsite', "Invalid website").len(1);
 
   var errors = req.validationErrors();
 
@@ -89,9 +90,13 @@ exports.postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
+/**
+* Create a new user
+*/
   var user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    mainWebsite: req.body.mainWebsite
   });
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
@@ -111,7 +116,29 @@ exports.postSignup = function(req, res, next) {
       });
     });
   });
+
+  /**
+  *Create a new website
+  */
+  var website = new Website({
+    name    : req.body.mainWebsite,
+
+    slug    : (req.body.mainWebsite.length > 80 )? req.body.mainWebsite.substring(0,15) : 
+                                                   req.body.mainWebsite,
+    userId  : user._id,
+    date    : new Date()                                  
+
+  });
+
+  website.save(function(err){
+    if(err){
+        return next(err);
+      }
+  });
 };
+
+
+
 
 /**
  * GET /account

@@ -1,4 +1,5 @@
-process.env.NODE_ENV =/* process.env.NODE_ENV || */'production';
+process.env.NODE_ENV =/* process.env.NODE_ENV || */"production";
+                      //"development";
 /**
  * Module dependencies.
  */
@@ -22,23 +23,19 @@ var expressValidator  = require('express-validator');
 var multer            = require('multer');
 var upload            = multer({ dest: path.join(__dirname, 'uploads') });
 var mongoose          = require('./app/config/mongoose');
-var config            = require("./app/config/config.js");
+var config            = require('./app/config/config.js');
 
 
-var db = mongoose();
-/**
- * Load environment variables from .env file, where API keys and passwords are configured.
- *
- * Default path: .env (You can remove the path argument entirely, after renaming `.env.example` to `.env`)
- */
-dotenv.load({ path: '.env.example' });
+var db = mongoose(); 
 /**
  * Controllers (route handlers).
  */
-var homeController = require('./app/controllers/home');
-var userController = require('./app/controllers/user');
-var apiController = require('./app/controllers/api');
+var homeController    = require('./app/controllers/home');
+var userController    = require('./app/controllers/user');
+var apiController     = require('./app/controllers/api');
 var contactController = require('./app/controllers/contact');
+//This has to be deleted as soon as possible
+var trackerController = require('./app/controllers/tracker.core.controller');
 
 /**
  * API keys and Passport configuration.
@@ -151,9 +148,14 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
-}); 
+});
 
+/**
+ * Tracker this must be removed
+ */ 
+app.get('/tracker', trackerController.receiveData);
 
+//app.post('/login', userController.postLogin);
 
 //EDITI THIS ASAP
 
