@@ -12,7 +12,7 @@ $.get("http://ipinfo.io", function(response) {
     	jsonp : false,
     	dataType: 'jsonp',               
         jsonp: 'callback',
-    	url: 'http://127.0.0.1:1337/tracker?callback=?',
+    	url: 'http://smarketeer.azurewebsites.net/tracker?callback=?',
     	success: function(data) {
     		console.log('success');
     		console.log(JSON.stringify(data)); 
