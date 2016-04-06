@@ -1,32 +1,51 @@
-var bcrypt = require('bcrypt-nodejs');
-var crypto = require('crypto');
-var mongoose = require('mongoose');
+var bcrypt    = require('bcrypt-nodejs');
+var crypto    = require('crypto');
+var mongoose  = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-  email: { type: String, lowercase: true, unique: true },
-  password: String,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
+  email                 : { 
+    type                : String, lowercase: true, unique: true 
+  },
+  password              : String,
+  passwordResetToken    : String,
+  passwordResetExpires  : Date, 
+  facebook              : String,
+  twitter               : String,
+  google                : String,
+  github                : String,
+  instagram             : String,
+  linkedin              : String,
+  steam                 : String,
+  tokens                : Array,
+  mainWebsite           : String,
 
-  facebook: String,
-  twitter: String,
-  google: String,
-  github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
-  tokens: Array,
-
-  profile: {
-    name: { type: String, default: '' },
-    gender: { type: String, default: '' },
-    location: { type: String, default: '' },
-    website: { type: String, default: '' },
-    picture: { type: String, default: '' }
+  profile               : {
+    name                : { 
+      type              : String, 
+      default           : '' 
+    },
+    gender: { 
+      type              : String, 
+      default           : '' 
+    },
+    location: { 
+      type              : String, 
+      default           : '' 
+    },
+    website: { 
+      type              : String, 
+      default           : '' 
+    },
+    picture: 
+    { 
+      type              : String, default: '' 
+  }
   },
   //Personal informtion
-  status: String,
-}, { timestamps: true });
+  status                : String,
+}, { 
+  timestamps            : true 
+});
 
 /**
  * Password hash middleware.

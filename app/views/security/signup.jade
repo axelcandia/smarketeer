@@ -8,12 +8,14 @@ block content
     form( method="post")#login-form.well.span4
       h1 Sign Up!
       p.subheading Please tell us a little about yourself.
-      label(for='email')  
+      label(for='email')  Email
       input(type='email', name='email', id='email', placeholder='juan@awesome.com', autofocus=true).span4.required
-      label(for='password') 
-      input(type='password', name='password', id='password', placeholder='Password').span4.required
-      label(for='confirmPassword') 
-      input(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password').span4.required
+      label(for='mainWebsite')  Website
+      input(type='text', name='mainWebsite', id='mainWebsite', placeholder='www.legendary.com', autofocus=true).span4.required
+      label(for='password') Password
+      input(type='password', name='password', id='password', placeholder='***********').span4.required
+      label(for='confirmPassword') Confirm Password
+      input(type='password', name='confirmPassword', id='confirmPassword', placeholder='***********').span4.required
       div.clear-fix
       hr
       .form-buttons

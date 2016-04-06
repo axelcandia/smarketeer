@@ -1,5 +1,5 @@
 var nodemailer = require("nodemailer");
-var congig     = require("../config/config.js");
+var congig     = require("../../config/config.js");
 var transporter = nodemailer.createTransport({
   service: 'SendGrid',
   auth: {
