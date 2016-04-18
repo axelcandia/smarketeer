@@ -74,9 +74,7 @@ module.exports = function(app) {
 	    app.get('/home/funnel/sales',function (req,res){
 	      res.render("home/funnel/sales");
 	    });
-	    app.get('/home/funnel/visitors',function (req,res){
-	      res.render("home/funnel/visitors");
-	    }); 
+	    
 
 
 

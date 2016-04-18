@@ -3,8 +3,7 @@ var async       = require('async');
 var crypto      = require('crypto');
 var nodemailer  = require('nodemailer');
 var passport    = require('passport');
-var User        = require('../models/User');
-var Website     = require('../models/website.server.model');
+var User        = require('../models/User'); 
 /**
  * GET /login
  * Login page.
@@ -115,26 +114,7 @@ exports.postSignup = function(req, res, next) {
         res.redirect('/home');
       });
     });
-  });
-
-  /**
-  *Create a new website
-  */
-  var website = new Website({
-    name    : req.body.mainWebsite,
-
-    slug    : (req.body.mainWebsite.length > 80 )? req.body.mainWebsite.substring(0,15) : 
-                                                   req.body.mainWebsite,
-    userId  : user._id,
-    date    : new Date()                                  
-
-  });
-
-  website.save(function(err){
-    if(err){
-        return next(err);
-      }
-  });
+  }); 
 };
 
 

@@ -1,10 +1,5 @@
-$(document).ready(function(){ 
-
-  $.get( "/analytics/visitors", function(data) {
-  alert( "success" );
-})
-  .fail(function() {
-    alert( "error" );
-  });
-
+$(document).ready(function(){  
+  $( "#nvisitors" ).load( "/analytics/nvisitors");
+  $( "#nleads" ).load( "/analytics/nleads");
+  $( "#nsales" ).load( "/analytics/nsales");
 }); 
