@@ -102,17 +102,19 @@ html.no-js(lang='en')
             li.dropdown(style="list-style-type:none")
               a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
                 h3.page-title(style='display: inline-block')
-                  if ( items[0].webProperty[0].name )
-                  | Dashboards
+                  if ( items[0])
+                    | Dashboards #{items[0]}
                   else
-                   | #{items[0].webProperty[0].name} 
+                   |#{items[0].webProperty[0].name} 
                 i.fa.fa-angle-down
               ul.dropdown-menu
-                else
+                if items
                   each item in items
                     each webProperty in item.webProperties
                       li
                         a(href='#') #{webProperty.name}
+                else
+                  | 
             .page-bar
               ul.page-breadcrumb
                 li

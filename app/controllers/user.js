@@ -12,11 +12,18 @@ exports.getLogin = function(req, res) {
   if (req.user) {
     return res.redirect('/home');
   }
+  
   res.render('security/login', {
     title: 'Login'
   });
 };
+/**
+* 
+*Otener la url correspondiente a la priemra vista en caso de error devolver /home
+*/
+function MakeHomeUrl(req,res){
 
+}
 /**
  * POST /login
  * Sign in using email and password.
@@ -31,7 +38,6 @@ exports.postLogin = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/login');
   }
-
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err);
@@ -40,6 +46,7 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
+    console.log(user);
     req.logIn(user, function(err) {
       if (err) {
         return next(err);

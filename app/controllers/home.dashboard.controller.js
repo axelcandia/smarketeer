@@ -1,14 +1,17 @@
 var config			= require("../../config/config");
 var google 	  		= require("googleapis");
 var OAuth2 			= google.auth.OAuth2;
-var oauth2Client 	= new OAuth2(config.google.clientID, config.google.clientSecret, config.google.callbackURL);
-var analytics 		= StartAnalytics
+var oauth2Client 	= new OAuth2( config.google.clientID, config.google.clientSecret, config.google.callbackURL );
+var analytics 		= null;
+var GetAnalytics 	= require("./analytics.core.controller").GetAnalytics;
+
 exports.getHome = function(req, res, next) {
 	if (!req.user) { 
 		console.log("I have to edit ths later");
 	}
-	else {
-		var analytics= StartAnalytics(req,res);
+	else { 
+
+		analytics = GetAnalytics(req,res);
 		
 		analytics.management.accountSummaries.list(function(err,data){
 			if(err)
@@ -22,24 +25,13 @@ exports.getHome = function(req, res, next) {
 				
 		})
 	}
-}; 
-/**
-* This function will start analytics and make it a global variable
-*/
-function StartAnalytics(req,res){
-	oauth2Client.setCredentials({
-	  access_token: req.user.tokens[0].accessToken,
-	  refresh_token: req.user.tokens[0].refreshToken,
-	  expiry_date: true
-	}); 
-	return google.analytics({ version: 'v3', auth: oauth2Client }); 
-}
+};
  
 /**
 * @Receives: analytics objetcs,
 * @Receives: one profileId,
 * @Returns: RealTime Data,
-*/
+**/
 function GetRealTimeData(analytics, profileId){
 	var params = {
 		"ids":"ga:"+profileId,
