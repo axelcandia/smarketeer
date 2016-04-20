@@ -4,24 +4,28 @@ var OAuth2 					= google.auth.OAuth2;
 var oauth2Client			= new OAuth2(config.google.clientID, config.google.clientSecret, config.google.callbackURL);
 var AccountInformation     	= require('../models/accountInformation.server.model');
 var analytics 				= null;
-/**
-* Gets the token and starts the analytics appropiate to that account
-*/
 
+
+/**
+* @Req tokens
+* @Return the analytics for this account
+*/
 var GetAnalytics = function (req,res){
 	oauth2Client.setCredentials({
-	  access_token: req.user.tokens[0].accessToken,
+	  access_token:  req.user.tokens[0].accessToken,
 	  refresh_token: req.user.tokens[0].refreshToken,
 	  expiry_date: true
-	});
+	}); 
+	console.log(req.user.email);
 	return  analytics = (analytics) ? analytics :
-									  google.analytics({ version: 'v3', auth: oauth2Client }); 
+									  google.analytics({ version: 'v3', 
+									  					 auth: oauth2Client,
+									  				 	  params: { quotaUser: req.user.google }		});
 }
 /**
 * Returns the view with biggest visits and the number of total visits
 */
 exports.GetDashboardVisits = function (req,res){
-
 	GetAnalytics(req,res);
 	analytics.management.accountSummaries.list(function(err,data){
 		if(err) 
@@ -90,13 +94,13 @@ function GetViews(res,data){
 	} 
 	
 }
-module.exports.GetAnalytics=GetAnalytics;
-/**
+module.exports.GetAnalytics = GetAnalytics; /**
 * Start analytics and returns the home url
 */
 exports.returnHomeUrl = function (req,res){
 	GetAnalytics(req,res);
 }
+
 /**
 * Gets the home url
 */

@@ -2,12 +2,12 @@ var config					     = require("../../config/config");
 var google 	  				   = require("googleapis");
 var OAuth2 					     = google.auth.OAuth2;
 var oauth2Client			   = new OAuth2(config.google.clientID, config.google.clientSecret, config.google.callbackURL);
-var CustomDimension     = require('../models/customDimensions.server.model');
-var analytics 				   = null;
-var visits					     = require("./analytics.core.controller");
+var CustomDimension      = require('../models/customDimensions.server.model');
+var analytics 				   = require("./analytics.core.controller").analytics;
+var GetAnalytics         = require("./analytics.core.controller").GetAnalytics;
 
 exports.GetTotalVisits = function (req,res){
-	visits.GetAnalytics(req,res);  
+	analytics = GetAnalytics(req,res);  
 	GetIpDimension(req,res);
 }
 
@@ -18,21 +18,24 @@ exports.GetTotalVisits = function (req,res){
 * @Returns DeleteDimension if it was not able due to an error
 */
 function GetIpDimension( req, res ){
+  CustomDimension.findOne( {},{ pages: { $elemMatch: { _id: "UA-75241424-1" } } },
 
-  CustomDimension.findOne({},
-                 { pages: { $elemMatch: { _id: "UA2-123123-123123" } } },
-                function(err, existingDimension) {
-    if(err)
-      console.log("WE HAVE AN ERROR BUUUUUUU");
-    if(existingDimension){
-       if(existingDimension.pages[0].dimensionId)
-          return existingDimension.pages[0].dimensionId;
-       else
-        //Create a new dimension and push it in current status
-        SetIpDimension(existingDimension.pages[0].dimensionId, function(err,data){
-          console.log(data);
+    function(err, existingDimension) {
+      //Error at searching
+      if(err)
+        console.log(err);
+      //Found element
+      if(existingDimension && existingDimension.pages[0] ){
+        return existingDimension.pages[0].dimensionId;
+      }
+      //empty element create it
+      else{
+        SetIpDimension("UA-75241424-1", function(err,data){
+          console.log(data.id);
+          SaveIpDimension(data.id);
         })
-    } 
+      }
+      
       
   });
 }
@@ -43,8 +46,7 @@ function GetIpDimension( req, res ){
 *              return err 
 *          else execute callback
 */
-function SetIpDimension( webProperty,callback ){
-  console.log(webProperty);
+function SetIpDimension( webProperty,callback ){ 
   var account = webProperty.split("-");
   var params={
         "accountId":account[1],
@@ -59,13 +61,20 @@ function SetIpDimension( webProperty,callback ){
       analytics.management.customDimensions.insert(params, function(err,data){
         if(err) console.log(err)
         else
-          console.log(data);
           callback(null,data);
       });
 
 }
-function SaveIpDimension( ){
 
+function SaveIpDimension(update){
+  CustomDimension.findOneAndUpdate(
+              { "pages._id": update },
+              {$addToSet: {"pages": {_id: update, dimensionId: update.id}}},
+              {safe: true, upsert: true},
+              function(err, model) {
+                  console.log(err);
+              }
+          );
 }
 function DeleteIpDimension( req, res ){
 
