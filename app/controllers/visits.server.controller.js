@@ -1,10 +1,4 @@
 var config					     = require("../../config/config");
-var google 	  				   = require("googleapis");
-var OAuth2 					     = google.auth.OAuth2;
-var oauth2Client			   = new OAuth2(config.google.clientID, config.google.clientSecret, config.google.callbackURL);
-var CustomDimension      = require('../models/customDimensions.server.model');
-var analytics 				   = require("./analytics.core.controller").analytics;
-var GetAnalytics         = require("./analytics.core.controller").GetAnalytics;
 
 exports.GetTotalVisits = function (req,res){
 	analytics = GetAnalytics(req,res);  

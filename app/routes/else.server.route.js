@@ -2,8 +2,7 @@
 var	passport = require('passport');
 /**
  * Controllers (route handlers).
- */
-var homeController    = require('../controllers/home');
+ */ 
 var userController    = require('../controllers/user');
 var apiController     = require('../controllers/api');
 var contactController = require('../controllers/contact'); 
@@ -42,12 +41,7 @@ module.exports = function(app) {
 	  res.redirect(req.session.returnTo || '/');
 	}); 
 	app.get('/auth/google', 
-		passport.authenticate('google', { scope: ["https://www.googleapis.com/auth/analytics",
-												  "https://www.googleapis.com/auth/analytics.edit",
-												  "https://www.googleapis.com/auth/analytics.manage.users",
-											   "https://www.googleapis.com/auth/plus.profile.emails.read" ],
-                                      accessType: 'offline', 
-                                      approvalPrompt: 'force' })); 
+		passport.authenticate('google')); 
 	app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
 	  res.redirect(req.session.returnTo || '/home');
 	});

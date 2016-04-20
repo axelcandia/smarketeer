@@ -68,8 +68,7 @@ module.exports = function() {
 	});
 
 	 require('../app/routes/else.server.route.js')   (app);
-	 require('../app/routes/home.server.route.js')   (app);
-	 require('../app/routes/analytics.core.route.js')(app);
+	 require('../app/routes/home.server.route.js')   (app); 
 	 require('../app/routes/visits.server.route.js')   (app);
 	app.use(express.static(path.join(__dirname, '../public'), { maxAge: 31557600000 })); 
 	app.use(errorHandler());
