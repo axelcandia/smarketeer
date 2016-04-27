@@ -5,5 +5,6 @@ module.exports = function(app) {
 	app.get("/campaigns/new", campaignController.RenderGetNew );
 	app.get("/campaigns/seemore/:id/", campaignController.RenderSeeMore );
 	app.post("/campaigns/save", campaignController.SaveCampaign );
-	app.get("/campaigns/eliminar/:id", campaignController.DeleteCampaign );
+	app.post("/campaigns/eliminar/:id", campaignController.DeleteCampaign );
+	app.post("/campaigns/clonar/:id", campaignController.CloneCampaign );
 };

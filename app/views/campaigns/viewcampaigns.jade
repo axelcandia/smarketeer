@@ -4,7 +4,7 @@ html(lang='en')
   // BEGIN HEAD
   head
     meta(charset='utf-8')
-    title Smarketeer | My Forms
+    title Smarketeer | Campañas
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(content='width=device-width, initial-scale=1.0', name='viewport')
     meta(http-equiv='Content-type', content='text/html; charset=utf-8')
@@ -66,7 +66,7 @@ html(lang='en')
                     | Copy & paste the following code into the head of your HTML
                     form(action='#')
                       textarea(rows='4', cols='50')
-                        script(src='..///load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                        script(src='///load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -80,10 +80,10 @@ html(lang='en')
               ul.page-breadcrumb
                 li
                   i.fa.fa-home
-                  a(href='../index') Home
+                  a(href='/home') Inicio
                   i.fa.fa-angle-right
                 li
-                  a(href='../#') Forms
+                  a(href='/campaigns/seeall') Campañas
                   i.fa.fa-angle-right
               .page-toolbar
                 .btn-group.pull-right
@@ -109,7 +109,7 @@ html(lang='en')
                             i.fa.fa-gift
                             | #{campaign.campaign}
                         .portlet-body
-                          h4 Installed
+                          //PONER VISITAS MAS TARDE
                           .actions
                             a.btn.blue.btn-sm(href="/campaigns/seemore/#{campaign._id}")
                               i.fa.fa-pencil
@@ -117,13 +117,12 @@ html(lang='en')
                             //a.btn.btn-default.btn-sm(href='../javascript:;')
                               i.fa.fa-plus
                                 | Ver mas
-                            a.clonar.btn.purple.btn-sm(href='#', onclick:)
+                            a.clonar.btn.purple.btn-sm(href='#',onClick="clonar('#{campaign.campaign}','#{campaign._id}')")
                               i.fa.fa-plus
                               |  Clonar
-                            a.eliminar.btn.pull-right.red.btn-sm(href='#')
+                            a.eliminar.btn.pull-right.red.btn-sm(href='#',onClick="eliminar('#{campaign.campaign}','#{campaign._id}')")
                               i.fa.fa-minus
                               |  Eliminar
-                            a#id(style="display:none" class="#{campaign._id}")
                       if row >= total          
                         .portlet.portlet-sortable-empty
                         - row = 0
@@ -135,27 +134,27 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='../global/plugins/respond.min.js')
-      script(src='../global/plugins/excanvas.min.js')
-    script(src='../global/plugins/jquery.min.js', type='text/javascript')
-    script(src='../global/plugins/jquery-migrate.min.js', type='text/javascript')
+      script(src='/global/plugins/respond.min.js')
+      script(src='/global/plugins/excanvas.min.js')
+    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/bootbox/bootbox.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='../global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='../global/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js', type='text/javascript')
-    script(src='../global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='../global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='../global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='../global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='../global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='../global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='../global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     script(src='/campaigns/js/seeall.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
-    script(src='../global/scripts/metronic.js', type='text/javascript')
-    script(src='../admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='../admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='../admin/pages/scripts/portlet-draggable.js')
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/portlet-draggable.js')
     // END PAGE LEVEL SCRIPTS
     script.
       jQuery(document).ready(function() {

@@ -95,7 +95,44 @@ exports.DeleteCampaign = function(req,res){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
-	console.log(JSON.stringify(req.params));
+	Campaigns.findByIdAndRemove(req.params.id,function(err){
+		if(err)
+			res.send("false");
+		else
+			res.send("true");
+
+	})
+}
+/**
+* Get the id and clone dat madafaka
+*/
+exports.CloneCampaign = function( req, res ){
+	if (!req.user) { 
+		res.redirect("/login");
+	}
+	Campaigns.findById(req.params.id,function( err, data ){
+		if(err)
+			res.send("false");
+		else{
+			var campaign = new Campaigns({
+				websiteUrl : data.websiteUrl,
+				campaign   : data.campaign+("(CLON)"),
+				source     : data.source,
+				medium     : data.medium,
+				keywords   : data.keywords,
+				content    : data.content,
+				url        : data.url,
+				users      : data.users,
+				creado	   : new Date()
+			});
+			campaign.save(function(err){
+				if(err)
+					res.send("false");
+				else
+					res.send("true");
+			});
+		}
+	})
 }
 
 function SetNewCampaign(user,data,res){
@@ -110,7 +147,8 @@ function SetNewCampaign(user,data,res){
 	    "users"				:[{
 	    	"email":user.email,
 	    	"_id":user.id
-	    }]
+	    }],
+	    "creado"            : new Date()		
 	});
 	campaign.save(function(err) {
       if (err) {
@@ -119,6 +157,9 @@ function SetNewCampaign(user,data,res){
       res.send(campaign._id); 
 	});
 }
+/**
+* Just an update
+*/
 function UpdateCampaign( res, data, id ){ 
 	var query = { "_id" : id };
 	var update = { 

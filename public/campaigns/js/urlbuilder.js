@@ -16,15 +16,15 @@ $( document ).ready(function() {
 				contentType: 'application/json',
 				success: function( data ){
 					if(data=="-1")
-						alert("Ocurrio un error intenta devuelta mas tarde");
+						bootbox.alert("Ocurrio un error intenta devuelta mas tarde");
 					else{
-						alert("Su campaña fue guardada");
+						bootbox.alert("Su campaña fue guardada");
 					}
 						
 					$('#idcampaign').attr('id',data); 
 					},
 				 error: function(jqXHR, exception) {
-				        alert(jqXHR.status); 
+				        bootbox.alert(jqXHR.status); 
 				    } 
 			}); 
 		} 
@@ -36,11 +36,11 @@ $( document ).ready(function() {
 
 	function generateUrl(){
 		if(! $("#WebsiteUrl").val() ){
-			alert("Por favor escriba la URL de la pagina web");
+			bootbox.alert("Por favor escriba la URL de la pagina web");
 			return false;
 		}
 		else if( !$("#Name").val() ){
-			alert("Por favor escriba el nombre de la campaña");
+			bootbox.alert("Por favor escriba el nombre de la campaña");
 			return false;
 		} 
 		else{
