@@ -69,17 +69,11 @@ module.exports = function(app) {
 	      res.render("home/funnel/sales");
 	    });
 	    
-
-
-
 	  app.get('/',function (req,res){
 	    res.render("intro");
 	  }); 
-	  app.get('/home/campaign-builder',function (req,res){ 
-	    res.render("home/campaign-builder");
-	  }); 
-	  /*
-	    FORMS
+	  /**
+	  * FORMS
 	  */
 	  app.get('/home/allforms',function (req,res){
 	    res.render("home/allforms");

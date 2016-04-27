@@ -8,8 +8,7 @@ var multer            = require('multer');
 var upload            = multer({ dest: path.join(__dirname, 'uploads') });
 var compress          = require('compression');
 var logger            = require('morgan');
-var bodyParser        = require('body-parser');
-var lusca             = require('lusca');
+var bodyParser        = require('body-parser'); 
 var dotenv            = require('dotenv');
 //TODO: Delte this element later
 
@@ -47,29 +46,18 @@ module.exports = function() {
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(flash());
-	app.use(function(req, res, next) {
-	  if (req.path === '/api/upload') {
-	    next();
-	  } else {
-	    lusca.csrf()(req, res, next);
-	  }
-	});
-	app.use(lusca.xframe('SAMEORIGIN'));
-	app.use(lusca.xssProtection(true));
+	//Acces everyone to user information
 	app.use(function(req, res, next) {
 	  res.locals.user = req.user;
 	  next();
 	});
-	app.use(function(req, res, next) {
-	  if (/api/i.test(req.path)) {
-	    req.session.returnTo = req.path;
-	  }
-	  next();
-	});
 
-	 require('../app/routes/else.server.route.js')   (app);
-	 require('../app/routes/home.server.route.js')   (app); 
+	 //All the paths
+	 require('../app/routes/else.server.route.js')     (app);
+	 require('../app/routes/home.server.route.js')     (app); 
 	 require('../app/routes/visits.server.route.js')   (app);
+	 require("../app/routes/campaign.server.route.js") (app);
+
 	app.use(express.static(path.join(__dirname, '../public'), { maxAge: 31557600000 })); 
 	app.use(errorHandler());
 

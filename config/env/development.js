@@ -19,6 +19,11 @@ module.exports = {
 		clientID 		: '881118608327-96r85v4lv03mo8amu62ah289qqbrrpal.apps.googleusercontent.com',
 		clientSecret 	: "MrFvZ7oJX2v2z765ahnl429T",
 		callbackURL 	: 'http://localhost:1337/auth/google/callback'
+	},
+	piwik:{
+		user             : "axel",
+		token			 : "acd376ada364635cb72bdcd142daad61",
+		url              : "http://52.165.38.47/index.php"
 	}
 	
 };

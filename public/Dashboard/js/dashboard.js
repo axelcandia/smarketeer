@@ -1,5 +1,6 @@
-$(document).ready(function(){  
-  $( "#nvisitors" ).load( "/analytics/nvisitors");
-  $( "#nleads" ).load( "/analytics/nleads");
+/*$(document).ready(function(){  
+  $( "#nvisitors" ).load( "/dashboard/");
+  $( "#nleads" ).load( "/GetAllLeads");
   $( "#nsales" ).load( "/analytics/nsales");
 }); 
+*/

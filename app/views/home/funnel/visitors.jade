@@ -19,7 +19,7 @@ html(lang='en')
   // BEGIN HEAD
   head
     meta(charset='utf-8')
-    title Smarketeer | Funnel Visualization
+    title Smarketeer | Todas las visitas
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(content='width=device-width, initial-scale=1.0', name='viewport')
     meta(http-equiv='Content-type', content='text/html; charset=utf-8')
@@ -47,6 +47,7 @@ html(lang='en')
     link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
+    script(src='global/plugins/jquery.min.js', type='text/javascript')
   // END HEAD
   // BEGIN BODY
   // DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices
@@ -96,8 +97,7 @@ html(lang='en')
             // CODE MODAL
             // BEGIN PAGE HEADER
             h3.page-title
-              | Funnels Visualization 
-              small advanced datatables
+              | Visitas
             .page-bar
               ul.page-breadcrumb
                 li
@@ -138,134 +138,111 @@ html(lang='en')
                   .portlet-title
                     .caption
                       i.fa.fa-globe
-                      | Visitors
+                      | Visitas
                     .actions
                       .btn-group
                         a.btn.default(href='javascript:;', data-toggle='dropdown')
-                          | Columns 
+                          | Columnas 
                           i.fa.fa-angle-down
                         #sample_4_column_toggler.dropdown-menu.hold-on-click.dropdown-checkboxes.pull-right
                           label
-                            input(type='checkbox', checked='', data-column='0')
-                            | Anonymous ID
-                          label
                             input(type='checkbox', checked='', data-column='1')
-                            | Campaign
+                            | Id Anonimo
                           label
                             input(type='checkbox', checked='', data-column='2')
-                            | Source
+                            | Campaña
                           label
                             input(type='checkbox', checked='', data-column='3')
-                            | Medium
+                            | Fuente
                           label
                             input(type='checkbox', checked='', data-column='4')
-                            | Content
+                            | Medio
                           label
                             input(type='checkbox', checked='', data-column='5')
-                            | Referral URL
+                            | Contenido
                           label
                             input(type='checkbox', checked='', data-column='6')
-                            | Landing Page URL
+                            | Referral URL
                           label
                             input(type='checkbox', checked='', data-column='7')
-                            | Sold
+                            | Landing Page URL
                           label
                             input(type='checkbox', checked='', data-column='8')
-                            | Amount
+                            | Vendio
                           label
                             input(type='checkbox', checked='', data-column='9')
-                            | Status
+                            | Total
+                          label
+                            input(type='checkbox', checked='', data-column='10')
+                            | Estado
                   .portlet-body
                     table#sample_4.table.table-striped.table-bordered.table-hover
                       thead
                         tr
                           th.hidden-xs
-                            | Anonymous ID
+                            | Id anonimo
                           th.hidden-xs
-                            | Campaign
+                            | Campaña
                           th.hidden-xs
-                            | Source
+                            | Fuente
                           th.hidden-xs
-                            | Medium
+                            | Medio
                           th.hidden-xs
-                            | Content
+                            | Contenido
                           th.hidden-xs
                             | Referral URL
                           th.hidden-xs
-                            | Landing Page URL
+                            | Landing page
                           th.hidden-xs
-                            | Sold
+                            | Vendio
                           th.hidden-xs
-                            | Amount
+                            | Total
                           th.hidden-xs
-                            | Status
+                            | Estado
                       tbody
-                        tr
-                          td
-                            | a98f34f
-                          td
-                            | CyberMonday
-                          td
-                            | Facebook
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://facebook.com
-                          td
-                            | http://digifianz.com/lp1
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-success
-                              | Lead
-                        tr
-                          td
-                            | me394xc
-                          td
-                            | CyberMonday
-                          td
-                            | Twitter
-                          td
-                            | Organic
-                          td
-                            | Beach-Image
-                          td
-                            | http://twitter.com
-                          td
-                            | http://digifianz.com/lp5
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-warning
-                              | Contacted
-                        tr
-                          td
-                            | bg93fc4
-                          td
-                            | CyberMonday
-                          td
-                            | Google
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://google.com
-                          td
-                            | http://digifianz.com/lp3
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-danger
-                              | Not sold
+                        each visita in visitas
+                          tr(id=visita.idVisit)
+                            td #{visita.visitorId}
+                            if visita.referrerType=="campaign"
+                              td #{visita.referrerName}
+                            else
+                              td
+                            script(type='text/javascript').
+                              //Get the url
+                              var url =!{JSON.stringify(visita.actionDetails[0].url)};
+                              var appendTo= "#"+!{JSON.stringify(visita.idVisit)};  
+                              var sm_source   = getParameterByName("sm_source",url);
+                              var sm_content   = getParameterByName("sm_content",url); 
+                              var sm_medium   = getParameterByName("sm_medium",url);
+                              if(sm_medium=="<td> </td>") sm_medium= "<td>"+!{JSON.stringify(visita.referrerType)};
+                              if(sm_source == "<td> </td>") sm_source="<td>"+!{JSON.stringify(visita.referrerName)} + "</td>";
+                              $(appendTo).append(sm_source+sm_medium+sm_content);
+
+                              //Append campaign 
+                              function getParameterByName(name, url) {
+                                if (!url) url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return "<td> </td>";
+                                if (!results[2]) return '<td> </td>';
+                                return "<td>" + decodeURIComponent(results[2].replace(/\+/g, " ")) + "</td>";
+                                }
+                            if visita.referrerUrl=="http://piwik.org/faq/general/#faq_144"
+                              td
+                            else
+                              td #{visita.referrerUrl}
+                            script(type='text/javascript').
+                              var parser = document.createElement('a');
+                              parser.href=url; 
+                              $(appendTo).append("<td>"+parser.hostname+parser.pathname+"</td>");
+                            td
+                              input(type='checkbox')
+                            td
+                              input(type='number')
+                            td
+                              span.label.label-sm.label-success
+                                | Lead
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT
@@ -278,7 +255,6 @@ html(lang='en')
     //if lt IE 9
       script(src='global/plugins/respond.min.js')
       script(src='global/plugins/excanvas.min.js')
-    script(src='global/plugins/jquery.min.js', type='text/javascript')
     script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
     script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')

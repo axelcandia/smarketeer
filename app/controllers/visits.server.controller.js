@@ -1,75 +1,39 @@
-var config					     = require("../../config/config");
+var config			  = require("../../config/config");
+var PiwikClient   = require('piwik-client');
+var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 
-exports.GetTotalVisits = function (req,res){
-	analytics = GetAnalytics(req,res);  
-	GetIpDimension(req,res);
-}
-
-/***
-* @Receives the modelId
-* @Receives req, res
-* @Return true if it creates a new one
-* @Returns DeleteDimension if it was not able due to an error
-*/
-function GetIpDimension( req, res ){
-  CustomDimension.findOne( {},{ pages: { $elemMatch: { _id: "UA-75241424-1" } } },
-
-    function(err, existingDimension) {
-      //Error at searching
-      if(err)
-        console.log(err);
-      //Found element
-      if(existingDimension && existingDimension.pages[0] ){
-        return existingDimension.pages[0].dimensionId;
-      }
-      //empty element create it
-      else{
-        SetIpDimension("UA-75241424-1", function(err,data){
-          console.log(data.id);
-          SaveIpDimension(data.id);
-        })
-      }
-      
-      
-  });
-}
-/**
-* @Receives: WebPropertyId
-* @Medium:   Parse the webProperty into accountId and make the insert
-* @Returns: If err
-*              return err 
-*          else execute callback
-*/
-function SetIpDimension( webProperty,callback ){ 
-  var account = webProperty.split("-");
-  var params={
-        "accountId":account[1],
-        "webPropertyId":webProperty,
-        "resource":{
-          "name":"AIPs",
-          "scope":"USER",
-          "active":true
-        }
-      };
-      //Insert the new customDimension
-      analytics.management.customDimensions.insert(params, function(err,data){
-        if(err) console.log(err)
-        else
-          callback(null,data);
+exports.GetIndividualVisits = function ( req,res ){
+  GetVisitsData( 0, function(err,visitas){
+    if(err) console.log(err)
+    console.log( JSON.stringify( visitas) );
+    res.render('home/funnel/visitors', {
+        visitas: visitas
       });
-
+  }); 
 }
 
-function SaveIpDimension(update){
-  CustomDimension.findOneAndUpdate(
-              { "pages._id": update },
-              {$addToSet: {"pages": {_id: update, dimensionId: update.id}}},
-              {safe: true, upsert: true},
-              function(err, model) {
-                  console.log(err);
-              }
-          );
-}
-function DeleteIpDimension( req, res ){
-
+/**
+* Brings visits data by date
+*/
+function GetVisitsData( page, callback ){
+  page =  ( page == 0 ) ? page  : page * 10;
+  piwik.api({
+      method:   'Live.getLastVisitsDetails',
+      idSite: 1,
+      period:   '',
+      date:     '',
+      segment : '',
+      countVisitorsToFetch : '',
+      minTimestamp : '',
+      flat : '',
+      doNotFetchActions : '',
+      filter_offset:page,
+      filter_limit:10,
+    },function( err, visitas ){
+      if(err) callback(err,null);
+      callback(null,visitas);
+    }); 
+ /* GetProfileInformation(function(err,data){
+    console.log(data.lastVisits[0]);
+  });*/
 }

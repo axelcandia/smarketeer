@@ -1,0 +1,144 @@
+doctype html
+//
+  Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+  Version: 4.1.0
+  Author: KeenThemes
+  Website: http://www.keenthemes.com/
+  Contact: support@keenthemes.com
+  Follow: www.twitter.com/keenthemes
+  Like: www.facebook.com/keenthemes
+  Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+  License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+//if IE 8
+  html.ie8.no-js(lang='en')  
+//if IE 9
+  html.ie9.no-js(lang='en')  
+// [if !IE] <!
+html(lang='en')
+  // <![endif]
+  // BEGIN HEAD
+  head
+    meta(charset='utf-8')
+    title Smarketeer | Form Builder
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES
+    link(href='/http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN THEME STYLES
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='../favicon.ico')
+  // END HEAD
+  // BEGIN BODY
+  // DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices
+  // DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default
+  // DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle
+  // DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle
+  // DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle
+  // DOC: Apply "page-sidebar-fixed" class to have fixed sidebar
+  // DOC: Apply "page-footer-fixed" class to the body element to have fixed footer
+  // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
+  // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      include ../shared/pageTop.jade
+    // END HEADER
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../shared/leftBar
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel
+              .toggler.tooltips(data-toggle='modal', href='../#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+                i.icon-settings
+              .toggler-close
+                i.icon-close
+            // END STYLE CUSTOMIZER
+            // BEGIN PAGE HEADER
+            // BEGIN PAGE CONTENT
+            .row
+              .col-md-6
+                // BEGIN SAMPLE FORM PORTLET
+                .portlet.light
+                  .portlet-title
+                    .caption.font-red-sunglo
+                      i.icon-settings.font-red-sunglo
+                      span#third.caption-subject.bold.uppercase  #{thirdtitle}
+                  .portlet-body.form
+                    form#UrlBuilder(role='form')
+                      .form-body
+                        .form-group.form-md-line-input
+                          input#WebsiteUrl.form-control(type='text', placeholder='Escriba la url de su pagina web' value="#{websiteUrl}")
+                          label(for='form_control_1') Website URL *
+                          span.help-block (e.g. http://www.proto.com/download)
+                        .form-group.form-md-line-input
+                          input#Name.form-control(type='text', placeholder='Escriba el nombre de la campaña' value="#{campaign}")
+                          label(for='form_control_1') Nombre de la campaña *
+                          span.help-block (e.g. producto, codigo de promocion, slogan).  
+                        .form-group.form-md-line-input
+                          input#Source.form-control(type='text', placeholder='Escriba la funete de la campaña' value="#{source}")
+                          label(for='form_control_1') Campaign Source *
+                          span.help-block (e.g. referrer: google, citysearch, newsletter4).
+                        .form-group.form-md-line-input
+                          input#Medium.form-control(type='text', placeholder='Escriba el medium' value="#{medium}")
+                          label(for='form_control_1') Medium
+                          span.help-block (e.g. marketing medium: cpc, banner, email)
+                        .form-group.form-md-line-input
+                          input#KeyWord.form-control(type='text', placeholder='Escriba las palabras claves' value="#{keyword}")
+                          label(for='form_control_1') Palabras claves
+                          span.help-block (e.g. identify the paid keywords)
+                        .form-group.form-md-line-input
+                          input#Content.form-control(type='text', placeholder='Escriba el contenido de la campaña' value="#{content}")
+                          label(for='form_control_1') Contenido
+                          span.help-block (e.g. use to differentiate ads)
+                        #url.form-group.form-md-line-input 
+                          input#UrlName.form-control(type='text', placeholder='Click en GENERAR para ver su url' value="#{url}")
+                          label(for='form_control_1') url de campaña 
+                          span.help-block (Para generar una nueva url haga click en generar).
+                        button#generar.btn.blue(type='button') Generar
+                      .form-actions.noborder 
+                        button.guardar.btn.green(type='button' id=campaignId ) Guardar 
+                        button#limpiar.pull-right.btn.red(type='button') Limpiar 
+                      
+                // END SAMPLE FORM PORTLET
+        // END CONTENT
+        // BEGIN QUICK SIDEBAR
+        // Cooming Soon...
+        // END QUICK SIDEBAR
+      // END CONTAINER
+    // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
+    // BEGIN CORE PLUGINS
+    //if lt IE 9
+      script(src='/global/plugins/respond.min.js')
+      script(src='/global/plugins/excanvas.min.js')
+    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='../global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript') 
+    script(src="/campaigns/js/urlbuilder.js" type="text/javascript")
+    // END JAVASCRIPTS
+  // END BODY

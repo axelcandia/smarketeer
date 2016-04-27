@@ -94,14 +94,16 @@ html.no-js(lang='en')
             // BEGIN PAGE HEADER TO EDIT
             li.dropdown(style="list-style-type:none")
               a.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                h3.page-title(style='display: inline-block')
-                  if ( items[0])
-                    | Dashboards #{items[0]}
+                h3.page-title(style='display: inline-block',id=websites[0].id)
+                  if (!websites[0] )
+                    | Dashboards 
                   else
-                   |#{items[0].webProperty[0].name} 
+                   |#{websites[0].name} Dashboard
                 i.fa.fa-angle-down
-              ul.dropdown-menu
-                a(href='#') iTEMS
+              if (websites.length > 1)
+                each website in websites
+                  ul.dropdown-menu
+                    a(href='#') website.name
             .page-bar
               ul.page-breadcrumb
                 li
@@ -109,7 +111,7 @@ html.no-js(lang='en')
                   a(href='index') Home
                   i.fa.fa-angle-right
                 li 
-                  a(href='index') #{items}
+                  a(href='index') #{websites}
                   i.fa.fa-angle-right
                 li
                   a(href='#') Otras paginas
@@ -443,13 +445,6 @@ html.no-js(lang='en')
     script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL PLUGINS
-    script(src='global/plugins/jqvmap/jqvmap/jquery.vmap.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js', type='text/javascript')
-    script(src='global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js', type='text/javascript')
     script(src='global/plugins/flot/jquery.flot.min.js', type='text/javascript')
     script(src='global/plugins/flot/jquery.flot.resize.min.js', type='text/javascript')
     script(src='global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
