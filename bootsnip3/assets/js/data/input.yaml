@@ -13,7 +13,7 @@
       placeholder: 
         label: "Texto de fondo"
         type: "input"
-        value: "placeholder"
+        value: "texto de fondo"
       helptext: 
         label: "Ayuda"
         type: "input"

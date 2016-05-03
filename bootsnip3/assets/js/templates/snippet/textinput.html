@@ -18,7 +18,10 @@
 			type="text";
 			break;
 	}
-
+	
+ if(required){
+ 	label+="*";
+ }
 	%>
 	<div class="control-group">
 	  <label class="control-label" for="<%- id %>"><%- label %></label>
@@ -27,6 +30,7 @@
 	    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
 	  </div>
 	</div>
+
 <%} 
 else{%>
 <div class="control-group">

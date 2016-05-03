@@ -5,38 +5,38 @@
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "multipleradios"
+        value: "Unica opcion"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Multiple Radios"
-      placeholder: 
-        label: "required"
+        value: "Unica opcion"
+      required: 
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       radios: 
-        label: "Radios"
+        label: "Opciones"
         type: "textarea-split"
         value: 
-          - "Option one"
-          - "Option two"
+          - "Opcion 1"
+          - "Opcion 2"
   - 
     title: "Multiple Radios Inline"
     fields: 
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "multipleradiosinline"
+        value: "Unica opcion horizontal"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Inline Radios"
-      placeholder: 
-        label: "required"
+        value: "Unica opcion horizontal"
+      required: 
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       radios: 
-        label: "Radios"
+        label: "Opciones"
         type: "textarea-split"
         value: 
           - 1
@@ -49,34 +49,34 @@
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "multiplecheckboxes"
+        value: "Multiples opciones"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Multiple Checkboxes"
-      placeholder: 
-        label: "required"
+        value: "Multiples opciones"
+      required: 
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       checkboxes: 
         label: "Checkboxes"
         type: "textarea-split"
         value: 
-          - "Option one"
-          - "Option two"
+          - "Opcion uno"
+          - "Opcion dos"
   - 
     title: "Multiple Checkboxes Inline"
     fields: 
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "multiplecheckboxesinline"
+        value: "Multiples opciones horizontal"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Inline Checkboxes"
-      placeholder: 
-        label: "required"
+        value: "Multiples opciones horizontal"
+      required: 
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       checkboxes: 
@@ -93,17 +93,21 @@
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "selectbasic"
+        value: "Seleccionador basico"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Select Basic"
+        value: "Seleccionador basico"
       options: 
         label: "Options"
         type: "textarea-split"
         value: 
-          - "Option one"
-          - "Option two"
+          - "Opcion uno"
+          - "Opcion dos"
+      required: 
+        label: "Obligatorio"
+        type: "checkbox"
+        value: false
       inputsize: 
         label: "Input Size"
         type: "select"
@@ -138,17 +142,21 @@
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "selectmultiple"
+        value: "Seleccionador multiple"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Select Multiple"
+        value: "Seleccionador multiple"
+      required: 
+        label: "Obligatorio"
+        type: "checkbox"
+        value: false
       options: 
         label: "Options"
         type: "textarea-split"
         value: 
-          - "Option one"
-          - "Option two"
+          - "Opcion uno"
+          - "Opcion dos"
       inputsize: 
         label: "Input Size"
         type: "select"

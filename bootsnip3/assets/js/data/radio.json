@@ -5,24 +5,24 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "multipleradios"
+        "value": "Unica opcion"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Multiple Radios"
+        "value": "Unica opcion"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
       "radios": {
-        "label": "Radios",
+        "label": "Opciones",
         "type": "textarea-split",
         "value": [
-          "Option one",
-          "Option two"
+          "Opcion 1",
+          "Opcion 2"
         ]
       }
     }
@@ -33,20 +33,20 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "multipleradiosinline"
+        "value": "Unica opcion horizontal"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Inline Radios"
+        "value": "Unica opcion horizontal"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
       "radios": {
-        "label": "Radios",
+        "label": "Opciones",
         "type": "textarea-split",
         "value": [
           1,
@@ -63,15 +63,15 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "multiplecheckboxes"
+        "value": "Multiples opciones"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Multiple Checkboxes"
+        "value": "Multiples opciones"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -79,8 +79,8 @@
         "label": "Checkboxes",
         "type": "textarea-split",
         "value": [
-          "Option one",
-          "Option two"
+          "Opcion uno",
+          "Opcion dos"
         ]
       }
     }
@@ -91,15 +91,15 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "multiplecheckboxesinline"
+        "value": "Multiples opciones horizontal"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Inline Checkboxes"
+        "value": "Multiples opciones horizontal"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -121,58 +121,58 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "selectbasic"
+        "value": "Seleccionador basico"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Select Basic"
+        "value": "Seleccionador basico"
       },
       "options": {
         "label": "Options",
         "type": "textarea-split",
         "value": [
-          "Option one",
-          "Option two"
+          "Opcion uno",
+          "Opcion dos"
         ]
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
       "inputsize": {
-        "label": "Input Size",
+        "label": "Tamaño",
         "type": "select",
         "value": [
           {
             "value": "input-mini",
-            "label": "Mini",
+            "label": "Muy chiquito",
             "selected": false
           },
           {
             "value": "input-small",
-            "label": "Small",
+            "label": "Chiquito",
             "selected": false
           },
           {
             "value": "input-medium",
-            "label": "Medium",
+            "label": "Mediano",
             "selected": false
           },
           {
             "value": "input-large",
-            "label": "Large",
+            "label": "Grande",
             "selected": false
           },
           {
             "value": "input-xlarge",
-            "label": "Xlarge",
+            "label": "Muy grande",
             "selected": true
           },
           {
             "value": "input-xxlarge",
-            "label": "Xxlarge",
+            "label": "Ridiculamente grande",
             "selected": false
           }
         ]
@@ -185,15 +185,15 @@
       "id": {
         "label": "ID / Name",
         "type": "eliminar",
-        "value": "selectmultiple"
+        "value": "Seleccionador multiple"
       },
       "label": {
         "label": "Nombre",
         "type": "input",
-        "value": "Select Multiple"
+        "value": "Seleccionador multiple"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -201,42 +201,42 @@
         "label": "Options",
         "type": "textarea-split",
         "value": [
-          "Option one",
-          "Option two"
+          "Opcion uno",
+          "Opcion dos"
         ]
       },
       "inputsize": {
-        "label": "Input Size",
+        "label": "Tamaño",
         "type": "select",
         "value": [
           {
             "value": "input-mini",
-            "label": "Mini",
+            "label": "Muy chiquito",
             "selected": false
           },
           {
             "value": "input-small",
-            "label": "Small",
+            "label": "Chiquito",
             "selected": false
           },
           {
             "value": "input-medium",
-            "label": "Medium",
+            "label": "Mediano",
             "selected": false
           },
           {
             "value": "input-large",
-            "label": "Large",
+            "label": "Grande",
             "selected": false
           },
           {
             "value": "input-xlarge",
-            "label": "Xlarge",
+            "label": "Muy grande",
             "selected": true
           },
           {
             "value": "input-xxlarge",
-            "label": "Xxlarge",
+            "label": "Ridiculamente grande",
             "selected": false
           }
         ]

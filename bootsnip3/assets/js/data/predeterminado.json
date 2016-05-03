@@ -18,7 +18,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -64,7 +64,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -104,7 +104,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -144,7 +144,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -184,7 +184,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -224,7 +224,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -264,7 +264,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -304,7 +304,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -601,7 +601,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -631,7 +631,7 @@
         "value": "Mensaje"
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
@@ -666,7 +666,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       },
@@ -706,7 +706,7 @@
         "value": ""
       },
       "required": {
-        "label": "Required",
+        "label": "Obligatorio",
         "type": "checkbox",
         "value": false
       }, 
