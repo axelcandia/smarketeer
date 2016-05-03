@@ -67,12 +67,7 @@
         "label": "Required",
         "type": "checkbox",
         "value": false
-      },
-      "placeholder": {
-        "label": "required",
-        "type": "checkbox",
-        "value": false
-      },
+      }, 
       "inputsize": {
         "label": "Input Size",
         "type": "eliminar",

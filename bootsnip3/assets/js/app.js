@@ -39,9 +39,9 @@ define([
           { "title" : "Form Name"
             , "fields": {
               "name" : {
-                "label"   : "Form Name"
+                "label"   : "Nombre"
                 , "type"  : "input"
-                , "value" : "Form Name"
+                , "value" : "Escribe el nombre de tu formulario"
               }
             }
           }

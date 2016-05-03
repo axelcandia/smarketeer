@@ -41,9 +41,9 @@
         type: "eliminar"
         value: "Apellido"
       placeholder: 
-        label: "required"
-        type: "checkbox"
-        value: false
+        label: "Texto de fondo"
+        type: "eliminar"
+        value: ""
       helptext: 
         label: "Ayuda"
         type: "eliminar"

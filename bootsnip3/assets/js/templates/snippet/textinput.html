@@ -1,4 +1,34 @@
 <!-- Text input-->
+<%if( id.indexOf("smkt") > -1 ){
+	inputsize="input-xlarge";
+	var name = id.split("_")[1].replace('-0','');
+	var type="";
+	switch(name) {
+		case "email":
+			type="email";
+			break;
+		case "tel":
+			type="tel";
+			break;
+		case "ship-zip":
+		case "IngresosAnuales":
+			type="number";
+			break;
+		default:
+			type="text";
+			break;
+	}
+
+	%>
+	<div class="control-group">
+	  <label class="control-label" for="<%- id %>"><%- label %></label>
+	  <div class="controls">
+	    <input id="<%- id %>" autocorrect="off" name="<%- name %>" type="<%- type %>" placeholder="<%- placeholder %>" class="<%- inputsize %>" <% if(required) {%> required <% } %> />
+	    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
+	  </div>
+	</div>
+<%} 
+else{%>
 <div class="control-group">
   <label class="control-label" for="<%- id %>"><%- label %></label>
   <div class="controls">
@@ -6,3 +36,4 @@
     <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
   </div>
 </div>
+<%}%>
