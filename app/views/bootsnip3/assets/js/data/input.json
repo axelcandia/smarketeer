@@ -1,0 +1,88 @@
+[
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "textinput"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "input",
+        "value": "Text Input"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "input",
+        "value": "placeholder"
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "input",
+        "value": "help"
+      },
+      "placeholder": {
+        "label": "required",
+        "type": "checkbox",
+        "value": false
+      },
+      "inputsize": {
+        "label": "Input Size",
+        "type": "select",
+        "value": [
+          {
+            "value": "input-mini",
+            "label": "Mini",
+            "selected": false
+          },
+          {
+            "value": "input-small",
+            "label": "Small",
+            "selected": false
+          },
+          {
+            "value": "input-medium",
+            "label": "Medium",
+            "selected": false
+          },
+          {
+            "value": "input-large",
+            "label": "Large",
+            "selected": false
+          },
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          },
+          {
+            "value": "input-xxlarge",
+            "label": "Xxlarge",
+            "selected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "title": "Text Area",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "textarea"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "input",
+        "value": "Text Area"
+      },
+      "textarea": {
+        "label": "Starting Text",
+        "type": "textarea",
+        "value": "default text"
+      }
+    }
+  }
+]
