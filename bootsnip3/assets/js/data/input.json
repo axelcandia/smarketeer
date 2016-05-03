@@ -22,11 +22,11 @@
         "type": "input",
         "value": "help"
       },
-      "placeholder": {
-        "label": "required",
+       "required": {
+        "label": "Required",
         "type": "checkbox",
         "value": false
-      },
+      }, 
       "inputsize": {
         "label": "Input Size",
         "type": "select",
@@ -78,6 +78,11 @@
         "type": "input",
         "value": "Text Area"
       },
+       "required": {
+        "label": "Required",
+        "type": "checkbox",
+        "value": false
+      }, 
       "textarea": {
         "label": "Starting Text",
         "type": "textarea",
