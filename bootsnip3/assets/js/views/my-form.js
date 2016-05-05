@@ -27,16 +27,17 @@ define([
       //Render Snippet Views
       this.$el.empty();
       var that = this;
+
       var containsFile = false;
       _.each(this.collection.renderAll(), function(snippet){
         that.$el.append(snippet);
-      });
+      }); 
       $("#render").val(that.renderForm({
         multipart: this.collection.containsFileType(),
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
-      }));
-      this.$el.appendTo("#build form");
-      this.delegateEvents();
+      })); 
+      this.$el.appendTo("#build form"); 
+
     }
 
     , getBottomAbove: function(eventY){
@@ -61,7 +62,6 @@ define([
       this.collection.remove(snippetModel);
       PubSub.trigger("newTempPostRender", mouseEvent);
     }
-
     , handleTempMove: function(mouseEvent){
       $(".target").removeClass("target");
       if(mouseEvent.pageX >= this.$build.position().left &&
@@ -73,18 +73,21 @@ define([
         $(".target").removeClass("target");
       }
     }
-
     , handleTempDrop: function(mouseEvent, model, index){
+      //change this 
       if(mouseEvent.pageX >= this.$build.position().left &&
          mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
          mouseEvent.pageY >= this.$build.position().top &&
          mouseEvent.pageY < (this.$build.height() + this.$build.position().top)) {
         var index = $(".target").index();
-        $(".target").removeClass("target");
-        this.collection.add(model,{at: index+1});
+        $(".target").removeClass("target");   
+         this.collection.add(model,{at: index+1});
+         
+
       } else {
         $(".target").removeClass("target");
       }
     }
   })
 });
+

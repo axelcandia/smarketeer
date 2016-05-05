@@ -9,7 +9,7 @@ define([
 ){
   return SnippetView.extend({
     events:{
-      "click"   : "preventPropagation" //stops checkbox / radio reacting.
+          "click"   : "preventPropagation" //stops checkbox / radio reacting.
       , "mousedown" : "mouseDownHandler"
       , "mouseup"   : "mouseUpHandler"
     }
@@ -17,10 +17,17 @@ define([
     , mouseDownHandler : function(mouseDownEvent){
       mouseDownEvent.stopPropagation();
       mouseDownEvent.preventDefault();
-      var that = this;
+      var that = this; 
       //popover
-      $(".popover").remove();
-      this.$el.popover("show");
+      $(".popover").remove(); 
+      if( this.model.get("title") !== "Form Name" && this.model.get("fields").id.value.indexOf("smkt") >- 1 ) { 
+        this.$el.popover("hide");   
+      } 
+      else{
+        this.$el.popover("show");  
+        $('.right').addClass('left');
+        $('.left').removeClass('right');  
+      } 
       $(".popover #save").on("click", this.saveHandler(that));
       $(".popover #cancel").on("click", this.cancelHandler(that));
       //add drag event for all but form name
@@ -39,8 +46,18 @@ define([
     }
 
     , preventPropagation: function(e) {
-      e.stopPropagation();
-      e.preventDefault();
+      var clase="."+this.model.get("fields").id.value;
+      if(clase.indexOf("smkt") >-1 ){   
+       this.model.get("fields").required.value = ! this.model.get("fields").required.value;
+       this.model.trigger("change"); 
+       //CHANGE HERE
+       $(clase).attr('checked', this.model.get("fields").required.value); 
+      }  
+      else{
+        e.stopPropagation();
+        e.preventDefault();
+      } 
+      
     }
 
     , mouseUpHandler : function(mouseUpEvent) {
@@ -51,18 +68,16 @@ define([
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         var fields = $(".popover .field");
-        _.each(fields, function(e){
-
+        _.each(fields, function(e){ 
           var $e = $(e)
           , type = $e.attr("data-type")
-          , name = $e.attr("id");
-
-          switch(type) {
+          , name = $e.attr("id");  
+          switch(type) { 
             case "checkbox":
               boundContext.model.setField(name, $e.is(":checked"));
               break;
             case "input":
-              boundContext.model.setField(name, $e.val());
+              boundContext.model.setField(name, $e.val()); 
               break;
             case "textarea":
               boundContext.model.setField(name, $e.val());
@@ -83,12 +98,13 @@ define([
               break;
           }
         });
+      
         boundContext.model.trigger("change");
         $(".popover").remove();
       }
     }
 
-    , cancelHandler : function(boundContext) {
+    , cancelHandler : function(boundContext) { 
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         $(".popover").remove();

@@ -13,7 +13,7 @@ define([
     model: SnippetModel
     , initialize: function() {
       this.counter = {};
-      this.on("add", this.giveUniqueId);
+      this.on("add", this.giveUniqueId); 
     }
 
     , giveUniqueId: function(snippet){

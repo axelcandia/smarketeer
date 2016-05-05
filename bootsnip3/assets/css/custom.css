@@ -34,7 +34,8 @@ textarea {
 }
 
 .popover {
-  z-index: 9999999;
+  z-index: 9999999; 
+  float:left!important;
 }
 .popover .control-group {
   cursor: default;
@@ -111,4 +112,16 @@ form .popover form {
 #target fieldset{
  width: 100%;
  overflow: hidden;
+}
+#components .remove{
+  display: none;
+}
+.temp .remove{
+  display: none;
+}
+#form{
+  float:right;
+}
+.fade{
+   left: 150px!important;
 }
