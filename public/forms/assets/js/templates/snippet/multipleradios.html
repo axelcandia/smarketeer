@@ -1,34 +1,15 @@
-<!-- Multiple Radios 
-<div class="form-group">
-  <label class="col-md-3 control-label" for="<%- id %>"><%- label %></label>
-  <div class="col-md-9">
-	  <div class="mt-radio-list"><% _.each(radios, function(radio, i){ %>
-	    <label class="mt-radio" for="<%- id+'-'+i %>">
-	      <input type="radio" name="<%- id %>" id="<%- id+'-'+i %>" value="<%- radio %>"  <% if (i < 1) { %> checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
+ 
+<div class="control-group">
+	<label><%- label %> </label>
+	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
+toggle-form btn icon-pencil open remove" title="Edit"></a></div>
+	<div class="mt-radio-list">
+		<% _.each(radios, function(radio, i){ %>
+			<label class="mt-radio mt-radio-outline" for="<%- id+'-'+i %>" >
+				<input type="radio" name="<%- id %>" id="<%- id+'-'+i %>" value="<%- radio %>"  <% if (i < 1) { %> checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
 	      <%- radio %>
-	      <span></span>
-	    </label><% }); %>
-	  </div>
-  </div>
-</div> 
+				<span></span>
+			</label>
+		<% }); %>
+	</div>
 </div>
--->
-<div class="form-group">
-                                                <label class="col-md-3 control-label">Radios</label>
-                                                <div class="col-md-9">
-                                                    <div class="mt-radio-list">
-                                                        <label class="mt-radio">
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios22" value="option1" checked=""> Option 1
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-radio">
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios23" value="option2" checked=""> Option 2
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-radio">
-                                                            <input type="radio" name="optionsRadios" id="optionsRadios24" value="option2" disabled=""> Disabled
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>

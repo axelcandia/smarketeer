@@ -28,36 +28,6 @@
     }
   },
   {
-    "title": "Multiple Radios Inline",
-    "fields": {
-      "id": {
-        "label": "ID / Name",
-        "type": "eliminar",
-        "value": "Unica opcion horizontal"
-      },
-      "label": {
-        "label": "Nombre",
-        "type": "input",
-        "value": "Unica opcion horizontal"
-      },
-      "required": {
-        "label": "Obligatorio",
-        "type": "checkbox",
-        "value": false
-      }, 
-      "radios": {
-        "label": "Opciones",
-        "type": "textarea-split",
-        "value": [
-          1,
-          2,
-          3,
-          4
-        ]
-      }
-    }
-  },
-  {
     "title": "Multiple Checkboxes",
     "fields": {
       "id": {
@@ -81,36 +51,6 @@
         "value": [
           "Opcion uno",
           "Opcion dos"
-        ]
-      }
-    }
-  },
-  {
-    "title": "Multiple Checkboxes Inline",
-    "fields": {
-      "id": {
-        "label": "ID / Name",
-        "type": "eliminar",
-        "value": "Multiples opciones horizontal"
-      },
-      "label": {
-        "label": "Nombre",
-        "type": "input",
-        "value": "Multiples opciones horizontal"
-      },
-      "required": {
-        "label": "Obligatorio",
-        "type": "checkbox",
-        "value": false
-      }, 
-      "checkboxes": {
-        "label": "Checkboxes",
-        "type": "textarea-split",
-        "value": [
-          1,
-          2,
-          3,
-          4
         ]
       }
     }
@@ -169,11 +109,6 @@
             "value": "input-xlarge",
             "label": "Muy grande",
             "selected": true
-          },
-          {
-            "value": "input-xxlarge",
-            "label": "Ridiculamente grande",
-            "selected": false
           }
         ]
       }
@@ -233,11 +168,6 @@
             "value": "input-xlarge",
             "label": "Muy grande",
             "selected": true
-          },
-          {
-            "value": "input-xxlarge",
-            "label": "Ridiculamente grande",
-            "selected": false
           }
         ]
       }

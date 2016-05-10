@@ -24,7 +24,7 @@ define([
     }
 
     , render: function(){
-      //Render Snippet Views
+      //Render Snippet Views 
       this.$el.empty();
       var that = this;
 
@@ -81,7 +81,7 @@ define([
          mouseEvent.pageY < (this.$build.height() + this.$build.position().top)) {
         var index = $(".target").index();
         $(".target").removeClass("target");   
-         this.collection.add(model,{at: index+1});
+         this.collection.add(model,{at: index+1}); 
          
 
       } else {

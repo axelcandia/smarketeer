@@ -15,14 +15,18 @@ body {
 }
 
 #target fieldset {
-  border: 1px solid #ccc;
+  border: 3px dashed #ccc;
+    margin-right: 5px;
   min-height: 200px;
+  background:rgba(255,255,255,.25);
+
   padding: 5px;
   padding-bottom: 30px;
 }
 
 .component {
   cursor: pointer;
+  padding-top: 10px;
 }
 
 input {
@@ -114,17 +118,26 @@ form .popover form {
  overflow: hidden;
 }
 #components .remove{
-  display: none;
+  display: none!important;
 }
 .temp .remove{
-  display: none;
+  display: none!important;
 }
 #form{
   float:right;
+  padding-top: 50px;
+  width: 45%;
 }
 .fade{
-   left: 450px!important;
+   left: 550px!important;
 }
 .popover input{
   width:230px !important;
-}
+}   
+.popover .checkbox{
+    padding-left: 16px;
+    padding-top: 16px;
+    padding-bottom: 5px;
+} 
+.component #frmb-0-fld-3-edit {display:none;}
+.component:hover #frmb-0-fld-3-edit {display:inline;}

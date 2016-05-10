@@ -55,11 +55,6 @@
             "value": "input-xlarge",
             "label": "Muy grande",
             "selected": true
-          },
-          {
-            "value": "input-xxlarge",
-            "label": "Ridiculamente grande",
-            "selected": false
           }
         ]
       }

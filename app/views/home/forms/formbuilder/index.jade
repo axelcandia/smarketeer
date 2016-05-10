@@ -32,6 +32,7 @@ html(lang='en')
     link( href="/forms/assets/css/custom.css",rel="stylesheet")
     // END PAGE LEVEL STYLES
     // BEGIN THEME STYLES
+    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
       include ../../../shared/pageTop
@@ -49,7 +50,7 @@ html(lang='en')
             .row
               .row.clearfix
               // Building Form.
-              #form.span6.portlet.light
+              #form.span6
                 .clearfix
                   #build
                     form#target.form-horizontal
@@ -62,5 +63,8 @@ html(lang='en')
                   form#components.form-horizontal(action='')
                     fieldset
                       .tab-content
-        // / Components
-    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')  
+        // / Components 
+    script(src='/global/plugins/jquery.min.js', type='text/javascript') 
+    
+    
+     

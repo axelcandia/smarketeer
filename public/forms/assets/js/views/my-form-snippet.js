@@ -19,15 +19,10 @@ define([
       mouseDownEvent.preventDefault();
       var that = this; 
       //popover
-      $(".popover").remove(); 
-      if( this.model.get("title") !== "Form Name" && this.model.get("fields").id.value.indexOf("smkt") >- 1 ) { 
-        this.$el.popover("hide");   
-      } 
-      else{
-        this.$el.popover("show");  
-        $('.right').addClass('left');
-        $('.left').removeClass('right');  
-      } 
+      $(".popover").remove();  
+      this.$el.popover("show");
+      $('.right').addClass('left');
+      $('.left').removeClass('right');   
       $(".popover #save").on("click", this.saveHandler(that));
       $(".popover #cancel").on("click", this.cancelHandler(that));
       //add drag event for all but form name
@@ -45,19 +40,9 @@ define([
       }
     }
 
-    , preventPropagation: function(e) {
-      var clase="."+this.model.get("fields").id.value;
-      if(clase.indexOf("smkt") >-1 ){   
-       this.model.get("fields").required.value = ! this.model.get("fields").required.value;
-       this.model.trigger("change"); 
-       //CHANGE HERE
-       $(clase).attr('checked', this.model.get("fields").required.value); 
-      }  
-      else{
+    , preventPropagation: function(e) {  
         e.stopPropagation();
-        e.preventDefault();
-      } 
-      
+        e.preventDefault(); 
     }
 
     , mouseUpHandler : function(mouseUpEvent) {
