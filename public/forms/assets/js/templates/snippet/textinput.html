@@ -1,6 +1,5 @@
 <!-- Text input-->
 <%if( id.indexOf("smkt") > -1 ){
-	inputsize="input-xlarge";
 	var name = id.split("_")[1].replace('-0','');
 	var type="";   
 	switch(name) {
@@ -20,7 +19,7 @@
 	}
 	%>
 	<div class="control-group">
-	  <label class="control-label" for="<%- id %>"> <%- label %> </label>
+	  <label class="control-label" for="<%- id %>"> <%- label %> <%if(required){%><em class="red">*</em><%}%> </label>
 	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
 toggle-form btn icon-pencil open remove remove" title="Edit"></a> 
 
@@ -31,7 +30,7 @@ toggle-form btn icon-pencil open remove remove" title="Edit"></a>
 <%} 
 else{%>
 <div class="control-group">
-  <label class="control-label" for="<%- id %>"><%- label %> </label>
+  <label class="control-label" for="<%- id %>"><%- label %> <%if(required){%><em class="red">*</em><%}%></label>
 	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
 toggle-form btn icon-pencil open remove" title="Edit"></a></div> 
   <div class="controls">

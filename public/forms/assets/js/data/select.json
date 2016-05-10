@@ -21,7 +21,7 @@
         ]
       },
       "inputsize": {
-        "label": "Input Size",
+        "label": "Tamaño",
         "type": "select",
         "value": [
           {
@@ -80,7 +80,7 @@
         ]
       },
       "inputsize": {
-        "label": "Input Size",
+        "label": "Tamaño",
         "type": "select",
         "value": [
           {
