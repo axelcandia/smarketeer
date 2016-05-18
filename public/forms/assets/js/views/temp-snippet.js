@@ -10,16 +10,16 @@ define([
   , PubSub
 ){
   return SnippetView.extend({
-    initialize: function(){
+    initialize: function(){ 
       PubSub.on("newTempPostRender", this.postRender, this);
       this.constructor.__super__.initialize.call(this);
-      this.tempTemplate = _.template(_tempTemplate);
+      this.tempTemplate = _.template(_tempTemplate); 
     }
     , className: "temp"
     , render: function() {
       return this.$el.html(this.tempTemplate({text: this.constructor.__super__.render.call(this).html()}));
     }
-    , postRender: function(mouseEvent){
+    , postRender: function(mouseEvent){ 
       this.tempForm  = this.$el.find("form")[0];
       this.halfHeight = Math.floor(this.tempForm.clientHeight/2);
       this.halfWidth  = Math.floor(this.tempForm.clientWidth/2);
@@ -39,6 +39,7 @@ define([
       PubSub.trigger("tempMove", mouseEvent);
     }
     , mouseMoveHandler: function(mouseEvent) {
+      
       mouseEvent.preventDefault();
       this.centerOnEvent(mouseEvent);
     }

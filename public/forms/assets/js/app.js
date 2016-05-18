@@ -41,7 +41,7 @@ define([
               "name" : {
                 "label"   : "Nombre"
                 , "type"  : "input"
-                , "value" : "Escribe el nombre de tu formulario"
+                , "value" : formName
               }
             }
           }

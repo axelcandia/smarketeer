@@ -1,9 +1,7 @@
-
+<!-- Textarea -->
 <div class="control-group">
-  <label class="control-label" for="<%- id %>"> <%- label %> <%if(required){%><em class="red">*</em><%}%></label>
-	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
-toggle-form btn icon-pencil open remove" title="Edit"></a></div>
+  <label class="control-label" for ="<%- id %>"><%- label %><%if(required){%><em class="red">*</em><%}%></label>
   <div class="controls">                     
-    <textarea id="<%- id %>" class="form-control input-xlarge" rows="3" name="<%- id %>" <% if(required) {%> required <% } %> ><%- textarea %></textarea>
+    <textarea id="<%- id %>" class="input-xlarge" style="height:70px" name="<%- id %>" ><%- textarea %></textarea>
   </div>
 </div>

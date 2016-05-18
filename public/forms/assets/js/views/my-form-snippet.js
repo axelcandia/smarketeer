@@ -20,10 +20,11 @@ define([
       var that = this; 
       //popover
       $(".popover").remove();  
-      this.$el.popover("show");
+      this.$el.popover("show"); 
       $('.right').addClass('left');
-      $('.left').removeClass('right');   
-      $(".popover #save").on("click", this.saveHandler(that));
+      $('.left').removeClass('right');
+        
+      $(".popover #save").on("click", this.saveHandler(that)); 
       $(".popover #cancel").on("click", this.cancelHandler(that));
       //add drag event for all but form name
       if(this.model.get("title") !== "Form Name"){
@@ -48,8 +49,7 @@ define([
     , mouseUpHandler : function(mouseUpEvent) {
         $("body").off("mousemove");
     }
-
-    , saveHandler : function(boundContext) {
+    , saveHandler : function(boundContext) { 
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         var fields = $(".popover .field");
@@ -58,16 +58,16 @@ define([
           , type = $e.attr("data-type")
           , name = $e.attr("id");  
           switch(type) { 
-            case "checkbox":
+            case "checkbox": 
               boundContext.model.setField(name, $e.is(":checked"));
               break;
-            case "input":
+            case "input":   
               boundContext.model.setField(name, $e.val()); 
               break;
-            case "textarea":
+            case "textarea":  
               boundContext.model.setField(name, $e.val());
               break;
-            case "textarea-split":
+            case "textarea-split": 
               boundContext.model.setField(name,
                 _.chain($e.val().split("\n"))
                   .map(function(t){return $.trim(t)})
@@ -75,12 +75,12 @@ define([
                   .value()
                   );
               break;
-            case "select":
+            case "select": 
               var valarr = _.map($e.find("option"), function(e){
                 return {value: e.value, selected: e.selected, label:$(e).text()};
               });
               boundContext.model.setField(name, valarr);
-              break;
+              break; 
           }
         });
       
@@ -88,8 +88,7 @@ define([
         $(".popover").remove();
       }
     }
-
-    , cancelHandler : function(boundContext) { 
+    , cancelHandler : function(boundContext) {  
       return function(mouseEvent) {
         mouseEvent.preventDefault();
         $(".popover").remove();

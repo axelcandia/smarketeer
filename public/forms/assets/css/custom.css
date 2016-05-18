@@ -23,12 +23,24 @@ body {
   padding: 5px;
   padding-bottom: 30px;
 }
-
+#target{
+    overflow: scroll;
+    height: 500px;
+}
 .component {
   cursor: pointer;
   padding-top: 10px;
+  border-radius: 10px!important;
+  padding-left: 7px;
+  padding-top:5px;
+  padding-bottom:5px;
+} 
+.control-group{ 
+  width: 450px;  
 }
-
+.control-group:hover{
+  background:#edeff0;
+}
 input {
   cursor: pointer;
 }
@@ -142,6 +154,9 @@ form .popover form {
 .control-label{
   padding-bottom: 3px;
 }
+.popover-content .control-label{
+  width: 100%;
+}
 .red{
   color:red;
 }
@@ -150,6 +165,16 @@ form .popover form {
 }
 .controls .temphide{
   display: none!important;
+}
+.mt-radio{ 
+  margin-right: 20px;
+}
+.mt-checkbox{
+  margin-right: 20px;
+}
+#components{
+  overflow: scroll;
+    height: 20px;
 }
 .component #frmb-0-fld-3-edit {display:none;}
 .component:hover #frmb-0-fld-3-edit {display:inline;}

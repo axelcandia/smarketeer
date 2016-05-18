@@ -32,7 +32,6 @@ html(lang='en')
     link( href="/forms/assets/css/custom.css",rel="stylesheet")
     // END PAGE LEVEL STYLES
     // BEGIN THEME STYLES
-    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
       include ../../../shared/pageTop
@@ -60,11 +59,18 @@ html(lang='en')
                 .tabbable
                   ul#formtabs.nav.nav-tabs
                     // Tab nav
-                  form#components.form-horizontal(action='')
+                  form#components.form-horizontal
                     fieldset
                       .tab-content
         // / Components 
-    script(src='/global/plugins/jquery.min.js', type='text/javascript') 
-    
+    //Values to add to main built.js
+    script.
+      var formName   = "#{Name}";
+      var formId     = "#{Id}";
+      var renderTime = 0;
+      var action     = "#{Action}"; 
+      var cancelo    = false;
+    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
+
     
      

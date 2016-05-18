@@ -46,7 +46,7 @@ define([
           that.template(that.model.getValues())
         ).attr({
           "data-content"     : content
-          , "data-title"     : "Edita"//that.model.get("title")
+          , "data-title"     : that.model.get("title")//"Edita"//that.model.get("title")
           , "data-trigger"   : "manual"
           , "data-html"      : true
         });

@@ -9,7 +9,7 @@
       label: 
         label: "Nombre"
         type: "input"
-        value: "Text Input"
+        value: "Escribe un valor"
       placeholder: 
         label: "Texto de fondo"
         type: "input"
@@ -19,53 +19,49 @@
         type: "input"
         value: "help"
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       inputsize: 
-        label: "Input Size"
+        label: "Tamaño"
         type: "select"
         value: 
           - 
             value: "input-mini"
-            label: "Mini"
+            label: "Muy chiquito"
             selected: false
           - 
             value: "input-small"
-            label: "Small"
+            label: "Chiquito"
             selected: false
           - 
             value: "input-medium"
-            label: "Medium"
+            label: "Mediano"
             selected: false
           - 
             value: "input-large"
-            label: "Large"
+            label: "Grande"
             selected: false
           - 
             value: "input-xlarge"
-            label: "Xlarge"
+            label: "Muy grande"
             selected: true
-          - 
-            value: "input-xxlarge"
-            label: "Xxlarge"
-            selected: false
   - 
     title: "Text Area"
     fields: 
       id: 
         label: "ID / Name"
         type: "eliminar"
-        value: "textarea"
+        value: "Texto grande"
       label: 
         label: "Nombre"
         type: "input"
-        value: "Text Area"
+        value: "Texto grande"
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       textarea: 
-        label: "Starting Text"
+        label: "Comentario default"
         type: "textarea"
-        value: "default text"
+        value: ""

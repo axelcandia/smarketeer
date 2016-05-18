@@ -44,7 +44,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -54,7 +54,7 @@
           {
             "value": "input-xlarge",
             "label": "Muy grande",
-            "selected": true
+            "selected": false
           }
         ]
       }
@@ -79,9 +79,9 @@
         "value": false
       }, 
       "textarea": {
-        "label": "Comentario default",
+        "label": "Texto de inicio",
         "type": "textarea",
-        "value": ""
+        "value": "default text"
       }
     }
   }

@@ -46,7 +46,7 @@
         "value": false
       }, 
       "checkboxes": {
-        "label": "Checkboxes",
+        "label": "Opciones",
         "type": "textarea-split",
         "value": [
           "Opcion uno",
@@ -69,18 +69,13 @@
         "value": "Seleccionador basico"
       },
       "options": {
-        "label": "Options",
+        "label": "Opciones",
         "type": "textarea-split",
         "value": [
           "Opcion uno",
           "Opcion dos"
         ]
       },
-      "required": {
-        "label": "Obligatorio",
-        "type": "checkbox",
-        "value": false
-      }, 
       "inputsize": {
         "label": "Tamaño",
         "type": "select",
@@ -98,7 +93,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -108,7 +103,7 @@
           {
             "value": "input-xlarge",
             "label": "Muy grande",
-            "selected": true
+            "selected": false
           }
         ]
       }
@@ -133,7 +128,7 @@
         "value": false
       }, 
       "options": {
-        "label": "Options",
+        "label": "Opciones",
         "type": "textarea-split",
         "value": [
           "Opcion uno",
@@ -157,7 +152,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -167,7 +162,7 @@
           {
             "value": "input-xlarge",
             "label": "Muy grande",
-            "selected": true
+            "selected": false
           }
         ]
       }

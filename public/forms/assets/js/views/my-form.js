@@ -23,8 +23,7 @@ define([
       this.render();
     }
 
-    , render: function(){  
-      //Render Snippet Views
+    , render: function(){
       this.$el.empty();
       var that = this;
       var containsFile = false;
@@ -36,14 +35,13 @@ define([
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
       }));  
       this.$el.appendTo("#build form"); 
-      $(".yes").attr( 'checked', true );
-      $(".no").attr( 'checked', false );
+      this.delegateEvents();
     }
 
     , getBottomAbove: function(eventY){
       var myFormBits = $(this.$el.find(".component"));
       var topelement = _.find(myFormBits, function(renderedSnippet) {
-        if (($(renderedSnippet).position().top + $(renderedSnippet).height()) > eventY  - 90) {
+        if (($(renderedSnippet).position().top + $(renderedSnippet).height()) > eventY  - 190) {
           return true;
         }
         else {
@@ -62,32 +60,31 @@ define([
       this.collection.remove(snippetModel);
       PubSub.trigger("newTempPostRender", mouseEvent);
     }
-    , handleTempMove: function(mouseEvent){
-      $(".target").removeClass("target");
-      if(mouseEvent.pageX >= this.$build.position().left &&
-          mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
-          mouseEvent.pageY >= this.$build.position().top &&
-          mouseEvent.pageY < (this.$build.height() + this.$build.position().top)){
-        $(this.getBottomAbove(mouseEvent.pageY)).addClass("target");
-      } else {
+    , handleTempMove: function(mouseEvent){ 
         $(".target").removeClass("target");
-      }
+        if(mouseEvent.pageX >= this.$build.position().left &&
+            mouseEvent.pageX < (this.$build.width() + this.$build.position().left)){
+          //if it is below everyhing put it below
+          console.log(mouseEvent.pageY);
+          //it if is up put it up(dah)
+          $(this.getBottomAbove(mouseEvent.pageY)).addClass("target");
+        } else {
+          $(".target").removeClass("target");
+        } 
+      
     }
-    , handleTempDrop: function(mouseEvent, model, index){
-      //change this 
-      if(mouseEvent.pageX >= this.$build.position().left &&
-         mouseEvent.pageX < (this.$build.width() + this.$build.position().left) &&
-         mouseEvent.pageY >= this.$build.position().top &&
-         mouseEvent.pageY < (this.$build.height() + this.$build.position().top)) {
-        var index = $(".target").index();
-        $(".target").removeClass("target");   
-         this.collection.add(model,{at: index+1});
-         
-
-      } else {
-        $(".target").removeClass("target");
-      }
-    }
+    , handleTempDrop: function(mouseEvent, model, index){ 
+        if(mouseEvent.pageX >= this.$build.position().left &&
+           mouseEvent.pageX < (this.$build.width() + this.$build.position().left) ) {
+            var index = $(".target").index();
+          $(".target").removeClass("target");   
+           this.collection.add(model,{at: index+1}); 
+          
+        } 
+         else {
+          $(".target").removeClass("target");
+        }
+      } 
   })
 });
 

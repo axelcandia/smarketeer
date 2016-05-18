@@ -1,5 +1,5 @@
 <!-- Text input-->
-<%if( id.indexOf("smkt") > -1 ){
+<%if( id.indexOf("smkt") > -1 ){ 
 	var name = id.split("_")[1].replace('-0','');
 	var type="";   
 	switch(name) {
@@ -23,8 +23,8 @@
 	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
 toggle-form btn icon-pencil open remove remove" title="Edit"></a> 
 
-	  <div class="controls"> 
-	    <input id="<%- id %>" style="height:30px" autocorrect="off" name="<%- name %>" type="<%- type %>" placeholder="<%- placeholder %>" class="<%- inputsize %>" <% if(required) {%> required <% } %> />
+	  <div class="controls "> 
+	    <input id="<%- id %>" style="height:30px" autocorrect="off" name="<%- name %>" type="<%- type %>" placeholder="<%- placeholder %>" class="<%- inputsize %> " <% if(required) {%> required <% } %> />
 	    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
 	  </div>
 <%} 

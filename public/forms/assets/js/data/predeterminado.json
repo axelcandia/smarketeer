@@ -45,7 +45,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -55,7 +55,7 @@
           {
             "value": "input-xlarge",
             "label": "Muy grande",
-            "selected": true
+            "selected": false
           }
         ]
       }
@@ -106,7 +106,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -167,7 +167,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -228,7 +228,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -289,7 +289,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -350,7 +350,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -411,7 +411,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -472,7 +472,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -723,7 +723,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -784,7 +784,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -870,7 +870,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",
@@ -931,7 +931,7 @@
           {
             "value": "input-medium",
             "label": "Mediano",
-            "selected": false
+            "selected": true
           },
           {
             "value": "input-large",

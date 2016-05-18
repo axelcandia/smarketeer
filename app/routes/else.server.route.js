@@ -72,15 +72,7 @@ module.exports = function(app) {
 	  app.get('/',function (req,res){
 	    res.render("intro");
 	  }); 
-	  /**
-	  * FORMS
-	  */
-	  app.get('/home/allforms',function (req,res){
-	    res.render("home/allforms");
-	  }); 
-	  app.get('/home/forms/formbuilder',function (req,res){
-	    res.render("home/forms/formbuilder");
-	  });  
+	    
 
 	  /*
 	    Dashboards and other in home

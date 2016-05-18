@@ -1,3 +1,4 @@
+ 
 // BEGIN SIDEBAR
 .page-sidebar-wrapper
           // DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing
@@ -51,17 +52,17 @@
               li
                 a(href='/home/allforms')
                   i.icon-puzzle
-                  span.title Forms
+                  span.title formularios
                   span.arrow
                 ul.sub-menu
                   li
                     a(href='/home/allforms')
                       i.icon-home
-                      |                 View All Forms
+                      |                 Ver todos
                   li
-                    a(href='/home/forms/formbuilder')
+                    a(href='#' id="CrearForm")
                       i.icon-basket
-                      |                 Form Builder
+                      |                 Crear formulario
               li
                 a(href='/home/reporting')
                   i.icon-bar-chart
@@ -74,3 +75,6 @@
                   span.arrow
             // END SIDEBAR MENU
         // END SIDEBAR
+script(src='/global/plugins/jquery.min.js', type='text/javascript')
+script(src='/global/plugins/bootbox/bootbox.min.js', type='text/javascript')
+script(src='/global/sidebar.js', type='text/javascript')
