@@ -33,7 +33,7 @@ define([
           //Send the new data
           $.ajax({
             type:'POST',
-                url:"/ReceiveForms",
+                url:"/home/forms/UpdateForm/",
                 data: JSON.stringify({
                   "builderCode":JSON.stringify(this.collection),//$("#UrlName").val(),
                    "id":  formId

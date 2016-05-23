@@ -66,25 +66,59 @@ exports.RenderGetAllForms= function(req, res){
 	//
 }
 
-/**
-* Update the html and json to the send request
-*/
-exports.UpdateForm = function ( id, html ){
-	Forms.update({_id: id}, {
-    	html: html
-	}, function(err, affected, resp) {
-   		console.log(resp);
-	});
-
-}
 //DELETE receiver or modify it in the next version :DDD
-exports.ReceiveForms = function(req,res,next){
+exports.UpdateForm = function(req,res,next){
 	console.log(JSON.stringify(req.body.id));
 	Forms.findByIdAndUpdate(req.body.id, { builderCode:req.body.builderCode }, function (err, tank) {
 	  if (err) return handleError(err); 
 	  res.send(tank);
 	}); 
 }
-function DeleteForm(){
+/*
+* Receives all the responses from froms
+*/
+exports.ReceiveForms = function(req,res,next){
+	console.log(req.body);
+}
+/**
+* Delete the campaign from our DB
+*/
+exports.DeleteForm = function(req,res){
+	if (!req.user) { 
+		res.redirect("/login");
+	}
+	Forms.findByIdAndRemove(req.params.id,function(err){
+		if(err)
+			res.send("false");
+		else
+			res.send("true");
 
+	})
+}
+/**
+* Get the id and clone dat madafaka
+*/
+exports.CloneForm = function( req, res ){
+	if (!req.user) { 
+		res.redirect("/login");
+	}
+	Forms.findById(req.params.id,function( err, data ){
+		if(err)
+			res.send("false");
+		else{
+			var clone = new Forms({ 
+				date 		: new Date(),
+				builderCode : data.builderCode,
+				html        : data.html,
+				name        : data.name,
+				users       : data.users 
+			});
+			clone.save(function(err){
+				if(err)
+					res.send("false");
+				else
+					res.send("true");
+			});
+		}
+	})
 }
