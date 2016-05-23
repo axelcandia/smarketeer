@@ -65,11 +65,10 @@ html(lang='en')
         // / Components 
     //Values to add to main built.js
     script.
-      var formName   = "#{Name}";
-      var formId     = "#{Id}";
-      var renderTime = 0;
-      var action     = "#{Action}"; 
-      var cancelo    = false;
+      //var formName   = "#{Name}";
+      var formId    = "#{Id}";
+      var col       = !{builderCode}; 
+      LoadOldData   = true; 
     script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
 
     

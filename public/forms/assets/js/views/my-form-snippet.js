@@ -82,8 +82,7 @@ define([
               boundContext.model.setField(name, valarr);
               break; 
           }
-        });
-      
+        }); 
         boundContext.model.trigger("change");
         $(".popover").remove();
       }

@@ -97,13 +97,15 @@ html(lang='en')
             // BEGIN PAGE CONTENT
             .portlet.light
               .portlet-body
-                - var row   = 0
-                - var total = campaigns.length / 3
+                - var row       = 0
+                - var total     = campaigns.length / 3
+                - var subtotal  =  campaigns.length%3
+                - var i=0
                 #sortable_portlets.row
                   each campaign in campaigns
                     - row += 1
-                    .col-md-4.column.sortable
-                      .portlet.portlet-sortable.box.green-haze
+                    .col-md-4.column
+                      .portlet.box.green-haze
                         .portlet-title
                           .caption
                             i.fa.fa-gift
@@ -123,9 +125,12 @@ html(lang='en')
                             a.eliminar.btn.pull-right.red.btn-sm(href='#',onClick="eliminar('#{campaign.campaign}','#{campaign._id}')")
                               i.fa.fa-minus
                               |  Eliminar
-                      if row >= total          
-                        .portlet.portlet-sortable-empty
-                        - row = 0
+                      if row >= total
+                        while i<subtotal
+                          -i +=1  
+                          .portlet.portlet-sortable-empty
+                        -row  = 0
+
             // END PAGE CONTENT
         // END CONTENT
         // BEGIN QUICK SIDEBAR
@@ -151,18 +156,9 @@ html(lang='en')
     script(src='/campaigns/js/seeall.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
-    script(src='/global/scripts/metronic.js', type='text/javascript')
-    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='/admin/pages/scripts/portlet-draggable.js')
-    // END PAGE LEVEL SCRIPTS
-    script.
-      jQuery(document).ready(function() {
-      // initiate layout and plugins
-      Metronic.init(); // init metronic core components
-      Layout.init(); // init current layout
-      Demo.init(); // init demo features
-      PortletDraggable.init();
-      });
+    //script(src='/global/scripts/metronic.js', type='text/javascript')
+    //script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    //script(src='/admin/layout2/scripts/demo.js', type='text/javascript') 
+    // END PAGE LEVEL SCRIPTS 
     // END JAVASCRIPTS
   // END BODY

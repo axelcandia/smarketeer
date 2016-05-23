@@ -40,16 +40,7 @@ define([
         return snippet.attributes.title === "File Button"
       }) === "undefined");
     }
-    , renderAll: function(){
-       if(action == "cargar"){
-        console.log("cargar data");
-        renderTime=0;
-        action="enviar";
-
-        //hacerlo
-      }
-      //We return cancelo to its default, we will want it the second time :D
-      cancelo=false;
+    , renderAll: function(){  
       return this.map(function(snippet){
         return new MyFormSnippetView({model: snippet}).render(true);
       })

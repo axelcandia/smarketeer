@@ -23,19 +23,36 @@ define([
       this.render();
     }
 
-    , render: function(){
-      this.$el.empty();
+    , render: function(){ 
+      this.$el.empty(); 
+      if(LoadOldData){
+        this.collection.reset(col);
+        LoadOldData=false;
+      }
+      else{
+          //Send the new data
+          $.ajax({
+            type:'POST',
+                url:"/ReceiveForms",
+                data: JSON.stringify({
+                  "builderCode":JSON.stringify(this.collection),//$("#UrlName").val(),
+                   "id":  formId
+                  }),
+                contentType: 'application/json',
+              }); 
+        } 
+
       var that = this;
       var containsFile = false;
       _.each(this.collection.renderAll(), function(snippet){
         that.$el.append(snippet);
-      }); 
+      });  
       $("#render").val(that.renderForm({
         multipart: this.collection.containsFileType(),
         text: _.map(this.collection.renderAllClean(), function(e){return e.html()}).join("\n")
       }));  
       this.$el.appendTo("#build form"); 
-      this.delegateEvents();
+      this.delegateEvents(); 
     }
 
     , getBottomAbove: function(eventY){
