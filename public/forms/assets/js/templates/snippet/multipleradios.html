@@ -6,7 +6,7 @@ toggle-form btn icon-pencil open remove" title="Edit"></a></div>
 	<div class="mt-radio-list">
 		<% _.each(radios, function(radio, i){ %>
 			<label class="mt-radio mt-radio-outline" for="<%- id+'-'+i %>" >
-				<input type="radio" name="<%- id %>" id="<%- id+'-'+i %>" value="<%- radio %>"  <% if (i < 1) { %> checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
+				<input type="radio" name="<%- label %>" id="<%- id+'-'+i %>" class="SmarketeerField" value="<%- radio %>"  <% if (i < 1) { %> checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
 	      <%- radio %>
 				<span></span>
 			</label>

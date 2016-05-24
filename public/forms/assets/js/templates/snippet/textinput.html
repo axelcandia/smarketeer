@@ -24,7 +24,7 @@
 toggle-form btn icon-pencil open remove remove" title="Edit"></a> 
 
 	  <div class="controls "> 
-	    <input id="<%- id %>" style="height:30px" autocorrect="off" name="<%- name %>" type="<%- type %>" placeholder="<%- placeholder %>" class="<%- inputsize %> " <% if(required) {%> required <% } %> />
+	    <input id="<%- id %>" style="height:30px" autocorrect="off" name="<%- label %>" type="<%- type %>" placeholder="<%- placeholder %>" class="SmarketeerField <%- inputsize %> " <% if(required) {%> required <% } %> />
 	    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
 	  </div>
 <%} 
@@ -34,7 +34,7 @@ else{%>
 	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
 toggle-form btn icon-pencil open remove" title="Edit"></a></div> 
   <div class="controls">
-    <input id="<%- id %>" style="height:30px" name="<%- id %>" type="text" placeholder="<%- placeholder %>" class="<%- inputsize %>" <% if(required) {%> required <% } %> />
+    <input id="<%- id %>" style="height:30px" name="<%- label %>" type="text" placeholder="<%- placeholder %>" class="SmarketeerField <%- inputsize %>" <% if(required) {%> required <% } %> />
     <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
   </div>
 </div>

@@ -7,7 +7,7 @@
 toggle-form btn icon-pencil open remove" title="Edit"></a></div>
   <div class="controls"><% _.each(checkboxes, function(checkbox, i){ %>
     <label class="checkbox inline" for="<%- id+'-'+i %>">
-      <input type="checkbox" name="<%- id %>" id="<%- id+'-'+i %>" value="<%- checkbox %>"<% if(required){ %> required="required"<% } %>>
+      <input type="checkbox" name="<%- label %>" id="<%- id+'-'+i %>" value="<%- label %>"<% if(required){ %> required="required"<% } %>>
       <%- checkbox %>
     </label><% }); %>
   </div>

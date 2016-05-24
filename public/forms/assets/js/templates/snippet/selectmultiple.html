@@ -5,11 +5,11 @@
 	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
 toggle-form btn icon-pencil open remove" title="Edit"></a></div>
   <div class="controls">
-    <select id="<%- id %>" <% if(required) {%> required <% } %> name="<%- id %>" class="form-control <%- inputsize %>" multiple="multiple"><% _.each(options, function(option) { 
+    <select id="<%- id %>" <% if(required) {%> required <% } %> name="<%- label %>" class=" SmarketeerField form-control <%- inputsize %>" multiple="multiple"><% _.each(options, function(option) { 
     	if( number==0 ){ number+=1;%>
     		<option class="temphide">-Seleccione una opcion-</option>
     	<%}%>  
-      <option value=<%-number%> ><%- option %></option><% number+=1;}); %>
+      <option value="<%-option%>" ><%- option %></option><% number+=1;}); %>
     </select>
   </div>
 </div>

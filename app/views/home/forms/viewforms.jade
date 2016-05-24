@@ -14,6 +14,7 @@ html(lang='en')
     link(href='../http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
     link(href='../global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
     link(href='../global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='/global/plugins/ladda/ladda-themeless.min.css')
     link(href='../global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
     link(href='../global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
     link(href='../global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
@@ -110,7 +111,7 @@ html(lang='en')
                           .caption
                             i.fa.icon-puzzle
                             | #{form.name}
-                        .portlet-body
+                        .portlet-body 
                           //PONER VISITAS MAS TARDE
                           .actions
                             a.btn.blue.btn-sm(href="/home/forms/formbuilder/#{form.name}/#{form._id}")
@@ -122,15 +123,17 @@ html(lang='en')
                             a.clonar.btn.purple.btn-sm(href='#',onClick="clonar('#{form.name}','#{form._id}')")
                               i.fa.fa-plus
                               |  Clonar
-                            a.eliminar.btn.pull-right.red.btn-sm(href='#',onClick="eliminar('#{form.name}','#{form._id}')")
+                            button.eliminar.btn.pull-right.red.btn-sm.mt-ladda-btn.ladda-button.mt-progress-demo(data-loading-text='Loading...', data-style='slide-left', href='#',onClick="eliminar('#{form.name}','#{form._id}')") 
+                              span.ladda-spinner
+                              span.ladda-spinner
+                              span.ladda-label asdasd
                               i.fa.fa-minus
                               |  Eliminar
                       //if row >= total
                         while i<subtotal
                           -i +=1  
                           .portlet.portlet-sortable-empty
-                        -row  = 0
-
+                        -row  = 0 
             // END PAGE CONTENT
         // END CONTENT
         // BEGIN QUICK SIDEBAR
@@ -154,6 +157,8 @@ html(lang='en')
     script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
     script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     script(src='/forms/seeall.js', type='text/javascript')
+    script(src='/global/plugins/ladda/spin.min.js')
+    script(src='/global/plugins/ladda/ladda.min.js')
 
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
