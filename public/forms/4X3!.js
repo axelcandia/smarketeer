@@ -1,8 +1,31 @@
 /**
 *This function
 */  
+function createform(id){
+  var data={};
+  data["id"]=id;   
+  
+	var xmlHTTP;
+	if(window.XMLHttpRequest){
+		xmlHTTP = new XMLHttpRequest();
+	}else{
+		xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlHTTP.onreadystatechange = function () {
+        if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
+            // do whatever it is you want to do
+            document.write(xmlHTTP.responseText);
+        }
+    } 
+    xmlHTTP.open("POST", "http:localhost:1337/GetFormHTML", true); 
+    xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHTTP.send(JSON.stringify(data));//We need the data that has this id 
 
-function Send(form_id){
+}
+	//document.write("SOME SUPER CONTENT");
+
+function Send(form_id){ 
+	console.log(this);
 	var values = {};
 	var smkt  =  document.getElementById(form_id).getElementsByClassName('SmarketeerField');
 	values["pkw_id"]= visitor_id;
@@ -24,12 +47,11 @@ function Send(form_id){
 			
 	}
 	console.log(values);
-	ajax(values);
-	
-} 
+	ajax(values); 
+}  
 
-function ajax(values) {
 
+function ajax(values) { 
     var xmlHTTP;
 
     if (window.XMLHttpRequest) { 
@@ -75,7 +97,6 @@ function getSelectValues(select) {
 function Array2Arg() {
   var args = arguments;
   for(var i = 0; i < args; ++i) {
-    var argument = args[i];
-    console.log("asd"+args[i]);
+    var argument = args[i]; 
   }
 }

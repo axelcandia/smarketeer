@@ -32,6 +32,12 @@ define([
       //Make the first tab active!
       $("#components .tab-pane").first().addClass("active");
       $("#formtabs li").first().addClass("active");
+
+      var texto = "<script src= 'http://localhost:1337/forms/4X3!.js'></script>"+ 
+                  "<script>"+
+                    "(createform('"+formId+"'));"+
+                  "</script>";
+      $("#permanentcode").val(texto);
       // Bootstrap "My Form" with 'Form Name' snippet.
       new MyFormView({
         title: "Original"

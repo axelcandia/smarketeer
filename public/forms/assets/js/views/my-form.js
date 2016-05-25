@@ -29,14 +29,17 @@ define([
         this.collection.reset(col);
         LoadOldData=false;
       }
-      else{
+      else{ 
+          var currentHtml =jQuery( $("#render").val() );
+         currentHtml.find('.remove').remove();
           //Send the new data
           $.ajax({
             type:'POST',
                 url:"/home/forms/UpdateForm/",
                 data: JSON.stringify({
                   "builderCode":JSON.stringify(this.collection),//$("#UrlName").val(),
-                   "id":  formId
+                   "id":  formId,
+                   "html": $(currentHtml).html()
                   }),
                 contentType: 'application/json',
               }); 
@@ -81,8 +84,7 @@ define([
         $(".target").removeClass("target");
         if(mouseEvent.pageX >= this.$build.position().left &&
             mouseEvent.pageX < (this.$build.width() + this.$build.position().left)){
-          //if it is below everyhing put it below
-          console.log(mouseEvent.pageY);
+          //if it is below everyhing put it below 
           //it if is up put it up(dah)
           $(this.getBottomAbove(mouseEvent.pageY)).addClass("target");
         } else {

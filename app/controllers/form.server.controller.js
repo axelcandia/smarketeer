@@ -1,5 +1,6 @@
 var config			= require("../../config/config");
 var Forms 			= require("../models/form.server.model");
+var minify 			= require('html-minifier').minify;
 /**
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
@@ -41,8 +42,8 @@ exports.RenderFormBuilder= function(req, res, next){
 			else{
 				console.log(found);
 				res.render("home/forms/formbuilder/index",{ 
-		      		Name: found.name,
-		      		Id: found.id,
+		      		Name       : found.name,
+		      		formId     : found.id,
 		      		builderCode: found.builderCode
 	      		});
 			}
@@ -69,7 +70,17 @@ exports.RenderGetAllForms= function(req, res){
 //DELETE receiver or modify it in the next version :DDD
 exports.UpdateForm = function(req,res,next){
 	console.log(JSON.stringify(req.body.id));
-	Forms.findByIdAndUpdate(req.body.id, { builderCode:req.body.builderCode }, function (err, tank) {
+	var send='"Send('+req.body.id+')"';
+	//Form it, minify it, sell it
+	var html= "<form class='form-horizontal smkt_form' id='"+req.body.id+"'>" +
+				req.body.html+
+				"<button id='smkt_button' onclick="+send+">Enviar</button>"+
+			  "</form>";
+	var result = minify(html, {
+		  removeAttributeQuotes: false
+	});
+
+	Forms.findByIdAndUpdate(req.body.id, { builderCode:req.body.builderCode,html:result }, function (err, tank) {
 	  if (err) return handleError(err); 
 	  res.send(tank);
 	}); 
@@ -119,6 +130,19 @@ exports.CloneForm = function( req, res ){
 				else
 					res.send("true");
 			});
+		}
+	})
+}
+/**
+* @Receives the id
+* @Posts the required html
+*/
+exports.GetFormHTML = function( req, res, next ){ 
+	Forms.findById(req.body.id,function( err, data ){
+		if(err)
+			res.send("false");
+		else{
+			res.send(data.html).status(200); 
 		}
 	})
 }

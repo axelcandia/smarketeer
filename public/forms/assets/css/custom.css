@@ -176,5 +176,9 @@ form .popover form {
   overflow: scroll;
     height: 20px;
 }
+#permanentcode{
+  width: 80%;
+  height: 25%;
+}
 .component #frmb-0-fld-3-edit {display:none;}
 .component:hover #frmb-0-fld-3-edit {display:inline;}
