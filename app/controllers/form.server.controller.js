@@ -1,6 +1,7 @@
 var config			= require("../../config/config");
 var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
+var SolvedForms		= require("../models/solvedforms.server.model");
 /**
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
@@ -70,9 +71,9 @@ exports.RenderGetAllForms= function(req, res){
 //DELETE receiver or modify it in the next version :DDD
 exports.UpdateForm = function(req,res,next){
 	console.log(JSON.stringify(req.body.id));
-	var send='"Send('+req.body.id+')"';
+	var send='"Send(\''+req.body.id+'\')"';
 	//Form it, minify it, sell it
-	var html= "<form class='form-horizontal smkt_form' id='"+req.body.id+"'>" +
+	var html= "<form class='form-horizontal smkt_form' id='form."+req.body.id+"'>" +
 				req.body.html+
 				"<button id='smkt_button' onclick="+send+">Enviar</button>"+
 			  "</form>";
@@ -89,7 +90,32 @@ exports.UpdateForm = function(req,res,next){
 * Receives all the responses from froms
 */
 exports.ReceiveForms = function(req,res,next){
+	//var obj= JSON.parse([req.body]); 
+	console.log("entrando:"+Object.keys(req.body).length);
 	console.log(req.body);
+	if( Object.keys(req.body).length >2 ){
+		console.log("entre");
+		var  solved = SolvedForms({
+			date: new Date(),
+			fields  : req.body
+		});
+		//Se guarda el campo
+		solved.save();
+		//Se ve en que estado esta nuestro pibe
+		//Si recibimos email, nombre o apellido añadir con el status a identificado
+		if( req.body.Apellido || req.body.Nombre || req.body.email )
+		{
+			Status.findOne("pkw_id":req.body.pkw_id,function(err,data){
+				if(!data.status){
+					var stat = new Status({
+
+					});
+					stat.save();
+				}
+			})
+		}
+	}
+	//Si es mayor a 2 hagamos el guardado, si no, do not even bother
 }
 /**
 * Delete the campaign from our DB
@@ -142,7 +168,8 @@ exports.GetFormHTML = function( req, res, next ){
 		if(err)
 			res.send("false");
 		else{
-			res.send(data.html).status(200); 
+			if(data.html)
+				res.send(data.html).status(200); 
 		}
 	})
 }

@@ -1,10 +1,10 @@
 /**
 *This function
 */  
-function createform(id){
+function createform(id){  
   var data={};
   data["id"]=id;   
-  
+
 	var xmlHTTP;
 	if(window.XMLHttpRequest){
 		xmlHTTP = new XMLHttpRequest();
@@ -14,21 +14,22 @@ function createform(id){
 	xmlHTTP.onreadystatechange = function () {
         if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
             // do whatever it is you want to do
-            document.write(xmlHTTP.responseText);
+            document.getElementById(id).insertAdjacentHTML('afterend',xmlHTTP.responseText);
+             
         }
     } 
     xmlHTTP.open("POST", "http:localhost:1337/GetFormHTML", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlHTTP.send(JSON.stringify(data));//We need the data that has this id 
-
+    xmlHTTP.send(JSON.stringify(data));//We need the data that has this id  
 }
 	//document.write("SOME SUPER CONTENT");
 
-function Send(form_id){ 
-	console.log(this);
-	var values = {};
-	var smkt  =  document.getElementById(form_id).getElementsByClassName('SmarketeerField');
+function Send(form_id){  
+  event.preventDefault();
+  var values = {};
+	var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
 	values["pkw_id"]= visitor_id;
+  values["form_id"]=form_id;
 	for(var i=0;i< smkt.length;i++){ 
 		var name= smkt[i].name;
 		if( smkt[i].value == "-Seleccione una opcion-"){
@@ -45,9 +46,8 @@ function Send(form_id){
 			values[name]=smkt[i].value; 
 		}
 			
-	}
-	console.log(values);
-	ajax(values); 
+	} 
+	ajax(values);
 }  
 
 
@@ -62,14 +62,12 @@ function ajax(values) {
 
     xmlHTTP.onreadystatechange = function () {
         if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
-            // do whatever it is you want to do
+            alert("HELLO, is it me you are looking fooor?");
         }
     }
 
     //Serialize the data
     var queryString = JSON.stringify(values);
-    console.log(queryString);
-
     xmlHTTP.open("POST", "http:localhost:1337/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHTTP.send(queryString);
@@ -92,7 +90,7 @@ function getSelectValues(select) {
     }
   }
   return result;
-}
+} 
 
 function Array2Arg() {
   var args = arguments;

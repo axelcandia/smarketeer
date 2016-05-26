@@ -31,11 +31,10 @@ define([
       });
       //Make the first tab active!
       $("#components .tab-pane").first().addClass("active");
-      $("#formtabs li").first().addClass("active");
-
+      $("#formtabs li").first().addClass("active"); 
       var texto = "<script src= 'http://localhost:1337/forms/4X3!.js'></script>"+ 
-                  "<script>"+
-                    "(createform('"+formId+"'));"+
+                  "<script id='574360ff772440a41c9252d7'>"+
+                    "(createform(document.currentScript.id));"+
                   "</script>";
       $("#permanentcode").val(texto);
       // Bootstrap "My Form" with 'Form Name' snippet.
