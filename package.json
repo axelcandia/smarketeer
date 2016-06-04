@@ -41,6 +41,7 @@
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
     "node-foursquare": "^0.3.0",
+    "node-json2html": "^1.0.0",
     "node-linkedin": "^0.5.3",
     "nodemailer": "^2.3.0",
     "passport": "0.3.2",
@@ -55,6 +56,7 @@
     "piwik-client": "^0.2.2",
     "request": "^2.69.0",
     "tumblr.js": "^0.0.7",
+    "tunnel-ssh": "^3.2.1-beta",
     "twit": "^2.2.2",
     "validator": "^5.1.0",
     "yui": "^3.18.1"

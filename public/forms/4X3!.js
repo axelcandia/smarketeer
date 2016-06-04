@@ -1,7 +1,7 @@
 /**
 *This function
 */  
-function createform(id){  
+function createform(id){   
   var data={};
   data["id"]=id;   
 
@@ -62,7 +62,7 @@ function ajax(values) {
 
     xmlHTTP.onreadystatechange = function () {
         if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
-            alert("HELLO, is it me you are looking fooor?");
+            //alert(xmlHTTP.responseText);
         }
     }
 
@@ -70,7 +70,7 @@ function ajax(values) {
     var queryString = JSON.stringify(values);
     xmlHTTP.open("POST", "http:localhost:1337/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlHTTP.send(queryString);
+    xmlHTTP.send(queryString); 
 }
 
 
@@ -91,6 +91,7 @@ function getSelectValues(select) {
   }
   return result;
 } 
+ 
 
 function Array2Arg() {
   var args = arguments;

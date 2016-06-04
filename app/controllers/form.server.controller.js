@@ -1,15 +1,57 @@
 var config			= require("../../config/config");
 var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
-var SolvedForms		= require("../models/solvedforms.server.model");
+var SolvedForms		= require("../models/solvedforms.server.model"); 
+var Visitors		= require("../models/visitors.server.model");
+var mysql      		= require('mysql'); 
 /**
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
 */
+    var tunnel = require('tunnel-ssh').tunnel;
+    //map port from remote 3306 to localhost 3306 
+    var server = tunnel({host: '52.165.38.47', dstPort: 3306, username:"axel",password:"AlfredHitchcock12"}, function (error, result) {
+        //you can start using your resources here. (mongodb, mysql, ....) 
+        console.log('connected');
+
+    });
+
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
 		res.redirect("/login");
-	}
+	} /*
+	var connection = mysql.createConnection({
+	    host: '127.0.0.1', // Important to connect to localhost after connecting via ssh in screen
+	    user: 'bitnami',
+	    password: '3963974397',
+	    database: 'bitnami_piwik',
+	    port: 3000
+	});
+        connection.connect(function(err) {
+			  if (err) {
+			    console.error('error connecting: ' + err.stack);
+			    return;
+			  }
+			  connection.query( 'SELECT *  FROM  piwik_log_visit WHERE idvisit=1;', function(err, rows, fields) {
+				  if (err) throw err;
+
+				  console.log('The solution is: ', rows[0].idvisitor);
+				  var id=Buffer.from(rows[0].idvisitor); 
+				  const StringDecoder = require('string_decoder').StringDecoder;
+				  const decoder = new StringDecoder('utf8');
+				  console.log('The solution is: ', decoder.write(id)); 
+				 });
+
+    	});
+
+		/*connection.connect(function(err) {
+	  if (err) {
+	    console.error('error connecting: ' + err.stack);
+	    return;
+	  }
+	 
+	  console.log('connected as id ' + connection.threadId);
+	});*/  
 	//CREATE ONE
 	if(!req.params.id){
 			var name=req.params.name.replace(/[+]/g, ' ');
@@ -34,14 +76,14 @@ exports.RenderFormBuilder= function(req, res, next){
 	      }
 
 		});
+
 	}
 	//We have the ID So search it, and find that info :D
 	else{
 		Forms.findById(req.params.id, function (err, found) {
 			if(err)
 				console.log("err");
-			else{
-				console.log(found);
+			else{ 
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
@@ -59,8 +101,7 @@ exports.RenderGetAllForms= function(req, res){
 	//GetAllCampaings for these user
 	Forms.find({"users._id" : req.user._id},function(err,data){
 		if(err)
-			console.log(err);
-		console.log(data);
+			console.log(err); 
 		res.render("home/forms/viewforms",{
 			forms:data
 		});
@@ -69,8 +110,7 @@ exports.RenderGetAllForms= function(req, res){
 }
 
 //DELETE receiver or modify it in the next version :DDD
-exports.UpdateForm = function(req,res,next){
-	console.log(JSON.stringify(req.body.id));
+exports.UpdateForm = function(req,res,next){ 
 	var send='"Send(\''+req.body.id+'\')"';
 	//Form it, minify it, sell it
 	var html= "<form class='form-horizontal smkt_form' id='form."+req.body.id+"'>" +
@@ -90,11 +130,8 @@ exports.UpdateForm = function(req,res,next){
 * Receives all the responses from froms
 */
 exports.ReceiveForms = function(req,res,next){
-	//var obj= JSON.parse([req.body]); 
-	console.log("entrando:"+Object.keys(req.body).length);
-	console.log(req.body);
-	if( Object.keys(req.body).length >2 ){
-		console.log("entre");
+	//var obj= JSON.parse([req.body]);   
+	if( Object.keys(req.body).length >2 ){ 
 		var  solved = SolvedForms({
 			date: new Date(),
 			fields  : req.body
@@ -105,14 +142,7 @@ exports.ReceiveForms = function(req,res,next){
 		//Si recibimos email, nombre o apellido añadir con el status a identificado
 		if( req.body.Apellido || req.body.Nombre || req.body.email )
 		{
-			Status.findOne("pkw_id":req.body.pkw_id,function(err,data){
-				if(!data.status){
-					var stat = new Status({
 
-					});
-					stat.save();
-				}
-			})
 		}
 	}
 	//Si es mayor a 2 hagamos el guardado, si no, do not even bother
@@ -172,4 +202,36 @@ exports.GetFormHTML = function( req, res, next ){
 				res.send(data.html).status(200); 
 		}
 	})
+}
+/**
+* Receives data of whatever and returns the properid
+*/
+exports.GetVisitorId = function( req, res, next){
+	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
+	var query = { "cookies" :req.body.id};
+	var update;
+	if(req.body.email){
+		update = { 
+	    	"email"			: req.body.email
+	    };
+	}
+	else{
+		update = { 
+	    	$addToSet: { cookies			: req.body.id}
+	    }; 
+	} 
+
+	Visitors.findOneAndUpdate( query, update, options, function(error, result) {
+		if(error){
+			res.send(req.body.id);
+		}
+		else{
+			console.log(req.body.id);
+			console.log(result._id);
+			res.send( result._id ).status(200);
+		}
+	}); 
+
+	
+
 }
