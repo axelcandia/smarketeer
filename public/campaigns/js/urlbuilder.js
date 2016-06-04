@@ -46,12 +46,12 @@ $( document ).ready(function() {
 		else{
 			//write the obligatory fields
 			var url=$("#WebsiteUrl").val(); 
-			url += "/?pk_campaign=" + $("#Name").val(); 
+			url += "/?utm_campaign=" + $("#Name").val(); 
 			//Write the opritonal fields
-			url += ( $("#KeyWord").val() ) ? "&pk_kwd="     + $("#KeyWord").val()  : "" ;  //Keyword with content
-			url += ( $("#Source").val() )  ? "&sm_source="  + $("#Source").val()   : "" ;  //source with content
-			url += ( $("#Medium").val() )  ? "&sm_medium="  + $("#Medium").val()   : "" ;  //Medium with Medium
-			url += ( $("#Content").val() ) ? "&sm_content=" + $("#Content").val()  : "" ;  //Medium with Medium
+			url += ( $("#KeyWord").val() ) ? "&utm_term="     + $("#KeyWord").val()  : "" ;  //Keyword with content
+			url += ( $("#Source").val() )  ? "&utm_source="   + $("#Source").val()   : "" ;  //source with content
+			url += ( $("#Medium").val() )  ? "&utm_medium="   + $("#Medium").val()   : "" ;  //Medium with Medium
+			url += ( $("#Content").val() ) ? "&utm_content="  + $("#Content").val()  : "" ;  //Medium with Medium
 			//Add the url
 			url = url.replace(/\ /g, '-');
 			$("#UrlName").val(url);

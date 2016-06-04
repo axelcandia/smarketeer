@@ -54,11 +54,13 @@
     "passport-openid": "^0.4.0",
     "passport-twitter": "^1.0.4",
     "piwik-client": "^0.2.2",
+    "promise": "^7.1.1",
     "request": "^2.69.0",
     "tumblr.js": "^0.0.7",
     "tunnel-ssh": "^3.2.1-beta",
     "twit": "^2.2.2",
     "validator": "^5.1.0",
+    "wait.for": "^0.6.6",
     "yui": "^3.18.1"
   },
   "devDependencies": {

@@ -198,7 +198,7 @@ exports.GetFormHTML = function( req, res, next ){
 		if(err)
 			res.send("false");
 		else{
-			if(data.html)
+			if(data)
 				res.send(data.html).status(200); 
 		}
 	})

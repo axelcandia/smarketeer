@@ -2,7 +2,8 @@ var mongoose  = require('mongoose');
 
 var visitorsSchema = new mongoose.Schema({
 	cookies :[],
-	email   : String
+	email   : String,
+	status  : String
 });
 
 
