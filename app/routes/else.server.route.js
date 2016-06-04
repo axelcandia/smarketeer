@@ -62,9 +62,7 @@ module.exports = function(app) {
 	app.get('/login', userController.getLogin);
 	app.post('/login', userController.postLogin);
  
-	  app.get('/home/funnel/leads',function (req,res){
-	      res.render("home/funnel/leads");
-	    });
+	 
 	    app.get('/home/funnel/sales',function (req,res){
 	      res.render("home/funnel/sales");
 	    });

@@ -6,7 +6,7 @@ var Visitors      = require("../models/visitors.server.model");
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
-      });  
+      });   
 }
 
 /**
@@ -69,8 +69,7 @@ function GetStatus(visita){
 */
 function json2table(visita){ 
   //First we create the href and the id
-  //Parseamos la url
-  console.log(visita);
+  //Parseamos la url 
   var query = url.parse(visita.actionDetails[0].url,true).query; 
   //Visitor date
    var NewVisitor='<tr>'+
