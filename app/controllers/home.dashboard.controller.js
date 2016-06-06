@@ -103,6 +103,6 @@ exports.GetSales= function( req,res,next ){
 
 }
 
-function GetVisitorsByReferrer( websiteId ){
+function GetVisitorsByReferrer( websiteId,type ){
 
 }

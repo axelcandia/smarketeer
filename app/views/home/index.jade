@@ -74,7 +74,7 @@ html.no-js(lang='en')
                   .modal-body
                     | Copy & paste the following code into the head of your HTML
                     form(action='#')
-                    | WHATSAAAAAP
+                    | 
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -144,7 +144,7 @@ html.no-js(lang='en')
                     .desc
                       | Sales
             // END DASHBOARD STATS
-            .clearfix.text-center.attribution-button
+            //.clearfix.text-center.attribution-button
               h3 Attribution
               .btn-group.btn-group-circle(data-toggle='buttons')
                 label.btn.blue.active
@@ -168,23 +168,21 @@ html.no-js(lang='en')
                       a.config(href='/#portlet-config', data-toggle='modal')
                       a.reload(href='/javascript:;')
                   .portlet-body
-                    #LeadsLegend
-                    canvas#LeadsByChannel.canvas(height='290' align="center")
-                    
+                    #canvas-holder
+                      canvas#chart-leads(width='481', height='295', style='width: 481px; height: 295px;')
               .col-md-6.col-sm-6
                 .portlet.box.blue
                   .portlet-title
                     .caption
                       i.fa.fa-gift
                       | Sales By Channel
-                    .tools
-                      a.config(href='/#portlet-config', data-toggle='modal')
+                    .tools 
                       a.reload(href='/javascript:;')
                   .portlet-body
-                    #SalesLegend
-                    canvas#SalesByChannel(height='290' align="center") 
+                    #canvas-holder
+                      canvas#chart-sales(width='481', height='295', style='width: 481px; height: 295px;')
             // BEGIN STACK CHART CONTROLS PORTLET
-            .row
+            //.row
               .col-md-12.col-sm-12
                 .portlet.box.yellow
                   .portlet-title
@@ -198,7 +196,7 @@ html.no-js(lang='en')
                       a.remove(href='/javascript:;')
                   .portlet-body
                     #chart_5(style='height:350px;')
-                    //.btn-toolbar
+                      .btn-toolbar
                       .btn-group.stackControls
                         input.btn.blue(type='button', value='With stacking')
                         input.btn.red(type='button', value='Without stacking')
@@ -286,7 +284,7 @@ html.no-js(lang='en')
                           h3 235090
                 // END PORTLET
             .clearfix
-            .row
+            //.row
               .col-md-6.col-sm-6
                 .portlet.light
                   .portlet-title
@@ -476,7 +474,7 @@ html.no-js(lang='en')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
     //NEW SCRIPTS
     script(src='/dashboard/js/dashboard.js') 
-    script(src='/dashboard/js/Chart.js')
+    script(src='/global/plugins/Chart/Chart.bundle.js')
     script.
       var page_id = #{websites[0].id};
 
@@ -484,8 +482,7 @@ html.no-js(lang='en')
         url: '/home/GetAllVisitors',
         method: "POST",
         data: { "id" : page_id },
-        success: function(data) {
-          console.log(data);
+        success: function(data) { 
           $("#nvisitors").html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -497,8 +494,7 @@ html.no-js(lang='en')
         url: '/home/GetLeads',
         method: "POST",
         data: { "id" : page_id },
-        success: function(data) {
-          console.log(data);
+        success: function(data) { 
           $("#nleads").html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -510,12 +506,119 @@ html.no-js(lang='en')
         url: '/home/GetSales',
         method: "POST",
         data: { "id" : page_id },
-        success: function(data) {
-          console.log(data);
+        success: function(data) { 
           $("#nsales").html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
         }
+        });
+
+      /**
+      * Se comienza a agregaer los graficos
+      */
+        var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+        };
+        var randomColorFactor = function() {
+            return Math.round(Math.random() * 255);
+        };
+        var randomColor = function(opacity) {
+            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+        };
+
+        var chartLeadsData = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        0
+                    ],
+                backgroundColor: [
+                    "#F7464A",
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                    "#4D5360"
+                ],
+
+                }],
+                labels: [
+                    "Facebook",
+                    "Twitter",
+                    "Linkedin",
+                    "Google",
+                    "Entrada Directa",
+                    "yey"
+                ]
+            },  
+            options: {
+                responsive: true,
+                legend: {
+                  display: true,
+                  labels: { 
+                  }
+              }
+            }
+        };
+        var chartSalesData = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                    ],
+                backgroundColor: [
+                    "#F7464A",
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                ],
+
+                }],
+                labels: [
+                    "Facebook",
+                    "Twitter",
+                    "Linkedin",
+                    "Google",
+                    "Entrada Directa"
+                ]
+            },  
+            options: {
+                responsive: true
+            }
+        };
+        //Create leads chart
+        window.onload = function() {
+            var DivLeads = document.getElementById("chart-leads").getContext("2d");
+
+            var DivSales = document.getElementById("chart-sales").getContext("2d"); 
+            
+            //Generate Leads
+            window.LeadsChart = new Chart(DivLeads, chartLeadsData);//char //Append legend
+            //Genereate Sales
+            window.DivSales = new Chart(DivSales, chartSalesData);//chart
+
+        };
+
+        $('#randomizeData').click(function() {
+            $.each(chartLeadsData.data.datasets, function(i, piece) {
+                $.each(piece.data, function(j, value) {
+                    chartLeadsData.data.datasets[i].data[j] = randomScalingFactor();
+                    chartLeadsData.data.datasets[i].backgroundColor[j] = randomColor(0.7);
+                });
+            });
+            window.myPie.update();
         });
 
 
