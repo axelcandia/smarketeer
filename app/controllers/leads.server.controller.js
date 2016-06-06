@@ -51,7 +51,18 @@ exports.GetLeads = function(req,res){
 		}
 	});
 }
- 
+/**
+* Receives the cahnges in cost and changes the status of the visitor
+*/
+exports.SetCosts = function(req,res,next){
+	console.log(req.body)
+	res.send("").status(200);
+
+}
+
+ /**
+ * Gets all the leads required and loads them
+ */
 function GetInvidualLead(mongodata,segment,res){  
   piwik.api({
       method:   'Live.getLastVisitsDetails',
@@ -73,8 +84,7 @@ function GetInvidualLead(mongodata,segment,res){
 	        for(key in visitas) {
 	          html+=combine2table(visitas[i],mongodata[i]); 
 	          i++;     
-	        } 
-	        console.log(html); 
+	        }  
 	        res.send(html).status(200); 
 	      }
     }); 
@@ -117,7 +127,7 @@ function combine2table(visita,mongodata){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-         NewVisitor+='<td><input type="number"></td>';
+         NewVisitor+='<td><input data-id="'+visita.visitorId+'" class="amount" type="number"/></td>';
         switch( mongodata.Status ){ 
         	case "lead":
         		default:

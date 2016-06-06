@@ -475,11 +475,50 @@ html.no-js(lang='en')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
     //NEW SCRIPTS
-    
     script(src='/dashboard/js/dashboard.js') 
     script(src='/dashboard/js/Chart.js')
-    script(src='/dashboard/js/legend.js')
-    script(src='/dashboard/js/MyDonuts.js')
+    script.
+      var page_id = #{websites[0].id};
+
+      $.ajax({
+        url: '/home/GetAllVisitors',
+        method: "POST",
+        data: { "id" : page_id },
+        success: function(data) {
+          console.log(data);
+          $("#nvisitors").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in visitors");
+        }
+        });
+
+      $.ajax({
+        url: '/home/GetLeads',
+        method: "POST",
+        data: { "id" : page_id },
+        success: function(data) {
+          console.log(data);
+          $("#nleads").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in leads");
+        }
+        });
+
+      $.ajax({
+        url: '/home/GetSales',
+        method: "POST",
+        data: { "id" : page_id },
+        success: function(data) {
+          console.log(data);
+          $("#nsales").html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        }
+        });
+
+
     // END CHARTS SCRIPTS
     // END JAVASCRIPTS
   // END BODY

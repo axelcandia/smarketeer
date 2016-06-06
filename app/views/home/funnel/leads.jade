@@ -137,6 +137,9 @@ html(lang='en')
                       i.fa.fa-globe
                       | Leads
                     .actions
+                      a.saving(href="#")
+                        i.fa.fa-save(style="margin-right:26px")
+                          |  Guardar
                       .btn-group
                         a.btn.default(href='javascript:;', data-toggle='dropdown')
                           | Columns 
@@ -293,40 +296,85 @@ html(lang='en')
     script(src='admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='admin/layout2/scripts/demo.js', type='text/javascript') 
     script.
-      var maxpage=#{MaxPages}; 
-      var page=0;
-      var loading= false;
-      GetMoreLeads();
-      $('.portlet-body').bind('scroll', function(){
-         if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
-             $('#loading').show();
-             if( page!=maxpage && !loading){
-                loading=true;
-                GetMoreLeads(); 
+      $( document ).ready(function(){ 
+          var changes={};
+          var maxpage=#{MaxPages}; 
+          var page=0;
+          var loading= false;
+          GetMoreLeads();
+          $('.portlet-body').bind('scroll', function(){
+             if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+                 $('#loading').show();
+                 if( page!=maxpage && !loading){
+                    loading=true;
+                    GetMoreLeads(); 
+                  }
               }
-          }
-      });
+          });
+          function GetMoreLeads(){
+            $.ajax({
+                      url: '/home/funnel/ajaxLeads', 
+                      method: "POST",
+                      data: { "page" : page },
+                      success: function(data) {
+                        page++;   
+                        $('.table tbody').append(data);  
+                        loading=false;
 
-      function GetMoreLeads(){
-        $.ajax({
-                  url: '/home/funnel/ajaxLeads', 
-                  method: "POST",
-                  data: { "page" : page },
-                  success: function(data) {
-                    page++;  
-                    console.log(data);
-                    $('.table tbody').append(data);  
-                    loading=false;
+                      },
+                       error: function(XMLHttpRequest, textStatus, errorThrown) {
+                           console.log("error");
+                        }
+                    }); 
+            } 
+          $(document).on('change',".amount", function(){ 
+              $(".saving").show();
+              for (var i = 0; i < changes.length; i++){
+                // look for the entry with a matching `code` value
+                if (obj[i].code == needle){
+                   // we found it
+                  // obj[i].name is the matched result
+                }
+              }
+              
+              changes+={[
+              "client":$(this).attr('data-id'),
+              "total" : $(this).val()
+              ] 
+              }
+          });
 
-                  },
-                   error: function(XMLHttpRequest, textStatus, errorThrown) {
-                       console.log("error");
-                    }
-                }); 
-        }  
+
+          $(".saving").click(function(){
+
+            $.ajax({
+              url: '/home/funnel/SetCosts', 
+                      method: "POST",
+                      data: JSON.stringify(changes),
+                      contentType:'application/json',
+                      success: function(data) {
+                        alert("Guardado");
+                        $(".saving").hide(); 
+                      },
+                       error: function(XMLHttpRequest, textStatus, errorThrown) {
+                           console.log("error");
+                        }
+                    }); 
+            }); 
+
+        });  
     style.
         .portlet-body{ 
           overflow-y: scroll;
           height: 400px;  
+        }
+        .fa-save{
+          color:white; 
+        }
+        .saving{
+        display:none;
+        }
+        .fa-save:hover{
+          color:black;
         }
     
