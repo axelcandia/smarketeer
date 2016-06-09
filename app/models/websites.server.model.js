@@ -5,8 +5,7 @@ var websitesSchema = new mongoose.Schema({
 	users   	: [],
 	piwik_id	: String, 
 
-});
-
+}); 
 
 var Websites = mongoose.model('Websites', websitesSchema);
 

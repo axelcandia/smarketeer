@@ -1,31 +1,43 @@
 extends layout
-
-
-block content 
-
+block content
   .login-container
-    form( method="post")#login-form.well.span4
-      h1 Sign Up!
-      p.subheading Please tell us a little about yourself.
-      label(for='email')  Email
-      input(type='email', name='email', id='email', placeholder='juan@awesome.com', autofocus=true).span4.required
-      label(for='mainWebsite')  Website
-      input(type='text', name='mainWebsite', id='mainWebsite', placeholder='www.legendary.com', autofocus=true).span4.required
-      label(for='password') Password
-      input(type='password', name='password', id='password', placeholder='***********').span4.required
-      label(for='confirmPassword') Confirm Password
-      input(type='password', name='confirmPassword', id='confirmPassword', placeholder='***********').span4.required
-      div.clear-fix
-      hr
-      .form-buttons
-        a.btn.btn-default(role='button',href="/") Cancel
-        input.btn.btn-default.pad(type='submit', value='Submit')
-      input(type='hidden', name='_csrf', value=_csrf)
+    form(action='/signup', method='post')
+        h3 Crear una cuenta
+        p.hint
+          | Ingrese sus datos personales
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Nombre de usuario
+          input.form-control.placeholder-no-fix(type='text', placeholder='Nombre de Usuario', name='username')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Nombre completo
+          input.form-control.placeholder-no-fix(type='text', placeholder='Nombre Completo', name='fullname')
+        .form-group
+          // ie8, ie9 does not support html5 placeholder, so we just show field title for that
+          label.control-label.visible-ie8.visible-ie9 Email
+          input.form-control.placeholder-no-fix(type='text', placeholder='Email', name='email')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Pagina web
+          input.form-control.placeholder-no-fix(type='text', autocomplete='off', placeholder='Pagina web', name='website')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Contraseña
+          input#register_password.form-control.placeholder-no-fix(type='password', autocomplete='off', placeholder='Contraseña', name='password')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Re-Escribe la contraseña
+          input.form-control.placeholder-no-fix(type='password', autocomplete='off', placeholder='Re-Escribe la contraseña', name='rpassword')
 
+        .form-group.margin-top-20.margin-bottom-20
+          label.check
+            input(type='checkbox', name='tnc')
+            |  Estoy de acuerdo con las 
+            a(href='javascript:;')
+              | Bases y condiciones
+            |       & 
+            a(href='javascript:;')
+              | y la politica de privacidad
+          #register_tnc_error
+        .form-actions
+          button#register-back-btn.btn.btn-default(type='button') Volver
+          button#register-submit-btn.btn.btn-success.uppercase.pull-right(type='submit') Registrarme 
   //include modals/alert
   //include modals/lost-password
-block scripts
-  script(src='/vendor/jquery.min.js')
-  script(src='/vendor/jquery.form.js')
-  script(src='/vendor/bootstrap-modal.js')
-  script(src='/vendor/bootstrap-transition.js')
+block scripts  

@@ -3,7 +3,8 @@ var user 			= require('../models/user.server.model');
 var PiwikClient 	= require('piwik-client');
 var Website 		= require('../models/websites.server.model');
 var Visitors 		= require('../models/visitors.server.model');
-var piwik 			= new PiwikClient(config.piwik.url, config.piwik.token )
+var piwik 			= new PiwikClient(config.piwik.url, config.piwik.token );
+var Q 				= require('q');
 
 exports.getHome = function(req, res, next) {
 	if (!req.user) { 
@@ -91,7 +92,6 @@ exports.GetLeads= function( req,res,next ){
 	})
 }
 
-
 /**
 * Gets the sales from the website by its Id
 */
@@ -102,7 +102,11 @@ exports.GetSales= function( req,res,next ){
 	})
 
 }
-
-function GetVisitorsByReferrer( websiteId,type ){
-
-}
+/*
+exports.GetLeadsByChannel = function (req,res,next){
+	piwik.api({
+	method:"VisitsSummary.getVisits",
+	segment:"referrerName==Google"
+});
+}*/
+ 

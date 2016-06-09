@@ -117,7 +117,7 @@ html.no-js(lang='en')
             // BEGIN DASHBOARD STATS
             .row
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/funnel-visitors')
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/home/funnel/visitors')
                   .visual
                     i.fa.fa-comments
                   .details
@@ -126,7 +126,7 @@ html.no-js(lang='en')
                     .desc
                       | visitors
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.red-soft(href='/funnel-leads')
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='/home/funnel/leads')
                   .visual
                     i.fa.fa-trophy
                   .details
@@ -135,7 +135,7 @@ html.no-js(lang='en')
                     .desc
                       | Leads
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.green-soft(href='/funnel-sales')
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='/home/funnel/sales')
                   .visual
                     i.fa.fa-shopping-cart
                   .details
@@ -531,11 +531,11 @@ html.no-js(lang='en')
             data: {
                 datasets: [{
                     data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
                         0
                     ],
                 backgroundColor: [
@@ -610,16 +610,16 @@ html.no-js(lang='en')
             window.DivSales = new Chart(DivSales, chartSalesData);//chart
 
         };
-
-        $('#randomizeData').click(function() {
-            $.each(chartLeadsData.data.datasets, function(i, piece) {
+        GetLeadsData();
+        function GetLeadsData(){
+        $.each(chartLeadsData.data.datasets, function(i, piece) {
                 $.each(piece.data, function(j, value) {
-                    chartLeadsData.data.datasets[i].data[j] = randomScalingFactor();
-                    chartLeadsData.data.datasets[i].backgroundColor[j] = randomColor(0.7);
+                    chartLeadsData.data.datasets[i].data[j] = randomScalingFactor(); 
                 });
             });
             window.myPie.update();
-        });
+
+        } 
 
 
     // END CHARTS SCRIPTS
