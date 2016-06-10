@@ -1,89 +1,51 @@
-
 extends layout
-
-block content 
-
-  .login-container
-    form( method="post")#login-form.well.span4
-      h1 Hello!
-      p.subheading Please Login To Your Account
-      label(for='email') Email
-      input(type='email', name='email', id='email', placeholder='Email', autofocus=true).span4.required
-      label(for='password')
-      input(type='password', name='password', id='password', placeholder='Password').span4.required
-      button(type="submit")#btn-login.btn.btn-primary
-        i.icon-lock.icon-white
-        | Sign in
-      label#remember-me.checkbox Remember Me
-        input(type="checkbox", checked='checked')
-      div.clear-fix
-      hr
-      div.btm-links
-        a(href='/forgot')#forgot-password Forgot Your Password?
-        a(href='/signup')#create-account Create An Account 
-      input(type='hidden', name='_csrf', value=_csrf)
-      //.col-sm-offset-3.col-sm-7
-        a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')
-          i.fa.fa-facebook
-          | Sign in with Facebook
-        a.btn.btn-block.btn-twitter.btn-social(href='/auth/twitter')
-          i.fa.fa-twitter
-          | Sign in with Twitter
-        a.btn.btn-block.btn-google.btn-social(href='/auth/google')
-          i.fa.fa-google-plus
-          | Sign in with Google 
-        a.btn.btn-block.btn-linkedin.btn-social(href='/auth/linkedin')
-          i.fa.fa-linkedin
-          | Sign in with LinkedIn
-        a.btn.btn-social-icon.btn-twitter
-          span.fa.fa-twitter
-
-  //include modals/alert
-  //include modals/lost-password
-
-block scripts
-  script(src='/vendor/jquery.min.js')
-  script(src='/vendor/jquery.form.js')
-  script(src='/vendor/bootstrap-modal.js')
-  script(src='/vendor/bootstrap-transition.js')
-
-//block content
-  #login-container
-    form( method="post")#login-form.well.span4 
-      h1 Hello!
-      p.subheading Please Login To Your Account
-      label(for='email') Email
-      input(type='email', name='email', id='email', placeholder='Email', autofocus=true).span4.required
-      label(for='password') Password
-      input(type='password', name='password', id='password', placeholder='Password').span4.required
-      button(type="submit")#btn-login.btn.btn-primary
-        i.icon-lock.icon-white
-        | Sign in
-      label#remember-me.checkbox Remember Me
-        input(type="checkbox", checked='checked')
-      div.clear-fix
-      hr
-      div.btm-links
-        a(href='/forgot')#forgot-password Forgot Your Password?
-        a(href='/signup')#create-account Create An Account
-      input(type='hidden', name='_csrf', value=_csrf) 
-      .form-group
-      .col-sm-offset-3.col-sm-7
-        a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')
-          i.fa.fa-facebook
-          | Sign in with Facebook
-        a.btn.btn-block.btn-twitter.btn-social(href='/auth/twitter')
-          i.fa.fa-twitter
-          | Sign in with Twitter
-        a.btn.btn-block.btn-google.btn-social(href='/auth/google')
-          i.fa.fa-google-plus
-          | Sign in with Google 
-        a.btn.btn-block.btn-linkedin.btn-social(href='/auth/linkedin')
-          i.fa.fa-linkedin
-          | Sign in with LinkedIn
-
-//block scripts
-  script(src='/vendor/jquery.min.js')
-  script(src='/vendor/jquery.form.js')
-  script(src='/vendor/bootstrap-modal.js')
-  script(src='/vendor/bootstrap-transition.js') 
+block content
+      // BEGIN LOGIN FORM
+      form.login-form( method='post' )
+        h3.form-title Iniciar sesión
+        .alert.alert-danger.display-hide
+          button.close(data-close='alert')
+          span
+            | Escribe tu usuario y contraseña
+        .form-group
+          // ie8, ie9 does not support html5 placeholder, so we just show field title for that
+          label.control-label.visible-ie8.visible-ie9 Email
+          input.form-control.form-control-solid.placeholder-no-fix(type='email', autocomplete='off', placeholder='Email', name='email')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Password
+          input.form-control.form-control-solid.placeholder-no-fix(type='password', autocomplete='off', placeholder='Password', name='password')
+        .form-actions
+          button.btn.btn-success.uppercase(type='submit') Entrar
+          label.rememberme.check
+            input(type='checkbox', name='remember', value='1')
+            | Recuerdame
+        .login-options
+          //h4 O inicia sesión con
+          //ul.social-icons
+            li
+              a.social-icon-color.facebook(data-original-title='facebook', href='javascript:;')
+            li
+              a.social-icon-color.twitter(data-original-title='Twitter', href='javascript:;')
+            li
+              a.social-icon-color.googleplus(data-original-title='Goole Plus', href='javascript:;')
+            li
+              a.social-icon-color.linkedin(data-original-title='Linkedin', href='javascript:;')
+          a#forget-password.forget-password(href='javascript:;' style="float:left") ¿Olvidaste tu contraseña?
+        .create-account
+          p
+            a#register-btn.uppercase(href='/signup') 
+              | Crear una cuenta
+      // END LOGIN FORM
+      // BEGIN FORGOT PASSWORD FORM
+      form.forget-form(action='/RecoverPass', method='post')
+        h3 ¿Olvidaste tu contraseña?
+        p
+          | Escribe tu email abajo para reiniciar tu contraseña
+        .form-group
+          input.form-control.placeholder-no-fix(type='text', autocomplete='off', placeholder='Email', name='email')
+        .form-actions
+          button#back-btn.btn.btn-default(type='button') Volver
+          button.btn.btn-success.uppercase.pull-right(type='submit') Recuperar
+      // END FORGOT PASSWORD FORM
+      // BEGIN REGISTRATION FORM
+block scripts  

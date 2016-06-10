@@ -1,0 +1,20 @@
+<!-- Button Drop Down -->
+<div class="control-group">
+  <label class="control-label" for="<%- id %>"><%- label %> </label>
+	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
+toggle-form btn icon-pencil open remove" title="Edit"></a></div>
+  <div class="controls">
+    <div class="input-append">
+      <input id="<%- id %>" name="<%- label %>" class="<%- inputsize %>" placeholder="<%- placeholder %>" type="text" <% if(required) {%> required <% } %> />
+      <div class="btn-group">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <%- buttontext %>
+          <span class="caret"></span>
+        </button>
+        <ul class="SmarketeerField dropdown-menu"><% _.each(buttonoptions, function(value) { %>
+          <li><a href="#"><%- value %></a></li><% }); %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

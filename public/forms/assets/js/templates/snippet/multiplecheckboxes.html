@@ -1,0 +1,12 @@
+<!-- Multiple Checkboxes -->
+<div class="control-group">
+  <label for="<%- name %>"><%- label %> <%if(required){%><em class="red">*</em><%}%> </label>
+	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
+toggle-form btn icon-pencil open remove" title="Edit"></a></div>
+  <div class="controls"><% _.each(checkboxes, function(checkbox, i){ %>
+    <label class="mt-checkbox" for="<%- id+'-'+i %>">
+      <input type="checkbox" class="SmarketeerField" name="<%- label %>" id="<%- id+'-'+i %>" value="<%- checkbox %>"<% if(required){ %> required="required"<% } %>>
+      <%- checkbox %>
+    </label><% }); %>
+  </div>
+</div>

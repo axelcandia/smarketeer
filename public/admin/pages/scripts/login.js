@@ -1,3 +1,6 @@
+$("#register-back-btn").click(function(){
+    window.location.href = "/login";
+});
 var Login = function() {
 
     var handleLogin = function() {
@@ -20,10 +23,10 @@ var Login = function() {
 
             messages: {
                 username: {
-                    required: "Username is required."
+                    required: "Por favor escribe el nombre de usuario"
                 },
                 password: {
-                    required: "Password is required."
+                    required: "Por favor escribe la contraseña"
                 }
             },
 
@@ -75,7 +78,7 @@ var Login = function() {
 
             messages: {
                 email: {
-                    required: "Email is required."
+                    required: "Por favor escribe el email"
                 }
             },
 

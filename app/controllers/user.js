@@ -3,12 +3,13 @@ var async       = require('async');
 var crypto      = require('crypto');
 var nodemailer  = require('nodemailer');
 var passport    = require('passport');
-var User        = require('../models/User');
-var Website     = require('../models/website.server.model');
-/**
- * GET /login
- * Login page.
- */
+var User        = require('../models/user.server.model'); 
+var config      = require("../../config/config");
+var PiwikClient = require('piwik-client');
+var piwik       = new PiwikClient(config.piwik.url, config.piwik.token );
+var Q           = require("q");
+var url         = require('url');
+
 exports.getLogin = function(req, res) {
   if (req.user) {
     return res.redirect('/home');
@@ -23,15 +24,15 @@ exports.getLogin = function(req, res) {
  * Sign in using email and password.
  */
 exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
+  req.assert('email', 'Email invalido').isEmail();
+  req.assert('password', 'Contraseña invalida').notEmpty();
 
   var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/login');
-  }
+  } 
 
   passport.authenticate('local', function(err, user, info) {
     if (err) {
@@ -45,8 +46,8 @@ exports.postLogin = function(req, res, next) {
       if (err) {
         return next(err);
       }
-      req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/home');
+      req.flash('success', { msg: 'Exito! Usted a inciado sesion' });
+      res.redirect( req.session.returnTo || '/home');
     });
   })(req, res, next);
 };
@@ -78,67 +79,132 @@ exports.getSignup = function(req, res) {
  * Create a new local account.
  */
 exports.postSignup = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-  req.assert('mainWebsite', "Invalid website").len(1);
-
+  req.assert('email', 'Email no valido').isEmail();
+  req.assert('password', 'La contraseña tiene que tener minimo 4 digitos').len(4);
+  req.assert('rpassword', 'Las contraseñas no coinciden').equals(req.body.password);
+  req.assert('website', "Pagina web invalida").len(1);
   var errors = req.validationErrors();
-
-  if (errors) {
+    if (errors) {
     req.flash('errors', errors);
     return res.redirect('/signup');
-  }
+  } 
+  SetPiwikUser(req,res);
+
+}
 
 /**
-* Create a new user
+* Rquires the req data, it sets the user in piwik BUUUT it does not set any personal infortmation
+* Or the website please add this information in other fields :DDD
 */
-  var user = new User({
+function SetPiwikUser( req,res ){ 
+  piwik.api({
+      method: "UsersManager.addUser",
+      userLogin:req.body.username,
+      password:req.body.password,
+      email:req.body.email,
+      alias:req.body.username
+    },function(err,data){
+      if(err){
+        console.log(err);
+        req.assert('error', err).len(1);
+        var errors = req.validationErrors();
+        req.flash('errors', errors);  
+        res.redirect('/signup'); 
+      } 
+      //Continue the party
+      else
+        SetPiwikWebsite( req, res);
+    });
+}
+/**
+* Creates the website
+*/
+function SetPiwikWebsite( req, res ){ 
+    piwik.api({
+        method: "SitesManager.addSite",
+        siteName: req.body.website,
+        urls: req.body.website ,
+        ecommerce : '',
+        siteSearch : '',
+        searchKeywordParameters : '',
+        searchCategoryParameters : '',
+        excludedIps : '',
+        excludedQueryParameters : '',
+        timezone : '',
+        currency : '',
+        group : '',
+        startDate : 'today',
+        excludedUserAgents : '',
+        keepURLFragments : '',
+        type : '',
+        settings : '',
+        excludeUnknownUrls : ''
+      },function(err,data){
+        if(err){  
+          console.log(err);
+          req.assert('error', err).len(1);
+          var errors = req.validationErrors();
+          req.flash('errors', errors);   
+          return res.redirect('/signup');
+        }  
+        else{   
+          Q.fcall(JoinWebsiteUser(req,res,data.value))
+          .then(SetMongoUser(req,res));
+        } 
+      });  
+    
+}
+/**
+* Links the website with the user created
+*/ 
+function JoinWebsiteUser( req, res,id ){
+  console.log("este es el ID DE TU PAGINA" +JSON.stringify(id));
+  piwik.api({
+      method: "UsersManager.setUserAccess",
+      userLogin:req.body.username,
+      access:"admin",
+      idSites:id
+    },function(err){
+      if(err){  
+        req.assert('error', err).len(1);
+        var errors = req.validationErrors();
+        req.flash('errors', errors);   
+        return res.redirect('/signup');
+      } 
+      else
+        SetMongoUser( req, res );
+    });  
+}
+
+/**
+* Sets the MongoUser
+*/
+function SetMongoUser( req, res ){
+    var user = new User({
     email: req.body.email,
     password: req.body.password,
-    mainWebsite: req.body.mainWebsite
+    mainWebsite: req.body.website,
+    
   });
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
-    if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
+    if (existingUser) {    
+        return res.redirect('/signup');
     }
-    user.save(function(err) {
-      if (err) {
-        return next(err);
-      }
-      req.logIn(user, function(err) {
-        if (err) {
-          return next(err);
-        }
-        res.redirect('/home');
-      });
+    user.save(function(err) { 
+      if(err)
+        res.redirect('/signup');
+      else
+        req.logIn(user, function(err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect('/home');
+        });
     });
-  });
-
-  /**
-  *Create a new website
-  */
-  var website = new Website({
-    name    : req.body.mainWebsite,
-
-    slug    : (req.body.mainWebsite.length > 80 )? req.body.mainWebsite.substring(0,15) : 
-                                                   req.body.mainWebsite,
-    userId  : user._id,
-    date    : new Date()                                  
 
   });
-
-  website.save(function(err){
-    if(err){
-        return next(err);
-      }
-  });
-};
-
-
-
+}
 
 /**
  * GET /account
@@ -180,7 +246,7 @@ exports.postUpdateProfile = function(req, res, next) {
  */
 exports.postUpdatePassword = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('confirmPassword', 'La contraseñas no coinciden').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -255,7 +321,7 @@ exports.getReset = function(req, res, next) {
         return next(err);
       }
       if (!user) {
-        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+        req.flash('errors', { msg: "El usuario/contraseña es incorrecto" });
         return res.redirect('/forgot');
       }
       res.render('security/reset', {
@@ -269,8 +335,8 @@ exports.getReset = function(req, res, next) {
  * Process the reset password request.
  */
 exports.postReset = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long.').len(4);
-  req.assert('confirm', 'Passwords must match.').equals(req.body.password);
+  req.assert('password', 'La contraseña tiene que tener minimo 4 digitos').len(4);
+  req.assert('confirm', 'Las contraseñas no coinciden').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -289,7 +355,7 @@ exports.postReset = function(req, res, next) {
             return next(err);
           }
           if (!user) {
-            req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+            req.flash('errors', { msg: 'Por razones de seguirdad finalizamos su sesion. Por favor vuelva a iniciar' });
             return res.redirect('back');
           }
           user.password = req.body.password;
@@ -321,7 +387,7 @@ exports.postReset = function(req, res, next) {
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
       };
       transporter.sendMail(mailOptions, function(err) {
-        req.flash('success', { msg: 'Success! Your password has been changed.' });
+        req.flash('success', { msg: 'Exito! Recibiras un mail para cambiar tu contraseña en los proximos minutos' });
         done(err);
       });
     }
@@ -351,7 +417,7 @@ exports.getForgot = function(req, res) {
  * Create a random token, then the send user an email with a reset link.
  */
 exports.postForgot = function(req, res, next) {
-  req.assert('email', 'Please enter a valid email address.').isEmail();
+  req.assert('email', 'Por favor escriba su email').isEmail();
 
   var errors = req.validationErrors();
 
@@ -370,7 +436,7 @@ exports.postForgot = function(req, res, next) {
     function(token, done) {
       User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
         if (!user) {
-          req.flash('errors', { msg: 'No account with that email address exists.' });
+          req.flash('errors', { msg: 'No existe ninguna cuenta con ese email' });
           return res.redirect('/forgot');
         }
         user.passwordResetToken = token;

@@ -1,80 +1,75 @@
 doctype html
-html
+html(lang='en')
   head
-    title Form Builder
-    meta(name='description', content='')
-    link(rel='stylesheet', href='vendor/css/vendor.css')
-    link(rel='stylesheet', href='dist/formbuilder.css')
-    style.
-      * {
-      box-sizing: border-box;
-      }
-      body {
-      background-color: #444;
-      font-family: sans-serif;
-      }
-      .fb-main {
-      background-color: #fff;
-      border-radius: 5px;
-      min-height: 600px;
-      }
-      input[type=text] {
-      height: 26px;
-      margin-bottom: 3px;
-      }
-      select {
-      margin-bottom: 5px;
-      font-size: 40px;
-      }
-  body
-    .fb-main
-    script(src='vendor/js/vendor.js')
-    script(src='dist/formbuilder.js')
+    meta(charset='utf-8')
+    title Smarketeer Advertising Costs
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES 
+    link(href='/http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    //if lt IE 9
+      script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL STYLES
+    link(rel='stylesheet', type='text/css', href='/global/plugins/select2/select2.css')
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='/favicon.ico')
+    link( href="/forms/assets/css/custom.css",rel="stylesheet")
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      include ../../../shared/pageTop
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../../../shared/leftBar
+        .page-content-wrapper
+          .page-content
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            h3.page-title Crea tus formularios
+              small  Arrastra los elementos
+            .row
+              .row.clearfix
+              // Building Form.
+              #form.span6
+                .clearfix
+                  #build
+                    form#target.form-horizontal
+              // / Building Form.
+              // Components
+              .span6.clearfix.col-md-6  
+                .tabbable
+                  ul#formtabs.nav.nav-tabs
+                    // Tab nav
+                  form#components.form-horizontal
+                    fieldset
+                      .tab-content
+        // / Components 
+    //Values to add to main built.js
     script.
-      $(function(){
-      fb = new Formbuilder({
-      selector: '.fb-main',
-      bootstrapData: [
-      {
-      "label": "Do you have a website?",
-      "field_type": "website",
-      "required": false,
-      "field_options": {},
-      "cid": "c1"
-      },
-      {
-      "label": "Please enter your clearance number",
-      "field_type": "text",
-      "required": true,
-      "field_options": {},
-      "cid": "c6"
-      },
-      {
-      "label": "security personnel #82?",
-      "field_type": "radio",
-      "required": true,
-      "field_options": {
-      "options": [{
-      "label": "Yes",
-      "checked": false
-      }, {
-      "label": "No",
-      "checked": false
-      }],
-      "include_other_option": true
-      },
-      "cid": "c10"
-      },
-      {
-      "label": "Medical history",
-      "field_type": "file",
-      "required": true,
-      "field_options": {},
-      "cid": "c14"
-      }
-      ]
-      });
-      fb.on('save', function(payload){
-      console.log(payload);
-      })
-      });
+      //var formName   = "#{Name}";
+      var formId    = "#{formId}";
+      var col       = !{builderCode}; 
+      LoadOldData   = true; 
+    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
+
+    
+     

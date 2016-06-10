@@ -1,0 +1,41 @@
+<!-- Text input-->
+<%if( id.indexOf("smkt") > -1 ){ 
+	var name = id.split("_")[1].replace('-0','');
+	var type="";   
+	switch(name) {
+		case "email":
+			type="email";
+			break;
+		case "tel":
+			type="tel";
+			break;
+		case "ship-zip":
+		case "IngresosAnuales":
+			type="number";
+			break;
+		default:
+			type="text";
+			break;
+	}
+	%>
+	<div class="control-group">
+	  <label class="control-label" for="<%- id %>"> <%- label %> <%if(required){%><em class="red">*</em><%}%> </label>
+	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
+toggle-form btn icon-pencil open remove remove" title="Edit"></a> 
+
+	  <div class="controls "> 
+	    <input id="<%- id %>" style="height:30px" autocorrect="off" name="<%- label %>" type="<%- type %>" placeholder="<%- placeholder %>" class="smkt_input SmarketeerField <%- inputsize %> " <% if(required) {%> required <% } %> />
+	    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
+	  </div>
+<%} 
+else{%>
+<div class="control-group">
+  <label class="control-label" for="<%- id %>"><%- label %> <%if(required){%><em class="red">*</em><%}%></label>
+	  <a id="frmb-0-fld-3-edit" class="<%- label %> </label>
+toggle-form btn icon-pencil open remove" title="Edit"></a></div> 
+  <div class="controls">
+    <input id="<%- id %>" style="height:30px" name="<%- label %>" type="text" placeholder="<%- placeholder %>" class="smkt_input SmarketeerField <%- inputsize %>" <% if(required) {%> required <% } %> />
+    <% if (helptext.length > 0) { %><p class="help-block"><%- helptext %></p><% } %>
+  </div>
+</div>
+<%}%> 

@@ -1,0 +1,46 @@
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
+</head>
+<body>
+	<p>
+			holaaa abajo hay un formulario :D
+			<p> 
+	<script src= 'http://localhost:1337/forms/4X3!.js'></script>
+	<script id='574360ff772440a41c9252d7'>(createform(document.currentScript.id));</script>  
+<script>
+	  var _paq = _paq || [];
+	  var tracker;
+	  var visitor_id;
+	  var _paqid; 
+	  _paq.push(['enableLinkTracking']);
+	  (function() { 
+	    var u="HTTP://52.165.38.47/"; 
+	    _paq.push([ function() {  
+			visitor_id = this.getVisitorId(); 
+			$.ajax({
+				  type: "POST",
+				  url: "http:localhost:1337/GetVisitorId",
+				  data: {"id":this.getVisitorId()},
+				  success: function(data){
+				  	_paq.push(['setUserId', data]);
+				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
+					_paq.push(['trackPageView']);
+				  }
+				  });   
+
+			}]); 
+	    //console.log(_paq.getVisitorId());
+	    _paq.push(['trackPageView']);
+	    _paq.push(['setTrackerUrl', u+'piwik.php']);
+	    _paq.push(['setSiteId', 1]); 
+
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
+	    //resolve();
+	  } )();
+</script> 
+
+<script>
+ 
+ </script>
+</body>
