@@ -14,12 +14,15 @@ function createform(id){
 	xmlHTTP.onreadystatechange = function () {
         if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
             // do whatever it is you want to do
+            //document.getElementById(id).insertAdjacentHTML('afterend',xmlHTTP.responseText);
             document.getElementById(id).insertAdjacentHTML('afterend',xmlHTTP.responseText);
+            //console.log(xmlHTTP.responseText);
+            console.log(xmlHTTP.responseText);
              
         }
     } 
     xmlHTTP.open("POST", "http:localhost:1337/GetFormHTML", true); 
-    xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHTTP.setRequestHeader("Content-Type", "text/html;charset=UTF-8");
     xmlHTTP.send(JSON.stringify(data));//We need the data that has this id  
 }
 	//document.write("SOME SUPER CONTENT");

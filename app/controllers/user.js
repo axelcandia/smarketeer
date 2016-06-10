@@ -183,7 +183,8 @@ function SetMongoUser( req, res ){
     var user = new User({
     email: req.body.email,
     password: req.body.password,
-    mainWebsite: req.body.website
+    mainWebsite: req.body.website,
+    
   });
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {

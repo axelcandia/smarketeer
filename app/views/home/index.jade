@@ -84,10 +84,11 @@ html.no-js(lang='en')
             // BEGIN PAGE HEADER TO EDIT
             li.dropdown(style="list-style-type:none")
               a.dropdown-toggle(href='/javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                h3.page-title(style='display: inline-block',id=websites[0].id)
-                  if (!websites[0] )
+                if ( !websites[0]  )
+                  h3.page-title(style='display: inline-block')
                     | Dashboards 
-                  else
+                else
+                 h3.page-title(style='display: inline-block',id=websites[0].id)
                    |#{websites[0].name} Dashboard
                 i.fa.fa-angle-down
               if (websites.length > 1)
@@ -476,7 +477,9 @@ html.no-js(lang='en')
     script(src='/dashboard/js/dashboard.js') 
     script(src='/global/plugins/Chart/Chart.bundle.js')
     script.
-      var page_id = #{websites[0].id};
+      var page_id = 0;
+      var id= #{websites}
+      console.log(id);
 
       $.ajax({
         url: '/home/GetAllVisitors',
@@ -597,7 +600,7 @@ html.no-js(lang='en')
             options: {
                 responsive: true
             }
-        };
+        }
         //Create leads chart
         window.onload = function() {
             var DivLeads = document.getElementById("chart-leads").getContext("2d");
@@ -617,11 +620,5 @@ html.no-js(lang='en')
                     chartLeadsData.data.datasets[i].data[j] = randomScalingFactor(); 
                 });
             });
-            window.myPie.update();
-
-        } 
-
-
-    // END CHARTS SCRIPTS
-    // END JAVASCRIPTS
-  // END BODY
+            window.myPie.update(); 
+          }

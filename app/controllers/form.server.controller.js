@@ -3,18 +3,18 @@ var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
 var SolvedForms		= require("../models/solvedforms.server.model"); 
 var Visitors		= require("../models/visitors.server.model");
-var mysql      		= require('mysql'); 
+//var mysql      		= require('mysql'); 
 /**
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
 */
-    var tunnel = require('tunnel-ssh').tunnel;
+    /*var tunnel = require('tunnel-ssh').tunnel;
     //map port from remote 3306 to localhost 3306 
     var server = tunnel({host: '52.165.38.47', dstPort: 3306, username:"axel",password:"AlfredHitchcock12"}, function (error, result) {
         //you can start using your resources here. (mongodb, mysql, ....) 
         console.log('connected');
 
-    });
+    });*/
 
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 

@@ -12,6 +12,7 @@ exports.getHome = function(req, res, next) {
 	}
 	else {
 		GetUserData(req,res,function(user){
+			console.log(user);
 			res.render('home', {
 				websites: user.websites
 			});
