@@ -3,7 +3,7 @@ var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
 var SolvedForms		= require("../models/solvedforms.server.model"); 
 var Visitors		= require("../models/visitors.server.model");
-var mysql      		= require('mysql'); 
+//var mysql      		= require('mysql'); 
 /**
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
