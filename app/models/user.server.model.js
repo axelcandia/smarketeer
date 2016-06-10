@@ -21,6 +21,10 @@ var userSchema = new mongoose.Schema({
       type              : String, 
       default           : '' 
     },
+    username:{
+      type              : String, 
+      default           : ''     
+    },
     location: { 
       type              : String, 
       default           : '' 
