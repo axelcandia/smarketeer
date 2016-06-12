@@ -59,7 +59,6 @@
     "q": "^1.4.1",
     "request": "^2.69.0",
     "tumblr.js": "^0.0.7",
-    "tunnel-ssh": "^3.2.1-beta",
     "twit": "^2.2.2",
     "validator": "^5.1.0",
     "yui": "^3.18.1"

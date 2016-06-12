@@ -104,8 +104,7 @@ function SetPiwikUser( req,res ){
       email:req.body.email,
       alias:req.body.username
     },function(err,data){
-      if(err){
-        console.log(err);
+      if(err){ 
         req.assert('error', err).len(1);
         var errors = req.validationErrors();
         req.flash('errors', errors);  
@@ -140,8 +139,7 @@ function SetPiwikWebsite( req, res ){
         settings : '',
         excludeUnknownUrls : ''
       },function(err,data){
-        if(err){  
-          console.log(err);
+        if(err){   
           req.assert('error', err).len(1);
           var errors = req.validationErrors();
           req.flash('errors', errors);   
@@ -149,7 +147,8 @@ function SetPiwikWebsite( req, res ){
         }  
         else{   
           Q.fcall(JoinWebsiteUser(req,res,data.value))
-          .then(SetMongoUser(req,res));
+          .then(SetMongoUser(req,res)) 
+          .then(SetFunnelGoal(data.value));
         } 
       });  
     
@@ -157,8 +156,7 @@ function SetPiwikWebsite( req, res ){
 /**
 * Links the website with the user created
 */ 
-function JoinWebsiteUser( req, res,id ){
-  console.log("este es el ID DE TU PAGINA" +JSON.stringify(id));
+function JoinWebsiteUser( req, res,id ){ 
   piwik.api({
       method: "UsersManager.setUserAccess",
       userLogin:req.body.username,
@@ -170,9 +168,7 @@ function JoinWebsiteUser( req, res,id ){
         var errors = req.validationErrors();
         req.flash('errors', errors);   
         return res.redirect('/signup');
-      } 
-      else
-        SetMongoUser( req, res );
+      }
     });  
 }
 
@@ -181,6 +177,9 @@ function JoinWebsiteUser( req, res,id ){
 */
 function SetMongoUser( req, res ){
     var user = new User({
+      profile:{
+        username:req.body.username
+      },
     email: req.body.email,
     password: req.body.password,
     mainWebsite: req.body.website,
@@ -189,21 +188,45 @@ function SetMongoUser( req, res ){
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {    
-        return res.redirect('/signup');
-    }
-    user.save(function(err) { 
-      if(err)
+        req.assert('error', "Ya existe un usuario con esta cuenta").len(1);
+        var errors = req.validationErrors();
+        req.flash('errors', errors); 
         res.redirect('/signup');
-      else
-        req.logIn(user, function(err) {
-          if (err) {
-            return next(err);
-          }
-          res.redirect('/home');
-        });
-    });
+    }
+    else
+      user.save(function(err) { 
+        if(err)
+          return res.redirect('/signup'); 
+          req.logIn(user, function(err) {
+            if (err) {
+              return next(err);
+            }
+            return res.redirect('/home');
+          });
+      });
 
   });
+}
+/**
+* Adds the goal of funnel to the website
+* We set an impossible pattern in order to change it manually
+*/
+function SetFunnelGoal( idsite ){
+  piwik.api({
+        method: "Goals.addGoal",
+        idSite:idsite,
+        name:"Funnel",
+        matchAttribute:"url",
+        pattern:"is exactly",
+        patternType:"-1",
+        caseSensitive: '',
+        revenue: '',
+        allowMultipleConversionsPerVisit: ''
+      },function(err,data){
+        if(err){  
+          console.log(err); 
+        }  
+      });
 }
 
 /**

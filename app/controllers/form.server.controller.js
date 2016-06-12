@@ -8,13 +8,13 @@ var Visitors		= require("../models/visitors.server.model");
 * Requires a name to build the form properly
 * status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
 */
-    var tunnel = require('tunnel-ssh').tunnel;
+    /*var tunnel = require('tunnel-ssh').tunnel;
     //map port from remote 3306 to localhost 3306 
     var server = tunnel({host: '52.165.38.47', dstPort: 3306, username:"axel",password:"AlfredHitchcock12"}, function (error, result) {
         //you can start using your resources here. (mongodb, mysql, ....) 
         console.log('connected');
 
-    });
+    });*/
 
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
@@ -207,9 +207,12 @@ exports.GetFormHTML = function( req, res, next ){
 * Receives data of whatever and returns the properid
 */
 exports.GetVisitorId = function( req, res, next){
+	if(!req.body)
+		return res.send("-1");
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
-	var query = { "cookies" :req.body.id};
+	var query = { CookieId :req.body.id};
 	var update;
+	console.log("ESTE ES EL di" +req.body.id)
 	if(req.body.email){
 		update = { 
 	    	"email"			: req.body.email
@@ -217,16 +220,16 @@ exports.GetVisitorId = function( req, res, next){
 	}
 	else{
 		update = { 
-	    	$addToSet: { cookies			: req.body.id}
+	    	$addToSet: { cookies			: {CookieId:req.body.id}}
 	    }; 
 	} 
 
 	Visitors.findOneAndUpdate( query, update, options, function(error, result) {
 		if(error){
+			console.log(error);
 			res.send(req.body.id);
 		}
-		else{
-			console.log(req.body.id);
+		else{ 
 			console.log(result._id);
 			res.send( result._id ).status(200);
 		}
