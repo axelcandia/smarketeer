@@ -24,9 +24,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 /**
- * Sign in using Email and Password. early edition
+ * Sign in using Email and Password.
  */
- 
 passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
   User.findOne({ email: email.toLowerCase() }, function(err, user) {
     if (!user) {
@@ -41,14 +40,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
     });
   });
 }));
-
-
-/**
-*Sign in using Email 
-*/
-passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
-
-}));
+ 
 /**
  * OAuth Strategy Overview
  *

@@ -21,7 +21,7 @@ function createform(id){
              
         }
     } 
-    xmlHTTP.open("POST", "http:localhost:1337/GetFormHTML", true); 
+    xmlHTTP.open("POST", "smarketeer.azurewebsites.net/GetFormHTML", true); 
     xmlHTTP.setRequestHeader("Content-Type", "text/html;charset=UTF-8");
     xmlHTTP.send(JSON.stringify(data));//We need the data that has this id  
 }
@@ -71,7 +71,7 @@ function ajax(values) {
 
     //Serialize the data
     var queryString = JSON.stringify(values);
-    xmlHTTP.open("POST", "http:localhost:1337/ReceiveForms", true); 
+    xmlHTTP.open("POST", "smarketeer.azurewebsites.net/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHTTP.send(queryString); 
 }

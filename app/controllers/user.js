@@ -17,23 +17,22 @@ exports.getLogin = function(req, res) {
   res.render('security/login', {
     title: 'Login'
   });
-};
+}
 
 /**
  * POST /login
  * Sign in using email and password.
  */
 exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email invalido').isEmail();
-  req.assert('password', 'Contraseña invalida').notEmpty();
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('password', 'Password cannot be blank').notEmpty();
 
   var errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/login');
-  } 
-
+  }
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err);
@@ -42,12 +41,13 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
+    console.log(user);
     req.logIn(user, function(err) {
       if (err) {
         return next(err);
       }
-      req.flash('success', { msg: 'Exito! Usted a inciado sesion' });
-      res.redirect( req.session.returnTo || '/home');
+      req.flash('success', { msg: 'Success! You are logged in.' });
+      res.redirect(req.session.returnTo || '/home');
     });
   })(req, res, next);
 };

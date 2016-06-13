@@ -57,12 +57,11 @@ module.exports = function(app) {
 
 	//app.post('/login', userController.postLogin);
 
-	//EDITI THIS ASAP
-
-	app.get('/login', userController.getLogin);
-	app.post('/login', userController.postLogin);
+	//EDITI THIS ASAP 
  
-	 
+	 app.get('/login', userController.getLogin);
+	app.post('/login', userController.postLogin);
+	
 	    app.get('/home/funnel/sales',function (req,res){
 	      res.render("home/funnel/sales");
 	    });
