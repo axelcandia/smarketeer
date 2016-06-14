@@ -71,7 +71,7 @@ exports.GetVisitData = function(req,res,next){
       console.log(err)
     }
     else{
-      console.log(data);
+      console.log(JSON.stringify(data[0]));
       res.render('home/funnel/visitorprofile', { 
         actions: data[0].actionDetails
       }); 

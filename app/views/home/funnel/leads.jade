@@ -129,7 +129,7 @@ html(lang='en')
             // END PAGE HEADER
             // BEGIN PAGE CONTENT
             .row
-              button#try
+              //button.try
                 | Super boton
               .col-md-12
                 // BEGIN EXAMPLE TABLE PORTLET
@@ -174,7 +174,7 @@ html(lang='en')
                           label
                             input(type='checkbox', checked='', data-column='8')
                             | Amount
-                          label
+                          //label
                             input(type='checkbox', checked='', data-column='9')
                             | Status
                   .portlet-body
@@ -294,14 +294,14 @@ html(lang='en')
         }); 
 
         //Bootbox for sales
-        $("#try").click(function(){
+        $(document).on("click",".try", function(){
           bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,
                 className: "ticketAlert", 
                 message: function(){ 
                 var factura='<div class="col-xs-6">'+
-                  '<h1><a href=" "><img alt="" src="logo.png" /> Logo aquí </a>'+
+                  '<h1><a href=" "><img class="logos" alt="" src="/logo.png" /></a>'+
                   '</h1>'+
                 '</div>'+
                 '<div class="col-xs-6 text-right">'+
@@ -447,5 +447,8 @@ html(lang='en')
         border: 0;
         outline:0px !important;
         -webkit-appearance:none;
+        }
+        .logos{
+        height: 50px;
         }
     

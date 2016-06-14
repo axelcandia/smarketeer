@@ -102,7 +102,7 @@ html.no-js(lang='en')
                   a(href='/index') Home
                   i.fa.fa-angle-right
                 li 
-                  a(href='/index') #{websites}
+                  a(href='/index') Smarketeer
                   i.fa.fa-angle-right
                 li
                   a(href='/#') Otras paginas
@@ -207,7 +207,7 @@ html.no-js(lang='en')
                         input.btn(type='button', value='Lines')
                         input.btn(type='button', value='Lines with steps')
             // END STACK CHART CONTROLS PORTLET
-            .row
+            //.row
               .col-md-6.col-sm-6
                 // BEGIN PORTLET
                 .portlet.light
@@ -510,7 +510,7 @@ html.no-js(lang='en')
         method: "POST",
         data: { "id" : page_id },
         success: function(data) { 
-          $("#nsales").html(data);
+          $("#nsales").html(4)//data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
         }
@@ -568,8 +568,7 @@ html.no-js(lang='en')
                     "Twitter",
                     "Linkedin",
                     "Google",
-                    "Entrada Directa",
-                    "yey"
+                    "Entrada Directa", 
                 ]
             },  
             options: {

@@ -150,7 +150,7 @@ function json2table(visita){
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.visitorId+'">';
+          '<a href="/visitors/seemore/5ee3c4a94ecde2f9">';//+visita.userId+'">';
 
       if( visita.customVariables && visita.customVariables["1"] ){ 
       NewVisitor += visita.customVariables["1"].customVariableValue1 +
@@ -185,7 +185,7 @@ function json2table(visita){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-         NewVisitor+='<td><input data-id="'+visita.visitorId+'" class="amount" type="number"/></td>'; 
+        NewVisitor+='<td class="try"><a href="#">Registrar Venta</a></td>'; 
         return NewVisitor;
 
 } 
