@@ -265,50 +265,42 @@ html(lang='en')
                         }
                     }); 
             } 
-          $(document).on('change',".amount", function(){ 
-              $(".saving").show();
-              for (var i = 0; i < changes.length; i++){
-                // look for the entry with a matching `code` value
-                if (obj[i].code == needle){
-                   // we found it
-                  // obj[i].name is the matched result
-                }
-              }
-              
-              /*changes+={[
-              "client":$(this).attr('data-id'),
-              "total" : $(this).val()
-              ] 
-              }*/
-          });
+            UpdateSubtotal();
+          $( ".iva input:checkbox" ).on( "click", function(){
+          UpdateSubtotal()}
+           );
+           $(document).on("click",".iva",UpdateSubtotal);
 
+          function UpdateSubtotal(){
+            var subtotal=0; 
+            $( ".subtotal1" ).each(function() { 
+                subtotal+=parseFloat($( this ).html()) || 0;
+              });  
+            $("#subtotal").html("$"+subtotal);
+            //ADD the iva
+            var iva = ($( ".iva:checked" ).length >0 ) ? subtotal*0.21 : 0 ; 
+            $(".totalIVA").html("$"+iva);
+            //Add the total value
+            $("#total").html("$"+(iva+subtotal));
+          }
 
-          $(".saving").click(function(){
+          $(document).on('change',".unidades, .tarifa", function(){   
+              var unidades = parseFloat($(this).closest('tr').find('.unidades').val()) || 0;
+              var costo    = parseFloat($(this).closest('tr').find('.tarifa').val()) || 0;  
+              $(this).closest('tr').find('.subtotal1').html(unidades*costo);
+              UpdateSubtotal();
 
-            $.ajax({
-              url: '/home/funnel/SetCosts', 
-                      method: "POST",
-                      data: JSON.stringify(changes),
-                      contentType:'application/json',
-                      success: function(data) {
-                        alert("Guardado");
-                        $(".saving").hide(); 
-                      },
-                       error: function(XMLHttpRequest, textStatus, errorThrown) {
-                           console.log("error");
-                        }
-                    }); 
-            }); 
-
+            });   
         }); 
+
         //Bootbox for sales
         $("#try").click(function(){
           bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,
                 className: "ticketAlert", 
-                message:
-                '<div class="col-xs-6">'+
+                message: function(){ 
+                var factura='<div class="col-xs-6">'+
                   '<h1><a href=" "><img alt="" src="logo.png" /> Logo aquí </a>'+
                   '</h1>'+
                 '</div>'+
@@ -322,7 +314,7 @@ html(lang='en')
                   '<div class="col-xs-5">'+
                     '<div class="panel panel-default">'+
                       '<div class="panel-heading">'+
-                        '<h4>De: <a href="#">Su Nombre</a></h4>'+
+                        '<h4>De: <a href="#"></a></h4>'+
                       '</div>'+
                       '<div class="panel-body"><p>Dirección:</p>'+
                         '<p>Dia:</p>'+
@@ -364,36 +356,27 @@ html(lang='en')
                       '<tr>'+
                         '<td>Artículo</td>'+
                         '<td><a href="#"> Título de su artículo aquí </a></td>'+
-                        '<td class=" text-right ">-</td>'+
-                        '<td class=" text-right ">200.00 €</td>'+
-                        '<td class=" text-right ">200.00 €</td>'+
-                      '</tr>'+
-                      '<tr>'+
-                        '<td>Plantilla de diseño</td>'+
-                          '<td><a href="#"> Detalles del proyecto aquí </a></td>'+
-                          '<td class="text-right">10</td>'+
-                          '<td class="text-right ">75.00 €</td>'+
-                          '<td class="text-right ">750.00 €</td>'+
-                      '</tr>'+
-                      '<tr>'+
-                        '<td>Desarrollo</td>'+
-                        '<td><a href="#"> Plugin WordPress </a></td>'+
-                        '<td class="text-right ">5</td>'+
-                        '<td class="text-right">50.00 €</td>'+
-                        '<td class="text-right">250.00 €</td>'+
+                        '<td class=" text-right ">'+
+                          '<input id="name" name="name" type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
+                        '</td>'+
+                        '<td class=" text-right ">'+
+                          '<input id="name" name="name" type="number" placeholder="Tarifa/Precio" class="factura-inp tarifa"> ' +
+                        '<td class=" text-right subtotal1 ">'+
+
+                        '</td>'+
                       '</tr>'+
                     '</tbody>'+
                   '</table>'+ 
                 '<div class="row text-right">'+
                   '<div class="col-xs-3 col-xs-offset-7"><strong>'+
                   '<p>Sub Total:</p>'+
-                  '<p>Impuestos (IVA 21%):</p>'+
+                  '<p><input type="checkbox" name="iva" class="iva"> Impuestos (IVA 21%):</p>'+
                   '<p>Total:</p>'+
                   '</strong></div>'+
                   '<div class="col-xs-2"><strong>'+
-                '<p>1,200.00 €</p>'+
-                '<p>252.00 €</p>'+
-                '<p>1,452.00 €</p>'+
+                '<p id="subtotal"></p>'+
+                '<p class="totalIVA"></p>'+
+                '<p id="total"></p>'+
                 '</strong></div>'+
                 '</div>'+
                 '<div class="row">'+
@@ -425,7 +408,9 @@ html(lang='en')
                   '</div>'+
                   '</div>'+
                 '</div>'+
-                '</div>',
+                '</div>';
+                return factura;
+                },
                 buttons: {
                     success: {
                         label: "Save",
@@ -457,5 +442,10 @@ html(lang='en')
         }
         .ticketAlert > .modal-dialog {
             width:70% !important;
+        } 
+        .factura-inp{
+        border: 0;
+        outline:0px !important;
+        -webkit-appearance:none;
         }
     
