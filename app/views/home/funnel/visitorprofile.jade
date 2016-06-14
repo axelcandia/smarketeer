@@ -1,0 +1,741 @@
+html
+  body
+    head
+      meta(charset='utf-8')
+      title Metronic | Pages - New User Profile
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      meta(content='width=device-width, initial-scale=1.0', name='viewport')
+      meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+      meta(content='', name='description')
+      meta(content='', name='author')
+      // BEGIN GLOBAL MANDATORY STYLES
+      link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+      // END GLOBAL MANDATORY STYLES
+      // BEGIN PAGE LEVEL STYLES
+      link(href='/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', rel='stylesheet', type='text/css')
+      link(href='/admin/pages/css/profile.css', rel='stylesheet', type='text/css')
+      link(href='/admin/pages/css/tasks.css', rel='stylesheet', type='text/css')
+      // END PAGE LEVEL STYLES
+      // BEGIN THEME STYLES
+      link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+      link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+      link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+      link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+      link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+      // END THEME STYLES
+      link(rel='shortcut icon', href='favicon.ico')
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      include ../../shared/pageTop
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../../shared/leftBar
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+                i.icon-settings
+              .toggler-close
+                i.icon-close
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+                    h4.modal-title Install Smarketeer on your website
+                  .modal-body
+                    | Copy & paste the following code into the head of your HTML
+                    form(action='#')
+                      textarea(rows='4', cols='50')
+                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                  .modal-footer
+                    button.btn.default(type='button', data-dismiss='modal') Close
+                    button.btn.blue(type='button') Verify Code
+                // /.modal-content
+              // /.modal-dialog
+            // CODE MODAL
+            // BEGIN PAGE HEADER
+            h3.page-title
+              | Visitas
+            .page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='index') Home
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Data Tables
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Advanced Datatables
+              .page-toolbar
+                .btn-group.pull-right
+                  button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
+                    | Actions 
+                    i.fa.fa-angle-down
+                  ul.dropdown-menu.pull-right(role='menu')
+                    li
+                      a(href='#') Export to Excel
+                    li
+                      a(href='#') Export to CSV
+                    li
+                      a(href='#') Export to PDF
+              .page-toolbar
+                #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
+                  i.icon-calendar
+                  i.fa.fa-angle-down
+                  //
+                    uncomment this to display selected daterange in the button
+                    &nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp;
+                    <i class="fa fa-angle-down"></i>
+            // END PAGE HEADER
+            // BEGIN PAGE CONTENT
+            .row
+              .col-md-12
+                // BEGIN PROFILE SIDEBAR
+                .profile-sidebar(style='width: 250px;')
+                  // PORTLET MAIN
+                  .portlet.light.profile-sidebar-portlet
+                    // SIDEBAR USERPIC
+                    .profile-userpic
+                      img.img-responsive(src='/admin/pages/media/profile/profile_user.jpg', alt='')
+                    // END SIDEBAR USERPIC
+                    // SIDEBAR USER TITLE
+                    .profile-usertitle
+                      .profile-usertitle-name
+                        | Juan Perez
+                      .profile-usertitle-job
+                        | Director de Marketing
+                    // END SIDEBAR USER TITLE
+                    // SIDEBAR BUTTONS
+                    .profile-userbuttons
+                      button.btn.btn-circle.green-haze.btn-sm(type='button') Enviar Mail
+                      button.btn.btn-circle.btn-danger.btn-sm(type='button') Llamar
+                    // END SIDEBAR BUTTONS
+                    // SIDEBAR MENU
+                    .profile-usermenu
+                      ul.nav
+                        li.active
+                          a(href='extra_profile.html')
+                            i.icon-home
+                            |                       Overview
+                        li
+                          a(href='extra_profile_account.html')
+                            i.icon-settings
+                            |                       Account Settings
+                        li
+                          a(href='page_todo.html', target='_blank')
+                            i.icon-check
+                            |                       Tasks
+                        li
+                          a(href='extra_profile_help.html')
+                            i.icon-info
+                            |                       Help
+                    // END MENU
+                  // END PORTLET MAIN
+                  // PORTLET MAIN
+                  .portlet.light
+                    // STAT
+                    .row.list-separated.profile-stat
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | 37
+                        .uppercase.profile-stat-text
+                          | Visitas
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | 5
+                        .uppercase.profile-stat-text
+                          | Forms
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | 2
+                        .uppercase.profile-stat-text
+                          | Ventas
+                    // END STAT
+                    div
+                      h4.profile-desc-title Sobre Juan Perez
+                      span.profile-desc-text  CEO que vive en Cap. Fed. (campo editable) 
+                      .margin-top-20.profile-desc-link
+                        i.fa.fa-globe
+                        a(href='http://www.keenthemes.com') sitioweb.com
+                  // END PORTLET MAIN
+                // END BEGIN PROFILE SIDEBAR
+                // BEGIN PROFILE CONTENT
+                .profile-content
+                  .row
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Ventas
+                            span.caption-helper.hide estadísticas
+                          .actions
+                            .btn-group.btn-group-devided(data-toggle='buttons')
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm.active
+                                input#option1.toggle(type='radio', name='options')
+                                | Hoy
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
+                                input#option2.toggle(type='radio', name='options')
+                                | Semana
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
+                                input#option2.toggle(type='radio', name='options')
+                                | Mes
+                        .portlet-body
+                          .row.number-stats.margin-bottom-30
+                            .col-md-6.col-sm-6.col-xs-6
+                              .stat-left
+                                .stat-chart
+                                  // do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break
+                                  #sparkline_bar
+                                .stat-number
+                                  .title
+                                    | Costos
+                                  .number
+                                    | 260
+                            .col-md-6.col-sm-6.col-xs-6
+                              .stat-right
+                                .stat-chart
+                                  // do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break
+                                  #sparkline_bar2
+                                .stat-number
+                                  .title
+                                    | Ingresos
+                                  .number
+                                    | 990
+                          .table-scrollable.table-scrollable-borderless
+                            table.table.table-hover.table-light
+                              thead
+                                tr.uppercase
+                                  th(colspan='2')
+                                    | Vendedor
+                                  th
+                                    | Valor
+                                  th
+                                    | Productos
+                                  th
+                                    | Tasa
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar4.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Jose
+                                td
+                                  | $345
+                                td
+                                  | 1
+                                td
+                                  span.bold.theme-font 80%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar5.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Fede
+                                td
+                                  | $560
+                                td
+                                  | 3
+                                td
+                                  span.bold.theme-font 67%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar6.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Facu
+                                td
+                                  | $1,345
+                                td
+                                  | 6
+                                td
+                                  span.bold.theme-font 98%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar7.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Santi
+                                td
+                                  | $645
+                                td
+                                  | 4
+                                td
+                                  span.bold.theme-font 58%
+                      // END PORTLET
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title.tabbable-line
+                          .caption.caption-md
+                            i.icon-globe.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Interacciones
+                          ul.nav.nav-tabs
+                            li.active
+                              a(href='#tab_1_1', data-toggle='tab')
+                                | Detalle
+                            li
+                              a(href='#tab_1_2', data-toggle='tab')
+                                | Fuentes
+                        .portlet-body
+                          // BEGIN TABS
+                          .tab-content
+                            #tab_1_1.tab-pane.active
+                              .scroller(style='height: 320px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                                ul.feeds
+                                  //Separamos por dia
+                                  -var oldDate=""
+                                  for action in actions
+                                    -var newDate = action.serverTimePretty.substr(0,  (action.serverTimePretty.indexOf(':')-2)) 
+                                    if newDate != oldDate
+                                        - oldDate = newDate
+                                        p.date
+                                          | #{newDate}
+                                    //Obtenemos la hora de cada uno
+                                    -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length) 
+                                    li
+                                      .col1
+                                        .cont
+                                          .cont-col1 
+                                            if action.type == "goal"
+                                              .label.label-sm.label-warning
+                                                i.fa.fa-plus
+                                            else if action.type == "goalazo"
+                                              .label.label-sm.label-success
+                                                i.fa.fa-bell-o
+                                            else
+                                              .label.label-sm.label-info
+                                                i.fa.fa-bullhorn
+                                          .cont-col2
+                                            .desc
+                                              if action.goalName
+                                               | #{action.goalName}
+                                              else
+                                                | juan@sitioweb.com visitó 
+                                              a(target="_blank" href="#{action.url}") #{action.pageTitle}
+                                      .col2
+                                        .date
+                                          | #{hora} 
+                                        
+                            #tab_1_2.tab-pane
+                              .scroller(style='height: 337px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                                ul.feeds
+                                  li
+                                    a(href='javascript:;')
+                                      .col1
+                                        .cont
+                                          .cont-col1
+                                            .label.label-sm.label-success
+                                              i.fa.fa-bell-o
+                                          .cont-col2
+                                            .desc
+                                              | Google Ads
+                                      .col2
+                                        .date
+                                          | Just now
+                                  li
+                                    a(href='javascript:;')
+                                      .col1
+                                        .cont
+                                          .cont-col1
+                                            .label.label-sm.label-success
+                                              i.fa.fa-bell-o
+                                          .cont-col2
+                                            .desc
+                                              | Facebook Ads
+                                      .col2
+                                        .date
+                                          | 10 mins
+                                  li
+                                    .col1
+                                      .cont
+                                        .cont-col1
+                                          .label.label-sm.label-danger
+                                            i.fa.fa-bolt
+                                        .cont-col2
+                                          .desc
+                                            | Google Organic
+                                    .col2
+                                      .date
+                                        | 24 mins
+                          // END TABS
+                      // END PORTLET
+                  .row
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Campos Llenados
+                            span.caption-helper 45
+                          .inputs
+                            .portlet-input.input-inline.input-small
+                              .input-icon.right
+                                i.icon-magnifier
+                                input.form-control.form-control-solid(type='text', placeholder='search...')
+                        .portlet-body
+                          .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                            .general-item-list
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar4.jpg')
+                                    a.item-name.primary-link(href='') Nombre
+                                    span.item-label 3 hrs ago
+                                .item-body
+                                  | Juan
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar3.jpg')
+                                    a.item-name.primary-link(href='') Apellido
+                                    span.item-label 5 hrs ago
+                                .item-body
+                                  | Perez
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar6.jpg')
+                                    a.item-name.primary-link(href='') Telefono
+                                    span.item-label 8 hrs ago
+                                .item-body
+                                  | 1130303030
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar7.jpg')
+                                    a.item-name.primary-link(href='') Pagina Web
+                                    span.item-label 12 hrs ago
+                                .item-body
+                                  | www.sitioweb.com
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar9.jpg')
+                                    a.item-name.primary-link(href='') Compañía
+                                    span.item-label 2 days ago
+                                .item-body
+                                  | Sitio Web
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar8.jpg')
+                                    a.item-name.primary-link(href='') Rol
+                                    span.item-label 3 days ago
+                                .item-body
+                                  | CEO
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar2.jpg')
+                                    a.item-name.primary-link(href='') País
+                                    span.item-label 4 hrs ago
+                                .item-body
+                                  | Argentina
+                      // END PORTLET
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light.tasks-widget
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Tasks
+                            span.caption-helper 16 pending
+                          .inputs
+                            .portlet-input.input-small.input-inline
+                              .input-icon.right
+                                i.icon-magnifier
+                                input.form-control.form-control-solid(type='text', placeholder='search...')
+                        .portlet-body
+                          .task-content
+                            .scroller(style='height: 282px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                              // START TASK LIST
+                              ul.task-list
+                                li
+                                  .task-checkbox
+                                    input(type='hidden', value='1', name='test')
+                                    input.liChild(type='checkbox', value='2', name='test')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Present 2013 Year IPO Statistics at Board Meeting
+                                    span.label.label-sm.label-success Company
+                                    span.task-bell
+                                      i.fa.fa-bell-o
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Hold An Interview for Marketing Manager Position
+                                    span.label.label-sm.label-danger Marketing
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | AirAsia Intranet System Project Internal Meeting
+                                    span.label.label-sm.label-success AirAsia
+                                    span.task-bell
+                                      i.fa.fa-bell-o
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Technical Management Meeting
+                                    span.label.label-sm.label-warning Company
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Kick-off Company CRM Mobile App Development
+                                    span.label.label-sm.label-info Internal Products
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Prepare Commercial Offer For SmartVision Website Rewamp
+                                    span.label.label-sm.label-danger SmartVision
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Sign-Off The Comercial Agreement With AutoSmart
+                                    span.label.label-sm.label-default AutoSmart
+                                    span.task-bell
+                                      i.fa.fa-bell-o
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | Company Staff Meeting
+                                    span.label.label-sm.label-success Cruise
+                                    span.task-bell
+                                      i.fa.fa-bell-o
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                                li.last-line
+                                  .task-checkbox
+                                    input.liChild(type='checkbox', value='')
+                                  .task-title
+                                    span.task-title-sp
+                                      | KeenThemes Investment Discussion
+                                    span.label.label-sm.label-warning KeenThemes 
+                                  .task-config
+                                    .task-config-btn.btn-group
+                                      a.btn.btn-xs.default(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                        i.fa.fa-cog
+                                        i.fa.fa-angle-down
+                                      ul.dropdown-menu.pull-right
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-check
+                                            |  Complete
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-pencil
+                                            |  Edit
+                                        li
+                                          a(href='javascript:;')
+                                            i.fa.fa-trash-o
+                                            |  Cancel
+                              // END START TASK LIST
+                          .task-footer
+                            .btn-arrow-link.pull-right
+                              a(href='javascript:;') See All Tasks
+    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(src='/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js', type='text/javascript')
+    script(src='/global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/profile.js', type='text/javascript')
+    // END PAGE LEVEL SCRIPTS
+    script.
+      jQuery(document).ready(function() {
+      // initiate layout and plugins
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features\\
+      Profile.init(); // init page demo
+      });
+    style.
+      .img-responsive{
+        width: 78%!important;
+        height: 27%!important;
+      }
+    // END JAVASCRIPTS
+  // END BODY
+  script.
+

@@ -48,9 +48,37 @@ exports.GetMoreVisitors =function (req,res){
     console.log(data.lastVisits[0]);
   });*/
 }
-
+/**
+* REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
+*/
 exports.GetVisitData = function(req,res,next){
+  var site=1
+  console.log(req.params.id);
+  var segment= "userId=="+req.params.id
+  piwik.api({
+    method:   'Live.getLastVisitsDetails',
+    idSite: site,
+    period: '',
+    date: '',
+    segment: segment,
+    countVisitorsToFetch: '',
+    minTimestamp: '',
+    flat: '',
+    doNotFetchActions: ''
 
+  },function(err,data){
+    if(err){
+      console.log(err)
+    }
+    else{
+      console.log(data);
+      res.render('home/funnel/visitorprofile', { 
+        actions: data[0].actionDetails
+      }); 
+    } 
+    
+  });
+  
 }
 /**
 * Get the status of the visitor
