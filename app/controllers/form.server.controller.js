@@ -193,12 +193,14 @@ exports.CloneForm = function( req, res ){
 * @Receives the id
 * @Posts the required html
 */
-exports.GetFormHTML = function( req, res, next ){ 
+exports.GetFormHTML = function( req, res, next ){
+	console.log("Form id:"+req.body.id);  
 	Forms.findById(req.body.id,function( err, data ){
 		if(err)
 			res.send("false");
 		else{
-			if(data)
+			console.log(data);
+			if(data) 
 				res.send(data.html).status(200); 
 		}
 	})
@@ -211,8 +213,7 @@ exports.GetVisitorId = function( req, res, next){
 		return res.send("-1");
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
 	var query = { CookieId :req.body.id};
-	var update;
-	console.log("ESTE ES EL di" +req.body.id)
+	var update; 
 	if(req.body.email){
 		update = { 
 	    	"email"			: req.body.email

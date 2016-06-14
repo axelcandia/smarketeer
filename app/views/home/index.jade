@@ -477,9 +477,8 @@ html.no-js(lang='en')
     script(src='/dashboard/js/dashboard.js') 
     script(src='/global/plugins/Chart/Chart.bundle.js')
     script.
-      var page_id = 0;
-      var id= #{websites}
-      console.log(id);
+      var page_id= #{websites[0].id}
+      console.log(page_id);
 
       $.ajax({
         url: '/home/GetAllVisitors',
@@ -494,11 +493,12 @@ html.no-js(lang='en')
         });
 
       $.ajax({
-        url: '/home/GetLeads',
+        url: '/home/CountLeads',
         method: "POST",
         data: { "id" : page_id },
         success: function(data) { 
           $("#nleads").html(data);
+          console.log(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("error in leads");
@@ -513,6 +513,18 @@ html.no-js(lang='en')
           $("#nsales").html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        }
+        });
+
+      $.ajax({
+        url: '/home/GetGraphLeads',
+        method: "POST",
+        data: { "id" : page_id },
+        success: function(data) {  
+          console.log(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in leads");
         }
         });
 

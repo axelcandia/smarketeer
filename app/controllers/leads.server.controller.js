@@ -28,83 +28,141 @@ exports.RenderLeads = function ( req,res ){
 * Get everything I can which is a lead
 * An index goes here
 */
+
 exports.GetLeads = function(req,res){
 	//Form the pages
-	var page= parseInt(req.body.page); 
-	page =  ( page == 0 ) ? page  : page * 20; 
+	var page    = parseInt(req.body.page);
+  var website = "1"; 
 
-	Visitors.find( {email: { $exists: true } }).
-	limit(20).
-	skip(page).
-	exec(function(err,leads){
-		if(err)
-			console.log(err);
-		else{
-			//We have to form a string with the ID we require!
-			var segment="";  
-        	var key, i = 0; 
-        	for(key in leads) {
-				segment+="userId=="+leads[i]._id+",";
-				i++; 
-			}
-			GetInvidualLead(leads,segment,res);
-		}
-	});
+	page =  ( page == 0 ) ? page  : page * 20;
+    piwik.api({
+          method:   'Live.getLastVisitsDetails',
+          idSite: website,
+          period:   '',
+          date:     '',
+          segment : 'visitConvertedGoalId==1',
+          showColumns:"lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
+          countVisitorsToFetch : '',
+          minTimestamp : '',
+          flat : '',
+          doNotFetchActions : '',
+          filter_offset:page,
+          filter_limit:20,
+        },function( err, visitas ){ 
+          if(err) res.send(err);
+          else{ 
+            //console.log(JSON.stringify(visitas));
+            html="";  
+            var key, i = 0;
+            for(key in visitas) {
+              html+=json2table(visitas[i]);  
+              i++;     
+            }  
+            res.send(html).status(200); 
+          }
+        }); 
+
+} 
+/**
+* Returns the id of the website and a valid range to use in any function.
+*/
+function GetWebsiteDate(res,id,callback){
+  piwik.api({
+    method:"SitesManager.getSiteFromId",
+    idSite:id
+  },function(err,data){
+    if(err){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+    var n = data[0].ts_created.indexOf(' ');
+    var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
+    range+=",today"; 
+    callback(res,id,range);
+  });
+ 
+}
+/**
+* Call the piwik counter and returns data
+*/
+function GetPiwikLeadsCounter(res,id,range){
+piwik.api({
+    method:"VisitsSummary.get",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId==1', 
+    columns:"nb_visits"
+  },function(err,visitas){
+    if(err || !visitas.value){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+      res.send(visitas.value.toString()).status(200);
+  });
+}
+
+exports.CountLeads = function(req,res){ 
+  GetWebsiteDate(res,req.body.id,GetPiwikLeadsCounter);
 }
 /**
 * Receives the cahnges in cost and changes the status of the visitor
 */
-exports.SetCosts = function(req,res,next){
-	console.log(req.body)
+exports.SetCosts = function(req,res,next){ 
 	res.send("").status(200);
 
+} 
+/**
+* Send the graph for leads to the home
+*/
+exports.GetGraphLeads = function(req,res,next){
+  GetWebsiteDate(res,req.body.id,GetReferrers);
 }
 
- /**
- * Gets all the leads required and loads them
- */
-function GetInvidualLead(mongodata,segment,res){  
+function GetReferrers(res,id,range){
   piwik.api({
-      method:   'Live.getLastVisitsDetails',
-      idSite: 1,
-      period:   '',
-      date:     '', 
-      showColumns:"lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
-      countVisitorsToFetch : '',
-      minTimestamp : '',
-      flat : '',
-      doNotFetchActions : '', 
-      filter_limit:20,
-      segment: segment,
-    },function( err, visitas ){
-      if(err) res.send(err);
-      else{  
-	        html="";  
-	        var key, i = 0;
-	        for(key in visitas) {
-	          html+=combine2table(visitas[i],mongodata[i]); 
-	          i++;     
-	        }  
-	        res.send(html).status(200); 
-	      }
-    }); 
+    method:"Referrers.getAll",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId==1',  
+  },function(err,leads){
+    if(err){
+      console.log(err); 
+      return 0;
+    }  
+      console.log(leads);
+  });
+
 }
 /**
 * This function gets the information of both, put it together and rock it
 */
-function combine2table(visita,mongodata){
+function json2table(visita){
 	  //First we create the href and the id
   //Parseamos la url 
   var query = url.parse(visita.actionDetails[0].url,true).query; 
+  
   //Visitor date
    var NewVisitor='<tr>'+
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.visitorId+'">'+
-              mongodata.email +
-          '</a>'+
+          '<a href="/visitors/seemore/'+visita.visitorId+'">';
+
+      if( visita.customVariables && visita.customVariables["1"] ){ 
+      NewVisitor += visita.customVariables["1"].customVariableValue1 +
+                '</a>'+
         '</td>';
+    }
+    else{
+      NewVisitor += "indefinido"+
+            '</a>'+
+        '</td>' ;
+    }
+          
 
         //Campaign name, we only display it if it was a campagin!!!
         NewVisitor+= (visita.referrerTypeName =="Campaigns") ? 
@@ -127,13 +185,7 @@ function combine2table(visita,mongodata){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-         NewVisitor+='<td><input data-id="'+visita.visitorId+'" class="amount" type="number"/></td>';
-        switch( mongodata.Status ){ 
-        	case "lead":
-        		default:
-        			NewVisitor+='<td><span class="label label-sm label-success">Cliente potencial</span></td></tr>';
-        			break;
-        } 
+         NewVisitor+='<td><input data-id="'+visita.visitorId+'" class="amount" type="number"/></td>'; 
         return NewVisitor;
 
 } 

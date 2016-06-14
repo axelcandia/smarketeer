@@ -129,6 +129,8 @@ html(lang='en')
             // END PAGE HEADER
             // BEGIN PAGE CONTENT
             .row
+              button#try
+                | Super boton
               .col-md-12
                 // BEGIN EXAMPLE TABLE PORTLET
                 .portlet.box.green
@@ -199,73 +201,7 @@ html(lang='en')
                             | Amount
                           th.hidden-xs
                             | Status
-                      tbody
-                        //tr
-                          td
-                            | adam@twitter.com
-                          td
-                            | CyberMonday
-                          td
-                            | Facebook
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://facebook.com
-                          td
-                            | http://digifianz.com/lp1
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-success
-                              | Lead
-                        //tr
-                          td
-                            | blake@coca-cola.com
-                          td
-                            | CyberMonday
-                          td
-                            | Twitter
-                          td
-                            | Organic
-                          td
-                            | Beach-Image
-                          td
-                            | http://twitter.com
-                          td
-                            | http://digifianz.com/lp5
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-warning
-                              | Contacted
-                        //tr
-                          td
-                            | james@facebook.com
-                          td
-                            | CyberMonday
-                          td
-                            | Google
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://google.com
-                          td
-                            | http://digifianz.com/lp3
-                          td
-                            input(type='checkbox')
-                          td
-                            input(type='number')
-                          td
-                            span.label.label-sm.label-danger
-                              | Not sold
+                      tbody#tleads
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT
@@ -296,7 +232,9 @@ html(lang='en')
     script(src='admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='admin/layout2/scripts/demo.js', type='text/javascript') 
     script.
+
       $( document ).ready(function(){ 
+
           var changes={};
           var maxpage=#{MaxPages}; 
           var page=0;
@@ -313,12 +251,12 @@ html(lang='en')
           });
           function GetMoreLeads(){
             $.ajax({
-                      url: '/home/funnel/ajaxLeads', 
+                      url: '/home/funnel/GetLeads', 
                       method: "POST",
                       data: { "page" : page },
                       success: function(data) {
                         page++;   
-                        $('.table tbody').append(data);  
+                        $('#tleads').append(data);  
                         loading=false;
 
                       },
@@ -337,11 +275,11 @@ html(lang='en')
                 }
               }
               
-              changes+={[
+              /*changes+={[
               "client":$(this).attr('data-id'),
               "total" : $(this).val()
               ] 
-              }
+              }*/
           });
 
 
@@ -362,7 +300,147 @@ html(lang='en')
                     }); 
             }); 
 
-        });  
+        }); 
+        //Bootbox for sales
+        $("#try").click(function(){
+          bootbox.dialog({ 
+                backdrop: true,
+                onEscape: true,
+                className: "ticketAlert", 
+                message:
+                '<div class="col-xs-6">'+
+                  '<h1><a href=" "><img alt="" src="logo.png" /> Logo aquí </a>'+
+                  '</h1>'+
+                '</div>'+
+                '<div class="col-xs-6 text-right">'+
+                  '<h1>FACTURA</h1>'+
+                  '<h1><small>Factura #001</small></h1>'+
+                '</div>'+
+                 ''+
+                '<hr />'+
+                '<div class="row">'+
+                  '<div class="col-xs-5">'+
+                    '<div class="panel panel-default">'+
+                      '<div class="panel-heading">'+
+                        '<h4>De: <a href="#">Su Nombre</a></h4>'+
+                      '</div>'+
+                      '<div class="panel-body"><p>Dirección:</p>'+
+                        '<p>Dia:</p>'+
+                        '<p>Algun detalle</p></div>'+
+                      '</div>'+
+                    '</div>'+
+                      '<div class="col-xs-5 col-xs-offset-2 text-right">'+
+                        '<div class="panel panel-default">'+
+                          '<div class="panel-heading">'+
+                            '<h4>Para : <a href="#">Nombre del Cliente</a></h4>'+
+                          '</div>'+
+                        '<div class="panel-body"><p>Dirección</p>'+
+                          '<p>detalles</p>'+
+                          '<p>más detalles</p></div>'+
+                        '</div>'+
+                      '</div>'+
+                    '</div>'+ 
+                  '<table class="table table-bordered">'+
+                    '<thead>'+
+                      '<tr>'+
+                        '<th>'+
+                          '<h4>Servicio</h4>'+
+                        '</th>'+
+                        '<th>'+
+                          '<h4>Descripción</h4>'+
+                        '</th>'+
+                        '<th>'+
+                          '<h4>Hrs / Cantidad</h4>'+
+                        '</th>'+
+                        '<th>'+
+                          '<h4>Tarifa / Precio</h4>'+
+                        '</th>'+
+                        '<th>'+
+                          '<h4>Sub-Total</h4>'+
+                        '</th>'+
+                      '</tr>'+
+                    '</thead>'+
+                    '<tbody>'+
+                      '<tr>'+
+                        '<td>Artículo</td>'+
+                        '<td><a href="#"> Título de su artículo aquí </a></td>'+
+                        '<td class=" text-right ">-</td>'+
+                        '<td class=" text-right ">200.00 €</td>'+
+                        '<td class=" text-right ">200.00 €</td>'+
+                      '</tr>'+
+                      '<tr>'+
+                        '<td>Plantilla de diseño</td>'+
+                          '<td><a href="#"> Detalles del proyecto aquí </a></td>'+
+                          '<td class="text-right">10</td>'+
+                          '<td class="text-right ">75.00 €</td>'+
+                          '<td class="text-right ">750.00 €</td>'+
+                      '</tr>'+
+                      '<tr>'+
+                        '<td>Desarrollo</td>'+
+                        '<td><a href="#"> Plugin WordPress </a></td>'+
+                        '<td class="text-right ">5</td>'+
+                        '<td class="text-right">50.00 €</td>'+
+                        '<td class="text-right">250.00 €</td>'+
+                      '</tr>'+
+                    '</tbody>'+
+                  '</table>'+ 
+                '<div class="row text-right">'+
+                  '<div class="col-xs-3 col-xs-offset-7"><strong>'+
+                  '<p>Sub Total:</p>'+
+                  '<p>Impuestos (IVA 21%):</p>'+
+                  '<p>Total:</p>'+
+                  '</strong></div>'+
+                  '<div class="col-xs-2"><strong>'+
+                '<p>1,200.00 €</p>'+
+                '<p>252.00 €</p>'+
+                '<p>1,452.00 €</p>'+
+                '</strong></div>'+
+                '</div>'+
+                '<div class="row">'+
+                '<div class = "col-xs-5">'+
+                  '<div class="panel panel-info">'+
+                    '<div class="panel-heading">'+
+                    '<h4>Datos bancarios</h4>'+
+                    '</div>'+
+                    '<div class="panel-body">'+
+                     '<p>Su nombre</p>'+
+                     '<p>Nombre del banco</p>'+
+                     '<p>SWIFT: -------</p>'+
+                     '<p>Número de cuenta: 12345678</p>'+
+                     '<p>IBAN: ------</p></div>'+
+                    '</div>'+
+                  '</div>'+
+                '</ div>'+
+                '<div class="col-xs-7">'+
+                '<div class="span7">'+
+                  '<div class="panel panel-info">'+
+                  '<div class="panel-heading">'+
+                  '<h4> Datos de contacto </h4>'+
+                  '</div>'+
+                  '<div class=" panel-body ">'+
+                   '<p>Email: usted@ejemplo.com</p>'+
+                   '<p>Móvil: +92123456789</p>'+
+                  '<h4><small> El pago debe ser por transferencia bancaria </h4>'+
+                  '</div>'+
+                  '</div>'+
+                  '</div>'+
+                '</div>'+
+                '</div>',
+                buttons: {
+                    success: {
+                        label: "Save",
+                        className: "btn-success",
+                        callback: function () {
+                            var name = $('#name').val();
+                            var answer = $("input[name='awesomeness']:checked").val()
+                            Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+                        }
+                    }
+                }
+            }
+        );
+
+        }); 
     style.
         .portlet-body{ 
           overflow-y: scroll;
@@ -376,5 +454,8 @@ html(lang='en')
         }
         .fa-save:hover{
           color:black;
+        }
+        .ticketAlert > .modal-dialog {
+            width:70% !important;
         }
     
