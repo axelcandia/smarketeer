@@ -155,25 +155,25 @@ html(lang='en')
                             | E-mail
                           label
                             input(type='checkbox', checked='', data-column='1')
-                            | Campaign
+                            | Campaña
                           label
                             input(type='checkbox', checked='', data-column='2')
-                            | Source
+                            | Fuente
                           label
                             input(type='checkbox', checked='', data-column='3')
                             | Medium
                           label
                             input(type='checkbox', checked='', data-column='4')
-                            | Content
+                            | Contenido
                           label
                             input(type='checkbox', checked='', data-column='5')
-                            | Referral URL
+                            | URL del referido
                           label
                             input(type='checkbox', checked='', data-column='6')
-                            | Landing Page URL
+                            | Página de destino
                           label
                             input(type='checkbox', checked='', data-column='8')
-                            | Amount
+                            | Venta
                           //label
                             input(type='checkbox', checked='', data-column='9')
                             | Status
@@ -186,19 +186,19 @@ html(lang='en')
                           th.hidden-xs
                             | E-mail
                           th.hidden-xs
-                            | Campaign
+                            | Campaña
                           th.hidden-xs
-                            | Source
+                            | Fuente
                           th.hidden-xs
-                            | Medium
+                            | Medio
                           th.hidden-xs
-                            | Content
+                            | Contenido
                           th.hidden-xs
-                            | Referral URL
+                            | Referido
                           th.hidden-xs
-                            | Landing Page URL 
+                            | Página Destino
                           th.hidden-xs
-                            | Amount
+                            | Venta
                           //th.hidden-xs
                             | Status
                       tbody#tleads
@@ -297,11 +297,10 @@ html(lang='en')
               UpdateSubtotal();
 
             });   
-        });
-
+        }); 
         //Add a new item on click
         $(document).on("click",".agregar_item",function(){
-          $("#tfactura tr:last").after('<tr>'+
+          $("#tbody tr:last").after('<tr>'+
                         '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
                         '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
                         '<td class=" text-right ">'+
@@ -354,7 +353,7 @@ html(lang='en')
                         '</div>'+
                       '</div>'+
                     '</div>'+ 
-                  '<table class="table table-bordered">'+
+                  '<table class="table table-bordered" id="tfactura">'+
                     '<thead>'+
                       '<tr>'+
                         '<th>'+
@@ -374,7 +373,7 @@ html(lang='en')
                         '</th>'+
                       '</tr>'+
                     '</thead>'+
-                    '<tbody id="tfactura">'+
+                    '<tbody id="tbody">'+
                       '<tr>'+
                         '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
                         '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
@@ -405,7 +404,7 @@ html(lang='en')
                 '<p class="totalIVA">$0</p>'+
                 '<p id="total">$0</p>'+
                 '</strong></div>'+
-                '</div>'+
+                '</div>'/*+
                 '<div class="row">'+
                 '<div class = "col-xs-5">'+
                   '<div class="panel panel-info">'+
@@ -435,17 +434,41 @@ html(lang='en')
                   '</div>'+
                   '</div>'+
                 '</div>'+
-                '</div>';
+                '</div>'*/;
                 return factura;
                 },
                 buttons: {
                     success: {
-                        label: "Save",
-                        className: "btn-success",
-                        callback: function () {
-                            var name = $('#name').val();
-                            var answer = $("input[name='awesomeness']:checked").val()
-                            Example.show("Hello " + name + ". You've chosen <b>" + answer + "</b>");
+                        label: "Guardar",
+                        className: "btn-success exito",
+                        callback: function () { 
+                          /**
+                          * Read every row and convert it in json
+                          */
+                          var myRows = [];
+                          var headersText = [];
+                          var $headers = $("#tfactura thead th");
+
+                          // Loop through grabbing everything
+                          var $rows = $("#tfactura tbody tr").each(function(index) {
+                            $cells = $(this).find("td");
+                            myRows[index] = {}; 
+                            $cells.each(function(cellIndex) {
+                              // Set the header text
+                              if(headersText[cellIndex] === undefined) {
+                                headersText[cellIndex] = $($headers[cellIndex]).text();
+                              }
+                              var child = $(this).children().val();
+                              // Update the row object with the header/cell combo
+                              myRows[index][headersText[cellIndex]] =  (child) ? child : $(this).text();
+                            });    
+                          });
+
+                          // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
+                          var myObj = {
+                              "Compras": myRows
+                          };
+                          //alert(JSON.stringify(myObj));
                         }
                     }
                 }
