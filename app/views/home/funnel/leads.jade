@@ -199,7 +199,7 @@ html(lang='en')
                             | Landing Page URL 
                           th.hidden-xs
                             | Amount
-                          th.hidden-xs
+                          //th.hidden-xs
                             | Status
                       tbody#tleads
                 // END EXAMPLE TABLE PORTLET
@@ -239,7 +239,11 @@ html(lang='en')
           var maxpage=#{MaxPages}; 
           var page=0;
           var loading= false;
+          //This is the typical structure of a buy
+          
+          //Getting the first leads
           GetMoreLeads();
+          //Detecting infintie scroll
           $('.portlet-body').bind('scroll', function(){
              if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
                  $('#loading').show();
@@ -249,6 +253,7 @@ html(lang='en')
                   }
               }
           });
+          //Inifnite scroll2
           function GetMoreLeads(){
             $.ajax({
                       url: '/home/funnel/GetLeads', 
@@ -271,6 +276,7 @@ html(lang='en')
            );
            $(document).on("click",".iva",UpdateSubtotal);
 
+          //Updating the ticket stuff
           function UpdateSubtotal(){
             var subtotal=0; 
             $( ".subtotal1" ).each(function() { 
@@ -279,11 +285,11 @@ html(lang='en')
             $("#subtotal").html("$"+subtotal);
             //ADD the iva
             var iva = ($( ".iva:checked" ).length >0 ) ? subtotal*0.21 : 0 ; 
-            $(".totalIVA").html("$"+iva);
+            $(".totalIVA").html("$"+iva.toFixed(2));
             //Add the total value
-            $("#total").html("$"+(iva+subtotal));
+            $("#total").html("$"+(iva+subtotal).toFixed(2));
           }
-
+          //Updating unidades y tarifa
           $(document).on('change',".unidades, .tarifa", function(){   
               var unidades = parseFloat($(this).closest('tr').find('.unidades').val()) || 0;
               var costo    = parseFloat($(this).closest('tr').find('.tarifa').val()) || 0;  
@@ -291,7 +297,23 @@ html(lang='en')
               UpdateSubtotal();
 
             });   
-        }); 
+        });
+
+        //Add a new item on click
+        $(document).on("click",".agregar_item",function(){
+          $("#tfactura tr:last").after('<tr>'+
+                        '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
+                        '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
+                        '<td class=" text-right ">'+
+                          '<input type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
+                        '</td>'+
+                        '<td class=" text-right ">'+
+                          '<input id="name" name="name" type="number" placeholder="Tarifa/Precio" class="factura-inp tarifa"> ' +
+                        '<td class=" text-right subtotal1 ">'+
+                        '</td>'+
+                      '</tr>');
+        });
+
 
         //Bootbox for sales
         $(document).on("click",".try", function(){
@@ -352,21 +374,26 @@ html(lang='en')
                         '</th>'+
                       '</tr>'+
                     '</thead>'+
-                    '<tbody>'+
+                    '<tbody id="tfactura">'+
                       '<tr>'+
-                        '<td>Artículo</td>'+
-                        '<td><a href="#"> Título de su artículo aquí </a></td>'+
+                        '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
+                        '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
                         '<td class=" text-right ">'+
-                          '<input id="name" name="name" type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
+                          '<input type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
                         '</td>'+
                         '<td class=" text-right ">'+
                           '<input id="name" name="name" type="number" placeholder="Tarifa/Precio" class="factura-inp tarifa"> ' +
                         '<td class=" text-right subtotal1 ">'+
-
                         '</td>'+
                       '</tr>'+
                     '</tbody>'+
-                  '</table>'+ 
+                  '</table>'+
+                   '<div class="agregar">'+
+                     '<a href="#" class="agregar_item">'+
+                        '<i class="fa fa-plus"></i>'+
+                        'Agregar item'+
+                      '</a>'+
+                   '</div>'+
                 '<div class="row text-right">'+
                   '<div class="col-xs-3 col-xs-offset-7"><strong>'+
                   '<p>Sub Total:</p>'+
@@ -374,9 +401,9 @@ html(lang='en')
                   '<p>Total:</p>'+
                   '</strong></div>'+
                   '<div class="col-xs-2"><strong>'+
-                '<p id="subtotal"></p>'+
-                '<p class="totalIVA"></p>'+
-                '<p id="total"></p>'+
+                '<p id="subtotal">$0</p>'+
+                '<p class="totalIVA">$0</p>'+
+                '<p id="total">$0</p>'+
                 '</strong></div>'+
                 '</div>'+
                 '<div class="row">'+
@@ -450,5 +477,15 @@ html(lang='en')
         }
         .logos{
         height: 50px;
+        }
+        .table-bordered{
+           margin-bottom: 0px!important;
+        }
+        .agregar{
+          padding-top: 5px;
+          border: 1px solid #ddd;
+          text-align: center;
+          font-family: "Open Sans", sans-serif; 
+          border-top: 0;
         }
     
