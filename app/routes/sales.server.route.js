@@ -1,0 +1,6 @@
+var salesController = require("../controllers/sales.server.controller");
+
+module.exports = function(app) { 
+	app.get( "/home/funnel/sales", salesController.RenderSales );
+	app.post( "/home/funnel/GetSales*",salesController.GetSales );  
+};

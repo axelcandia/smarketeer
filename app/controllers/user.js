@@ -221,7 +221,7 @@ function SetFunnelGoal( idsite ){
         patternType:"-1",
         caseSensitive: '',
         revenue: '',
-        allowMultipleConversionsPerVisit: ''
+        allowMultipleConversionsPerVisit: true
       },function(err,data){
         if(err){  
           console.log(err); 
@@ -237,7 +237,7 @@ function SetFunnelGoal( idsite ){
         patternType:"-1",
         caseSensitive: '',
         revenue: '',
-        allowMultipleConversionsPerVisit: ''
+        allowMultipleConversionsPerVisit: true
       },function(err,data){
         if(err){  
           console.log(err); 

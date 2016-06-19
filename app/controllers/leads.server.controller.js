@@ -1,9 +1,10 @@
-var config		  = require("../../config/config");
+var config		    = require("../../config/config");
+var http          = require('http');
 var PiwikClient   = require('piwik-client');
 var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
-
+var Sale          = require("../models/sales.server.model");
 /**
 * Render lead view
 */
@@ -41,7 +42,7 @@ exports.GetLeads = function(req,res){
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==1',
-          showColumns:"lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
+          showColumns:"userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
           countVisitorsToFetch : '',
           minTimestamp : '',
           flat : '',
@@ -51,7 +52,6 @@ exports.GetLeads = function(req,res){
         },function( err, visitas ){ 
           if(err) res.send(err);
           else{ 
-            //console.log(JSON.stringify(visitas));
             html="";  
             var key, i = 0;
             for(key in visitas) {
@@ -104,6 +104,36 @@ piwik.api({
   });
 }
 
+/**
+* Guardo la compra que hizo un usuario
+*/
+exports.GetSale = function (req,res){   
+  var compra = new Sale({
+    "data": req.body
+  }); 
+  console.log(req.body.ClientId);
+  console.log(req.body);
+  compra.save();
+
+  var path = "http://52.165.38.47/piwik.php?"+
+  "uid="+req.body.ClientId+
+  "&idsite="+1+
+  "&rec="+1+
+  "&apiv="+1+
+  "&rand=1636495582"+
+  "&idgoal="+2+
+  "&revenue="+req.body.Total;
+
+    http.get(path, (res) => {
+    console.log(`Got response: ${res.statusCode}`);
+    // consume response body
+    res.resume();
+  }).on('error', (e) => {
+    console.log(`Got error: ${e.message}`);
+  }); 
+}
+
+
 exports.CountLeads = function(req,res){ 
   GetWebsiteDate(res,req.body.id,GetPiwikLeadsCounter);
 }
@@ -132,8 +162,7 @@ function GetReferrers(res,id,range){
     if(err){
       console.log(err); 
       return 0;
-    }  
-      console.log(leads);
+    }   
   });
 
 }
@@ -142,15 +171,16 @@ function GetReferrers(res,id,range){
 */
 function json2table(visita){
 	  //First we create the href and the id
-  //Parseamos la url 
+  //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
   
   //Visitor date
    var NewVisitor='<tr>'+
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
+      
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/5ee3c4a94ecde2f9">';//+visita.userId+'">';
+          '<a href="/visitors/seemore/'+visita.userId+'">';
 
       if( visita.customVariables && visita.customVariables["1"] ){ 
       NewVisitor += visita.customVariables["1"].customVariableValue1 +
@@ -185,7 +215,8 @@ function json2table(visita){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-        NewVisitor+='<td class="try"><a href="#">Registrar Venta</a></td>'; 
+        NewVisitor+='<td class="try" id="'+visita.userId+'">'+
+            '<a href="#">Registrar Venta</a></td>';  
         return NewVisitor;
 
 } 

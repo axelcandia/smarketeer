@@ -272,7 +272,8 @@ html(lang='en')
             } 
             UpdateSubtotal();
           $( ".iva input:checkbox" ).on( "click", function(){
-          UpdateSubtotal()}
+          UpdateSubtotal()
+            }
            );
            $(document).on("click",".iva",UpdateSubtotal);
 
@@ -315,7 +316,11 @@ html(lang='en')
 
 
         //Bootbox for sales
-        $(document).on("click",".try", function(){
+        $(document).on("click",".try", function(){ 
+          var ClientId = $(this).attr('id'); 
+          var SellerId ="20";
+          var total = $(".totalIVA").html();
+          var IdSite =1;
           bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,
@@ -326,11 +331,8 @@ html(lang='en')
                   '</h1>'+
                 '</div>'+
                 '<div class="col-xs-6 text-right">'+
-                  '<h1>FACTURA</h1>'+
-                  '<h1><small>Factura #001</small></h1>'+
-                '</div>'+
-                 ''+
-                '<hr />'+
+                  '<h1>Venta</h1>'+
+                '</div>'+/*
                 '<div class="row">'+
                   '<div class="col-xs-5">'+
                     '<div class="panel panel-default">'+
@@ -352,7 +354,7 @@ html(lang='en')
                           '<p>más detalles</p></div>'+
                         '</div>'+
                       '</div>'+
-                    '</div>'+ 
+                    '</div>'+*/ 
                   '<table class="table table-bordered" id="tfactura">'+
                     '<thead>'+
                       '<tr>'+
@@ -441,7 +443,14 @@ html(lang='en')
                     success: {
                         label: "Guardar",
                         className: "btn-success exito",
-                        callback: function () { 
+                        callback: function () {  
+                          var  compra ={
+                            "IdSite": IdSite,
+                            "ClientId":ClientId, 
+                            "SellerId":SellerId, 
+                            "Total":$("#total").html().replace("$",""),
+                            "IVA":$(".totalIVA").html().replace("$",""),  
+                          }
                           /**
                           * Read every row and convert it in json
                           */
@@ -463,12 +472,17 @@ html(lang='en')
                               myRows[index][headersText[cellIndex]] =  (child) ? child : $(this).text();
                             });    
                           });
-
+                          compra.compras=myRows;
                           // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
-                          var myObj = {
-                              "Compras": myRows
-                          };
-                          //alert(JSON.stringify(myObj));
+                          $.ajax({
+                            url:"/home/funnel/leads/GetSale",
+                            data:JSON.stringify(compra),
+                            method: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                            succes: function(data){
+                              console.log(data);
+                            }
+                          });
                         }
                     }
                 }
@@ -492,6 +506,9 @@ html(lang='en')
         }
         .ticketAlert > .modal-dialog {
             width:70% !important;
+        }
+        .tfactura{
+          margin-top: 34px
         } 
         .factura-inp{
         border: 0;
@@ -505,10 +522,9 @@ html(lang='en')
            margin-bottom: 0px!important;
         }
         .agregar{
-          padding-top: 5px;
-          border: 1px solid #ddd;
+          padding-top: 5px; 
           text-align: center;
-          font-family: "Open Sans", sans-serif; 
-          border-top: 0;
+          font-family: "Open Sans", sans-serif;  
+              margin-bottom: 50px
         }
     

@@ -22,19 +22,18 @@ exports.GetMoreVisitors =function (req,res){
       period:   '',
       date:     '',
       segment : '',
-      showColumns:"lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
+      showColumns:"lastActionDateTime,userId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
       countVisitorsToFetch : '',
       minTimestamp : '',
       flat : '',
       doNotFetchActions : '',
       filter_offset:page,
       filter_limit:20,
-    },function( err, visitas ){
+    },function( err, visitas ){ 
       if(err) res.send(err);
-      else{ 
-        //console.log(JSON.stringify(visitas));
+      else{  
         html="";  
-        var key, i = 0;
+        var key, i = 0; 
         for(key in visitas) {
           html+=json2table(visitas[i]);
           //html+=GetStatus(visitas[i]);  
@@ -95,7 +94,7 @@ function GetStatus(visita){
 /**
 * Get all the data of the visit and convert it in table mode
 */
-function json2table(visita){ 
+function json2table(visita){  
   //First we create the href and the id
   //Parseamos la url 
   var query = url.parse(visita.actionDetails[0].url,true).query; 
@@ -104,8 +103,8 @@ function json2table(visita){
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.visitorId+'">'+
-              visita.visitorId +
+          '<a href="/visitors/seemore/'+visita.userId+'">'+
+              visita.userId +
           '</a>'+
         '</td>';
 
@@ -128,6 +127,6 @@ function json2table(visita){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-        NewVisitor+='<td>'+visita.visitorType+'</td>';
+        NewVisitor+='<td>'+visita.visitorType+'</td>'; 
         return NewVisitor;
 }
