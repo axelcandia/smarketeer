@@ -5,6 +5,7 @@ var website_id= document.currentScript.id;
 	  var visitor_id="";
 	  var _paqid; 
 	  _paq.push(['enableLinkTracking']);
+	  _paq.push(['setConversionAttributionFirstReferrer', true]);
 	  (function() { 
 	    var u="HTTP://52.165.38.47/"; 
 	    _paq.push([ function() {  

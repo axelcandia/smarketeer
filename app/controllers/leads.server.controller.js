@@ -20,8 +20,7 @@ exports.RenderLeads = function ( req,res ){
 	  res.render("home/funnel/leads",{
 	  	MaxPages:maximo
 	  }); 
-	})
-    
+	}) 
 
 }
 
@@ -123,7 +122,7 @@ exports.GetSale = function (req,res){
     visitorId : '',
     segment : segment,
     limitVisits : '',
-    showColumns:"lastVisits"
+    showColumns:"lastVisits,customVariables"
   },function(err,visit){
     
     if(err || !visit){
@@ -131,7 +130,8 @@ exports.GetSale = function (req,res){
       res.send(0).status(200);
       return 0;
     }  
-    console.log(visit.lastVisits[0]);
+    console.log(visit);
+    var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
       "&idsite="+1+
@@ -139,7 +139,8 @@ exports.GetSale = function (req,res){
       "&apiv="+1+
       "&rand=1636495582"+
       "&idgoal="+2+
-      "&url="+compra._id+//IMPORTANT: We use URL to save the ID of the Salee!!
+      '&_cvar={"1":["email","'+email+'"]}'+
+      //"&url="+compra._id+//IMPORTANT: We use URL to save the ID of the Salee!!
       "&urlref="+visit.lastVisits[0].referrerUrl+
       "&revenue="+req.body.Total; 
       console.log("URL:"+path);
@@ -171,18 +172,17 @@ exports.SetCosts = function(req,res,next){
 
 function GetReferrers(res,id,range){
   piwik.api({
-    method:"Referrers.getAll",
+    method:"Referrers.getReferrerType",
     idSite:id,
     period:"range",
     date:range,
-    segment: 'visitConvertedGoalId==1',  
+    segment: 'visitConvertedGoalId==1', 
   },function(err,referrers){
     if(err){
       console.log(err); 
       return 0;
     }
-    res.send(referrers).status(200);   
-    console.log(referrers);
+    res.send(referrers).status(200);    
   });
 
 }
@@ -201,25 +201,22 @@ function json2table(visita){
 	  //First we create the href and the id
   //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
-  
+  var email = (visita.customVariables && visita.customVariables["1"]) ?
+              visita.customVariables["1"].customVariableValue1 :
+              "indefinido" ;
+
+
   //Visitor date
    var NewVisitor='<tr>'+
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
       
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'">';
+          '<a href="/visitors/seemore/'+visita.userId+'">'; 
 
-      if( visita.customVariables && visita.customVariables["1"] ){ 
-      NewVisitor += visita.customVariables["1"].customVariableValue1 +
+      NewVisitor +=  email+
                 '</a>'+
         '</td>';
-    }
-    else{
-      NewVisitor += "indefinido"+
-            '</a>'+
-        '</td>' ;
-    }
           
 
         //Campaign name, we only display it if it was a campagin!!!
@@ -243,7 +240,7 @@ function json2table(visita){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-        NewVisitor+='<td class="try" id="'+visita.userId+'">'+
+        NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.userId+'">'+
             '<a href="#">Registrar Venta</a></td>';  
         return NewVisitor;
 

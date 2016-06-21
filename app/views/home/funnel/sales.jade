@@ -150,31 +150,25 @@ html(lang='en')
                             | E-mail
                           label
                             input(type='checkbox', checked='', data-column='1')
-                            | Campaign
+                            | Campaña
                           label
                             input(type='checkbox', checked='', data-column='2')
-                            | Source
+                            | Fuente
                           label
                             input(type='checkbox', checked='', data-column='3')
-                            | Medium
+                            | Medio
                           label
                             input(type='checkbox', checked='', data-column='4')
-                            | Content
+                            | Contenido
                           label
                             input(type='checkbox', checked='', data-column='5')
-                            | Referral URL
+                            | ReferidoURL
                           label
                             input(type='checkbox', checked='', data-column='6')
-                            | Landing Page URL
-                          label
-                            input(type='checkbox', checked='', data-column='7')
-                            | Sold
+                            | Landing Page 
                           label
                             input(type='checkbox', checked='', data-column='8')
-                            | Amount
-                          label
-                            input(type='checkbox', checked='', data-column='9')
-                            | Status
+                            | Total Vendido
                   .portlet-body
                     table#sample_4.table.table-striped.table-bordered.table-hover
                       thead
@@ -182,90 +176,20 @@ html(lang='en')
                           th.hidden-xs
                             | E-mail
                           th.hidden-xs
-                            | Campaign
+                            | Campaña
                           th.hidden-xs
-                            | Source
+                            | Fuente
                           th.hidden-xs
-                            | Medium
+                            | Medio
                           th.hidden-xs
-                            | Content
+                            | Contenido
                           th.hidden-xs
-                            | Referral URL
+                            | Referido
                           th.hidden-xs
                             | Landing Page URL
                           th.hidden-xs
-                            | Sold
-                          th.hidden-xs
-                            | Amount
-                          th.hidden-xs
-                            | Status
-                      tbody
-                        tr
-                          td
-                            | blake@facebook.com
-                          td
-                            | CyberMonday
-                          td
-                            | Facebook
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://facebook.com
-                          td
-                            | http://digifianz.com/lp1
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='8203.65')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
-                        tr
-                          td
-                            | james@coca-cola.com
-                          td
-                            | CyberMonday
-                          td
-                            | Twitter
-                          td
-                            | Organic
-                          td
-                            | Beach-Image
-                          td
-                            | http://twitter.com
-                          td
-                            | http://digifianz.com/lp5
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='4050.39')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
-                        tr
-                          td
-                            | adam@twitter.com
-                          td
-                            | CyberMonday
-                          td
-                            | Google
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://google.com
-                          td
-                            | http://digifianz.com/lp3
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='3403.93')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
+                            | Total Vendido
+                      tbody#tsales
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT
@@ -324,7 +248,7 @@ html(lang='en')
                       success: function(data) {
                       console.log("data");
                         page++;   
-                        $('#tleads').append(data);  
+                        $('#tsales').append(data);  
                         loading=false;
 
                       },
@@ -335,4 +259,9 @@ html(lang='en')
             }
 
       });
+    style.
+      .portlet-body{ 
+        overflow-y: scroll;
+        height: 400px;  
+      }
   // END BODY

@@ -14,7 +14,7 @@ module.exports = function(app) {
 	app.post('/GetVisitorId*',cors(),formController.GetVisitorId);
 	app.post("/GetFormHTML*", cors(), formController.GetFormHTML );
 	app.post("/home/forms/UpdateForm*",formController.UpdateForm);
-	app.post("/ReceiveForms*", cors(),formController.ReceiveForms);
+	app.post("/ReceiveForms*", cors(), formController.ReceiveForms);
 	app.post("/home/forms/eliminar/:id", formController.DeleteForm );
 	app.post("/home/forms/clonar/:id", formController.CloneForm );
 

@@ -566,10 +566,6 @@ html.no-js(lang='en')
                 datasets: [{
                     data: [
                         1,
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
                     ],
                 backgroundColor: [
                     "#F7464A",
@@ -581,11 +577,7 @@ html.no-js(lang='en')
 
                 }],
                 labels: [ 
-                    "N",
-                    "Twitter",
-                    "Linkedin",
-                    "Google",
-                    "Entrada Directa"
+                    "No data",
                 ]
             },  
             options: {
@@ -601,7 +593,7 @@ html.no-js(lang='en')
             //Generate Leads
             window.LeadsChart = new Chart(DivLeads, chartLeadsData);//char //Append legend
             //Genereate Sales
-            window.DivSales = new Chart(DivSales, chartSalesData);//chart
+            window.SalesChart = new Chart(DivSales, chartSalesData);//chart
 
         };
 
@@ -612,18 +604,61 @@ html.no-js(lang='en')
         url: '/home/GetLeadsByChannel',
         method: "POST",
         data: { "id" : page_id },
-        success: function(LeadsByChannel) {   
-          //Restart the values
-          chartLeadsData.data.datasets[0].data=[];
-          chartLeadsData.data.labels=[];
-          for(var i=0; i<Object.keys(LeadsByChannel).length;i++){
-            chartLeadsData.data.datasets[0].data[i] = LeadsByChannel[i].nb_conversions;
-            chartLeadsData.data.labels.push(LeadsByChannel[i].label);
+        success: function(LeadsByChannel) {  
+          if(Object.keys(LeadsByChannel).length>0){
+            //Restart the values
+            chartLeadsData.data.datasets[0].data=[];
+            chartLeadsData.data.labels=[];
+            chartLeadsData.data.datasets[0].backgroundColor=[
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                    "#F7464A",
+                ];
+
+            for(var i=0; i<Object.keys(LeadsByChannel).length;i++){ 
+              chartLeadsData.data.datasets[0].data[i] = LeadsByChannel[i].nb_conversions;
+              chartLeadsData.data.labels.push(LeadsByChannel[i].label);
+            }
+            window.LeadsChart.update();  
           }
-          window.LeadsChart.update(); 
-          console.log(chartLeadsData);
+          
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("error in leads");
+        }
+        });
+
+      /**
+      *Get the sales by channel
+      */
+      $.ajax({
+        url: '/home/GetSalesByChannel',
+        method: "POST",
+        data: { "id" : page_id },
+        success: function(SalesByChannel) {  
+          if(Object.keys(SalesByChannel).length>0){
+            //Restart the values
+            chartSalesData.data.datasets[0].data=[];
+            chartSalesData.data.labels=[];
+            chartSalesData.data.datasets[0].backgroundColor=[
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                    "#F7464A",
+                ];
+            for(var i=0; i<Object.keys(SalesByChannel).length;i++){ 
+              chartSalesData.data.datasets[0].data[i] = SalesByChannel[i].nb_visits;
+              chartSalesData.data.labels.push(SalesByChannel[i].label);
+            } 
+            console.log(chartSalesData);
+            window.SalesChart.update();  
+          }
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in sales");
         }
         });

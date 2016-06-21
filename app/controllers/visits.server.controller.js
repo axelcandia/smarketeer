@@ -21,7 +21,7 @@ exports.GetMoreVisitors =function (req,res){
       idSite: 1,
       period:   '',
       date:     '',
-      segment : '',
+      segment : 'visitConvertedGoalId!=2',
       showColumns:"lastActionDateTime,userId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
       countVisitorsToFetch : '',
       minTimestamp : '',

@@ -320,6 +320,7 @@ html(lang='en')
           var ClientId = $(this).attr('id'); 
           var SellerId ="20";
           var total = $(".totalIVA").html();
+          var email = $(this).attr('data-email'); 
           var IdSite =1;
           bootbox.dialog({ 
                 backdrop: true,
@@ -446,7 +447,8 @@ html(lang='en')
                         callback: function () {  
                           var  compra ={
                             "IdSite": IdSite,
-                            "ClientId":ClientId, 
+                            "ClientId":ClientId,
+                            "ClientEmail":email, 
                             "SellerId":SellerId, 
                             "Total":$("#total").html().replace("$",""),
                             "IVA":$(".totalIVA").html().replace("$",""),  

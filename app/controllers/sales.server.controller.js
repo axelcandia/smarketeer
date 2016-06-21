@@ -28,14 +28,14 @@ exports.GetSales = function(req,res){
           idSite: website,
           period:   '',
           date:     '',
-          segment : 'visitConvertedGoalId==2',
-          showColumns:"totalRevenueByGoal,userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,customVariables",
+          segment : 'visitConvertedGoalId==2;userId!=null',
+          showColumns:"goalName,revenue,totalRevenueByGoal,actionDetails,userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
           countVisitorsToFetch : '',
           minTimestamp : '',
           flat : '',
           doNotFetchActions : '',
           filter_offset:page,
-          filter_limit:20,
+          filter_limit:20, 
         },function( err, sales ){ 
           
           if(err){
@@ -43,8 +43,7 @@ exports.GetSales = function(req,res){
             res.send(err);
           } 
           else{ 
-            console.log(JSON.stringify(sales));
-            html="";  
+            html="";   
             var key, i = 0;
             for(key in sales) {
               html+=json2table(sales[i]);  
@@ -58,6 +57,29 @@ exports.CountSales = function(req,res){
   GetWebsiteDate(res,req.body.id,GetPiwikSalesCounter);
 }
 
+/**
+* Get Refferrers
+*/
+exports.GetSalesByChannel = function(req,res){
+  GetWebsiteDate(res,req.body.id,GetReferrers);
+}
+function GetReferrers(res,id,range){
+  piwik.api({
+    method:"Referrers.getReferrerType",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId==2',  
+  },function(err,referrers){
+    if(err){
+      console.log(err); 
+      return 0;
+    }
+    res.send(referrers).status(200);   
+    console.log(referrers);
+  });
+
+}
 
 /**
 * Call the piwik counter and returns data
@@ -107,28 +129,22 @@ function GetWebsiteDate(res,id,callback){
 * This function gets the information of both, put it together and rock it
 */
 function json2table(visita){
-	  //First we create the href and the id
+    //First we create the href and the id
   //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
-  
-  //Visitor date
-   var NewVisitor='<tr>'+
-              '<td>'+visita.lastActionDateTime+ '</td>';
-      //Visitor ID
-      
-       NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'">';
+  var email = (visita.customVariables && visita.customVariables["1"]) ?
+              visita.customVariables["1"].customVariableValue1 :
+              "indefinido" ;
+  var  totalVenta=0;
+  for(var i = 0; i<=Object.keys(visita.actionDetails).length;i++ ){
+    if(visita.actionDetails[i] && visita.actionDetails[i].goalId=="2")
+      totalVenta+=visita.actionDetails[i].revenue;
 
-      if( visita.customVariables && visita.customVariables["1"] ){ 
-      NewVisitor += visita.customVariables["1"].customVariableValue1 +
-                '</a>'+
-        '</td>';
-    }
-    else{
-      NewVisitor += "indefinido"+
-            '</a>'+
-        '</td>' ;
-    }
+  }
+    var NewVisitor= '<tr><td>'+
+          '<a href="/visitors/seemore/'+visita.userId+'">'; 
+
+      NewVisitor +=  email+'</a>'+'</td>';
           
 
         //Campaign name, we only display it if it was a campagin!!!
@@ -152,8 +168,7 @@ function json2table(visita){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-        NewVisitor+='<td class="try" id="'+visita.userId+'">'+
-            '<a href="#">Registrar Venta</a></td>';  
+        NewVisitor+='<td>'+totalVenta+'</td></tr>';  
         return NewVisitor;
 
 } 

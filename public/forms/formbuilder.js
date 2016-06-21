@@ -26,7 +26,7 @@ function Send( form_id){
 		if( smkt[i].value == "-Seleccione una opcion-"){
 			smkt[i].value="";
 		} 
-    if(smkt[i].id=="smkt_email"){ 
+    if(smkt[i].id.indexOf("smkt_email")>-1){ 
       console.log("Entrando");
       console.log("email:"+smkt[i].value);
       _paq.push(['setCustomVariable',

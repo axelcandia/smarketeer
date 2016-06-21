@@ -72,7 +72,7 @@ exports.GetAllVisitors = function (req,res,next){
 function GetVisitorsByDate( websiteId, period, date, callback ){ 
 	piwik.api({
 		  method: 	'VisitsSummary.getVisits',
-		  segment: 	'', 
+		  segment: 	'visitConvertedGoalId!=2', 
 		  idSite: 	websiteId,
 		  period: 	period,
 		  date:     date
