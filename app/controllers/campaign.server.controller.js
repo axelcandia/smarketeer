@@ -32,7 +32,7 @@ exports.RenderGetNew= function(req, res){
 		campaign:"",
 		source:"",
 		medium:"",
-		keyword:"",
+		keywords:"",
 		content:"",
 		url:"",
 		thirdtitle:"Crea tu campaña"
@@ -47,15 +47,15 @@ exports.RenderSeeMore = function(req, res){
 	}
 	Campaigns.findOne({"_id":req.params.id},function(err,data){
 		if(err)
-			res.redirect("/campaigns/seemore");
-		console.log(data.websiteUrl);
+			res.redirect("/campaigns/seemore"); 
+		console.log(data);
 		res.render("campaigns/campaign-builder",{
 			campaignId: data._id,
 			websiteUrl: (data.websiteUrl) 	? data.websiteUrl 	: "",
 			campaign  : (data.campaign) 	? data.campaign 	: "",
 			source    : (data.source) 		? data.source 		: "",
 			medium    : (data.medium) 		? data.medium 		: "",
-			keyword   : (data.keyword) 		? data.keyword 		: "",
+			keywords  : (data.keywords) 	? data.keywords 	: "",
 			content   : (data.content) 		? data.content 		: "",
 			url       : (data.url) 			? data.url 			: "",
 			thirdtitle: "Crea tu campaña"
@@ -83,8 +83,7 @@ exports.SaveCampaign = function(req, res){
 		else
 		{
 			UpdateCampaign( res, data, req.body.id );
-		} 
-	    
+		}  
 
 	}	
 } 
@@ -137,11 +136,11 @@ exports.CloneCampaign = function( req, res ){
 
 function SetNewCampaign(user,data,res){
 	var campaign = new Campaigns({
-		"campaign"			: data.query.pk_campaign,
-	    "keywords"			: data.query.pk_kwd,
-	    "source"  			: data.query.sm_source,
-	    "medium"  			: data.query.sm_medium,
-	    "content" 			: data.query.sm_content,
+		"campaign"			: data.query.utm_campaign,
+	    "keywords"			: data.query.utm_term,
+	    "source"  			: data.query.utm_source,
+	    "medium"  			: data.query.utm_medium,
+	    "content" 			: data.query.utm_content,
 	    "websiteUrl"		: data.pathname,
 	    "url"				: data.href,
 	    "users"				:[{
@@ -160,14 +159,14 @@ function SetNewCampaign(user,data,res){
 /**
 * Just an update
 */
-function UpdateCampaign( res, data, id ){ 
+function UpdateCampaign( res, data, id ){  
 	var query = { "_id" : id };
 	var update = { 
-	    	"campaign"			: data.query.pk_campaign,
-	    	"keywords"			: data.query.pk_kwd,
-	    	"source"  			: data.query.sm_source,
-	    	"medium"  			: data.query.sm_medium,
-	    	"content" 			: data.query.sm_content,
+	    	"campaign"			: data.query.utm_campaign,
+	    	"keywords"			: data.query.utm_term,
+	    	"source"  			: data.query.utm_source,
+	    	"medium"  			: data.query.utm_medium,
+	    	"content" 			: data.query.utm_content,
 	    	"websiteUrl"		: data.pathname,
 	    	"url"				: data.href, 
 	    };

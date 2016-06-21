@@ -109,12 +109,12 @@ html(lang='en')
                     // SIDEBAR USER TITLE
                     .profile-usertitle
                       .profile-usertitle-name
-                        | #{user.profile.name || user.email || user.id}&nbsp;
+                        | #{user.profile.name || user.email || user.id || ""}&nbsp;
                       .profile-usertitle-job
                         | #{user.company}
                     // END SIDEBAR USER TITLE
                     // SIDEBAR BUTTONS
-                    .profile-userbuttons
+                    //.profile-userbuttons
                       button.btn.btn-circle.btn-danger.btn-sm(type='button') Upgrade
                     // END SIDEBAR BUTTONS
                     // SIDEBAR MENU
@@ -124,7 +124,7 @@ html(lang='en')
                           a(href='extra_profile_account')
                             i.icon-settings
                             | 											Account Settings
-                        li
+                        //li
                           a(href='extra_profile_help')
                             i.icon-info
                             | 											Help
@@ -142,11 +142,11 @@ html(lang='en')
                             span.caption-subject.font-blue-madison.bold.uppercase Profile Account
                           ul.nav.nav-tabs
                             li.active
-                              a(href='#personalInfo', data-toggle='tab') Personal Info
+                              a(href='#personalInfo', data-toggle='tab') Información Personal
                             li
-                              a(href='#avatar', data-toggle='tab') Change Avatar
+                              a(href='#avatar', data-toggle='tab') Cambiar avatar
                             li
-                              a(href='#acces', data-toggle='tab') Access Details
+                              a(href='#acces', data-toggle='tab') Accesos
                         .portlet-body
                           .tab-content
                             // PERSONAL INFO TAB
@@ -154,17 +154,12 @@ html(lang='en')
                               form(role='form', action='#')
                                 .form-group
                                   label.control-label Email
-                                  input.form-control(type='text', placeholder='#{user.email}')
+                                  input.form-control(type='text',placeholder="Email", value='#{user.email}')
                                 .form-group
                                   label.control-label Name
-                                  input.form-control(type='text', placeholder='#{user.profile.name}')
-                                .form-group
-                                  label.control-label Company Name
-                                  input.form-control(type='text', placeholder='Company Name')
-                                .margiv-top-10
-                                  a.b(href='javascript:;')
-                                    | Save Changes
-                                  button.btn.green-haze(type='submit' value="Save Changes")
+                                  input.form-control(type='text', placeholder="Nombre", value='#{user.profile.name}')
+                                .margiv-top-10 
+                                  button.btn.green-haze(type='submit' value="Save Changes") Save Changes
                                   a.btn.default(href='javascript:;')
                                     | Cancel
                             // END PERSONAL INFO TAB

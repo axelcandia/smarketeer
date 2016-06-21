@@ -5,6 +5,6 @@ module.exports = function(app) {
 	 app.post("/home/CountLeads*",leadsController.CountLeads);
 	 app.post("/home/funnel/SetCosts*",leadsController.SetCosts);
 	 app.post("/home/funnel/GetLeads*",leadsController.GetLeads); 
-	 app.post("/home/GetGraphLeads*",leadsController.GetGraphLeads);
+	 app.post("/home/GetLeadsByChannel*",leadsController.GetLeadsByChannel);
 	 app.post("/home/funnel/leads/GetSale*",leadsController.GetSale);
 };

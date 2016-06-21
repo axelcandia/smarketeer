@@ -19,8 +19,7 @@ exports.getHome = function(req, res, next) {
 		});
 	}
 };
-
-
+ 
 /**
 * Get Current User Data
 * If error you must login
@@ -83,31 +82,3 @@ function GetVisitorsByDate( websiteId, period, date, callback ){
 		});
 }
 
-/**
-* Goes to the DB to check leads
-*/
-exports.GetLeads= function( req,res,next ){
-	Visitors.count({ "piwik_id": req.body.id, status:"lead" }, function( err, leads){
-    if(err) res.status(200).send("0");
-    res.status(200).send(leads.toString());
-	})
-}
-
-/**
-* Gets the sales from the website by its Id
-*/
-exports.GetSales= function( req,res,next ){
-	Visitors.count({ "piwik_id": req.body.id, status:"sale" }, function( err, sales){
-	if(err) res.status(200).send("0");
-    res.status(200).send(sales.toString());
-	})
-
-}
-/*
-exports.GetLeadsByChannel = function (req,res,next){
-	piwik.api({
-	method:"VisitsSummary.getVisits",
-	segment:"referrerName==Google"
-});
-}*/
- 

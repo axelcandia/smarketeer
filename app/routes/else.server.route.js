@@ -57,11 +57,7 @@ module.exports = function(app) {
 
 	//app.post('/login', userController.postLogin);
 
-	//EDITI THIS ASAP 
- 
-	 app.get('/login', userController.getLogin);
-	app.post('/login', userController.postLogin); 
-	
+	//EDITI THIS ASAP  
 	    
 	  app.get('/',function (req,res){
 	    res.render("intro");

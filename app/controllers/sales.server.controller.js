@@ -17,7 +17,6 @@ exports.RenderSales = function ( req,res ){
 * Get everything I can which is a lead
 * An index goes here
 */
-
 exports.GetSales = function(req,res){
 	//Form the pages
   var page    = parseInt(req.body.page);
@@ -30,26 +29,78 @@ exports.GetSales = function(req,res){
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==2',
-          showColumns:"totalRevenueByGoal,userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
+          showColumns:"totalRevenueByGoal,userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,customVariables",
           countVisitorsToFetch : '',
           minTimestamp : '',
           flat : '',
           doNotFetchActions : '',
           filter_offset:page,
           filter_limit:20,
-        },function( err, visitas ){ 
-          if(err) res.send(err);
+        },function( err, sales ){ 
+          
+          if(err){
+            console.log(err);
+            res.send(err);
+          } 
           else{ 
+            console.log(JSON.stringify(sales));
             html="";  
             var key, i = 0;
-            for(key in visitas) {
-              html+=json2table(visitas[i]);  
+            for(key in sales) {
+              html+=json2table(sales[i]);  
               i++;     
             }  
             res.send(html).status(200); 
           }
         }); 
 } 
+exports.CountSales = function(req,res){ 
+  GetWebsiteDate(res,req.body.id,GetPiwikSalesCounter);
+}
+
+
+/**
+* Call the piwik counter and returns data
+*/
+function GetPiwikSalesCounter(res,id,range){
+piwik.api({
+    method:"VisitsSummary.get",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId==2', 
+    columns:"nb_visits"
+  },function(err,sales){
+    if(err || !sales.value){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+      res.send(sales.value.toString()).status(200);
+  });
+}
+
+/**
+* Returns the id of the website and a valid range to use in any function.
+*/
+function GetWebsiteDate(res,id,callback){
+  piwik.api({
+    method:"SitesManager.getSiteFromId",
+    idSite:id
+  },function(err,data){
+    if(err){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+    var n = data[0].ts_created.indexOf(' ');
+    var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
+    range+=",today"; 
+    callback(res,id,range);
+  });
+ 
+}
+
 
 
 /**

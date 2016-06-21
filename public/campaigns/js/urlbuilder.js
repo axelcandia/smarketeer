@@ -31,7 +31,7 @@ $( document ).ready(function() {
 	});
 
 	$("#limpiar").click(function(){ 
-		$('#UrlBuilder')[0].reset();
+		$('.form-control').val('');
 	}); 
 
 	function generateUrl(){

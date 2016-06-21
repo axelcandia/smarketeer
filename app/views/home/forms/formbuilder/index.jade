@@ -64,12 +64,17 @@ html(lang='en')
                       .tab-content
         // / Components 
     //Values to add to main built.js
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
     script.
       //var formName   = "#{Name}";
       var formId    = "#{formId}";
       var col       = !{builderCode}; 
       LoadOldData   = true; 
     script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
+    style.
+      .fade {
+      left: 0!important;
+      }
 
     
      

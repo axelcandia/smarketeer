@@ -106,31 +106,55 @@ piwik.api({
 
 /**
 * Guardo la compra que hizo un usuario
+* documentation: http://developer.piwik.org/api-reference/tracking-api
 */
 exports.GetSale = function (req,res){   
   var compra = new Sale({
     "data": req.body
-  }); 
-  console.log(req.body.ClientId);
-  console.log(req.body);
+  });
   compra.save();
+  //Piwik magic
+  idSite=1;
+  var segment= "userId=="+req.body.ClientId;
 
-  var path = "http://52.165.38.47/piwik.php?"+
-  "uid="+req.body.ClientId+
-  "&idsite="+1+
-  "&rec="+1+
-  "&apiv="+1+
-  "&rand=1636495582"+
-  "&idgoal="+2+
-  "&revenue="+req.body.Total;
+  piwik.api({
+    method:"Live.getVisitorProfile",
+    idSite: idSite,
+    visitorId : '',
+    segment : segment,
+    limitVisits : '',
+    showColumns:"lastVisits"
+  },function(err,visit){
+    
+    if(err || !visit){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+    console.log(visit.lastVisits[0]);
+    var path = "http://52.165.38.47/piwik.php?"+
+      "uid="+req.body.ClientId+
+      "&idsite="+1+
+      "&rec="+1+
+      "&apiv="+1+
+      "&rand=1636495582"+
+      "&idgoal="+2+
+      "&url="+compra._id+//IMPORTANT: We use URL to save the ID of the Salee!!
+      "&urlref="+visit.lastVisits[0].referrerUrl+
+      "&revenue="+req.body.Total; 
+      console.log("URL:"+path);
 
-    http.get(path, (res) => {
-    console.log(`Got response: ${res.statusCode}`);
-    // consume response body
-    res.resume();
-  }).on('error', (e) => {
-    console.log(`Got error: ${e.message}`);
-  }); 
+        http.get(path, (res) => {
+        console.log(`Got response: ${res.statusCode}`);
+        // consume response body
+        res.resume();
+      }).on('error', (e) => {
+        console.log(`Got error: ${e.message}`);
+      }); 
+  });
+
+
+  
 }
 
 
@@ -143,13 +167,7 @@ exports.CountLeads = function(req,res){
 exports.SetCosts = function(req,res,next){ 
 	res.send("").status(200);
 
-} 
-/**
-* Send the graph for leads to the home
-*/
-exports.GetGraphLeads = function(req,res,next){
-  GetWebsiteDate(res,req.body.id,GetReferrers);
-}
+}  
 
 function GetReferrers(res,id,range){
   piwik.api({
@@ -158,14 +176,24 @@ function GetReferrers(res,id,range){
     period:"range",
     date:range,
     segment: 'visitConvertedGoalId==1',  
-  },function(err,leads){
+  },function(err,referrers){
     if(err){
       console.log(err); 
       return 0;
-    }   
+    }
+    res.send(referrers).status(200);   
+    console.log(referrers);
   });
 
 }
+
+/**
+* Get 
+*/
+exports.GetLeadsByChannel = function(req,res){
+  GetWebsiteDate(res,req.body.id,GetReferrers);
+}
+
 /**
 * This function gets the information of both, put it together and rock it
 */
