@@ -12,9 +12,10 @@ exports.getHome = function(req, res, next) {
 	}
 	else {
 		GetUserData(req,res,function(user){
-			console.log(user);
+			console.log("This is our id"+req.params.id);
 			res.render('home', {
-				websites: user.websites
+				websites: user.websites,
+				CurrentSite: req.params.WebsiteId
 			});
 		});
 	}

@@ -27,18 +27,18 @@ html(lang='en')
     meta(content='', name='author')
     // BEGIN GLOBAL MANDATORY STYLES
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
-    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
     // END GLOBAL MANDATORY STYLES
     // BEGIN THEME STYLES
-    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
-    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
-    link#style_color(href='admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
   // END HEAD
@@ -605,7 +605,7 @@ html(lang='en')
                       | Knob Circle Dials
               // BEGIN ANGULARJS LINK
               li.tooltips(data-container='body', data-placement='right', data-html='true', data-original-title='AngularJS version demo')
-                a(href='angularjs', target='_blank')
+                a(href='/angularjs', target='_blank')
                   i.icon-paper-plane
                   span.title
                     | AngularJS Version

@@ -41,7 +41,7 @@ var userSchema = new mongoose.Schema({
   },
   websites              : [{
     name                : String,
-    id                  : Object,
+    WebsiteId           : String,
     privileges          : String,
   }]
 });

@@ -86,7 +86,7 @@ html.no-js(lang='en')
                   h3.page-title(style='display: inline-block')
                     | Dashboards 
                 else
-                 h3.page-title(style='display: inline-block',id=websites[0].id)
+                 h3.page-title(style='display: inline-block',id=websites[0].WebsiteId)
                    |#{websites[0].name} Dashboard
                 i.fa.fa-angle-down
               if (websites.length > 1)
@@ -121,7 +121,7 @@ html.no-js(lang='en')
                     i.fa.fa-comments
                   .details
                     .number#nvisitors
-                      | 
+                      | 0
                     .desc
                       | visitors
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
@@ -479,15 +479,14 @@ html.no-js(lang='en')
     script(src='/dashboard/js/dashboard.js') 
     script(src='/global/plugins/Chart/Chart.bundle.js')
     script.
-      var page_id= #{websites[0].id}
-      console.log(page_id);
-
+      var page_id="#{CurrentSite}"; 
       $.ajax({
         url: '/home/GetAllVisitors',
         method: "POST",
-        data: { "id" : page_id },
+        data: { "id" : page_id},
         success: function(data) { 
-          $("#nvisitors").html(data);
+          data = (data) ? data : 0 ; 
+          $("#nvisitors").html(data); 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("error in visitors");
@@ -499,6 +498,7 @@ html.no-js(lang='en')
         method: "POST",
         data: { "id" : page_id },
         success: function(data) { 
+         data = (data) ? data : 0 ; 
           $("#nleads").html(data); 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -510,8 +510,8 @@ html.no-js(lang='en')
         url: '/home/CountSales',
         method: "POST",
         data: { "id" : page_id },
-        success: function(data) { 
-          console.log("CountLeads"+data);
+        success: function(data) {  
+         data = (data) ? data : 0 ; 
           $("#nsales").html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -652,8 +652,7 @@ html.no-js(lang='en')
             for(var i=0; i<Object.keys(SalesByChannel).length;i++){ 
               chartSalesData.data.datasets[0].data[i] = SalesByChannel[i].nb_visits;
               chartSalesData.data.labels.push(SalesByChannel[i].label);
-            } 
-            console.log(chartSalesData);
+            }  
             window.SalesChart.update();  
           }
           
