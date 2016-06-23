@@ -7,7 +7,6 @@ var Visitors      = require("../models/visitors.server.model");
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
        IdSite: req.query.IdSite,
-       maxpage  : (visits/20)+1 
       });   
 }
 
@@ -135,7 +134,7 @@ function json2table(visita){
 
 
 exports.CountVisitors = function(req,res){ 
-  GetWebsiteDate(res,req.body.idSite,GetPiwikVisitsCounter);
+  GetWebsiteDate(req,res,GetPiwikVisitsCounter);
 }
 /**
 * Returns all visits from that date and executes callback
@@ -146,19 +145,22 @@ exports.CountVisitors = function(req,res){
 /**
 * Call the piwik counter and returns data
 */
-function GetPiwikVisitsCounter(res,id,range){
+function GetPiwikVisitsCounter(res,idSite,date,period){
+  console.log("period:"+period);
+  console.log("date:"+date);
 piwik.api({
     method:"VisitsSummary.getVisits",
-    idSite:id,
-    period:"range",
-    date:range,
+    idSite:idSite,
+    period:period,
+    date:date,
     segment: 'visitConvertedGoalId!=2', 
-  },function(err,visitas){ 
+  },function(err,visitas){  
     if(err || !visitas.value){
       console.log(err);
       res.send(0).status(200);
       return 0;
     }  
+      console.log("VISIT THIS"+JSON.stringify(visitas));
       res.send(visitas.value.toString()).status(200);
   });
 }
@@ -167,20 +169,26 @@ piwik.api({
 /**
 * Returns the id of the website and a valid range to use in any function.
 */
-function GetWebsiteDate(res,id,callback){
-  piwik.api({
+var GetWebsiteDate=function (req,res,callback){  
+  if(req.body.date){
+    callback(res,req.body.idSite,req.body.date,req.body.period)
+  }
+  else{
+    piwik.api({
     method:"SitesManager.getSiteFromId",
-    idSite:id
-  },function(err,data){
-    if(err){
-      console.log(err);
-      res.send(0).status(200);
-      return 0;
-    }  
-    var n = data[0].ts_created.indexOf(' ');
-    var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
-    range+=",today"; 
-    callback(res,id,range);
-  });
- 
+    idSite:req.body.idSite,
+    },function(err,data){
+      if(err){
+        console.log(err);
+        res.send(0).status(200);
+        return 0;
+      }  
+      var n    = data[0].ts_created.indexOf(' ');
+      var date = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length)+
+                 ",today"; 
+      callback(res,req.body.idSite,date,"range");
+    });
+  }
+
 }
+exports.GetWebsiteDate= GetWebsiteDate;

@@ -1,10 +1,11 @@
-var config		    = require("../../config/config");
-var http          = require('http');
-var PiwikClient   = require('piwik-client');
-var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
-var url           = require('url');
-var Visitors      = require("../models/visitors.server.model");
-var Sale          = require("../models/sales.server.model");
+var config		     = require("../../config/config");
+var http           = require('http');
+var PiwikClient    = require('piwik-client');
+var piwik          = new PiwikClient(config.piwik.url, config.piwik.token )
+var url            = require('url');
+var Visitors       = require("../models/visitors.server.model");
+var Sale           = require("../models/sales.server.model");
+var GetWebsiteDate = require("./visits.server.controller").GetWebsiteDate;
 /**
 * Render lead view
 */
@@ -61,26 +62,6 @@ exports.GetLeads = function(req,res){
           }
         }); 
 
-} 
-/**
-* Returns the id of the website and a valid range to use in any function.
-*/
-function GetWebsiteDate(res,id,callback){
-  piwik.api({
-    method:"SitesManager.getSiteFromId",
-    idSite:id
-  },function(err,data){
-    if(err){
-      console.log(err);
-      res.send(0).status(200);
-      return 0;
-    }  
-    var n = data[0].ts_created.indexOf(' ');
-    var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
-    range+=",today"; 
-    callback(res,id,range);
-  });
- 
 }
 /**
 * Call the piwik counter and returns data
@@ -159,7 +140,7 @@ exports.GetSale = function (req,res){
 
 
 exports.CountLeads = function(req,res){ 
-  GetWebsiteDate(res,req.body.idSite,GetPiwikLeadsCounter);
+  GetWebsiteDate(req,res,GetPiwikLeadsCounter);
 }
 /**
 * Receives the cahnges in cost and changes the status of the visitor
@@ -168,29 +149,28 @@ exports.SetCosts = function(req,res,next){
 	res.send("").status(200);
 
 }  
+/**
+* Get  the leads by channel (Website etc).
+*/
+exports.GetLeadsByChannel = function(req,res){
+  GetWebsiteDate(req,res,GetReferrers);
+}
 
-function GetReferrers(res,id,range){
+function GetReferrers(res,idSite,date,period){
   piwik.api({
     method:"Referrers.getReferrerType",
-    idSite:id,
-    period:"range",
-    date:range,
+    idSite:idSite,
+    period:period,
+    date:date,
     segment: 'visitConvertedGoalId==1', 
   },function(err,referrers){
     if(err){
       console.log(err); 
       return 0;
-    }
+    } 
     res.send(referrers).status(200);    
   });
 
-}
-
-/**
-* Get 
-*/
-exports.GetLeadsByChannel = function(req,res){
-  GetWebsiteDate(res,req.body.idSite,GetReferrers);
 }
 
 /**
