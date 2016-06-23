@@ -19,7 +19,7 @@ exports.RenderLeads = function ( req,res ){
 	  	maximo= count/20 + count%20;
 	  } 
 	  res.render("home/funnel/leads",{
-	  	MaxPages:maximo
+	  	IdSite:req.query.IdSite
 	  }); 
 	}) 
 
@@ -32,13 +32,12 @@ exports.RenderLeads = function ( req,res ){
 
 exports.GetLeads = function(req,res){
 	//Form the pages
-	var page    = parseInt(req.body.page);
-  var website = "1"; 
+	var page    = parseInt(req.body.page); 
 
 	page =  ( page == 0 ) ? page  : page * 20;
     piwik.api({
           method:   'Live.getLastVisitsDetails',
-          idSite: website,
+          idSite: req.body.IdSite,
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==1',
@@ -93,13 +92,12 @@ exports.GetSale = function (req,res){
     "data": req.body
   });
   compra.save();
-  //Piwik magic
-  idSite=1;
+  //Piwik magic 
   var segment= "userId=="+req.body.ClientId;
 
   piwik.api({
     method:"Live.getVisitorProfile",
-    idSite: idSite,
+    idSite: req.query.IdSite,
     visitorId : '',
     segment : segment,
     limitVisits : '',
@@ -114,7 +112,7 @@ exports.GetSale = function (req,res){
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
-      "&idsite="+1+
+      "&idsite="+req.query.IdSite+
       "&rec="+1+
       "&apiv="+1+
       "&rand=1636495582"+

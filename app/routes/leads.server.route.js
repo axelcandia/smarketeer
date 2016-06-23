@@ -1,7 +1,7 @@
-
-var leadsController = require("../controllers/leads.server.controller");
+var leadsController  = require("../controllers/leads.server.controller");
+var VerifyUser		 = require('../controllers/user').VerifyUser;
 module.exports = function(app) { 
-	 app.get('/home/funnel/leads',leadsController.RenderLeads); 
+	 app.get('/funnel/leads/*',VerifyUser,leadsController.RenderLeads); 
 	 app.post("/home/CountLeads*",leadsController.CountLeads);
 	 app.post("/home/funnel/SetCosts*",leadsController.SetCosts);
 	 app.post("/home/funnel/GetLeads*",leadsController.GetLeads); 

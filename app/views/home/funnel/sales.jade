@@ -220,9 +220,7 @@ html(lang='en')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script.
       $( document ).ready(function(){
-
-          var changes={};
-          var maxpage=4//#{MaxPages}; 
+          var enable = true;
           var page=0;
           var loading= false;
           //This is the typical structure of a buy
@@ -233,7 +231,7 @@ html(lang='en')
           $('.portlet-body').bind('scroll', function(){
              if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight/2){
                  $('#loading').show();
-                 if( page!=maxpage && !loading){
+                 if( enable && !loading){
                     loading=true;
                     GetMoreSales(); 
                   }
@@ -244,12 +242,14 @@ html(lang='en')
             $.ajax({
                       url: '/home/funnel/GetSales', 
                       method: "POST",
-                      data: { "page" : page },
+                      data: { "page" : page,
+                              "idSite": #{idSite} },
                       success: function(data) {
                       console.log("data");
                         page++;   
                         $('#tsales').append(data);  
                         loading=false;
+                        if(!data) enable= false;
 
                       },
                        error: function(XMLHttpRequest, textStatus, errorThrown) {

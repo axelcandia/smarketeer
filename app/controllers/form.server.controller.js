@@ -19,46 +19,14 @@ var Visitors		= require("../models/visitors.server.model");
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
 		res.redirect("/login");
-	} /*
-	var connection = mysql.createConnection({
-	    host: '127.0.0.1', // Important to connect to localhost after connecting via ssh in screen
-	    user: 'bitnami',
-	    password: '3963974397',
-	    database: 'bitnami_piwik',
-	    port: 3000
-	});
-        connection.connect(function(err) {
-			  if (err) {
-			    console.error('error connecting: ' + err.stack);
-			    return;
-			  }
-			  connection.query( 'SELECT *  FROM  piwik_log_visit WHERE idvisit=1;', function(err, rows, fields) {
-				  if (err) throw err;
-
-				  console.log('The solution is: ', rows[0].idvisitor);
-				  var id=Buffer.from(rows[0].idvisitor); 
-				  const StringDecoder = require('string_decoder').StringDecoder;
-				  const decoder = new StringDecoder('utf8');
-				  console.log('The solution is: ', decoder.write(id)); 
-				 });
-
-    	});
-
-		/*connection.connect(function(err) {
-	  if (err) {
-	    console.error('error connecting: ' + err.stack);
-	    return;
-	  }
-	 
-	  console.log('connected as id ' + connection.threadId);
-	});*/  
-	//CREATE ONE
+	}
 	if(!req.params.id){
 			var name=req.params.name.replace(/[+]/g, ' ');
 			var NewForm = Forms({
 			"users":[{
 				email: req.user.email,
 				_id  : req.user._id,
+				IdSite:req.query.IdSite,
 				access: "Administrator"
 			}],
 			"date":new Date(),

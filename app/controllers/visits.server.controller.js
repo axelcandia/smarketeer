@@ -13,7 +13,7 @@ exports.RenderVisitors = function ( req,res ){
 /**
 * Brings visits data by date
 */
-exports.GetMoreVisitors =function (req,res){  
+exports.GetMoreVisitors =function (req,res){   
   var page= req.body.page; 
 //console.log(page);
   page =  ( page == 0 ) ? page  : page * 20;

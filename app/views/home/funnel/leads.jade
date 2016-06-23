@@ -212,33 +212,30 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='global/plugins/respond.min.js')
-      script(src='global/plugins/excanvas.min.js')    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
+      script(src='/global/plugins/respond.min.js')
+      script(src='/global/plugins/excanvas.min.js')    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     //script(src='/global/plugins/floathead/float.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL PLUGINS 
     // END PAGE LEVEL PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS 
-    script(src='global/scripts/metronic.js', type='text/javascript')
+    script(src='/global/scripts/metronic.js', type='text/javascript')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript') 
     script.
-
       $( document ).ready(function(){ 
-
-          var changes={};
-          var maxpage=#{MaxPages}; 
           var page=0;
           var loading= false;
+          var enable = true;
           //This is the typical structure of a buy
           
           //Getting the first leads
@@ -247,7 +244,7 @@ html(lang='en')
           $('.portlet-body').bind('scroll', function(){
              if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
                  $('#loading').show();
-                 if( page!=maxpage && !loading){
+                 if( enable && !loading){
                     loading=true;
                     GetMoreLeads(); 
                   }
@@ -258,10 +255,12 @@ html(lang='en')
             $.ajax({
                       url: '/home/funnel/GetLeads', 
                       method: "POST",
-                      data: { "page" : page },
+                      data: { "page" :  page,
+                              "IdSite": #{IdSite} },
                       success: function(data) {
                         page++;   
-                        $('#tleads').append(data);  
+                        $('#tleads').append(data);
+                        if(!data) enable=false; 
                         loading=false;
 
                       },
@@ -321,7 +320,7 @@ html(lang='en')
           var SellerId ="20";
           var total = $(".totalIVA").html();
           var email = $(this).attr('data-email'); 
-          var IdSite =1;
+          var IdSite =#{IdSite};
           bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,
@@ -488,8 +487,7 @@ html(lang='en')
                         }
                     }
                 }
-            }
-        );
+            });
 
         }); 
     style.

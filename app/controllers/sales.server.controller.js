@@ -9,8 +9,9 @@ exports.RenderSales = function ( req,res ){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
-
-	res.render("home/funnel/sales"); 
+	res.render("home/funnel/sales",{
+    idSite: req.query.IdSite
+  }); 
 }
 
 
@@ -20,13 +21,12 @@ exports.RenderSales = function ( req,res ){
 */
 exports.GetSales = function(req,res){
 	//Form the pages
-  var page    = parseInt(req.body.page);
-  var website = "1"; 
+  var page    = parseInt(req.body.page); 
 
 	page =  ( page == 0 ) ? page  : page * 20;
     piwik.api({
           method:   'Live.getLastVisitsDetails',
-          idSite: website,
+          idSite:    req.body.idSite,
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==2;userId!=null',
