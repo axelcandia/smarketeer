@@ -224,14 +224,14 @@ html(lang='en')
 
       var page=0;
       var maxpage=2;*/
-      var maxpage=4;
+      var EnableScroll=true;
       var page=0;
       var loading= false;
       GetMoreVisitors();
       $('.portlet-body').bind('scroll', function(){
-         if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+         if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight/2){
              $('#loading').show();
-             if( page!=maxpage && !loading){
+             if( EnableScroll && !loading){
                 loading=true;
                 GetMoreVisitors(); 
               }
@@ -242,12 +242,14 @@ html(lang='en')
         $.ajax({
                   url: '/home/funnel/ajaxVisitors', 
                   method: "POST",
-                  data: { "page" : page },
+                  data: { "page" : page,
+                          "IdSite":#{IdSite} },
                   success: function(data) {
                     page++;  
-                    console.log(data);
+                    if(!data)EnableScroll=false;
                     $('.table tbody').append(data);  
                     loading=false;
+
 
                   },
                    error: function(XMLHttpRequest, textStatus, errorThrown) {

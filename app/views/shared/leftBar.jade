@@ -13,50 +13,50 @@
             // DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed
             ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
               li.start.active
-                a(href='home/')
+                a(href='/home/?IdSite='+"#{IdSite}")
                   i.icon-home
                   span.title Dashboard
                   span.selected
               li
-                a(href='funnel/visitors')
+                a(href='/funnel/visitors/?IdSite='+"#{IdSite}")
                   i.icon-basket
                   span.title Funnel
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='funnel/visitors')
+                    a(href='/funnel/visitors/?IdSite='+"#{IdSite}")
                       i.icon-home
                       |                 Visitors
                   li
-                    a(href='funnel/leads')
+                    a(href='/funnel/leads/?IdSite='+"#{IdSite}")
                       i.icon-basket
                       |                 Leads
                   li
-                    a(href='funnel/sales')
+                    a(href='/funnel/sales/?IdSite='+"#{IdSite}")
                       i.icon-tag
                       |                 Sales
-              li
-                a(href='campaigns/seeall')
+              liIdSite
+                a(href='/campaigns/seeall/?IdSite='+"#{IdSite}")
                   i.icon-rocket
                   span.title Campañas
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='campaigns/seeall')
+                    a(href='/campaigns/seeall/?IdSite='+"#{IdSite}")
                       i.icon-home
                       |                 Ver campañas
                   li
-                    a(href='campaigns/new')
+                    a(href='/campaigns/new/?IdSite='+"#{IdSite}")
                       i.icon-basket
                       |                 Crear campaña
               li
-                a(href='home/allforms')
+                a(href='/home/allforms/?IdSite='+"#{IdSite}")
                   i.icon-puzzle
                   span.title formularios
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='home/allforms')
+                    a(href='/home/allforms/?IdSite='+"#{IdSite}")
                       i.icon-home
                       |                 Ver todos
                   li

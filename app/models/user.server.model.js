@@ -29,10 +29,6 @@ var userSchema = new mongoose.Schema({
       type              : String, 
       default           : '' 
     },
-    website: { 
-      type              : String, 
-      default           : '' 
-    },
     picture: 
     { 
       type              : String, 
@@ -41,7 +37,7 @@ var userSchema = new mongoose.Schema({
   },
   websites              : [{
     name                : String,
-    WebsiteId           : String,
+    IdSite              : String,
     privileges          : String,
   }]
 });

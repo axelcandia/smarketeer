@@ -54,19 +54,19 @@ exports.GetSales = function(req,res){
         }); 
 } 
 exports.CountSales = function(req,res){ 
-  GetWebsiteDate(res,req.body.id,GetPiwikSalesCounter);
+  GetWebsiteDate(res,req.body.idSite,GetPiwikSalesCounter);
 }
 
 /**
 * Get Refferrers
 */
 exports.GetSalesByChannel = function(req,res){
-  GetWebsiteDate(res,req.body.id,GetReferrers);
+  GetWebsiteDate(res,req.body.idSite,GetReferrers);
 }
-function GetReferrers(res,id,range){
+function GetReferrers(res,idSite,range){
   piwik.api({
     method:"Referrers.getReferrerType",
-    idSite:id,
+    idSite:idSite,
     period:"range",
     date:range,
     segment: 'visitConvertedGoalId==2',  
@@ -84,10 +84,10 @@ function GetReferrers(res,id,range){
 /**
 * Call the piwik counter and returns data
 */
-function GetPiwikSalesCounter(res,id,range){
+function GetPiwikSalesCounter(res,idSite,range){
 piwik.api({
     method:"VisitsSummary.get",
-    idSite:id,
+    idSite:idSite,
     period:"range",
     date:range,
     segment: 'visitConvertedGoalId==2', 
@@ -105,10 +105,10 @@ piwik.api({
 /**
 * Returns the id of the website and a valid range to use in any function.
 */
-function GetWebsiteDate(res,id,callback){
+function GetWebsiteDate(res,idSite,callback){
   piwik.api({
     method:"SitesManager.getSiteFromId",
-    idSite:id
+    idSite:idSite
   },function(err,data){
     if(err){
       console.log(err);
@@ -118,7 +118,7 @@ function GetWebsiteDate(res,id,callback){
     var n = data[0].ts_created.indexOf(' ');
     var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
     range+=",today"; 
-    callback(res,id,range);
+    callback(res,idSite,range);
   });
  
 }

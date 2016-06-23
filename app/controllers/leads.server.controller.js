@@ -129,8 +129,7 @@ exports.GetSale = function (req,res){
       console.log(err);
       res.send(0).status(200);
       return 0;
-    }  
-    console.log(visit);
+    }   
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
@@ -160,7 +159,7 @@ exports.GetSale = function (req,res){
 
 
 exports.CountLeads = function(req,res){ 
-  GetWebsiteDate(res,req.body.id,GetPiwikLeadsCounter);
+  GetWebsiteDate(res,req.body.idSite,GetPiwikLeadsCounter);
 }
 /**
 * Receives the cahnges in cost and changes the status of the visitor
@@ -191,7 +190,7 @@ function GetReferrers(res,id,range){
 * Get 
 */
 exports.GetLeadsByChannel = function(req,res){
-  GetWebsiteDate(res,req.body.id,GetReferrers);
+  GetWebsiteDate(res,req.body.idSite,GetReferrers);
 }
 
 /**

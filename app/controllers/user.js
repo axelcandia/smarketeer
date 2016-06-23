@@ -12,7 +12,8 @@ var url         = require('url');
 
 exports.getLogin = function(req, res) {
   if (req.user) {
-    return res.redirect('/home');
+    var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+    return res.redirect(redirect);
   }
   res.render('security/login', {
     title: 'Login'
@@ -47,7 +48,9 @@ exports.postLogin = function(req, res, next) {
         return next(err);
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/home');
+      var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+    return res.redirect(redirect);
+      res.redirect(req.session.returnTo || redirect);
     });
   })(req, res, next);
 };
@@ -67,7 +70,8 @@ exports.logout = function(req, res) {
  */
 exports.getSignup = function(req, res) {
   if (req.user) {
-    return res.redirect('/home');
+    var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+    return res.redirect(redirect);
   }
   res.render('security/signup', {
     title: 'Create Account'
@@ -141,7 +145,7 @@ function SetMongoUser( req, res,id ){
     password: req.body.password,
     websites:[{
       name: req.body.website,
-      WebsiteId:id,
+      IdSite:id,
       privileges:"admin"
     }] 
     
@@ -163,7 +167,8 @@ function SetMongoUser( req, res,id ){
             if (err) {
               return next(err);
             }
-            return res.redirect('/home');
+            var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+            return res.redirect(redirect);
           });
       });
 
@@ -173,10 +178,10 @@ function SetMongoUser( req, res,id ){
 * Adds the goal of funnel to the website
 * We set an impossible pattern in order to change it manually
 */
-function SetFunnelGoal( idsite ){
+function SetFunnelGoal( IdSite ){
   piwik.api({
         method: "Goals.addGoal",
-        idSite:idsite,
+        idSite:IdSite,
         name:"Funnel",
         matchAttribute:"url",
         pattern:"is exactly",
@@ -466,4 +471,20 @@ function DeleteWebsite(id){
         method: "SitesManager.deleteSite",
         idSite: id
       });
-  }; 
+  };
+
+/**
+* Verify that the user exist AND that it has acces to this site
+*/
+exports.VerifyUser = function(req,res,next){
+  if(!req.user){
+    return res.redirect('/login');
+  }  
+  
+  for(var i=0; i<req.user.websites.length; i++){
+    if(req.user.websites[i].IdSite == req.query.IdSite)
+      return next();
+  }
+  return res.redirect('/login');
+
+} 

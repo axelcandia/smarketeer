@@ -6,19 +6,21 @@ var Visitors      = require("../models/visitors.server.model");
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
+       IdSite: req.query.IdSite,
+       maxpage  : (visits/20)+1 
       });   
 }
 
 /**
 * Brings visits data by date
 */
-exports.GetMoreVisitors =function (req,res){ 
+exports.GetMoreVisitors =function (req,res){  
   var page= req.body.page; 
 //console.log(page);
   page =  ( page == 0 ) ? page  : page * 20;
   piwik.api({
       method:   'Live.getLastVisitsDetails',
-      idSite: 1,
+      idSite:   req.body.IdSite,
       period:   '',
       date:     '',
       segment : 'visitConvertedGoalId!=2',
@@ -51,12 +53,10 @@ exports.GetMoreVisitors =function (req,res){
 * REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
 */
 exports.GetVisitData = function(req,res,next){
-  var site=1
-  console.log(req.params.id);
   var segment= "userId=="+req.params.id
   piwik.api({
     method:   'Live.getLastVisitsDetails',
-    idSite: site,
+    idSite: req.query.IdSite,
     period: '',
     date: '',
     segment: segment,
@@ -79,6 +79,7 @@ exports.GetVisitData = function(req,res,next){
   });
   
 }
+
 /**
 * Get the status of the visitor
 */
@@ -129,4 +130,57 @@ function json2table(visita){
         //Status
         NewVisitor+='<td>'+visita.visitorType+'</td>'; 
         return NewVisitor;
+}
+
+
+
+exports.CountVisitors = function(req,res){ 
+  GetWebsiteDate(res,req.body.idSite,GetPiwikVisitsCounter);
+}
+/**
+* Returns all visits from that date and executes callback
+* WebsiteId: id of the websit
+* Period: range/month/year it will return these value of the date 
+*/
+
+/**
+* Call the piwik counter and returns data
+*/
+function GetPiwikVisitsCounter(res,id,range){
+piwik.api({
+    method:"VisitsSummary.getVisits",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId!=2', 
+  },function(err,visitas){ 
+    if(err || !visitas.value){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+      res.send(visitas.value.toString()).status(200);
+  });
+}
+
+
+/**
+* Returns the id of the website and a valid range to use in any function.
+*/
+function GetWebsiteDate(res,id,callback){
+  piwik.api({
+    method:"SitesManager.getSiteFromId",
+    idSite:id
+  },function(err,data){
+    if(err){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+    var n = data[0].ts_created.indexOf(' ');
+    var range = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
+    range+=",today"; 
+    callback(res,id,range);
+  });
+ 
 }

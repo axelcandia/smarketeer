@@ -1,6 +1,5 @@
 var homeController 		= require('../controllers/home.dashboard.controller');
-
+var VerifyUser			= require('../controllers/user').VerifyUser;
 module.exports = function(app) {  
-	app.get('/:name/:WebsiteId/home', homeController.getHome);
-	app.post('/home/GetAllVisitors*', homeController.GetAllVisitors);  
+	app.get('/home/*',VerifyUser, homeController.getHome);  
 }; 
