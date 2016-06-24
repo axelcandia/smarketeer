@@ -26,7 +26,7 @@ exports.RenderFormBuilder= function(req, res, next){
 			"users":[{
 				email: req.user.email,
 				_id  : req.user._id,
-				IdSite:req.query.IdSite,
+				IdSite: req.query.IdSite,
 				access: "Administrator"
 			}],
 			"date":new Date(),
@@ -57,7 +57,8 @@ exports.RenderFormBuilder= function(req, res, next){
 		      		Name       : found.name,
 		      		formId     : found.id,
 		      		url 	   : url,
-		      		builderCode: found.builderCode
+		      		builderCode: found.builderCode,
+		      		IdSite: req.query.IdSite
 	      		});
 			}
 		}); 
@@ -73,7 +74,8 @@ exports.RenderGetAllForms= function(req, res){
 		if(err)
 			console.log(err); 
 		res.render("home/forms/viewforms",{
-			forms:data
+			forms:data,
+			IdSite:req.query.IdSite
 		});
 	});
 	//

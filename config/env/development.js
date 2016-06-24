@@ -22,7 +22,7 @@ module.exports = {
 	},
 	piwik:{
 		user             : "axel",
-		token			 : "acd376ada364635cb72bdcd142daad61",
+		token			 : "b587089f5dc5e681218a6a2974eec3ca",
 		url              : "http://52.165.38.47/index.php"
 	}
 	

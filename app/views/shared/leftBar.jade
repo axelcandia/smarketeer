@@ -18,45 +18,45 @@
                   span.title Dashboard
                   span.selected
               li
-                a(href='/funnel/visitors/?IdSite='+"#{IdSite}")
+                a(href="/funnel/visitors/?IdSite=#{IdSite}")
                   i.icon-basket
                   span.title Funnel
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='/funnel/visitors/?IdSite='+"#{IdSite}")
+                    a(href="/funnel/visitors/?IdSite=#{IdSite}")
                       i.icon-home
                       |                 Visitors
                   li
-                    a(href='/funnel/leads/?IdSite='+"#{IdSite}")
+                    a(href="/funnel/leads/?IdSite=#{IdSite}")
                       i.icon-basket
                       |                 Leads
                   li
-                    a(href='/funnel/sales/?IdSite='+"#{IdSite}")
+                    a(href="/funnel/sales/?IdSite=#{IdSite}")
                       i.icon-tag
                       |                 Sales
               li
-                a(href='/campaigns/seeall/?IdSite='+"#{IdSite}")
+                a(href="/campaigns/seeall/?IdSite=#{IdSite}")
                   i.icon-rocket
                   span.title Campañas
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='/campaigns/seeall/?IdSite='+"#{IdSite}")
+                    a(href="/campaigns/seeall/?IdSite=#{IdSite}")
                       i.icon-home
                       |                 Ver campañas
                   li
-                    a(href='/campaigns/new/?IdSite='+"#{IdSite}")
+                    a(href="/campaigns/new/?IdSite=#{IdSite}")
                       i.icon-basket
                       |                 Crear campaña
               li
-                a(href='/home/allforms/?IdSite='+"#{IdSite}")
+                a(href="/allforms/?IdSite=#{IdSite}")
                   i.icon-puzzle
                   span.title formularios
                   span.arrow
                 ul.sub-menu
                   li
-                    a(href='/home/allforms/?IdSite='+"#{IdSite}")
+                    a(href="/allforms/?IdSite=#{IdSite}")
                       i.icon-home
                       |                 Ver todos
                   li
@@ -75,6 +75,8 @@
                   span.arrow
             // END SIDEBAR MENU
         // END SIDEBAR
+script.
+  var IdSite = "#{IdSite}"
 script(src='/global/plugins/jquery.min.js', type='text/javascript')
 script(src='/global/sidebar.js', type='text/javascript')
 script(src='/global/plugins/bootbox/bootbox.min.js', type='text/javascript')
