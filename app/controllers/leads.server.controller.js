@@ -19,7 +19,7 @@ exports.RenderLeads = function ( req,res ){
 	  	maximo= count/20 + count%20;
 	  } 
 	  res.render("home/funnel/leads",{
-	  	IdSite:req.query.IdSite
+	  	idSite:req.query.idSite
 	  }); 
 	}) 
 
@@ -37,7 +37,7 @@ exports.GetLeads = function(req,res){
 	page =  ( page == 0 ) ? page  : page * 20;
     piwik.api({
           method:   'Live.getLastVisitsDetails',
-          idSite: req.body.IdSite,
+          idSite: req.body.idSite,
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==1',
@@ -54,7 +54,7 @@ exports.GetLeads = function(req,res){
             html="";  
             var key, i = 0;
             for(key in visitas) {
-              html+=json2table(visitas[i]);  
+              html+=json2table(visitas[i],req.body.idSite);  
               i++;     
             }  
             res.send(html).status(200); 
@@ -97,7 +97,7 @@ exports.GetSale = function (req,res){
 
   piwik.api({
     method:"Live.getVisitorProfile",
-    idSite: req.query.IdSite,
+    idSite: req.query.idSite,
     visitorId : '',
     segment : segment,
     limitVisits : '',
@@ -112,7 +112,7 @@ exports.GetSale = function (req,res){
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
-      "&idsite="+req.query.IdSite+
+      "&idSite="+req.query.idSite+
       "&rec="+1+
       "&apiv="+1+
       "&rand=1636495582"+
@@ -174,7 +174,7 @@ function GetReferrers(res,idSite,date,period){
 /**
 * This function gets the information of both, put it together and rock it
 */
-function json2table(visita){
+function json2table(visita,idSite){
 	  //First we create the href and the id
   //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
@@ -189,7 +189,7 @@ function json2table(visita){
       //Visitor ID
       
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'">'; 
+          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">';
 
       NewVisitor +=  email+
                 '</a>'+

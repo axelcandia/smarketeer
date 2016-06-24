@@ -53,12 +53,12 @@ html
                 .modal-content
                   .modal-header
                     button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Install Smarketeer on your website
+                    h4.modal-title Instala Smarketeer en tu pagina web
                   .modal-body
-                    | Copy & paste the following code into the head of your HTML
+                    | Copia y pega el siguiente codigo en tu pagina web
                     form(action='#')
                       textarea(rows='4', cols='50')
-                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -120,7 +120,8 @@ html
                     // END SIDEBAR USER TITLE
                     // SIDEBAR BUTTONS
                     .profile-userbuttons
-                      button.btn.btn-circle.green-haze.btn-sm(type='button') Enviar Mail
+                      a(href="mailto:#{email}")
+                        button.btn.btn-circle.green-haze.btn-sm(type='button') Enviar Mail
                       button.btn.btn-circle.btn-danger.btn-sm(type='button') Llamar
                     // END SIDEBAR BUTTONS
                     // SIDEBAR MENU
@@ -150,7 +151,7 @@ html
                     .row.list-separated.profile-stat
                       .col-md-4.col-sm-4.col-xs-6
                         .uppercase.profile-stat-title
-                          | 37
+                          | #{totalVisits}
                         .uppercase.profile-stat-text
                           | Visitas
                       .col-md-4.col-sm-4.col-xs-6
@@ -160,7 +161,7 @@ html
                           | Forms
                       .col-md-4.col-sm-4.col-xs-6
                         .uppercase.profile-stat-title
-                          | 2
+                          | #{ventas}
                         .uppercase.profile-stat-text
                           | Ventas
                     // END STAT
@@ -183,7 +184,7 @@ html
                             i.icon-bar-chart.theme-font.hide
                             span.caption-subject.font-blue-madison.bold.uppercase Ventas
                             span.caption-helper.hide estadísticas
-                          .actions
+                          //.actions
                             .btn-group.btn-group-devided(data-toggle='buttons')
                               label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm.active
                                 input#option1.toggle(type='radio', name='options')
@@ -196,7 +197,7 @@ html
                                 | Mes
                         .portlet-body
                           .row.number-stats.margin-bottom-30
-                            .col-md-6.col-sm-6.col-xs-6
+                            //.col-md-6.col-sm-6.col-xs-6
                               .stat-left
                                 .stat-chart
                                   // do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break
@@ -215,7 +216,7 @@ html
                                   .title
                                     | Ingresos
                                   .number
-                                    | 990
+                                    | #{ingresos}
                           .table-scrollable.table-scrollable-borderless
                             table.table.table-hover.table-light
                               thead
@@ -295,79 +296,65 @@ html
                                 ul.feeds
                                   //Separamos por dia
                                   -var oldDate=""
-                                  for action in actions
-                                    -var newDate = action.serverTimePretty.substr(0,  (action.serverTimePretty.indexOf(':')-2)) 
-                                    if newDate != oldDate
-                                        - oldDate = newDate
-                                        p.date
-                                          | #{newDate}
-                                    //Obtenemos la hora de cada uno
-                                    -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length) 
-                                    li
-                                      .col1
-                                        .cont
-                                          .cont-col1 
-                                            if action.type == "goal"
-                                              .label.label-sm.label-warning
-                                                i.fa.fa-plus
-                                            else if action.type == "goalazo"
-                                              .label.label-sm.label-success
-                                                i.fa.fa-bell-o
-                                            else
-                                              .label.label-sm.label-info
-                                                i.fa.fa-bullhorn
-                                          .cont-col2
-                                            .desc
-                                              if action.goalName
-                                               | #{action.goalName}
+                                  for visit in visits
+                                    for action in visit.actionDetails
+                                      -var newDate = action.serverTimePretty.substr(0,  (action.serverTimePretty.indexOf(':')-2)) 
+                                      if newDate != oldDate
+                                          - oldDate = newDate
+                                          p.date
+                                            | #{newDate}
+                                      //Obtenemos la hora de cada uno
+                                      -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length) 
+                                      li
+                                        .col1
+                                          .cont
+                                            .cont-col1 
+                                              if action.type == "goal"
+                                                .label.label-sm.label-warning
+                                                  i.fa.fa-plus
+                                              else if action.type == "goalazo"
+                                                .label.label-sm.label-success
+                                                  i.fa.fa-bell-o
                                               else
-                                                | juan@sitioweb.com visitó 
-                                              a(target="_blank" href="#{action.url}") #{action.pageTitle}
-                                      .col2
-                                        .date
-                                          | #{hora} 
-                                        
+                                                .label.label-sm.label-info
+                                                  i.fa.fa-bullhorn
+                                            .cont-col2
+                                              .desc
+                                                if action.goalName
+                                                 | #{action.goalName}
+                                                else
+                                                  | juan@sitioweb.com visitó 
+                                                  a(target="_blank" href="#{action.url}") #{action.pageTitle}
+                                                  | desde #{visit.referrerTypeName}
+                                        .col2
+                                          .date
+                                            | #{hora} 
+                            //This is refferrer            
                             #tab_1_2.tab-pane
                               .scroller(style='height: 337px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
                                 ul.feeds
-                                  li
-                                    a(href='javascript:;')
-                                      .col1
-                                        .cont
-                                          .cont-col1
-                                            .label.label-sm.label-success
-                                              i.fa.fa-bell-o
-                                          .cont-col2
-                                            .desc
-                                              | Google Ads
-                                      .col2
-                                        .date
-                                          | Just now
-                                  li
-                                    a(href='javascript:;')
-                                      .col1
-                                        .cont
-                                          .cont-col1
-                                            .label.label-sm.label-success
-                                              i.fa.fa-bell-o
-                                          .cont-col2
-                                            .desc
-                                              | Facebook Ads
-                                      .col2
-                                        .date
-                                          | 10 mins
-                                  li
-                                    .col1
-                                      .cont
-                                        .cont-col1
-                                          .label.label-sm.label-danger
-                                            i.fa.fa-bolt
-                                        .cont-col2
-                                          .desc
-                                            | Google Organic
-                                    .col2
-                                      .date
-                                        | 24 mins
+                                  //Separamos por dia
+                                  -var oldDate=""
+                                  for visit in visits
+                                    -var newDate = visit.lastActionDateTime.substr(0,  (visit.lastActionDateTime.indexOf(':')-2)) 
+                                     if newDate != oldDate
+                                         - oldDate = newDate
+                                         p.date
+                                           | #{newDate}
+                                     //Obtenemos la hora de cada uno
+                                     -var hora = visit.lastActionDateTime.substr((visit.lastActionDateTime.indexOf(':')-2),visit.lastActionDateTime.length) 
+                                     li
+                                       .col1
+                                         .cont
+                                           .cont-col1 
+                                             .label.label-sm.label-success
+                                               i.fa.fa-bell-o
+                                           .cont-col2
+                                             .desc
+                                              | #{visit.referrerTypeName}
+                                       .col2
+                                         .date
+                                           | #{hora} 
                           // END TABS
                       // END PORTLET
                   .row
@@ -378,8 +365,8 @@ html
                           .caption.caption-md
                             i.icon-bar-chart.theme-font.hide
                             span.caption-subject.font-blue-madison.bold.uppercase Campos Llenados
-                            span.caption-helper 45
-                          .inputs
+                            //span.caption-helper 45
+                          //.inputs
                             .portlet-input.input-inline.input-small
                               .input-icon.right
                                 i.icon-magnifier
@@ -450,8 +437,8 @@ html
                         .portlet-title
                           .caption.caption-md
                             i.icon-bar-chart.theme-font.hide
-                            span.caption-subject.font-blue-madison.bold.uppercase Tasks
-                            span.caption-helper 16 pending
+                            span.caption-subject.font-blue-madison.bold.uppercase Comentarios
+                            //span.caption-helper 16 pending
                           .inputs
                             .portlet-input.input-small.input-inline
                               .input-icon.right

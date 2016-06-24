@@ -7,7 +7,7 @@ var campaignSchema = new mongoose.Schema({
 	keywords   : String,
 	content    : String,
 	url        : String,
-	IdSite	   : String,
+	idSite	   : String,
 	users:[{
 		email : String,
 		_id	   : Object,

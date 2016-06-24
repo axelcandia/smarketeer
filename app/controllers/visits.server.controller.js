@@ -6,7 +6,7 @@ var Visitors      = require("../models/visitors.server.model");
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
-       IdSite: req.query.IdSite,
+       idSite: req.query.idSite,
       });   
 }
 
@@ -19,7 +19,7 @@ exports.GetMoreVisitors =function (req,res){
   page =  ( page == 0 ) ? page  : page * 20;
   piwik.api({
       method:   'Live.getLastVisitsDetails',
-      idSite:   req.body.IdSite,
+      idSite:   req.body.idSite,
       period:   '',
       date:     '',
       segment : 'visitConvertedGoalId!=2',
@@ -36,7 +36,7 @@ exports.GetMoreVisitors =function (req,res){
         html="";  
         var key, i = 0; 
         for(key in visitas) {
-          html+=json2table(visitas[i]);
+          html+=json2table(visitas[i],req.body.idSite);
           //html+=GetStatus(visitas[i]);  
           i++;     
         }  
@@ -54,24 +54,24 @@ exports.GetMoreVisitors =function (req,res){
 exports.GetVisitData = function(req,res,next){
   var segment= "userId=="+req.params.id
   piwik.api({
-    method:   'Live.getLastVisitsDetails',
-    idSite: req.query.IdSite,
-    period: '',
-    date: '',
+    method:   'Live.getVisitorProfile',
+    idSite: req.query.idSite,
+    visitorId: '',
+    segment:'',
+    limitVisits: '',
     segment: segment,
-    countVisitorsToFetch: '',
-    minTimestamp: '',
-    flat: '',
-    doNotFetchActions: ''
-
   },function(err,data){
     if(err){
       console.log(err)
     }
     else{
-      console.log(JSON.stringify(data[0]));
-      res.render('home/funnel/visitorprofile', { 
-        actions: data[0].actionDetails
+      console.log(JSON.stringify(data));
+      res.render('home/funnel/visitorprofile', {  
+        totalVisits: data.totalVisits,
+        visits:data.lastVisits,
+        email:data.lastVisits[0].customVariables["1"].customVariableValue1,
+        ventas: data.totalConversionsByGoal["idgoal=2"],
+        ingresos: data.totalRevenueByGoal["idgoal=2"]
       }); 
     } 
     
@@ -94,7 +94,7 @@ function GetStatus(visita){
 /**
 * Get all the data of the visit and convert it in table mode
 */
-function json2table(visita){  
+function json2table(visita,idSite){  
   //First we create the href and the id
   //Parseamos la url 
   var query = url.parse(visita.actionDetails[0].url,true).query; 
@@ -103,7 +103,7 @@ function json2table(visita){
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'">'+
+          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">'+
               visita.userId +
           '</a>'+
         '</td>';

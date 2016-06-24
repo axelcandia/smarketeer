@@ -10,7 +10,7 @@ exports.RenderSales = function ( req,res ){
 		res.redirect("/login");
 	}
 	res.render("home/funnel/sales",{
-    idSite: req.query.IdSite
+    idSite: req.query.idSite
   }); 
 }
 
@@ -47,7 +47,7 @@ exports.GetSales = function(req,res){
             html="";   
             var key, i = 0;
             for(key in sales) {
-              html+=json2table(sales[i]);  
+              html+=json2table(sales[i],req.body.idSite);  
               i++;     
             }  
             res.send(html).status(200); 
@@ -107,7 +107,7 @@ piwik.api({
 /**
 * This function gets the information of both, put it together and rock it
 */
-function json2table(visita){
+function json2table(visita,idSite){
     //First we create the href and the id
   //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
@@ -121,7 +121,7 @@ function json2table(visita){
 
   }
     var NewVisitor= '<tr><td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'">'; 
+          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">';
 
       NewVisitor +=  email+'</a>'+'</td>';
           

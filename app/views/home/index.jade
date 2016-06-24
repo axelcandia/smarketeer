@@ -56,7 +56,7 @@ html.no-js(lang='en')
           .page-content
             // BEGIN STYLE CUSTOMIZER
             .theme-panel
-              .toggler.tooltips(data-toggle='modal', href='/#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
                 i.icon-settings
               .toggler-close
                 i.icon-close
@@ -67,14 +67,14 @@ html.no-js(lang='en')
                 .modal-content
                   .modal-header
                     button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Install Smarketeer on your website
+                    h4.modal-title Instala Smarketeer en tu pagina web
                   .modal-body
-                    | Copy & paste the following code into the head of your HTML
+                    | Copia y pega el siguiente codigo en tu pagina web
                     form(action='#')
-                    | 
+                      textarea(rows='4', cols='50')
+                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
                   .modal-footer
-                    button.btn.default(type='button', data-dismiss='modal') Close
-                    button.btn.blue(type='button') Verify Code
+                    button.btn.blue(type='button') Aceptar
                 // /.modal-content
               // /.modal-dialog
             // CODE MODAL
@@ -368,7 +368,7 @@ html.no-js(lang='en')
                             i.icon-arrow-right
             .clearfix
           // BEGIN QUICK SIDEBAR
-          a.page-quick-sidebar-toggler(href='/javascript:;')
+          a.page-quick-sidebar-toggler(href='#')
             i.icon-login
           .page-quick-sidebar-wrapper
             .page-quick-sidebar
@@ -383,7 +383,7 @@ html.no-js(lang='en')
                       | Alerts 
                       span.badge.badge-success 7
                   li.dropdown
-                    a.dropdown-toggle(href='/javascript:;', data-toggle='dropdown')
+                    a.dropdown-toggle(href='#', data-toggle='dropdown')
                       | More
                       i.fa.fa-angle-down
                     ul.dropdown-menu.pull-right(role='menu')
@@ -448,20 +448,7 @@ html.no-js(lang='en')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/index.js', type='text/javascript')
     script(src='/admin/pages/scripts/tasks.js', type='text/javascript')
-    // END PAGE LEVEL SCRIPTS
-    script.
-      jQuery(document).ready(function() {
-      Metronic.init(); // init metronic core componets
-      Layout.init(); // init layout
-      Demo.init(); // init demo features
-      QuickSidebar.init(); // init quick sidebar
-      Index.init();
-      Index.initDashboardDaterange();
-      Index.initJQVMAP(); // init index page's custom scripts 
-      Index.initCharts(); // init index page's custom scripts
-      Index.initChat(); 
-      Tasks.initDashboardWidget();
-      }); 
+    // END PAGE LEVEL SCRIPTS 
     // END CHARTS PLUGINS
     // BEGIN CHARTS SCRIPTS 
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
@@ -492,7 +479,7 @@ html.no-js(lang='en')
       }
       
     script.
-      var idSite="#{IdSite}";
+      var idSite="#{idSite}";
 
 
         var chartLeadsData = {
@@ -702,6 +689,9 @@ html.no-js(lang='en')
         }
         });
       }
+      setTimeout(function () {
+        $().trigger();
+        },5500);
   script.
     StartDate= "#{StartDate}"
     console.log("asd"+StartDate);

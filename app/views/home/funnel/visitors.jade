@@ -80,12 +80,12 @@ html(lang='en')
                 .modal-content
                   .modal-header
                     button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Install Smarketeer on your website
+                    h4.modal-title Instala Smarketeer en tu pagina web
                   .modal-body
-                    | Copy & paste the following code into the head of your HTML
+                    | Copia y pega el siguiente codigo en tu pagina web
                     form(action='#')
                       textarea(rows='4', cols='50')
-                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -243,7 +243,7 @@ html(lang='en')
                   url: '/home/funnel/GetMoreVisitors', 
                   method: "POST",
                   data: { "page" : page,
-                          "IdSite":"#{IdSite}" },
+                          "idSite":"#{idSite}" },
                   success: function(data) {
                     page++;  
                     if(!data)EnableScroll=false;

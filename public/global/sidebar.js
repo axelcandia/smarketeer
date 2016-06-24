@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	$("#CrearForm").click(function(){
 		bootbox.dialog({
+                backdrop: true,
+                onEscape: true,
                 title: "Cree un nuevo formulario",
                 message:
                  	'<div class="form-group">  ' +
@@ -30,3 +32,8 @@ $(document).ready(function(){
         );
 	});
 });
+
+$(document).on("click","#TrackingCode", function(){ 
+bootbox.dialog({ 
+                backdrop: true,
+                onEscape: true,

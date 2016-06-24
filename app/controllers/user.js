@@ -12,7 +12,7 @@ var url         = require('url');
 
 exports.getLogin = function(req, res) {
   if (req.user) {
-    var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+    var redirect = "/home/?idSite="+req.user.websites[0].idSite;
     return res.redirect(redirect);
   }
   res.render('security/login', {
@@ -48,7 +48,7 @@ exports.postLogin = function(req, res, next) {
         return next(err);
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
-      var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+      var redirect = "/home/?idSite="+req.user.websites[0].idSite;
     return res.redirect(redirect);
       res.redirect(req.session.returnTo || redirect);
     });
@@ -70,7 +70,7 @@ exports.logout = function(req, res) {
  */
 exports.getSignup = function(req, res) {
   if (req.user) {
-    var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+    var redirect = "/home/?idSite="+req.user.websites[0].idSite;
     return res.redirect(redirect);
   }
   res.render('security/signup', {
@@ -145,7 +145,7 @@ function SetMongoUser( req, res,id ){
     password: req.body.password,
     websites:[{
       name: req.body.website,
-      IdSite:id,
+      idSite:id,
       privileges:"admin"
     }] 
     
@@ -167,7 +167,7 @@ function SetMongoUser( req, res,id ){
             if (err) {
               return next(err);
             }
-            var redirect = "/home/?IdSite="+req.user.websites[0].IdSite;
+            var redirect = "/home/?idSite="+req.user.websites[0].idSite;
             return res.redirect(redirect);
           });
       });
@@ -178,10 +178,10 @@ function SetMongoUser( req, res,id ){
 * Adds the goal of funnel to the website
 * We set an impossible pattern in order to change it manually
 */
-function SetFunnelGoal( IdSite ){
+function SetFunnelGoal( idSite ){
   piwik.api({
         method: "Goals.addGoal",
-        idSite:IdSite,
+        idSite:idSite,
         name:"Funnel",
         matchAttribute:"url",
         pattern:"is exactly",
@@ -482,7 +482,7 @@ exports.VerifyUser = function(req,res,next){
   }  
   
   for(var i=0; i<req.user.websites.length; i++){
-    if(req.user.websites[i].IdSite == req.query.IdSite)
+    if(req.user.websites[i].idSite == req.query.idSite)
       return next();
   }
   return res.redirect('/login');

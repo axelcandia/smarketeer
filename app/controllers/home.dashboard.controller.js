@@ -6,10 +6,10 @@ var Visitors 		= require('../models/visitors.server.model');
 var piwik 			= new PiwikClient(config.piwik.url, config.piwik.token ); 
 
 exports.GetHome = function(req, res, next) {  
-	GetWebsiteFirstDate(req.query.IdSite, function(date){  
+	GetWebsiteFirstDate(req.query.idSite, function(date){  
 			res.render('home', {
 				websites: req.user.websites,
-				IdSite: req.query.IdSite,
+				idSite: req.query.idSite,
 				StartDate: date
 			});
 		});
@@ -20,10 +20,10 @@ exports.GetHome = function(req, res, next) {
 * If error you must login
 * If not return data to callbsack
 */
-function GetWebsiteFirstDate( IdSite,callback ){
+function GetWebsiteFirstDate( idSite,callback ){
 	piwik.api({
     method:"SitesManager.getSiteFromId",
-    idSite:IdSite,
+    idSite:idSite,
     show: "ts_created"
   },function(err,date){
     if(err){
