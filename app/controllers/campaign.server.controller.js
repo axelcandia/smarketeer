@@ -15,7 +15,7 @@ exports.RenderGetAll= function(req, res){
 			console.log(err);
 		res.render("campaigns/viewcampaigns",{
 			campaigns:data,
-			IdSite: req.query.IdSite
+			idSite: req.query.idSite
 		});
 	})
 	//
@@ -79,7 +79,7 @@ exports.SaveCampaign = function(req, res){
 
 		if(req.body.id == "idcampaign")
 		{
-			SetNewCampaign( req.user, data,res,req.query.IdSite );
+			SetNewCampaign( req.user, data,res,req.query.idSite );
 		}
 		else
 		{
@@ -135,7 +135,7 @@ exports.CloneCampaign = function( req, res ){
 	})
 }
 
-function SetNewCampaign(user,data,res,IdSite){
+function SetNewCampaign(user,data,res,idSite){
 	var campaign = new Campaigns({
 		"campaign"			: data.query.utm_campaign,
 	    "keywords"			: data.query.utm_term,
@@ -144,7 +144,7 @@ function SetNewCampaign(user,data,res,IdSite){
 	    "content" 			: data.query.utm_content,
 	    "websiteUrl"		: data.pathname,
 	    "url"				: data.href,
-	    "IdSite"			: IdSite,
+	    "idSite"			: idSite,
 	    "users"				:[{
 	    	"email":user.email,
 	    	"_id":user.id

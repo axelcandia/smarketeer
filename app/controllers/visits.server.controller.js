@@ -3,6 +3,7 @@ var PiwikClient   = require('piwik-client');
 var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
+var async         = require("async");
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
@@ -53,26 +54,68 @@ exports.GetMoreVisitors =function (req,res){
 */
 exports.GetVisitData = function(req,res,next){
   var segment= "userId=="+req.params.id
+  // an example using an object instead of an array
+  async.parallel({
+      StaticProfile: function(callback){
+        GetStaticProfile(req.query.idSite,segment,callback)
+      },
+      Forms: function(callback){ 
+        callback(null, 2); 
+      },
+      DynamicProfile: function(callback){
+        callback(null, 20); 
+      }
+
+  },
+  function(err, results) {
+    res.render('home/funnel/visitorprofile', {  
+        idSite:       req.query.idSite,
+        UserId:       req.params.id,
+        totalVisits:  results.StaticProfile.totalVisits,
+        visits:       results.StaticProfile.lastVisits,
+        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :req.params.id,
+        ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
+        ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
+        empty:        ""
+      }); 
+  });
+};
+/**
+* Static profile is all the data that we save using the tracking code
+*/
+function GetStaticProfile(idSite,segment,callback){
   piwik.api({
     method:   'Live.getVisitorProfile',
-    idSite: req.query.idSite,
+    idSite: idSite,
     visitorId: '',
     segment:'',
     limitVisits: '',
     segment: segment,
   },function(err,data){
     if(err){
-      console.log(err)
+      callback(err,null)
     }
     else{
+      callback(null,data);
+    }
+
+  });
+}
+/**
+* Dynamic is all the data that a user can change any time he wants
+*/
+function GetDynamicProfile(userId,callback){
+  
+MyModel.findOneAndUpdate(query, req.newData, {upsert:true}, function(err, doc){
+    if (err) return res.send(500, { error: err });
+    return res.send("succesfully saved");
+});
+}
+/*
+  
       console.log(JSON.stringify(data));
-      res.render('home/funnel/visitorprofile', {  
-        totalVisits: data.totalVisits,
-        visits:data.lastVisits,
-        email:data.lastVisits[0].customVariables["1"].customVariableValue1,
-        ventas: data.totalConversionsByGoal["idgoal=2"],
-        ingresos: data.totalRevenueByGoal["idgoal=2"]
-      }); 
+
+      
     } 
     
   });
