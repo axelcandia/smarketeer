@@ -22,7 +22,7 @@ var website_id= parseInt(document.currentScript.id);
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":this.getVisitorId()},
 				  success: function(data){
-				  	
+				  	console.log("Succes!":data)
 				  	setCookie(website_id,visitor_id,400);
 				  	_paq.push(['setUserId', visitor_id]);
 				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
