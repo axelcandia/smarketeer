@@ -1,4 +1,4 @@
-var website_id= document.currentScript.id;
+var website_id= parseInt(document.currentScript.id);
 	  console.log("our id is " +website_id );
 	  var _paq = _paq || [];
 	  var tracker;
