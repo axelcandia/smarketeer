@@ -7,7 +7,7 @@ var website_id= document.currentScript.id;
 	  _paq.push(['enableLinkTracking']);
 	  _paq.push(['setConversionAttributionFirstReferrer', true]);
 	  (function() { 
-	    var u="http://52.165.38.47/";
+	    var u="HTTP://52.165.38.47/"; 
 	    _paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
 			//Cookie do not exist create one
@@ -22,27 +22,24 @@ var website_id= document.currentScript.id;
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":this.getVisitorId()},
 				  success: function(data){
-				  	console.log(data);
+				  	
 				  	setCookie(website_id,visitor_id,400);
 				  	_paq.push(['setUserId', visitor_id]);
 				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
-					_paq.push(['trackPageView']);   
+					_paq.push(['trackPageView']); 
 				  }
 				  });
 
 			}
 			else{ 
-					console.log("HOLA");
 					_paq.push(['setUserId', username]);
 				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
-					_paq.push(['trackPageView']);  
-				    
-			}
-			   _paq.push(['setTrackerUrl', u+'piwik.php']);
-				    _paq.push(['setSiteId', website_id]); 
-
+					_paq.push(['trackPageView']); 
+			} 
+		    _paq.push(['setTrackerUrl', u+'piwik.php']);
+		    _paq.push(['setSiteId', website_id]); 
 			}]); 
-	    
+	   
 
 	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
