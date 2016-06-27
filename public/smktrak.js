@@ -10,7 +10,7 @@ var website_id= parseInt(document.currentScript.id);
 	    var u="//52.165.38.47/"; 
 	    _paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
-			//Cookie do not exist create one
+			//Cookie do not exist create on
 			var cname="smkt_"+website_id;
 			var username=getCookie(cname);
 			console.log(username);
@@ -22,7 +22,7 @@ var website_id= parseInt(document.currentScript.id);
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":this.getVisitorId()},
 				  success: function(data){
-				  	console.log("Succes!":data)
+				  	console.log("Succes!:"+data)
 				  	setCookie(website_id,visitor_id,400);
 				  	_paq.push(['setUserId', visitor_id]);
 				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
