@@ -7,7 +7,7 @@ var website_id= document.currentScript.id;
 	  _paq.push(['enableLinkTracking']);
 	  _paq.push(['setConversionAttributionFirstReferrer', true]);
 	  (function() { 
-	    var u="HTTP://52.165.38.47/"; 
+	    var u="//52.165.38.47/"; 
 	    _paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
 			//Cookie do not exist create one
