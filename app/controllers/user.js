@@ -12,7 +12,8 @@ var url         = require('url');
 
 exports.getLogin = function(req, res) {
   if (req.user) {
-    return res.redirect('/home');
+    var redirect = "/home/?idSite="+req.user.websites[0].idSite;
+    return res.redirect(redirect);
   }
   res.render('security/login', {
     title: 'Login'
@@ -47,7 +48,9 @@ exports.postLogin = function(req, res, next) {
         return next(err);
       }
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/home');
+      var redirect = "/home/?idSite="+req.user.websites[0].idSite;
+    return res.redirect(redirect);
+      res.redirect(req.session.returnTo || redirect);
     });
   })(req, res, next);
 };
@@ -67,7 +70,8 @@ exports.logout = function(req, res) {
  */
 exports.getSignup = function(req, res) {
   if (req.user) {
-    return res.redirect('/home');
+    var redirect = "/home/?idSite="+req.user.websites[0].idSite;
+    return res.redirect(redirect);
   }
   res.render('security/signup', {
     title: 'Create Account'
@@ -88,33 +92,9 @@ exports.postSignup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   } 
-  SetPiwikUser(req,res);
+  SetPiwikWebsite(req,res);
 
-}
-
-/**
-* Rquires the req data, it sets the user in piwik BUUUT it does not set any personal infortmation
-* Or the website please add this information in other fields :DDD
-*/
-function SetPiwikUser( req,res ){ 
-  piwik.api({
-      method: "UsersManager.addUser",
-      userLogin:req.body.username,
-      password:req.body.password,
-      email:req.body.email,
-      alias:req.body.username
-    },function(err,data){
-      if(err){ 
-        req.assert('error', err).len(1);
-        var errors = req.validationErrors();
-        req.flash('errors', errors);  
-        res.redirect('/signup'); 
-      } 
-      //Continue the party
-      else
-        SetPiwikWebsite( req, res);
-    });
-}
+} 
 /**
 * Creates the website
 */
@@ -146,43 +126,28 @@ function SetPiwikWebsite( req, res ){
           return res.redirect('/signup');
         }  
         else{   
-          Q.fcall(JoinWebsiteUser(req,res,data.value))
-          .then(SetMongoUser(req,res)) 
+          Q.fcall(SetMongoUser(req,res,data.value)) 
           .then(SetFunnelGoal(data.value));
         } 
       });  
     
-}
-/**
-* Links the website with the user created
-*/ 
-function JoinWebsiteUser( req, res,id ){ 
-  piwik.api({
-      method: "UsersManager.setUserAccess",
-      userLogin:req.body.username,
-      access:"admin",
-      idSites:id
-    },function(err){
-      if(err){  
-        req.assert('error', err).len(1);
-        var errors = req.validationErrors();
-        req.flash('errors', errors);   
-        return res.redirect('/signup');
-      }
-    });  
-}
+} 
 
 /**
 * Sets the MongoUser
 */
-function SetMongoUser( req, res ){
+function SetMongoUser( req, res,id ){
     var user = new User({
       profile:{
         username:req.body.username
       },
     email: req.body.email,
     password: req.body.password,
-    mainWebsite: req.body.website,
+    websites:[{
+      name: req.body.website,
+      idSite:id,
+      privileges:"admin"
+    }] 
     
   });
 
@@ -191,6 +156,7 @@ function SetMongoUser( req, res ){
         req.assert('error', "Ya existe un usuario con esta cuenta").len(1);
         var errors = req.validationErrors();
         req.flash('errors', errors); 
+        DeleteWebsite(id);
         res.redirect('/signup');
     }
     else
@@ -201,7 +167,8 @@ function SetMongoUser( req, res ){
             if (err) {
               return next(err);
             }
-            return res.redirect('/home');
+            var redirect = "/home/?idSite="+req.user.websites[0].idSite;
+            return res.redirect(redirect);
           });
       });
 
@@ -211,10 +178,10 @@ function SetMongoUser( req, res ){
 * Adds the goal of funnel to the website
 * We set an impossible pattern in order to change it manually
 */
-function SetFunnelGoal( idsite ){
+function SetFunnelGoal( idSite ){
   piwik.api({
         method: "Goals.addGoal",
-        idSite:idsite,
+        idSite:idSite,
         name:"Funnel",
         matchAttribute:"url",
         pattern:"is exactly",
@@ -498,3 +465,26 @@ exports.postForgot = function(req, res, next) {
     res.redirect('/forgot');
   });
 };
+
+function DeleteWebsite(id){
+   piwik.api({
+        method: "SitesManager.deleteSite",
+        idSite: id
+      });
+  };
+
+/**
+* Verify that the user exist AND that it has acces to this site
+*/
+exports.VerifyUser = function(req,res,next){
+  if(!req.user){
+    return res.redirect('/login');
+  }  
+  
+  for(var i=0; i<req.user.websites.length; i++){
+    if(req.user.websites[i].idSite == req.query.idSite)
+      return next();
+  }
+  return res.redirect('/login');
+
+} 

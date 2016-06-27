@@ -1,9 +1,11 @@
-var config		  = require("../../config/config");
-var PiwikClient   = require('piwik-client');
-var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
-var url           = require('url');
-var Visitors      = require("../models/visitors.server.model");
-
+var config		     = require("../../config/config");
+var http           = require('http');
+var PiwikClient    = require('piwik-client');
+var piwik          = new PiwikClient(config.piwik.url, config.piwik.token )
+var url            = require('url');
+var Visitors       = require("../models/visitors.server.model");
+var Sale           = require("../models/sales.server.model");
+var GetWebsiteDate = require("./visits.server.controller").GetWebsiteDate;
 /**
 * Render lead view
 */
@@ -17,10 +19,9 @@ exports.RenderLeads = function ( req,res ){
 	  	maximo= count/20 + count%20;
 	  } 
 	  res.render("home/funnel/leads",{
-	  	MaxPages:maximo
+	  	idSite:req.query.idSite
 	  }); 
-	})
-    
+	}) 
 
 }
 
@@ -28,83 +29,172 @@ exports.RenderLeads = function ( req,res ){
 * Get everything I can which is a lead
 * An index goes here
 */
+
 exports.GetLeads = function(req,res){
 	//Form the pages
-	var page= parseInt(req.body.page); 
-	page =  ( page == 0 ) ? page  : page * 20; 
+	var page    = parseInt(req.body.page); 
 
-	Visitors.find( {email: { $exists: true } }).
-	limit(20).
-	skip(page).
-	exec(function(err,leads){
-		if(err)
-			console.log(err);
-		else{
-			//We have to form a string with the ID we require!
-			var segment="";  
-        	var key, i = 0; 
-        	for(key in leads) {
-				segment+="userId=="+leads[i]._id+",";
-				i++; 
-			}
-			GetInvidualLead(leads,segment,res);
-		}
-	});
+	page =  ( page == 0 ) ? page  : page * 20;
+    piwik.api({
+          method:   'Live.getLastVisitsDetails',
+          idSite: req.body.idSite,
+          period:   '',
+          date:     '',
+          segment : 'visitConvertedGoalId==1',
+          showColumns:"userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
+          countVisitorsToFetch : '',
+          minTimestamp : '',
+          flat : '',
+          doNotFetchActions : '',
+          filter_offset:page,
+          filter_limit:20,
+        },function( err, visitas ){ 
+          if(err) res.send(err);
+          else{ 
+            html="";  
+            var key, i = 0;
+            for(key in visitas) {
+              html+=json2table(visitas[i],req.body.idSite);  
+              i++;     
+            }  
+            res.send(html).status(200); 
+          }
+        }); 
+
+}
+/**
+* Call the piwik counter and returns data
+*/
+function GetPiwikLeadsCounter(res,id,range){
+piwik.api({
+    method:"VisitsSummary.get",
+    idSite:id,
+    period:"range",
+    date:range,
+    segment: 'visitConvertedGoalId==1', 
+    columns:"nb_visits"
+  },function(err,visitas){
+    if(err || !visitas.value){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }  
+      res.send(visitas.value.toString()).status(200);
+  });
+}
+
+/**
+* Guardo la compra que hizo un usuario
+* documentation: http://developer.piwik.org/api-reference/tracking-api
+*/
+exports.GetSale = function (req,res){   
+  var compra = new Sale({
+    "data": req.body
+  });
+  compra.save();
+  //Piwik magic 
+  var segment= "userId=="+req.body.ClientId;
+
+  piwik.api({
+    method:"Live.getVisitorProfile",
+    idSite: req.query.idSite,
+    visitorId : '',
+    segment : segment,
+    limitVisits : '',
+    showColumns:"lastVisits,customVariables"
+  },function(err,visit){
+    
+    if(err || !visit){
+      console.log(err);
+      res.send(0).status(200);
+      return 0;
+    }   
+    var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
+    var path = "http://52.165.38.47/piwik.php?"+
+      "uid="+req.body.ClientId+
+      "&idSite="+req.query.idSite+
+      "&rec="+1+
+      "&apiv="+1+
+      "&rand=1636495582"+
+      "&idgoal="+2+
+      '&_cvar={"1":["email","'+email+'"]}'+
+      //"&url="+compra._id+//IMPORTANT: We use URL to save the ID of the Salee!!
+      "&urlref="+visit.lastVisits[0].referrerUrl+
+      "&revenue="+req.body.Total; 
+      console.log("URL:"+path);
+
+        http.get(path, (res) => {
+        console.log(`Got response: ${res.statusCode}`);
+        // consume response body
+        res.resume();
+      }).on('error', (e) => {
+        console.log(`Got error: ${e.message}`);
+      }); 
+  });
+
+
+  
+}
+
+
+exports.CountLeads = function(req,res){ 
+  GetWebsiteDate(req,res,GetPiwikLeadsCounter);
 }
 /**
 * Receives the cahnges in cost and changes the status of the visitor
 */
-exports.SetCosts = function(req,res,next){
-	console.log(req.body)
+exports.SetCosts = function(req,res,next){ 
 	res.send("").status(200);
 
+}  
+/**
+* Get  the leads by channel (Website etc).
+*/
+exports.GetLeadsByChannel = function(req,res){
+  GetWebsiteDate(req,res,GetReferrers);
 }
 
- /**
- * Gets all the leads required and loads them
- */
-function GetInvidualLead(mongodata,segment,res){  
+function GetReferrers(res,idSite,date,period){
   piwik.api({
-      method:   'Live.getLastVisitsDetails',
-      idSite: 1,
-      period:   '',
-      date:     '', 
-      showColumns:"lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
-      countVisitorsToFetch : '',
-      minTimestamp : '',
-      flat : '',
-      doNotFetchActions : '', 
-      filter_limit:20,
-      segment: segment,
-    },function( err, visitas ){
-      if(err) res.send(err);
-      else{  
-	        html="";  
-	        var key, i = 0;
-	        for(key in visitas) {
-	          html+=combine2table(visitas[i],mongodata[i]); 
-	          i++;     
-	        }  
-	        res.send(html).status(200); 
-	      }
-    }); 
+    method:"Referrers.getReferrerType",
+    idSite:idSite,
+    period:period,
+    date:date,
+    segment: 'visitConvertedGoalId==1', 
+  },function(err,referrers){
+    if(err){
+      console.log(err); 
+      return 0;
+    } 
+    res.send(referrers).status(200);    
+  });
+
 }
+
 /**
 * This function gets the information of both, put it together and rock it
 */
-function combine2table(visita,mongodata){
+function json2table(visita,idSite){
 	  //First we create the href and the id
-  //Parseamos la url 
+  //Parseamos la url  
   var query = url.parse(visita.actionDetails[0].url,true).query; 
+  var email = (visita.customVariables && visita.customVariables["1"]) ?
+              visita.customVariables["1"].customVariableValue1 :
+              "indefinido" ;
+
+
   //Visitor date
    var NewVisitor='<tr>'+
               '<td>'+visita.lastActionDateTime+ '</td>';
       //Visitor ID
+      
        NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.visitorId+'">'+
-              mongodata.email +
-          '</a>'+
+          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">';
+
+      NewVisitor +=  email+
+                '</a>'+
         '</td>';
+          
 
         //Campaign name, we only display it if it was a campagin!!!
         NewVisitor+= (visita.referrerTypeName =="Campaigns") ? 
@@ -127,13 +217,8 @@ function combine2table(visita,mongodata){
         //Landing page  
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
-         NewVisitor+='<td><input data-id="'+visita.visitorId+'" class="amount" type="number"/></td>';
-        switch( mongodata.Status ){ 
-        	case "lead":
-        		default:
-        			NewVisitor+='<td><span class="label label-sm label-success">Cliente potencial</span></td></tr>';
-        			break;
-        } 
+        NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.userId+'">'+
+            '<a href="#">Registrar Venta</a></td>';  
         return NewVisitor;
 
 } 

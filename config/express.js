@@ -59,6 +59,7 @@ module.exports = function() {
 	 require("../app/routes/campaign.server.route.js") (app);
 	 require("../app/routes/form.server.route.js") 	   (app);
 	 require("../app/routes/leads.server.route.js")    (app);
+	 require("../app/routes/sales.server.route.js") 	   (app); 
 
 	app.use(express.static(path.join(__dirname, '../public'), { maxAge: 31557600000 })); 
 	app.use(errorHandler());

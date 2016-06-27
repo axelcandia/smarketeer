@@ -19,46 +19,14 @@ var Visitors		= require("../models/visitors.server.model");
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
 		res.redirect("/login");
-	} /*
-	var connection = mysql.createConnection({
-	    host: '127.0.0.1', // Important to connect to localhost after connecting via ssh in screen
-	    user: 'bitnami',
-	    password: '3963974397',
-	    database: 'bitnami_piwik',
-	    port: 3000
-	});
-        connection.connect(function(err) {
-			  if (err) {
-			    console.error('error connecting: ' + err.stack);
-			    return;
-			  }
-			  connection.query( 'SELECT *  FROM  piwik_log_visit WHERE idvisit=1;', function(err, rows, fields) {
-				  if (err) throw err;
-
-				  console.log('The solution is: ', rows[0].idvisitor);
-				  var id=Buffer.from(rows[0].idvisitor); 
-				  const StringDecoder = require('string_decoder').StringDecoder;
-				  const decoder = new StringDecoder('utf8');
-				  console.log('The solution is: ', decoder.write(id)); 
-				 });
-
-    	});
-
-		/*connection.connect(function(err) {
-	  if (err) {
-	    console.error('error connecting: ' + err.stack);
-	    return;
-	  }
-	 
-	  console.log('connected as id ' + connection.threadId);
-	});*/  
-	//CREATE ONE
+	}
 	if(!req.params.id){
 			var name=req.params.name.replace(/[+]/g, ' ');
 			var NewForm = Forms({
 			"users":[{
 				email: req.user.email,
 				_id  : req.user._id,
+				idSite: req.query.idSite,
 				access: "Administrator"
 			}],
 			"date":new Date(),
@@ -84,10 +52,13 @@ exports.RenderFormBuilder= function(req, res, next){
 			if(err)
 				console.log("err");
 			else{ 
+				var url = (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder.js" : "www.smarketeer.io/forms/formbuilder.js";
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
-		      		builderCode: found.builderCode
+		      		url 	   : url,
+		      		builderCode: found.builderCode,
+		      		idSite: req.query.idSite
 	      		});
 			}
 		}); 
@@ -103,7 +74,8 @@ exports.RenderGetAllForms= function(req, res){
 		if(err)
 			console.log(err); 
 		res.render("home/forms/viewforms",{
-			forms:data
+			forms:data,
+			idSite:req.query.idSite
 		});
 	});
 	//
@@ -193,12 +165,14 @@ exports.CloneForm = function( req, res ){
 * @Receives the id
 * @Posts the required html
 */
-exports.GetFormHTML = function( req, res, next ){ 
+exports.GetFormHTML = function( req, res, next ){
+	console.log("Form id:"+req.body.id);  
 	Forms.findById(req.body.id,function( err, data ){
 		if(err)
 			res.send("false");
 		else{
-			if(data)
+			console.log(data);
+			if(data) 
 				res.send(data.html).status(200); 
 		}
 	})
@@ -211,8 +185,7 @@ exports.GetVisitorId = function( req, res, next){
 		return res.send("-1");
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
 	var query = { CookieId :req.body.id};
-	var update;
-	console.log("ESTE ES EL di" +req.body.id)
+	var update; 
 	if(req.body.email){
 		update = { 
 	    	"email"			: req.body.email

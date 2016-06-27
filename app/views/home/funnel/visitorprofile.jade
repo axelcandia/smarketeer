@@ -1,0 +1,424 @@
+html
+  body
+    head
+      meta(charset='utf-8')
+      title Smarketeer | Ver #{name||email||UserId}
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      meta(content='width=device-width, initial-scale=1.0', name='viewport')
+      meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+      meta(content='', name='description')
+      meta(content='', name='author')
+      // BEGIN GLOBAL MANDATORY STYLES
+      link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+      link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+      // END GLOBAL MANDATORY STYLES
+      // BEGIN PAGE LEVEL STYLES
+      link(href='/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', rel='stylesheet', type='text/css')
+      link(href='/admin/pages/css/profile.css', rel='stylesheet', type='text/css')
+      link(href='/admin/pages/css/tasks.css', rel='stylesheet', type='text/css')
+      // END PAGE LEVEL STYLES
+      // BEGIN THEME STYLES
+      link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+      link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+      link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+      link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+      link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+      link(href='/VisitorProfile/VisitorProfile.css', rel='stylesheet', type='text/css')
+      // END THEME STYLES
+      link(rel='shortcut icon', href='favicon.ico')
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      include ../../shared/pageTop
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../../shared/leftBar
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER 
+            // CODE MODAL
+            // BEGIN PAGE HEADER 
+            //.page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='index') Inico
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') visitas
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') #{name||email||UserId}
+              .page-toolbar
+                .btn-group.pull-right
+                  button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
+                    | Exportar 
+                    i.fa.fa-angle-down
+                  ul.dropdown-menu.pull-right(role='menu')
+                    li
+                      a(href='#') Export a Excel
+                    li
+                      a(href='#') Exportar a CSV
+                    li
+                      a(href='#') Exportar a PDF
+            .row
+              .col-md-12
+                // BEGIN PROFILE SIDEBAR
+                .profile-sidebar(style='width: 250px;')
+                  // PORTLET MAIN
+                  .portlet.light.profile-sidebar-portlet
+                    // SIDEBAR USERPIC
+                    .profile-userpic
+                      img.img-responsive(src='/admin/pages/media/profile/profile_user.jpg', alt='')
+                    // END SIDEBAR USERPIC
+                    // SIDEBAR USER TITLE
+                    .profile-usertitle
+                      .profile-usertitle-name
+                        | Juan Perez
+                      .profile-usertitle-job
+                        | Director de Marketing
+                    // END SIDEBAR USER TITLE
+                    // SIDEBAR BUTTONS
+                    .profile-userbuttons
+                      a(href="mailto:#{email}")
+                        button.btn.btn-circle.green-haze.btn-sm(type='button') Enviar Mail
+                      button.btn.btn-circle.btn-danger.btn-sm(type='button') Llamar
+                    // END SIDEBAR BUTTONS
+                    // SIDEBAR MENU
+                    .profile-usermenu
+                      ul.nav
+                        li.active
+                          a(href='extra_profile.html')
+                            i.icon-home
+                            |                       Overview
+                        li
+                          a(href='extra_profile_account.html')
+                            i.icon-settings
+                            |                       Account Settings
+                        li
+                          a(href='page_todo.html', target='_blank')
+                            i.icon-check
+                            |                       Tasks
+                        li
+                          a(href='extra_profile_help.html')
+                            i.icon-info
+                            |                       Help
+                    // END MENU
+                  // END PORTLET MAIN
+                  // PORTLET MAIN
+                  .portlet.light
+                    // STAT
+                    .row.list-separated.profile-stat
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | #{totalVisits}
+                        .uppercase.profile-stat-text
+                          | Visitas
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | #{TotalForms}
+                        .uppercase.profile-stat-text
+                          | Forms
+                      .col-md-4.col-sm-4.col-xs-6
+                        .uppercase.profile-stat-title
+                          | #{ventas}
+                        .uppercase.profile-stat-text
+                          | Ventas
+                    // END STAT
+                    div
+                      h4.profile-desc-title Sobre #{name||email||empty}
+                      span.profile-desc-text
+                         #about(contenteditable='') #{about||"Escriba informacion sobre el cliente"}
+                    button.btn.blue.action-button.action-edit(type='button')
+                      | Editar 
+                    button.edit.action-button.guardar.btn.green(type='button')
+                      | Guardar 
+                    button.btn.red.action-button.edit.cancelar(type='button')
+                      | Cancelar
+                    if website
+                      .margin-top-20.profile-desc-link
+                        i.fa.fa-globe
+                        a(href='#{website}') #{website}
+                    // END PORTLET MAIN
+                // END BEGIN PROFILE SIDEBAR
+                // BEGIN PROFILE CONTENT
+                .profile-content
+                  .row
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Ventas
+                            span.caption-helper.hide estadísticas
+                          //.actions
+                            .btn-group.btn-group-devided(data-toggle='buttons')
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm.active
+                                input#option1.toggle(type='radio', name='options')
+                                | Hoy
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
+                                input#option2.toggle(type='radio', name='options')
+                                | Semana
+                              label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
+                                input#option2.toggle(type='radio', name='options')
+                                | Mes
+                        .portlet-body
+                          .row.number-stats.margin-bottom-30
+                            //.col-md-6.col-sm-6.col-xs-6
+                              .stat-left
+                                .stat-chart
+                                  // do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break
+                                  #sparkline_bar
+                                .stat-number
+                                  .title
+                                    | Costos
+                                  .number
+                                    | 260
+                            .col-md-6.col-sm-6.col-xs-6
+                              .stat-right
+                                .stat-chart
+                                  // do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break
+                                  #sparkline_bar2
+                                .stat-number
+                                  .title
+                                    | Ingresos
+                                  .number
+                                    | #{ingresos}
+                          .table-scrollable.table-scrollable-borderless
+                            table.table.table-hover.table-light
+                              thead
+                                tr.uppercase
+                                  th(colspan='2')
+                                    | Vendedor
+                                  th
+                                    | Valor
+                                  th
+                                    | Productos
+                                  th
+                                    | Tasa
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar4.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Jose
+                                td
+                                  | $345
+                                td
+                                  | 1
+                                td
+                                  span.bold.theme-font 80%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar5.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Fede
+                                td
+                                  | $560
+                                td
+                                  | 3
+                                td
+                                  span.bold.theme-font 67%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar6.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Facu
+                                td
+                                  | $1,345
+                                td
+                                  | 6
+                                td
+                                  span.bold.theme-font 98%
+                              tr
+                                td.fit
+                                  img.user-pic(src='/admin/layout3/img/avatar7.jpg')
+                                td
+                                  a.primary-link(href='javascript:;') Santi
+                                td
+                                  | $645
+                                td
+                                  | 4
+                                td
+                                  span.bold.theme-font 58%
+                      // END PORTLET
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title.tabbable-line
+                          .caption.caption-md
+                            i.icon-globe.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Interacciones
+                          ul.nav.nav-tabs
+                            li.active
+                              a(href='#tab_1_1', data-toggle='tab')
+                                | Detalle
+                            li
+                              a(href='#tab_1_2', data-toggle='tab')
+                                | Fuentes
+                        .portlet-body
+                          // BEGIN TABS
+                          .tab-content
+                            #tab_1_1.tab-pane.active
+                              .scroller(style='height: 320px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                                ul.feeds
+                                  //Separamos por dia
+                                  -var oldDate=""
+                                  for visit in visits
+                                    for action in visit.actionDetails
+                                      -var newDate = action.serverTimePretty.substr(0,  (action.serverTimePretty.indexOf(':')-2)) 
+                                      if newDate != oldDate
+                                          - oldDate = newDate
+                                          p.date
+                                            | #{newDate}
+                                      //Obtenemos la hora de cada uno
+                                      -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length) 
+                                      li
+                                        .col1
+                                          .cont
+                                            .cont-col1 
+                                              if action.type == "goal"
+                                                .label.label-sm.label-warning
+                                                  i.fa.fa-plus
+                                              else if action.type == "goalazo"
+                                                .label.label-sm.label-success
+                                                  i.fa.fa-bell-o
+                                              else
+                                                .label.label-sm.label-info
+                                                  i.fa.fa-bullhorn
+                                            .cont-col2
+                                              .desc
+                                                if action.goalName
+                                                 | #{action.goalName}
+                                                else
+                                                  | juan@sitioweb.com visitó 
+                                                  a(target="_blank" href="#{action.url}") #{action.pageTitle} 
+                                                  |  desde #{visit.referrerTypeName}
+                                        .col2
+                                          .date
+                                            | #{hora} 
+                            //This is refferrer            
+                            #tab_1_2.tab-pane
+                              .scroller(style='height: 337px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                                ul.feeds
+                                  //Separamos por dia
+                                  -var oldDate=""
+                                  for visit in visits
+                                    -var newDate = visit.lastActionDateTime.substr(0,  (visit.lastActionDateTime.indexOf(':')-2)) 
+                                     if newDate != oldDate
+                                         - oldDate = newDate
+                                         p.date
+                                           | #{newDate}
+                                     //Obtenemos la hora de cada uno
+                                     -var hora = visit.lastActionDateTime.substr((visit.lastActionDateTime.indexOf(':')-2),visit.lastActionDateTime.length) 
+                                     li
+                                       .col1
+                                         .cont
+                                           .cont-col1 
+                                             .label.label-sm.label-success
+                                               i.fa.fa-bell-o
+                                           .cont-col2
+                                             .desc
+                                              | #{visit.referrerTypeName}
+                                       .col2
+                                         .date
+                                           | #{hora} 
+                          // END TABS
+                      // END PORTLET
+                  .row
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Campos Llenados
+                            //span.caption-helper 45
+                          //.inputs
+                            .portlet-input.input-inline.input-small
+                              .input-icon.right
+                                i.icon-magnifier
+                                input.form-control.form-control-solid(type='text', placeholder='search...')
+                        .portlet-body
+                          .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                            .general-item-list
+                              -for (var i=0;i< totalForms; i++){
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src='/admin/layout3/img/avatar4.jpg')
+                                    a.item-name.primary-link(href='') Nombre
+                                    span.item-label 3 hrs ago
+                                .item-body
+                                  | Juan 
+                              -}
+                      // END PORTLET
+                    .col-md-6
+                      // BEGIN PORTLET
+                      .portlet.light
+                        .portlet-title
+                          .caption.caption-md
+                            i.icon-bar-chart.theme-font.hide
+                            span.caption-subject.font-blue-madison.bold.uppercase Comentarios
+                            //span.caption-helper 16 pending 
+                        .portlet-body
+                          .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                            .general-item-list
+                              - for(var i=0;i<comments.length;i++){
+                              .item
+                                .item-head
+                                  .item-details
+                                    img.item-pic(src="#{comments[i].image}")
+                                    a.item-name.primary-link(href='') #{comments[i].user}
+                                    span.item-label #{comments[i].date}
+                                .item-body #{comments[i].text}
+                              -}
+                          .page-quick-sidebar-chat-user-form
+                            .input-group
+                              textarea.comment.form-control(type='text', placeholder='Escribe tu comentario' )
+                              .input-group-btn
+                                button.btn.green#SendComment(type='button')
+                                  i.fa.fa-reply
+    script.
+      var about= "#{about}" 
+      var UserId= "#{UserId}"
+      var currentUser="#{user.id}"
+    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(src='/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js', type='text/javascript')
+    script(src='/global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/profile.js', type='text/javascript')
+    script(src='/VisitorProfile/VisitorProfile.js', type='text/javascript')  
+    // END PAGE LEVEL SCRIPTS
+    script.
+      jQuery(document).ready(function() {
+      // initiate layout and plugins
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features\\
+      Profile.init(); // init page demo
+      }); 
+    // END JAVASCRIPTS
+  // END BODY

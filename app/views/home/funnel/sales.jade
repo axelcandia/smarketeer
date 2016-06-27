@@ -27,24 +27,24 @@ html(lang='en')
     meta(content='', name='author')
     // BEGIN GLOBAL MANDATORY STYLES
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
-    link(href='global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
-    link(href='global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
     // END GLOBAL MANDATORY STYLES
     // BEGIN PAGE LEVEL STYLES
-    link(rel='stylesheet', type='text/css', href='global/plugins/select2/select2.css')
-    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css')
-    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')
-    link(rel='stylesheet', type='text/css', href='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='/global/plugins/select2/select2.css')
+    link(rel='stylesheet', type='text/css', href='/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css')
+    link(rel='stylesheet', type='text/css', href='/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css')
+    link(rel='stylesheet', type='text/css', href='/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css')
     // END PAGE LEVEL STYLES
     // BEGIN THEME STYLES
-    link#style_components(href='global/css/components.css', rel='stylesheet', type='text/css')
-    link(href='global/css/plugins.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
-    link#style_color(href='admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
-    link(href='admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
   // END HEAD
@@ -82,12 +82,12 @@ html(lang='en')
                 .modal-content
                   .modal-header
                     button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Install Smarketeer on your website
+                    h4.modal-title Instala Smarketeer en tu pagina web
                   .modal-body
-                    | Copy & paste the following code into the head of your HTML
+                    | Copia y pega el siguiente codigo en tu pagina web
                     form(action='#')
                       textarea(rows='4', cols='50')
-                        script(src='//load.smarketeer.io/', data-smarketeer-site-id='a97a7s97d977v9f705ec87vb', async='async')
+                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
                   .modal-footer
                     button.btn.default(type='button', data-dismiss='modal') Close
                     button.btn.blue(type='button') Verify Code
@@ -150,31 +150,25 @@ html(lang='en')
                             | E-mail
                           label
                             input(type='checkbox', checked='', data-column='1')
-                            | Campaign
+                            | Campaña
                           label
                             input(type='checkbox', checked='', data-column='2')
-                            | Source
+                            | Fuente
                           label
                             input(type='checkbox', checked='', data-column='3')
-                            | Medium
+                            | Medio
                           label
                             input(type='checkbox', checked='', data-column='4')
-                            | Content
+                            | Contenido
                           label
                             input(type='checkbox', checked='', data-column='5')
-                            | Referral URL
+                            | ReferidoURL
                           label
                             input(type='checkbox', checked='', data-column='6')
-                            | Landing Page URL
-                          label
-                            input(type='checkbox', checked='', data-column='7')
-                            | Sold
+                            | Landing Page 
                           label
                             input(type='checkbox', checked='', data-column='8')
-                            | Amount
-                          label
-                            input(type='checkbox', checked='', data-column='9')
-                            | Status
+                            | Total Vendido
                   .portlet-body
                     table#sample_4.table.table-striped.table-bordered.table-hover
                       thead
@@ -182,90 +176,20 @@ html(lang='en')
                           th.hidden-xs
                             | E-mail
                           th.hidden-xs
-                            | Campaign
+                            | Campaña
                           th.hidden-xs
-                            | Source
+                            | Fuente
                           th.hidden-xs
-                            | Medium
+                            | Medio
                           th.hidden-xs
-                            | Content
+                            | Contenido
                           th.hidden-xs
-                            | Referral URL
+                            | Referido
                           th.hidden-xs
                             | Landing Page URL
                           th.hidden-xs
-                            | Sold
-                          th.hidden-xs
-                            | Amount
-                          th.hidden-xs
-                            | Status
-                      tbody
-                        tr
-                          td
-                            | blake@facebook.com
-                          td
-                            | CyberMonday
-                          td
-                            | Facebook
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://facebook.com
-                          td
-                            | http://digifianz.com/lp1
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='8203.65')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
-                        tr
-                          td
-                            | james@coca-cola.com
-                          td
-                            | CyberMonday
-                          td
-                            | Twitter
-                          td
-                            | Organic
-                          td
-                            | Beach-Image
-                          td
-                            | http://twitter.com
-                          td
-                            | http://digifianz.com/lp5
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='4050.39')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
-                        tr
-                          td
-                            | adam@twitter.com
-                          td
-                            | CyberMonday
-                          td
-                            | Google
-                          td
-                            | CPC
-                          td
-                            | Beach-Image
-                          td
-                            | http://google.com
-                          td
-                            | http://digifianz.com/lp3
-                          td
-                            input(type='checkbox', checked='')
-                          td
-                            input(type='number', value='3403.93')
-                          td
-                            span.label.label-sm.label-success
-                              | Sold
+                            | Total Vendido
+                      tbody#tsales
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT
@@ -276,38 +200,68 @@ html(lang='en')
     // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
     // BEGIN CORE PLUGINS
     //if lt IE 9
-      script(src='global/plugins/respond.min.js')
-      script(src='global/plugins/excanvas.min.js')
-    script(src='global/plugins/jquery.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-migrate.min.js', type='text/javascript')
-    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
-    script(src='global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.blockui.min.js', type='text/javascript')
-    script(src='global/plugins/jquery.cokie.min.js', type='text/javascript')
-    script(src='global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
-    script(src='global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+      script(src='/global/plugins/respond.min.js')
+      script(src='/global/plugins/excanvas.min.js')
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    //script(src='/global/plugins/floathead/float.js', type='text/javascript')
     // END CORE PLUGINS
-    // BEGIN PAGE LEVEL PLUGINS
-    script(type='text/javascript', src='global/plugins/select2/select2.min.js')
-    script(type='text/javascript', src='global/plugins/datatables/media/js/jquery.dataTables.min.js')
-    script(type='text/javascript', src='global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js')
-    script(type='text/javascript', src='global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js')
-    script(type='text/javascript', src='global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js')
-    script(type='text/javascript', src='global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')
+    // BEGIN PAGE LEVEL PLUGINS 
     // END PAGE LEVEL PLUGINS
-    // BEGIN PAGE LEVEL SCRIPTS
-    script(src='global/scripts/metronic.js', type='text/javascript')
-    script(src='admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='admin/pages/scripts/table-advanced.js')
+    // BEGIN PAGE LEVEL SCRIPTS 
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script.
-      jQuery(document).ready(function() {
-      Metronic.init(); // init metronic core components
-      Layout.init(); // init current layout
-      Demo.init(); // init demo features
-      TableAdvanced.init();
+      $( document ).ready(function(){
+          var enable = true;
+          var page=0;
+          var loading= false;
+          //This is the typical structure of a buy
+          
+          //Getting the first leads
+          GetMoreSales();
+          //Detecting infintie scroll
+          $('.portlet-body').bind('scroll', function(){
+             if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight/2){
+                 $('#loading').show();
+                 if( enable && !loading){
+                    loading=true;
+                    GetMoreSales(); 
+                  }
+              }
+          });
+          //Inifnite scroll2
+          function GetMoreSales(){
+            $.ajax({
+                      url: '/home/funnel/GetSales', 
+                      method: "POST",
+                      data: { "page" : page,
+                              "idSite": #{idSite} },
+                      success: function(data) {
+                      console.log("data");
+                        page++;   
+                        $('#tsales').append(data);  
+                        loading=false;
+                        if(!data) enable= false;
+
+                      },
+                       error: function(XMLHttpRequest, textStatus, errorThrown) {
+                           console.log("error");
+                        }
+                    }); 
+            }
+
       });
+    style.
+      .portlet-body{ 
+        overflow-y: scroll;
+        height: 400px;  
+      }
   // END BODY
