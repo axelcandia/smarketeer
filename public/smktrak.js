@@ -19,7 +19,7 @@ var website_id= document.currentScript.id;
 				console.log("We require to set the cookie");
 				$.ajax({
 				  type: "POST",
-				  url: "smarketeer.azurewebsites.net/GetVisitorId",
+				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":this.getVisitorId()},
 				  success: function(data){
 				  	
