@@ -21,7 +21,7 @@ exports.GetMoreVisitors =function (req,res){
   page =  ( page == 0 ) ? page  : page * 20;
   piwik.api({
       method:   'Live.getLastVisitsDetails',
-      idSite:   req.body.idSite,
+      idSite:   70,
       period:   '',
       date:     '',
       segment : 'visitConvertedGoalId!=2',
