@@ -2,7 +2,7 @@ html
   body
     head
       meta(charset='utf-8')
-      title Metronic | Pages - New User Profile
+      title Smarketeer | Ver #{name||email||UserId}
       meta(http-equiv='X-UA-Compatible', content='IE=edge')
       meta(content='width=device-width, initial-scale=1.0', name='viewport')
       meta(http-equiv='Content-type', content='text/html; charset=utf-8')
@@ -27,6 +27,7 @@ html
       link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
       link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
       link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+      link(href='/VisitorProfile/VisitorProfile.css', rel='stylesheet', type='text/css')
       // END THEME STYLES
       link(rel='shortcut icon', href='favicon.ico')
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
@@ -40,67 +41,32 @@ html
         // BEGIN CONTENT
         .page-content-wrapper
           .page-content
-            // BEGIN STYLE CUSTOMIZER
-            .theme-panel
-              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
-                i.icon-settings
-              .toggler-close
-                i.icon-close
-            // END STYLE CUSTOMIZER
+            // BEGIN STYLE CUSTOMIZER 
             // CODE MODAL
-            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
-              .modal-dialog
-                .modal-content
-                  .modal-header
-                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Instala Smarketeer en tu pagina web
-                  .modal-body
-                    | Copia y pega el siguiente codigo en tu pagina web
-                    form(action='#')
-                      textarea(rows='4', cols='50')
-                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
-                  .modal-footer
-                    button.btn.default(type='button', data-dismiss='modal') Close
-                    button.btn.blue(type='button') Verify Code
-                // /.modal-content
-              // /.modal-dialog
-            // CODE MODAL
-            // BEGIN PAGE HEADER
-            h3.page-title
-              | Visitas
-            .page-bar
+            // BEGIN PAGE HEADER 
+            //.page-bar
               ul.page-breadcrumb
                 li
                   i.fa.fa-home
-                  a(href='index') Home
+                  a(href='index') Inico
                   i.fa.fa-angle-right
                 li
-                  a(href='#') Data Tables
+                  a(href='#') visitas
                   i.fa.fa-angle-right
                 li
-                  a(href='#') Advanced Datatables
+                  a(href='#') #{name||email||UserId}
               .page-toolbar
                 .btn-group.pull-right
                   button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Actions 
+                    | Exportar 
                     i.fa.fa-angle-down
                   ul.dropdown-menu.pull-right(role='menu')
                     li
-                      a(href='#') Export to Excel
+                      a(href='#') Export a Excel
                     li
-                      a(href='#') Export to CSV
+                      a(href='#') Exportar a CSV
                     li
-                      a(href='#') Export to PDF
-              .page-toolbar
-                #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
-                  i.icon-calendar
-                  i.fa.fa-angle-down
-                  //
-                    uncomment this to display selected daterange in the button
-                    &nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp;
-                    <i class="fa fa-angle-down"></i>
-            // END PAGE HEADER
-            // BEGIN PAGE CONTENT
+                      a(href='#') Exportar a PDF
             .row
               .col-md-12
                 // BEGIN PROFILE SIDEBAR
@@ -156,7 +122,7 @@ html
                           | Visitas
                       .col-md-4.col-sm-4.col-xs-6
                         .uppercase.profile-stat-title
-                          | 5
+                          | #{TotalForms}
                         .uppercase.profile-stat-text
                           | Forms
                       .col-md-4.col-sm-4.col-xs-6
@@ -166,12 +132,20 @@ html
                           | Ventas
                     // END STAT
                     div
-                      h4.profile-desc-title Sobre Juan Perez
-                      span.profile-desc-text  CEO que vive en Cap. Fed. (campo editable) 
+                      h4.profile-desc-title Sobre #{name||email||empty}
+                      span.profile-desc-text
+                         #about(contenteditable='') #{about||"Escriba informacion sobre el cliente"}
+                    button.btn.blue.action-button.action-edit(type='button')
+                      | Editar 
+                    button.edit.action-button.guardar.btn.green(type='button')
+                      | Guardar 
+                    button.btn.red.action-button.edit.cancelar(type='button')
+                      | Cancelar
+                    if website
                       .margin-top-20.profile-desc-link
                         i.fa.fa-globe
-                        a(href='http://www.keenthemes.com') sitioweb.com
-                  // END PORTLET MAIN
+                        a(href='#{website}') #{website}
+                    // END PORTLET MAIN
                 // END BEGIN PROFILE SIDEBAR
                 // BEGIN PROFILE CONTENT
                 .profile-content
@@ -374,6 +348,7 @@ html
                         .portlet-body
                           .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
                             .general-item-list
+                              -for (var i=0;i< totalForms; i++){
                               .item
                                 .item-head
                                   .item-details
@@ -381,55 +356,8 @@ html
                                     a.item-name.primary-link(href='') Nombre
                                     span.item-label 3 hrs ago
                                 .item-body
-                                  | Juan
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar3.jpg')
-                                    a.item-name.primary-link(href='') Apellido
-                                    span.item-label 5 hrs ago
-                                .item-body
-                                  | Perez
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar6.jpg')
-                                    a.item-name.primary-link(href='') Telefono
-                                    span.item-label 8 hrs ago
-                                .item-body
-                                  | 1130303030
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar7.jpg')
-                                    a.item-name.primary-link(href='') Pagina Web
-                                    span.item-label 12 hrs ago
-                                .item-body
-                                  | www.sitioweb.com
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar9.jpg')
-                                    a.item-name.primary-link(href='') Compañía
-                                    span.item-label 2 days ago
-                                .item-body
-                                  | Sitio Web
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar8.jpg')
-                                    a.item-name.primary-link(href='') Rol
-                                    span.item-label 3 days ago
-                                .item-body
-                                  | CEO
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar2.jpg')
-                                    a.item-name.primary-link(href='') País
-                                    span.item-label 4 hrs ago
-                                .item-body
-                                  | Argentina
+                                  | Juan 
+                              -}
                       // END PORTLET
                     .col-md-6
                       // BEGIN PORTLET
@@ -442,20 +370,25 @@ html
                         .portlet-body
                           .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
                             .general-item-list
+                              - for(var i=0;i<comments.length;i++){
                               .item
                                 .item-head
                                   .item-details
-                                    img.item-pic(src="/admin/pages/media/profile/profile_user.jpg")
-                                    a.item-name.primary-link(href='') Nombre
-                                    span.item-label 3 hrs ago
-                                .item-body
-                                  | Hola soy un comentario de una persona random que tiene algo importante que decir LALALLALALLALLALALLALL fin :D.
+                                    img.item-pic(src="#{comments[i].image}")
+                                    a.item-name.primary-link(href='') #{comments[i].user}
+                                    span.item-label #{comments[i].date}
+                                .item-body #{comments[i].text}
+                              -}
                           .page-quick-sidebar-chat-user-form
                             .input-group
-                              input.form-control(type='text', placeholder='Type a message here...' )
+                              textarea.comment.form-control(type='text', placeholder='Escribe tu comentario' )
                               .input-group-btn
-                                button.btn.green(type='button' style="height: 34px;")
+                                button.btn.green#SendComment(type='button')
                                   i.fa.fa-reply
+    script.
+      var about= "#{about}" 
+      var UserId= "#{UserId}"
+      var currentUser="#{user.id}"
     script(src='/global/plugins/jquery.min.js', type='text/javascript')
     script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
@@ -477,6 +410,7 @@ html
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/profile.js', type='text/javascript')
+    script(src='/VisitorProfile/VisitorProfile.js', type='text/javascript')  
     // END PAGE LEVEL SCRIPTS
     script.
       jQuery(document).ready(function() {
@@ -485,13 +419,6 @@ html
       Layout.init(); // init current layout
       Demo.init(); // init demo features\\
       Profile.init(); // init page demo
-      });
-    style.
-      .img-responsive{
-        width: 78%!important;
-        height: 27%!important;
-      }
+      }); 
     // END JAVASCRIPTS
   // END BODY
-  script.
-

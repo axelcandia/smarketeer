@@ -4,6 +4,7 @@ var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
+var SolvedForms   = require("../models/solvedforms.server.model.js");
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
@@ -55,19 +56,20 @@ exports.GetMoreVisitors =function (req,res){
 exports.GetVisitData = function(req,res,next){
   var segment= "userId=="+req.params.id
   // an example using an object instead of an array
-  async.parallel({
+  async.series({
       StaticProfile: function(callback){
         GetStaticProfile(req.query.idSite,segment,callback)
       },
       Forms: function(callback){ 
-        callback(null, 2); 
+        GetCompletedForms(req.params.id, callback); 
       },
       DynamicProfile: function(callback){
-        callback(null, 20); 
+        GetDynamicProfile(req.params.id,callback); 
       }
 
   },
   function(err, results) {
+    console.log("Visitas"+results);
     res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -76,7 +78,10 @@ exports.GetVisitData = function(req,res,next){
         email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :req.params.id,
         ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
         ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
-        empty:        ""
+        empty:        "",
+        about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
+        TotalForms:   Object.keys(results.Forms).length,
+        comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
       }); 
   });
 };
@@ -105,28 +110,24 @@ function GetStaticProfile(idSite,segment,callback){
 * Dynamic is all the data that a user can change any time he wants
 */
 function GetDynamicProfile(userId,callback){
-  
-MyModel.findOneAndUpdate(query, req.newData, {upsert:true}, function(err, doc){
-    if (err) return res.send(500, { error: err });
-    return res.send("succesfully saved");
-});
-}
-/*
-  
-      console.log(JSON.stringify(data));
 
-      
-    } 
-    
+  Visitors.findOne({"CookieId":userId}, function(err, profile){
+      if (err) return callback(err,null);
+      return callback(null,profile);
   });
-  
-}
+} 
 
+function GetCompletedForms(userId,callback){
+  SolvedForms.find({"pkwid":userId}, function(err, profile){
+      if (err) return callback(err,null);
+      return callback(null,profile);
+  });
+}
 /**
 * Get the status of the visitor
 */
 function GetStatus(visita){
-  Visitors.findOne({ 'cookies': visita.visitorId }, function (err, visit) {
+  Visitors.findOne({ 'CookieId': visita.visitorId }, function (err, visit) {
           if (err || !visit ) NewVisitor += '<td><span class="label label-sm label-success">Lead</span></td>';
           else{  
           } 
@@ -233,5 +234,17 @@ var GetWebsiteDate=function (req,res,callback){
     });
   }
 
+}
+/**
+* It gets the information that was settet in /seemore in the "Escriba informacion personal"
+* @param about
+*/
+exports.GetVisitorAbout= function(req,res,next){
+  Visitors.findOneAndUpdate( { 'CookieId': req.body.UserId }, {"about":req.body.about}, function(error, result) {
+    if(error){
+      console.log(err);
+    }
+    console.log(result);
+  });
 }
 exports.GetWebsiteDate= GetWebsiteDate;

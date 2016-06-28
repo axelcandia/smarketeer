@@ -5,4 +5,5 @@ module.exports = function(app) {
 	app.post( "/home/funnel/GetMoreVisitors*",visitsController.GetMoreVisitors ); 
 	app.get("/visitors/seemore/:id/", visitsController.GetVisitData);
 	app.post("/home/CountVisitors*",visitsController.CountVisitors);
+	app.post("/visitors/seemore/GetVisitorAbout*",visitsController.GetVisitorAbout);
 };
