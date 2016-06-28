@@ -56,7 +56,7 @@ exports.GetMoreVisitors =function (req,res){
 exports.GetVisitData = function(req,res,next){
   var segment= "userId=="+req.params.id
   // an example using an object instead of an array
-  async.parallel({
+  async.series({
       StaticProfile: function(callback){
         GetStaticProfile(req.query.idSite,segment,callback)
       },
@@ -69,7 +69,7 @@ exports.GetVisitData = function(req,res,next){
 
   },
   function(err, results) {
-    console.log(results);
+    console.log("Visitas"+results);
     res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -79,9 +79,9 @@ exports.GetVisitData = function(req,res,next){
         ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
         ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
         empty:        "",
-        about:        results.DynamicProfile.about,
+        about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
         TotalForms:   Object.keys(results.Forms).length,
-        comments:     results.DynamicProfile.comments
+        comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
       }); 
   });
 };

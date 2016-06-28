@@ -36,14 +36,17 @@ $(document).ready(function() {
   *For the comment section
   */
   $("#SendComment").click(function(){
+    $(".commentSection").after($(".comment").val());
     $.ajax({
       url:"/visitors/seemore/AddComment",
       data:{
-        "comment":$(".comment").val(),
-        "User":
+        "text":$(".comment").val(),
+        "user":  #{user.profile.name},
+        "image": #{user.profile.picture},
+        "date": new Date()
       }
       succes: function(data){
-        $(".commentSection").after($(".comment").val());
+        console.log(data);
       }
     });
   });

@@ -33,7 +33,26 @@ $(document).ready(function(){
 	});
 });
 
-$(document).on("click","#TrackingCode", function(){ 
+$(document).on("click",".TrackingCode", function(){ 
 bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,
+                title:"Copia y pega el siguiente codigo en el head de tu pagina web",
+                message:
+                '<div class="form-group">  ' +
+                        '<div class="form-group"> ' + 
+                            '<textarea id="name" type="text" name="name" class="form-control">'+
+                            '<script src="http://smarketeer.azurewebsites.net/smktrak.js" id="'+idSite+
+                            '" type="application/javascript"></script>'+
+                            '</textarea>'+
+                        '</div> '  +
+                    "</div>",
+                buttons: {
+                    success: {
+                        label: "Aceptar",
+                        className: "btn btn-sm btn-success",
+                        callback: function () {}
+                    }
+                }
+            });
+});

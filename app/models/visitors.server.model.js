@@ -13,7 +13,7 @@ var visitorsSchema = new mongoose.Schema({
 	},
 	comments: [{
 		user:String,
-		comment:String,
+		text:String,
 		image: String,
 		date: Date
 	}]
