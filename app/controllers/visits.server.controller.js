@@ -30,8 +30,8 @@ exports.GetMoreVisitors =function (req,res){
       minTimestamp : '',
       flat : '',
       doNotFetchActions : '',
-      filter_offset:page,
-      filter_limit:20,
+      filter_offset:"1",
+      filter_limit:"20",
     },function( err, visitas ){ 
       if(err){
         var fatal="idSite:"+req.body.idSite+"   err:"+err;
