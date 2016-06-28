@@ -33,7 +33,10 @@ exports.GetMoreVisitors =function (req,res){
       filter_offset:page,
       filter_limit:20,
     },function( err, visitas ){ 
-      if(err) res.send(err);
+      if(err){
+        var fatal="idSite:"+req.body.idSite+"   err:"+err;
+        res.send(fatal);
+      } 
       else{  
         html="";  
         var key, i = 0; 
