@@ -21,7 +21,7 @@ exports.GetMoreVisitors =function (req,res){
   page =  ( page == 0 ) ? page  : page * 20;
   piwik.api({
       method:   'Live.getLastVisitsDetails',
-      idSite:   "70",
+      idSite:   70,
       period:   '',
       date:     '',
       segment : 'visitConvertedGoalId!=2',
@@ -30,11 +30,11 @@ exports.GetMoreVisitors =function (req,res){
       minTimestamp : '',
       flat : '',
       doNotFetchActions : '',
-      filter_offset:"1",
-      filter_limit:"20",
+      filter_offset:1,
+      filter_limit:20,
     },function( err, visitas ){ 
       if(err){
-        var fatal="idSite:"+req.body.idSite+"   err:"+err+"visitas:"visitas;
+        var fatal="idSite:"+req.body.idSite+"   err:"+err+"visitas:"+JSON.stringify(visitas);
         res.send(fatal);
       } 
       else{  
