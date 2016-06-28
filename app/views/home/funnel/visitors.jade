@@ -243,7 +243,7 @@ html(lang='en')
                   url: '/home/funnel/GetMoreVisitors', 
                   method: "POST",
                   data: { "page" : page,
-                          "idSite":"#{idSite}" },
+                          "idSite":idSite },
                   success: function(data) {
                     page++;  
                     if(!data)EnableScroll=false;
