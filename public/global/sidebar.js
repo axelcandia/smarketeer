@@ -18,7 +18,7 @@ $(document).ready(function(){
                         callback: function () {
                         	var name=$('#name').val();
                         	if( name !=null )
-                        		window.location.href = "/home/forms/formbuilder/"+name.split(' ').join('+')+"/?IdSite="+IdSite;
+                        		window.location.href = "/home/forms/formbuilder/"+name.split(' ').join('+')+"/?idSite="+idSite;
                         }
                     },
                     danger: {
