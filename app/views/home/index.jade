@@ -56,7 +56,7 @@ html.no-js(lang='en')
           .page-content
             // BEGIN STYLE CUSTOMIZER
             .theme-panel.TrackingCode
-              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Ver el codigo de trackeo ')
                 i.icon-settings
             // END STYLE CUSTOMIZER
             // CODE MODAL
@@ -86,7 +86,7 @@ html.no-js(lang='en')
                   i.fa.fa-angle-right
                 li
                   a(href='/#') Otras paginas
-              .page-toolbar
+              .page-toolbar#CompleteCalendar
                 .tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
                   i.icon-calendar
                   input#MyCalendar.pull-right(type='text', name='daterange')
@@ -463,8 +463,7 @@ html.no-js(lang='en')
       
     script.
       var idSite="#{idSite}";
-
-
+      var firstTime= true;
         var chartLeadsData = {
             type: 'pie',
             data: {
@@ -542,7 +541,12 @@ html.no-js(lang='en')
                 "date":date,
                 "period":period},
         success: function(data) { 
+          
           data = (data) ? data : 0 ; 
+          if(firstTime && (data==0 || data=="0") ){
+            $(".TrackingCode").trigger( "click" );
+            firstTime=false;
+          }
           $("#nvisitors").html(data); 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -671,10 +675,7 @@ html.no-js(lang='en')
           console.log("error in sales");
         }
         });
-      }
-      setTimeout(function () {
-        $().trigger();
-        },5500);
+      } 
   script.
     StartDate= "#{StartDate}"
     console.log("asd"+StartDate);
@@ -690,6 +691,10 @@ html.no-js(lang='en')
         mm='0'+mm
     } 
     var today = dd+'/'+mm+'/'+yyyy;
+
+    $("#CompleteCalendar").click(function(){
+      $('#MyCalendar').trigger( "click" );
+    });
 
     $('#MyCalendar').daterangepicker({
         "locale": {

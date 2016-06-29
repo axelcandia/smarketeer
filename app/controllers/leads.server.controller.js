@@ -33,11 +33,11 @@ exports.RenderLeads = function ( req,res ){
 exports.GetLeads = function(req,res){
 	//Form the pages
 	var page    = parseInt(req.body.page); 
-
+  console.log(req.body);
 	page =  ( page == 0 ) ? page  : page * 20;
     piwik.api({
           method:   'Live.getLastVisitsDetails',
-          idSite: req.body.idSite,
+          idSite:    req.body.idSite,
           period:   '',
           date:     '',
           segment : 'visitConvertedGoalId==1',
@@ -97,7 +97,7 @@ exports.GetSale = function (req,res){
 
   piwik.api({
     method:"Live.getVisitorProfile",
-    idSite: req.query.idSite,
+    idSite: req.body.idSite,
     visitorId : '',
     segment : segment,
     limitVisits : '',
@@ -112,7 +112,7 @@ exports.GetSale = function (req,res){
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
-      "&idSite="+req.query.idSite+
+      "&idsite="+req.body.idSite+
       "&rec="+1+
       "&apiv="+1+
       "&rand=1636495582"+
@@ -218,7 +218,7 @@ function json2table(visita,idSite){
         NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
         //Status
         NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.userId+'">'+
-            '<a href="#">Registrar Venta</a></td>';  
+            '<a href="javascript:;">Registrar Venta</a></td>';  
         return NewVisitor;
 
 } 

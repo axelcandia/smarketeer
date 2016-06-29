@@ -153,7 +153,7 @@ function SetMongoUser( req, res,id ){
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {    
-        req.assert('error', "Ya existe un usuario con esta cuenta").len(1);
+        req.assert('error', "Ya existe este email").len(1);
         var errors = req.validationErrors();
         req.flash('errors', errors); 
         DeleteWebsite(id);
@@ -311,7 +311,7 @@ exports.getReset = function(req, res, next) {
         return next(err);
       }
       if (!user) {
-        req.flash('errors', { msg: "El usuario/contraseña es incorrecto" });
+        req.flash('errors', { msg: "El email/contraseña es incorrecto" });
         return res.redirect('/forgot');
       }
       res.render('security/reset', {
