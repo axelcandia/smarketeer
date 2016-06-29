@@ -68,30 +68,12 @@ html(lang='en')
         .page-content-wrapper
           .page-content
             // BEGIN STYLE CUSTOMIZER
-            .theme-panel
+            .theme-panel.TrackingCode
               .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
-                i.icon-settings
-              .toggler-close
-                i.icon-close
+                i.icon-settings 
             // END STYLE CUSTOMIZER
             // CODE MODAL
-            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
-              .modal-dialog
-                .modal-content
-                  .modal-header
-                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Instala Smarketeer en tu pagina web
-                  .modal-body
-                    | Copia y pega el siguiente codigo en tu pagina web
-                    form(action='#')
-                      textarea(rows='4', cols='50')
-                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
-                  .modal-footer
-                    button.btn.default(type='button', data-dismiss='modal') Close
-                    button.btn.blue(type='button') Verify Code
-                // /.modal-content
-              // /.modal-dialog
-            // CODE MODAL
+            
             // BEGIN PAGE HEADER
             h3.page-title
               | Potenciales Clientes 
@@ -252,11 +234,12 @@ html(lang='en')
           });
           //Inifnite scroll2
           function GetMoreLeads(){
+          console.log("idsite:"+idSite);
             $.ajax({
                       url: '/home/funnel/GetLeads', 
                       method: "POST",
                       data: { "page" :  page,
-                              "idSite": #{idSite} },
+                              "idSite": idSite },
                       success: function(data) {
                         page++;   
                         $('#tleads').append(data);
@@ -319,8 +302,7 @@ html(lang='en')
           var ClientId = $(this).attr('id'); 
           var SellerId ="20";
           var total = $(".totalIVA").html();
-          var email = $(this).attr('data-email'); 
-          var idSite =#{idSite};
+          var email = $(this).attr('data-email');  
           bootbox.dialog({ 
                 backdrop: true,
                 onEscape: true,

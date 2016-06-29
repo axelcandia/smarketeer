@@ -4,7 +4,7 @@
 function createform(id){   
   $.ajax({
           type: "POST",
-          url: "http://smarketeer.azurewebsites.net/GetFormHTML",
+          url: "http://localhost:1337/GetFormHTML",
           data: {"id":id},
           success: function(data){ 
             document.getElementById(id).insertAdjacentHTML('afterend',data);
@@ -75,7 +75,7 @@ function ajax(values) {
 
     //Serialize the data
     var queryString = JSON.stringify(values);
-    xmlHTTP.open("POST", "http://smarketeer.azurewebsites.net/ReceiveForms", true); 
+    xmlHTTP.open("POST", "http://localhost:1337/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHTTP.send(queryString); 
 }

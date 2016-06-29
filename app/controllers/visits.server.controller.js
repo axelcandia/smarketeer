@@ -33,7 +33,7 @@ exports.GetMoreVisitors =function (req,res){
       filter_offset:page,
       filter_limit:20,
     },function( err, visitas ){ 
-      if(err) res.send(err);
+      if(err) res.send("error:"+err);
       else{  
         html="";  
         var key, i = 0; 

@@ -70,29 +70,9 @@ html(lang='en')
         .page-content-wrapper
           .page-content
             // BEGIN STYLE CUSTOMIZER
-            .theme-panel
+            .theme-panel.TrackingCode
               .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
-                i.icon-settings
-              .toggler-close
-                i.icon-close
-            // END STYLE CUSTOMIZER
-            // CODE MODAL
-            #basic.modal.fade(tabindex='-1', role='basic', aria-hidden='true')
-              .modal-dialog
-                .modal-content
-                  .modal-header
-                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
-                    h4.modal-title Instala Smarketeer en tu pagina web
-                  .modal-body
-                    | Copia y pega el siguiente codigo en tu pagina web
-                    form(action='#')
-                      textarea(rows='4', cols='50')
-                        <script src="http://smarketeer.azurewebsites.net/smktrak.js" id="#{idSite}"></script>
-                  .modal-footer
-                    button.btn.default(type='button', data-dismiss='modal') Close
-                    button.btn.blue(type='button') Verify Code
-                // /.modal-content
-              // /.modal-dialog
+                i.icon-settings 
             // CODE MODAL
             // BEGIN PAGE HEADER
             h3.page-title
@@ -245,7 +225,7 @@ html(lang='en')
                       data: { "page" : page,
                               "idSite": #{idSite} },
                       success: function(data) {
-                      console.log("data");
+                      console.log(data);
                         page++;   
                         $('#tsales').append(data);  
                         loading=false;

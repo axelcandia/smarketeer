@@ -9,7 +9,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "6.1.0",
+    "node": "4.4.6",
     "npm": "3.8.6"
   },
   "dependencies": {

@@ -32,6 +32,21 @@ $(document).ready(function() {
         $(".action-edit").show();
         $(".edit").hide();
       });
+  function CreateComment(comment){
+    '<div class="item">'+
+        '<div class="item-head">'+
+          '<div class="item-details">'+
+            '<img src="#" class="item-pic"/>'+
+              '<a href="" class="item-name primary-link">'+
+              '</a>+
+            <span class="item-label">'+
+            '</span>'+
+          '</div>'+
+        '</div>'+
+      '<div class="item-body"></div>'+
+    '</div>';
+
+  }
   /**
   *For the comment section
   */
@@ -40,11 +55,11 @@ $(document).ready(function() {
     $.ajax({
       url:"/visitors/seemore/AddComment",
       data:{
-        "text":$(".comment").val(),
+        "text": $(".comment").val(),
         "user":  #{user.profile.name},
         "image": #{user.profile.picture},
         "date": new Date()
-      }
+      },
       succes: function(data){
         console.log(data);
       }

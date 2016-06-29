@@ -52,7 +52,7 @@ exports.RenderFormBuilder= function(req, res, next){
 			if(err)
 				console.log("err");
 			else{ 
-				var url = (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder.js" : "www.smarketeer.io/forms/formbuilder.js";
+				var url = (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder_dev.js" : "http://smarketeer.azurewebsites.net/forms/formbuilder.js";
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
