@@ -69,7 +69,12 @@ html(lang='en')
       //var formName   = "#{Name}";
       var formId    = "#{formId}";
       var url       = "#{url}"; 
+      var script  = "#{script}".replace(/&lt;/g,"\<")
+                               .replace(/&gt;/g,"\>");
+      console.log(script);
+
       var col       = !{builderCode}; 
+      
       LoadOldData   = true; 
     script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')
     style.

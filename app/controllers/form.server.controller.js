@@ -25,12 +25,12 @@ exports.RenderFormBuilder= function(req, res, next){
 			var NewForm = Forms({
 			"users":[{
 				email: req.user.email,
-				_id  : req.user._id,
-				idSite: req.query.idSite,
+				_id  : req.user._id, 
 				access: "Administrator"
 			}],
 			"date":new Date(),
 			"name":name,
+			"idSite":req.query.idSite,
 			"builderCode":'[{"title":"Form Name","fields":{"name":{"label":"Nombre","type":"input","value":"REEMPLAZAR"}},"fresh":true}]'.replace(/REEMPLAZAR/g, name)
 		});
 
@@ -39,8 +39,8 @@ exports.RenderFormBuilder= function(req, res, next){
 	      	res.send("-1");
 	      }
 	      else{
-	      	url="/home/forms/formbuilder/"+req.params.name+"/"+NewForm.id;
-	      	res.redirect(url);
+	      	var url="/home/forms/formbuilder/"+req.params.name+"/"+NewForm.id+"/?idSite="+req.query.idSite;
+	      	return res.redirect(url);
 	      }
 
 		});
@@ -52,11 +52,16 @@ exports.RenderFormBuilder= function(req, res, next){
 			if(err)
 				console.log("err");
 			else{ 
-				var url = (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder_dev.js" : "http://smarketeer.azurewebsites.net/forms/formbuilder.js";
+				var url 	= (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder_dev.js" : "http://smarketeer.azurewebsites.net/forms/formbuilder.js";
+				var script 	= "<script src= '"+url+"'></script>"+ 
+				                  "<script id='"+found.id+"'>"+
+				                    "(createform(document.currentScript.id,'"+req.query.idSite+"'));"+
+				               "</script>"; 
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
-		      		url 	   : url,
+		      		script 	   : script,
+		      		url: 		url,
 		      		builderCode: found.builderCode,
 		      		idSite: req.query.idSite
 	      		});
