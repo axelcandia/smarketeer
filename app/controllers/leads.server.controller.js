@@ -36,19 +36,12 @@ exports.GetLeads = function(req,res){
   console.log(req.body);
 	page =  ( page == 0 ) ? page  : page * 20;
     piwik.api({
-          method:   'Live.getLastVisitsDetails',
+          method:   'Smarketeer.getLeads',
           idSite:    req.body.idSite,
-          period:   '',
-          date:     '',
-          segment : 'visitConvertedGoalId==1',
-          showColumns:"userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
-          countVisitorsToFetch : '',
-          minTimestamp : '',
-          flat : '',
-          doNotFetchActions : '',
           filter_offset:page,
           filter_limit:20,
         },function( err, visitas ){ 
+          console.log(JSON.stringify(visitas));
           if(err) res.send(err);
           else{ 
             html="";  

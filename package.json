@@ -59,6 +59,7 @@
     "promise": "^7.1.1",
     "q": "^1.4.1",
     "request": "^2.69.0",
+    "simple-ajax": "^2.5.1",
     "tumblr.js": "^0.0.7",
     "twit": "^2.2.2",
     "validator": "^5.1.0",
