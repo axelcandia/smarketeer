@@ -5,6 +5,7 @@ var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
 var SolvedForms   = require("../models/solvedforms.server.model.js");
+var http           = require('http');
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
@@ -70,19 +71,24 @@ exports.GetVisitData = function(req,res,next){
   },
   function(err, results) {
     console.log("Visitas"+results);
-    res.render('home/funnel/visitorprofile', {  
+    GetProfilePicture("axelcandia2609@gmail.com",function(img){
+      res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
         totalVisits:  results.StaticProfile.totalVisits,
         visits:       results.StaticProfile.lastVisits,
-        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :req.params.id,
+        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
         ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
         ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
         empty:        "",
         about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
         TotalForms:   Object.keys(results.Forms).length,
         comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
+        img: img
       }); 
+
+    })
+    
   });
 };
 /**
@@ -116,6 +122,23 @@ function GetDynamicProfile(userId,callback){
       return callback(null,profile);
   });
 } 
+
+/**
+*Receives the emails and gets all the available data from there
+*/
+function GetProfilePicture(email,callback){
+  var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
+  http.get(path, (res) => {
+        console.log(`Got response: ${res.statusCode}`);
+        // consume response body 
+        res.resume();
+      }).on('error', (e) => {
+        console.log(`Got error: ${e.message}`);
+      }); 
+
+
+  callback("https://lh3.googleusercontent.com/-gv7m0ub7GxA/AAAAAAAAAAI/AAAAAAAAAAA/-JuTaoSL5Ck/s64-c/112864197834983498832.jpg");
+}
 
 function GetCompletedForms(userId,callback){
   SolvedForms.find({"pkwid":userId}, function(err, profile){

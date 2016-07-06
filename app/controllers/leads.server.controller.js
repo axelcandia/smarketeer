@@ -32,10 +32,10 @@ exports.RenderLeads = function ( req,res ){
 */
 
 exports.GetLeads = function(req,res){
+  var page= req.body.page; 
   page =  ( page == 0 ) ? page  : page * 20;
   //Form the pages
-  var data=""
-  var page    = parseInt(req.body.page);  
+  var data="" 
   async.series({
       visitas: function(callback){ 
             piwik.api({

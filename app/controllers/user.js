@@ -126,6 +126,7 @@ function SetPiwikWebsite( req, res ){
           return res.redirect('/signup');
         }  
         else{   
+
           Q.fcall(SetMongoUser(req,res,data.value)) 
           .then(SetFunnelGoal(data.value));
         } 
@@ -182,18 +183,35 @@ function SetFunnelGoal( idSite ){
   piwik.api({
         method: "Goals.addGoal",
         idSite:idSite,
-        name:"Funnel",
+        name:"Potencial Venta",
         matchAttribute:"url",
         pattern:"is exactly",
         patternType:"-1",
         caseSensitive: '',
         revenue: '',
-        allowMultipleConversionsPerVisit: ''
+        allowMultipleConversionsPerVisit: true
       },function(err,data){
         if(err){  
           console.log(err); 
         }  
+          piwik.api({
+          method: "Goals.addGoal",
+          idSite:idSite,
+          name:"Venta",
+          matchAttribute:"url",
+          pattern:"is exactly",
+          patternType:"-1",
+          caseSensitive: '',
+          revenue: '',
+          allowMultipleConversionsPerVisit: true
+        },function(err,data){
+          if(err){  
+            console.log(err); 
+          }  
+        });
       });
+
+    
 }
 
 /**
