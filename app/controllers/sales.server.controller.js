@@ -142,7 +142,7 @@ function json2table(visita,idSite){
         NewVisitor += (visita.name) ? "<td>"+visita.name+"</td>" :  "<td></td>";
 
         //Status
-        NewVisitor+='<td>'+totalVenta+'</td></tr>';  
+        NewVisitor+='<td>'+visita.total+'</td></tr>';  
         return NewVisitor;
 
 } 
