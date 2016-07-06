@@ -6,6 +6,7 @@ var url            = require('url');
 var Visitors       = require("../models/visitors.server.model");
 var Sale           = require("../models/sales.server.model");
 var GetWebsiteDate = require("./visits.server.controller").GetWebsiteDate;
+var async           = require("async");
 /**
 * Render lead view
 */
@@ -31,37 +32,33 @@ exports.RenderLeads = function ( req,res ){
 */
 
 exports.GetLeads = function(req,res){
-	//Form the pages
-	var page    = parseInt(req.body.page); 
-  console.log(req.body);
-	page =  ( page == 0 ) ? page  : page * 20;
-    piwik.api({
-          method:   'Live.getLastVisitsDetails',
-          idSite:    req.body.idSite,
-          period:   '',
-          date:     '',
-          segment : 'visitConvertedGoalId==1',
-          showColumns:"userId,lastActionDateTime,visitorId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType,customVariables",
-          countVisitorsToFetch : '',
-          minTimestamp : '',
-          flat : '',
-          doNotFetchActions : '',
-          filter_offset:page,
-          filter_limit:20,
-        },function( err, visitas ){ 
-          if(err) res.send(err);
+  page =  ( page == 0 ) ? page  : page * 20;
+  //Form the pages
+  var data=""
+  var page    = parseInt(req.body.page);  
+  async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.getLeads',
+                idSite:    req.body.idSite,
+                filter_offset:page,
+                filter_limit:20, 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) res.send(err);
           else{ 
             html="";  
             var key, i = 0;
-            for(key in visitas) {
-              html+=json2table(visitas[i],req.body.idSite);  
+            for(key in results.visitas) {
+              html+=json2table(results.visitas[i],req.body.idSite);  
               i++;     
             }  
             res.send(html).status(200); 
           }
-        }); 
 
-}
+      });
+} 
 /**
 * Call the piwik counter and returns data
 */
@@ -175,47 +172,36 @@ function GetReferrers(res,idSite,date,period){
 * This function gets the information of both, put it together and rock it
 */
 function json2table(visita,idSite){
-	  //First we create the href and the id
-  //Parseamos la url  
-  var query = url.parse(visita.actionDetails[0].url,true).query; 
-  var email = (visita.customVariables && visita.customVariables["1"]) ?
-              visita.customVariables["1"].customVariableValue1 :
-              "indefinido" ;
-
+	var query =""// url.parse(visita.actionDetails[0].url,true).query; 
+  var email = visita.custom_var_v1 || "indefinido" ;
+  var  totalVenta=0;
 
   //Visitor date
-   var NewVisitor='<tr>'+
-              '<td>'+visita.lastActionDateTime+ '</td>';
-      //Visitor ID
-      
-       NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">';
+  var NewVisitor= '<tr><td>'+
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
-      NewVisitor +=  email+
-                '</a>'+
-        '</td>';
+      NewVisitor +=  email+'</a>'+'</td>';
           
-
+        console.log(visita);
         //Campaign name, we only display it if it was a campagin!!!
-        NewVisitor+= (visita.referrerTypeName =="Campaigns") ? 
-                      '<td>'+visita.referrerName+'</td>':
+        NewVisitor+= ( visita.referer_type == 6 ) ? 
+                      '<td>'+visita.referer_name+'</td>':
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.referrerName) ? '<td>'+visita.referrerName+'</td>' : '<td>'+visita.referrerTypeName+'</td>';
+        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td></td>';
         
         //Medium
-        NewVisitor += (query.utm_source) ? '<td>'+query.utm_source+'</td>' : '<td>'+visita.referrerTypeName+'</td>';
+        NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
 
         //Content
-        NewVisitor += (query.utm_content) ? '<td>'+query.utm_content+'</td>' : '<td></td>';
+        NewVisitor += (visita.campaign_content) ? '<td>'+visita.campaign_content+'</td>' : '<td></td>';
         //Refferer
-        if(visita.referrerName && visita.referrerUrl!=null )
-          NewVisitor +='<td>'+visita.referrerUrl+'</td>';
-        else
-          NewVisitor +='<td></td>'; 
+        NewVisitor += (visita.referer_name) ? "<td>"+visita.referer_name+"</td>" :  "<td>"+visita.referer_url+"</td>";
         //Landing page  
-        NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
+        NewVisitor += (visita.name) ? "<td>"+visita.name+"</td>" :  "<td></td>";
+
+
         //Status
         NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.userId+'">'+
             '<a href="javascript:;">Registrar Venta</a></td>';  
