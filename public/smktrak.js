@@ -68,7 +68,7 @@ var website_id= parseInt(document.currentScript.id);
 	* GET the id of the user
 	*/
 	function getCookie(cname) {
-	    var name = "email=";
+	    var name = cname + "=";
 	    var ca = document.cookie.split(';');
 	    for(var i = 0; i <ca.length; i++) {
 	        var c = ca[i];
@@ -76,7 +76,7 @@ var website_id= parseInt(document.currentScript.id);
 	            c = c.substring(1);
 	        }
 	        if (c.indexOf(name) == 0) {
-	            return c
+	            return c.substring(name.length,c.length);
 	        }
 	    }
 	    return "";
