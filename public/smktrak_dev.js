@@ -6,19 +6,18 @@ padding:"inner"+a,content:b,"":"outer"+a},function(c,d){n.fn[d]=function(d,e){va
 
 
 
-var website_id= parseInt(document.currentScript.id);
-	  console.log("our id is " +website_id );
+var idSite= parseInt(document.currentScript.id); 
 	  var _paq = _paq || [];
 	  var tracker;
 	  var visitor_id="";
 	  var _paqid;  
 	  (function() { 
-	    var u="http://52.165.38.47/"; 
+	    var u="//52.165.38.47/"; 
 	    _paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
+		}]);
 			//Cookie do not exist create one
-			}]);
-			var cname="smkt_"+website_id;
+			var cname="smkt_"+idSite;
 			var username=getCookie(cname);
 			console.log(username);
 			if(username == ""){  
@@ -29,21 +28,21 @@ var website_id= parseInt(document.currentScript.id);
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":visitor_id},
 				  success: function(data){
-				  	setCookie(website_id,visitor_id,400);
+				  	
+				  	setCookie(idSite,visitor_id,400);
 				  	_paq.push(['setUserId', visitor_id]); 
 				  }
-			});
+				  });
 
 			}
 			else{ 
-				console.log("estoy aca");
-					_paq.push(['setUserId', username]);
-				  	//_paq.push(['setConversionAttributionFirstReferrer', true]); 
-			}  
-	   		_paq.push(['trackPageView']);
-			_paq.push(['enableLinkTracking']);
-			_paq.push(['setTrackerUrl', u+'piwik.php']);
-			_paq.push(['setSiteId', website_id]); 
+					_paq.push(['setUserId', username]);    
+			} 
+		    _paq.push(['trackPageView']);
+  			_paq.push(['enableLinkTracking']);
+		    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    		_paq.push(['setSiteId', idSite]);  
+	   
 
 	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
@@ -80,6 +79,6 @@ var website_id= parseInt(document.currentScript.id);
 	/**
 	* Delete the cookie if the user already exists
 	*/
-	function DeleteCookie(name) {
+	function deleteCookie(name) {
 	    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	}
