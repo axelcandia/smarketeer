@@ -5,7 +5,7 @@ var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
 var SolvedForms   = require("../models/solvedforms.server.model.js");
-var http           = require('http');
+
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
@@ -249,11 +249,25 @@ var GetWebsiteDate=function (req,res,callback){
         console.log(err);
         res.send(0).status(200);
         return 0;
-      }  
+      }   
+      //Getting current Date;
+      var offset=parseInt(data[0].timezone.replace( /UTC/, "" )); 
+      var currentDate=new Date( new Date().getTime() + offset * 3600 * 1000).toISOString();//( / GMT$/, "" );
+      currentDate=currentDate.substring(0,currentDate.indexOf('T'));
+
+      //Make creation website date
       var n    = data[0].ts_created.indexOf(' ');
-      var date = data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length)+
-                 ",today"; 
-      callback(res,req.body.idSite,date,"range");
+      var creationDate=data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
+      if(creationDate==currentDate)
+      {   
+        
+              callback(res,req.body.idSite,'today',"day");
+      }
+      else{
+        var date = creationDate+",today"; 
+        callback(res,req.body.idSite,date,"range");
+      }
+      
     });
   }
 

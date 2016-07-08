@@ -25,10 +25,10 @@ var idSite= parseInt(document.currentScript.id);
 				console.log("We require to set the cookie");
 				$.ajax({
 				  type: "POST",
+				  crossDomain: true,
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":visitor_id},
-				  success: function(data){
-				  	
+				  success: function(data){ 
 				  	setCookie(idSite,visitor_id,400);
 				  	_paq.push(['setUserId', visitor_id]); 
 				  }

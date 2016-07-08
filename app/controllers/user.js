@@ -184,7 +184,7 @@ function SetFunnelGoal( idSite ){
         method: "Goals.addGoal",
         idSite:idSite,
         name:"Potencial Venta",
-        matchAttribute:"url",
+        matchAttribute:"manually",
         pattern:"is exactly",
         patternType:"-1",
         caseSensitive: '',
@@ -198,12 +198,12 @@ function SetFunnelGoal( idSite ){
           method: "Goals.addGoal",
           idSite:idSite,
           name:"Venta",
-          matchAttribute:"url",
+          matchAttribute:"manually",
           pattern:"is exactly",
           patternType:"-1",
           caseSensitive: '',
           revenue: '',
-          allowMultipleConversionsPerVisit: true
+          allowMultipleConversionsPerVisit:true
         },function(err,data){
           if(err){  
             console.log(err); 
