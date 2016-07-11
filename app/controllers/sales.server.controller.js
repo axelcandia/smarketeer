@@ -20,17 +20,17 @@ exports.RenderSales = function ( req,res ){
 * An index goes here
 */
 exports.GetSales = function(req,res){
+  var page= req.body.page; 
   page =  ( page == 0 ) ? page  : page * 20;
   //Form the pages
-  var data=""
-  var page    = parseInt(req.body.page);  
+  var data="";
   async.series({
       visitas: function(callback){ 
             piwik.api({
                 method:   'Smarketeer.getSales',
                 idSite:    req.body.idSite,
-                filter_offset:page,
-                filter_limit:20, 
+                filter_offset: page,
+                filter_limit: 20, 
               },callback);  
           }
       },function(err, results) {
@@ -38,7 +38,7 @@ exports.GetSales = function(req,res){
           else{ 
             html="";  
             var key, i = 0;
-            for(key in results.visitas) {
+            for(key in results.visitas) { 
               html+=json2table(results.visitas[i],req.body.idSite);  
               i++;     
             }  
@@ -120,9 +120,7 @@ function json2table(visita,idSite){
     var NewVisitor= '<tr><td>'+
           '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
-      NewVisitor +=  email+'</a>'+'</td>';
-          
-        console.log(visita);
+      NewVisitor +=  email+'</a>'+'</td>'; 
         //Campaign name, we only display it if it was a campagin!!!
         NewVisitor+= ( visita.referer_type == 6 ) ? 
                       '<td>'+visita.referer_name+'</td>':

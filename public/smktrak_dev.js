@@ -5,65 +5,52 @@ marginLeft:0},function(){return a.getBoundingClientRect().left}):0))+"px":void 0
 padding:"inner"+a,content:b,"":"outer"+a},function(c,d){n.fn[d]=function(d,e){var f=arguments.length&&(c||"boolean"!=typeof d),g=c||(d===!0||e===!0?"margin":"border");return Y(this,function(b,c,d){var e;return n.isWindow(b)?b.document.documentElement["client"+a]:9===b.nodeType?(e=b.documentElement,Math.max(b.body["scroll"+a],e["scroll"+a],b.body["offset"+a],e["offset"+a],e["client"+a])):void 0===d?n.css(b,c,g):n.style(b,c,d,g)},b,f?d:void 0,f,null)}})}),n.fn.extend({bind:function(a,b,c){return this.on(a,null,b,c)},unbind:function(a,b){return this.off(a,null,b)},delegate:function(a,b,c,d){return this.on(b,a,c,d)},undelegate:function(a,b,c){return 1===arguments.length?this.off(a,"**"):this.off(b,a||"**",c)}}),n.fn.size=function(){return this.length},n.fn.andSelf=n.fn.addBack,"function"==typeof define&&define.amd&&define("jquery",[],function(){return n});var nc=a.jQuery,oc=a.$;return n.noConflict=function(b){return a.$===n&&(a.$=oc),b&&a.jQuery===n&&(a.jQuery=nc),n},b||(a.jQuery=a.$=n),n});
 
 
-var website_id= parseInt(document.currentScript.id);
-	  console.log("our id is " +website_id );
+
+var idSite= parseInt(document.currentScript.id); 
 	  var _paq = _paq || [];
 	  var tracker;
 	  var visitor_id="";
-	  var _paqid; 
-	  _paq.push(['setConversionAttributionFirstReferrer', true]);
+	  var _paqid;  
 	  (function() { 
 	    var u="//52.165.38.47/"; 
 	    _paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
+		}]);
 			//Cookie do not exist create one
-			var cname="smkt_"+website_id;
+			var cname="smkt_"+idSite;
 			var username=getCookie(cname);
+			if(username)
+				username=(JSON.parse(getCookie(cname))).visitor_id;
 			console.log(username);
 			if(username == ""){  
 
 				console.log("We require to set the cookie");
 				$.ajax({
 				  type: "POST",
-				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
-				  data: {"id":this.getVisitorId()},
-				  success: function(data){
-				  	
-				  	setCookie(website_id,visitor_id,400);
-				  	_paq.push(['setUserId', visitor_id]);
-				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
-					_paq.push(['trackPageView']); 
+				  crossDomain: true,
+				  url: "http://localhost:1337/GetVisitorId",
+				  data: {"id":visitor_id},
+				  success: function(data){ 
+				  	setCookie(idSite,visitor_id,"",400);
+				  	_paq.push(['setUserId', visitor_id]); 
 				  }
 				  });
 
 			}
 			else{ 
-					_paq.push(['setUserId', username]);
-				  	_paq.push(['setConversionAttributionFirstReferrer', true]);
-					_paq.push(['trackPageView']); 
+					_paq.push(['setUserId', username]);    
 			} 
-		    
-		    
+		    _paq.push(['trackPageView']);
+  			_paq.push(['enableLinkTracking']);
 		    _paq.push(['setTrackerUrl', u+'piwik.php']);
-		    _paq.push(['setSiteId', website_id]);  
-			}]); 
+    		_paq.push(['setSiteId', idSite]);  
 	   
 
 	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
 	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
 	    //resolve();
 	  } )();
-
-	/**
-	*We set the cookie
-	*/
-	function setCookie(id, cvalue, exdays) {
-		var cname="smkt_"+id;
-	    var d = new Date();
-	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	    var expires = "expires="+ d.toUTCString();
-	    document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
+ 
 	/**
 	* GET the id of the user
 	*/
@@ -84,6 +71,172 @@ var website_id= parseInt(document.currentScript.id);
 	/**
 	* Delete the cookie if the user already exists
 	*/
-	function DeleteCookie(name) {
-	    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	function deleteCookie() {
+	    document.cookie = 'smkt_'+idSite+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	    console.log("deleting");
+	    _paq.push(['appendToTrackingUrl', 'new_visit=1']); // (1) forces a new visit 
+	    console.log("deleting"+visitor_id);
+	    visitor_id=null;
+		_paq.push(["deleteCookies"]);
+		_paq.push([ function() {  
+			visitor_id = this.getVisitorId(); 
+		}]);
+		console.log("deleting"+visitor_id);
 	}
+
+
+
+/**
+*Creating forms
+*/
+function createform(id){   
+  $.ajax({
+          type: "POST",
+          url: "http://localhost:1337/GetFormHTML",
+          data: {"id":id},
+          success: function(data){ 
+            document.getElementById(id).insertAdjacentHTML('afterend',data);
+          }
+        });
+}
+	//document.write("SOME SUPER CONTENT");
+
+function Send( form_id){   
+	  event.preventDefault();
+
+	  var values = {};
+	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
+	  values["pkw_id"]= visitor_id;
+	  values["form_id"]=form_id;
+		for(var i=0;i< smkt.length;i++){   
+			var name= smkt[i].name;
+			if( smkt[i].value == "-Seleccione una opcion-"){
+				smkt[i].value="";
+			} 
+    if(smkt[i].id.indexOf("smkt_email")>-1){ 
+   		var cemail=(JSON.parse( getCookie("smkt_"+idSite) )).email;
+   		var email=smkt[i].value
+   		console.log("smk:"+smkt[i].value); 
+   		console.log("cookie:"+cemail);  
+
+    	if(cemail==null){
+    		setCookie(idSite,visitor_id,email,400); 
+    		pushEmail(email);
+    	}
+    	else if(cemail!=email){  
+    		deleteCookie();
+    		$.ajax({
+				  type: "POST",
+				  crossDomain: true,
+				  url: "http://localhost:1337/GetVisitorId",
+				  data: {"id":visitor_id},
+				  success: function(data){ 
+				  	setCookie(idSite,visitor_id,email,400);
+				  	_paq.push(['setUserId', visitor_id]);
+				  	
+    				pushEmail(email); 
+				  }
+				  });
+    		
+    	} 	
+		
+    	} 
+		if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
+			if(smkt[i].checked) 
+				values[name]=smkt[i].value;  
+		}
+		else if(smkt[i].tagName == "SELECT"){
+			values[name]=getSelectValues(smkt[i]);  
+		}
+		else{
+			values[name]=smkt[i].value; 
+		}
+			
+	} 
+	ajax(values);
+}  
+
+
+function ajax(values) { 
+    var xmlHTTP;
+
+    if (window.XMLHttpRequest) { 
+        xmlHTTP = new XMLHttpRequest();
+    } else { 
+        xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlHTTP.onreadystatechange = function () {
+        if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
+            //alert(xmlHTTP.responseText);
+        }
+    }
+
+    //Serialize the data
+    var queryString = JSON.stringify(values);
+    xmlHTTP.open("POST", "http://localhost:1337/ReceiveForms", true); 
+    xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHTTP.send(queryString); 
+}
+
+
+/**
+* GEt the selected values from a list.
+*/
+function getSelectValues(select) {
+  var result = [];
+  var options = select && select.options;
+  var opt;
+
+  for (var i=0, iLen=options.length; i<iLen; i++) {
+    opt = options[i];
+
+    if (opt.selected) {
+      result.push(opt.value || opt.text);
+    }
+  }
+  return result;
+} 
+ 
+
+function Array2Arg() {
+  var args = arguments;
+  for(var i = 0; i < args; ++i) {
+    var argument = args[i]; 
+  }
+}
+/**
+*Push the email to our tracking
+*/
+function pushEmail(email){
+	 _paq.push(['setCustomVariable',
+		        // Index, the number from 1 to 5 where this custom variable name is stored
+		        1,
+		        // Name, the name of the variable, for example: Gender, VisitorType
+		        "email",
+		        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+		        email,
+		        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+		        "visit"
+		    ]); 
+	_paq.push(['trackGoal', 1, -1]);
+	_paq.push(['trackPageView']);
+} 
+
+
+
+/**
+*Adds email to the cookie
+*/
+function setCookie(idSite,visitor_id,email,exdays){
+		var data={
+			"visitor_id":visitor_id,
+			"email":email
+		};
+
+		var cname="smkt_"+idSite;
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString(); 
+	    document.cookie = cname + "=" +JSON.stringify(data)+";" + expires;
+} 
