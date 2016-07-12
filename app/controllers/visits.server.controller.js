@@ -4,8 +4,7 @@ var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
-var SolvedForms   = require("../models/solvedforms.server.model.js");
-var conversion    = require("html-to-xlsx")();
+var SolvedForms   = require("../models/solvedforms.server.model.js"); 
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
