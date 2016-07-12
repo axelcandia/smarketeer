@@ -1,0 +1,28 @@
+
+/**
+*About me
+*/
+.img-responsive{
+        width: 78%!important;
+        height: 27%!important;
+      }
+      .edit{
+        display:none;
+      } 
+      .action-button{
+      margin-top: 20px;
+      }
+      textarea{outline: 1;
+        border: 0;
+        resize:none;
+        overflow: hidden;}
+
+/**
+* For the comment section
+*/
+#SendComment{
+      height: 53px;
+}
+.comment{
+  overflow-y: scroll;
+  }
