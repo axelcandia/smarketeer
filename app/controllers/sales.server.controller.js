@@ -135,7 +135,7 @@ function json2table(visita,idSite){
         //Content
         NewVisitor += (visita.campaign_content) ? '<td>'+visita.campaign_content+'</td>' : '<td></td>';
         //Refferer
-        NewVisitor += (visita.referer_name) ? "<td>"+visita.referer_name+"</td>" :  "<td>"+visita.referer_url+"</td>";
+        NewVisitor += (visita.referer_name) ? "<td>"+visita.referer_url+"</td>" :  "<td>"+visita.referer_url+"</td>";
         //Landing page  
         NewVisitor += (visita.name) ? "<td>"+visita.name+"</td>" :  "<td></td>";
 
