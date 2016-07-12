@@ -19,6 +19,8 @@ var idSite= parseInt(document.currentScript.id);
 			//Cookie do not exist create one
 			var cname="smkt_"+idSite;
 			var username=getCookie(cname);
+			if(username)
+				username=(JSON.parse(getCookie(cname))).visitor_id;
 			console.log(username);
 			if(username == ""){  
 
@@ -29,7 +31,7 @@ var idSite= parseInt(document.currentScript.id);
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":visitor_id},
 				  success: function(data){ 
-				  	setCookie(idSite,visitor_id,400);
+				  	setCookie(idSite,visitor_id,"",400);
 				  	_paq.push(['setUserId', visitor_id]); 
 				  }
 				  });
@@ -48,17 +50,7 @@ var idSite= parseInt(document.currentScript.id);
 	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
 	    //resolve();
 	  } )();
-
-	/**
-	*We set the cookie
-	*/
-	function setCookie(id, cvalue, exdays) {
-		var cname="smkt_"+id;
-	    var d = new Date();
-	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	    var expires = "expires="+ d.toUTCString();
-	    document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
+ 
 	/**
 	* GET the id of the user
 	*/
@@ -79,8 +71,17 @@ var idSite= parseInt(document.currentScript.id);
 	/**
 	* Delete the cookie if the user already exists
 	*/
-	function deleteCookie(name) {
-	    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	function deleteCookie() {
+	    document.cookie = 'smkt_'+idSite+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	    console.log("deleting");
+	    _paq.push(['appendToTrackingUrl', 'new_visit=1']); // (1) forces a new visit 
+	    console.log("deleting"+visitor_id);
+	    visitor_id=null;
+		_paq.push(["deleteCookies"]);
+		_paq.push([ function() {  
+			visitor_id = this.getVisitorId(); 
+		}]);
+		console.log("deleting"+visitor_id);
 	}
 
 
@@ -101,34 +102,45 @@ function createform(id){
 	//document.write("SOME SUPER CONTENT");
 
 function Send( form_id){   
-  event.preventDefault();
-  _paq.push(['trackGoal', 1, -1]);
+	  event.preventDefault();
 
-  var values = {};
-	var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
-	values["pkw_id"]= visitor_id;
-  values["form_id"]=form_id;
-	for(var i=0;i< smkt.length;i++){   
-		var name= smkt[i].name;
-		if( smkt[i].value == "-Seleccione una opcion-"){
-			smkt[i].value="";
-		} 
+	  var values = {};
+	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
+	  values["pkw_id"]= visitor_id;
+	  values["form_id"]=form_id;
+		for(var i=0;i< smkt.length;i++){   
+			var name= smkt[i].name;
+			if( smkt[i].value == "-Seleccione una opcion-"){
+				smkt[i].value="";
+			} 
     if(smkt[i].id.indexOf("smkt_email")>-1){ 
-      console.log("Entrando");
-      console.log("email:"+smkt[i].value);
-      _paq.push(['setCustomVariable',
-        // Index, the number from 1 to 5 where this custom variable name is stored
-        1,
-        // Name, the name of the variable, for example: Gender, VisitorType
-        "email",
-        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
-        smkt[i].value,
-        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
-        "visit"
-    ]); 
-      _paq.push(['trackPageView']);
+   		var cemail=(JSON.parse( getCookie("smkt_"+idSite) )).email;
+   		var email=smkt[i].value
+   		console.log("smk:"+smkt[i].value); 
+   		console.log("cookie:"+cemail);  
 
-    } 
+    	if(cemail==null){
+    		setCookie(idSite,visitor_id,email,400); 
+    		pushEmail(email);
+    	}
+    	else if(cemail!=email){  
+    		deleteCookie();
+    		$.ajax({
+				  type: "POST",
+				  crossDomain: true,
+				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
+				  data: {"id":visitor_id},
+				  success: function(data){ 
+				  	setCookie(idSite,visitor_id,email,400);
+				  	_paq.push(['setUserId', visitor_id]);
+				  	
+    				pushEmail(email); 
+				  }
+				  });
+    		
+    	} 	
+		
+    	} 
 		if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
 			if(smkt[i].checked) 
 				values[name]=smkt[i].value;  
@@ -193,3 +205,38 @@ function Array2Arg() {
     var argument = args[i]; 
   }
 }
+/**
+*Push the email to our tracking
+*/
+function pushEmail(email){
+	 _paq.push(['setCustomVariable',
+		        // Index, the number from 1 to 5 where this custom variable name is stored
+		        1,
+		        // Name, the name of the variable, for example: Gender, VisitorType
+		        "email",
+		        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+		        email,
+		        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+		        "visit"
+		    ]); 
+	_paq.push(['trackGoal', 1, -1]);
+	_paq.push(['trackPageView']);
+} 
+
+
+
+/**
+*Adds email to the cookie
+*/
+function setCookie(idSite,visitor_id,email,exdays){
+		var data={
+			"visitor_id":visitor_id,
+			"email":email
+		};
+
+		var cname="smkt_"+idSite;
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString(); 
+	    document.cookie = cname + "=" +JSON.stringify(data)+";" + expires;
+} 

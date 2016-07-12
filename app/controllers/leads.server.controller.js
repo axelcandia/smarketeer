@@ -105,7 +105,8 @@ exports.GetSale = function (req,res){
       console.log(err);
       res.send(0).status(200);
       return 0;
-    }   
+    } 
+    console.log(visit);  
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
@@ -175,9 +176,11 @@ function json2table(visita,idSite){
 	var query =""// url.parse(visita.actionDetails[0].url,true).query; 
   var email = visita.custom_var_v1 || "indefinido" ;
   var  totalVenta=0;
-
+  var NewVisitor='<tr><td>'+
+        visita.visit_last_action_time.substring(0,visita.visit_last_action_time.indexOf(" "))+
+        "</td>";
   //Visitor date
-  var NewVisitor= '<tr><td>'+
+   NewVisitor+='<td>'+
           '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
       NewVisitor +=  email+'</a>'+'</td>';
@@ -199,11 +202,11 @@ function json2table(visita,idSite){
         //Refferer
         NewVisitor += (visita.referer_name) ? "<td>"+visita.referer_name+"</td>" :  "<td>"+visita.referer_url+"</td>";
         //Landing page  
-        NewVisitor += (visita.name) ? "<td>"+visita.name+"</td>" :  "<td></td>";
+        NewVisitor += (visita.url) ? "<td>"+visita.url+"</td>" :  "<td></td>";
 
 
         //Status
-        NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.userId+'">'+
+        NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.user_id+'">'+
             '<a href="javascript:;">Registrar Venta</a></td>';  
         return NewVisitor;
 
