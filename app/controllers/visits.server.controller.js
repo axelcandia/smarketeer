@@ -18,38 +18,31 @@ exports.RenderVisitors = function ( req,res ){
 */
 exports.GetMoreVisitors =function (req,res){   
   var page= req.body.page; 
-//console.log(page);
   page =  ( page == 0 ) ? page  : page * 20;
-  piwik.api({
-      method:   'Live.getLastVisitsDetails',
-      idSite:   req.body.idSite,
-      period:   '',
-      date:     '',
-      segment : 'visitConvertedGoalId!=2',
-      showColumns:"lastActionDateTime,userId,actionDetails,referrerName,referrerTypeName,referrerUrl,visitorType",
-      countVisitorsToFetch : '',
-      minTimestamp : '',
-      flat : '',
-      doNotFetchActions : '',
-      filter_offset:page,
-      filter_limit:20,
-    },function( err, visitas ){ 
-      if(err) res.send("error:"+err);
-      else{  
-        html="";  
-        var key, i = 0; 
-        for(key in visitas) {
-          html+=json2table(visitas[i],req.body.idSite);
-          //html+=GetStatus(visitas[i]);  
-          i++;     
-        }  
-        res.send(html).status(200); 
-      }
-    }); 
+  //Form the pages
+  var data="" 
+  async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.getVisits',
+                idSite:    req.body.idSite,
+                filter_offset:page,
+                filter_limit:20, 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) res.send(err);
+          else{ 
+            html="";  
+            var key, i = 0;
+            for(key in results.visitas) {
+              html+=json2table(results.visitas[i],req.body.idSite);  
+              i++;     
+            }  
+            res.send(html).status(200); 
+          }
 
- /* GetProfileInformation(function(err,data){
-    console.log(data.lastVisits[0]);
-  });*/
+      }); 
 }
 /**
 * REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
@@ -161,42 +154,7 @@ function GetStatus(visita){
 /**
 * Get all the data of the visit and convert it in table mode
 */
-function json2table(visita,idSite){  
-  //First we create the href and the id
-  //Parseamos la url 
-  var query = url.parse(visita.actionDetails[0].url,true).query; 
-  //Visitor date
-   var NewVisitor='<tr>'+
-              '<td>'+visita.lastActionDateTime+ '</td>';
-      //Visitor ID
-       NewVisitor+= '<td>'+
-          '<a href="/visitors/seemore/'+visita.userId+'/?idSite='+idSite+'">'+
-              visita.userId +
-          '</a>'+
-        '</td>';
 
-        //Campaign name, we only display it if it was a campagin!!!
-        NewVisitor+= (visita.referrerTypeName =="Campaigns") ? 
-                      '<td>'+visita.referrerName+'</td>':
-                      "<td></td>";
-
-        //Source
-        NewVisitor += (visita.referrerName) ? '<td>'+visita.referrerName+'</td>' : '<td>'+visita.referrerTypeName+'</td>';
-        
-        //Medium
-        NewVisitor += (query.utm_source) ? '<td>'+query.utm_source+'</td>' : '<td>'+visita.referrerTypeName+'</td>';
-
-        //Refferer
-        if(visita.referrerName && visita.referrerUrl!=null )
-          NewVisitor +='<td>'+visita.referrerUrl+'</td>';
-        else
-          NewVisitor +='<td></td>'; 
-        //Landing page  
-        NewVisitor+='<td>'+visita.actionDetails[0].url.replace(query," ")+'</td>';
-        //Status
-        NewVisitor+='<td>'+visita.visitorType+'</td>'; 
-        return NewVisitor;
-}
 
 
 
@@ -277,4 +235,44 @@ exports.GetVisitorAbout= function(req,res,next){
     console.log(result);
   });
 }
+
+
+
+function json2table(visita,idSite){
+  var query =""// url.parse(visita.actionDetails[0].url,true).query; 
+  var  totalVenta=0;
+  var NewVisitor='<tr><td>'+
+        visita.visit_last_action_time+
+        "</td>";
+  //Visitor date
+   NewVisitor+='<td>'+
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
+
+      NewVisitor +=  visita.user_id+'</a>'+'</td>';
+          
+        console.log(visita);
+        //Campaign name, we only display it if it was a campagin!!!
+        NewVisitor+= ( visita.referer_type == 6 ) ? 
+                      '<td>'+visita.referer_name+'</td>':
+                      "<td></td>";
+
+        //Source
+        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td></td>';
+        
+        //Medium
+        NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
+
+        //Content
+        NewVisitor += (visita.campaign_content) ? '<td>'+visita.campaign_content+'</td>' : '<td></td>';
+        //Refferer
+        NewVisitor += (visita.referer_name) ? "<td>"+visita.referer_url+"</td>" :  "<td>"+visita.referer_url+"</td>";
+        //Landing page  
+        NewVisitor += (visita.url) ? "<td>"+visita.url+"</td>" :  "<td></td>";
+
+        NewVisitor += (visita.status==0) ? "<td>Nuevo</td>" :  "<td>Recurrente</td>";
+
+        NewVisitor +="</td>"; 
+        return NewVisitor;
+
+} 
 exports.GetWebsiteDate= GetWebsiteDate;

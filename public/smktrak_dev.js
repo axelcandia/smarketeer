@@ -8,49 +8,42 @@ padding:"inner"+a,content:b,"":"outer"+a},function(c,d){n.fn[d]=function(d,e){va
 
 var idSite= parseInt(document.currentScript.id); 
 	  var _paq = _paq || [];
-	  var tracker;
-	  var visitor_id="";
+	  var tracker; 
 	  var _paqid;  
-	  (function() { 
-	    var u="//52.165.38.47/"; 
-	    _paq.push([ function() {  
-			visitor_id = this.getVisitorId(); 
+	  var u="//52.165.38.47/"; 
+	  var visitor_id="";
+
+	  
+	  (function() {
+			_paq.push([ function() {  
+				visitor_id = this.getVisitorId();  
+
+				var cname="smkt_"+idSite;
+				var username=getCookie(cname);
+				if(username)
+					username=(JSON.parse(getCookie(cname))).visitor_id;
+				else{
+					console.log("Setting cookie");
+					setCookie(idSite,visitor_id,"",400);
+				}
+				console.log("username:"+username);
+				//It is either the cooki or this
+				username = username||visitor_id; 
+				console.log("After:"+username);
+				console.log("VisitorId:"+visitor_id); 
+
+				this.setUserId(username); 
 		}]);
-			//Cookie do not exist create one
-			var cname="smkt_"+idSite;
-			var username=getCookie(cname);
-			if(username)
-				username=(JSON.parse(getCookie(cname))).visitor_id;
-			console.log(username);
-			if(username == ""){  
-
-				console.log("We require to set the cookie");
-				$.ajax({
-				  type: "POST",
-				  crossDomain: true,
-				  url: "http://localhost:1337/GetVisitorId",
-				  data: {"id":visitor_id},
-				  success: function(data){ 
-				  	setCookie(idSite,visitor_id,"",400);
-				  	_paq.push(['setUserId', visitor_id]); 
-				  }
-				  });
-
-			}
-			else{ 
-					_paq.push(['setUserId', username]);    
-			} 
-		    _paq.push(['trackPageView']);
-  			_paq.push(['enableLinkTracking']);
-		    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    		_paq.push(['setSiteId', idSite]);  
-	   
-
-	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
-	    //resolve();
-	  } )();
- 
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			_paq.push(['setTrackerUrl', u+'piwik.php']);
+			_paq.push(['setSiteId', idSite]);   
+			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    	g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
+	
+			
+	  } )(); 
+  
 	/**
 	* GET the id of the user
 	*/
