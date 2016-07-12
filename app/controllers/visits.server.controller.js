@@ -5,7 +5,7 @@ var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
 var SolvedForms   = require("../models/solvedforms.server.model.js");
-
+var conversion    = require("html-to-xlsx")();
 
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
@@ -173,7 +173,7 @@ exports.CountVisitors = function(req,res){
 function GetPiwikVisitsCounter(res,idSite,date,period){
   console.log("period:"+period);
   console.log("date:"+date);
-piwik.api({
+  piwik.api({
     method:"VisitsSummary.getVisits",
     idSite:idSite,
     period:period,
@@ -236,10 +236,33 @@ exports.GetVisitorAbout= function(req,res,next){
   });
 }
 
+exports.GetXML = function(req,res,next){
+  async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.getVisits',
+                idSite:    req.body.idSite,
+                filter_offset:0 , 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) {console.log(err);
+          res.send(err);}
+          else{ 
+            html="<tr><td>Fecha</td><td>Id anonimo</td><td>Campaña</td><td>Fuente</td><td>Medio</td><td>Contenido</td><td>URL del referido</td><td>Pagina de destino</td><td>Estado</td></tr>";  
+            var key, i = 0;
+            for(key in results.visitas) {
+              html+=json2table(results.visitas[i],req.body.idSite);  
+              i++;     
+            }   
 
+            console.log(html);
+              res.send(html).status(200);;
+          }
+      });  
+}
 
-function json2table(visita,idSite){
-  var query =""// url.parse(visita.actionDetails[0].url,true).query; 
+function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true).query; 
   var  totalVenta=0;
   var NewVisitor='<tr><td>'+
         visita.visit_last_action_time+
@@ -271,7 +294,7 @@ function json2table(visita,idSite){
 
         NewVisitor += (visita.status==0) ? "<td>Nuevo</td>" :  "<td>Recurrente</td>";
 
-        NewVisitor +="</td>"; 
+        NewVisitor +="</tr>"; 
         return NewVisitor;
 
 } 

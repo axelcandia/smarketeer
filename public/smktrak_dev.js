@@ -73,6 +73,7 @@ var idSite= parseInt(document.currentScript.id);
 		_paq.push(["deleteCookies"]);
 		_paq.push([ function() {  
 			visitor_id = this.getVisitorId(); 
+			this.setUserId(visitor_id); 
 		}]);
 		console.log("deleting"+visitor_id);
 	}

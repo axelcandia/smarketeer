@@ -73,7 +73,8 @@ var idSite= parseInt(document.currentScript.id);
 	    visitor_id=null;
 		_paq.push(["deleteCookies"]);
 		_paq.push([ function() {  
-			visitor_id = this.getVisitorId(); 
+			visitor_id = this.getVisitorId();
+			this.setUserId(visitor_id); 
 		}]);
 		console.log("deleting"+visitor_id);
 	}
@@ -125,9 +126,7 @@ function Send( form_id){
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":visitor_id},
 				  success: function(data){ 
-				  	setCookie(idSite,visitor_id,email,400);
-				  	_paq.push(['setUserId', visitor_id]);
-				  	
+				  	setCookie(idSite,visitor_id,email,400); 
     				pushEmail(email); 
 				  }
 				  });
