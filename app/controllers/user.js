@@ -99,6 +99,8 @@ exports.postSignup = function(req, res, next) {
 * Creates the website
 */
 function SetPiwikWebsite( req, res ){ 
+  var date = (new Date()).toISOString();
+  date=date.substring(0,date.indexOf("T")); 
     piwik.api({
         method: "SitesManager.addSite",
         siteName: req.body.website,
@@ -112,7 +114,7 @@ function SetPiwikWebsite( req, res ){
         timezone : '',
         currency : '',
         group : '',
-        startDate : 'today',
+        startDate :  date,
         excludedUserAgents : '',
         keepURLFragments : '',
         type : '',

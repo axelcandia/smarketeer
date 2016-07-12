@@ -13,25 +13,33 @@ function createform(id){
 }
 	//document.write("SOME SUPER CONTENT");
 
-function Send( form_id ){   
+function Send( form_id){   
   event.preventDefault();
   _paq.push(['trackGoal', 1, -1]);
 
   var values = {};
 	var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
 	values["pkw_id"]= visitor_id;
-  values["form_id"]=form_id;i
+  values["form_id"]=form_id;
 	for(var i=0;i< smkt.length;i++){   
 		var name= smkt[i].name;
 		if( smkt[i].value == "-Seleccione una opcion-"){
 			smkt[i].value="";
 		} 
     if(smkt[i].id.indexOf("smkt_email")>-1){ 
-      //ver el email
-      ResetCookie(smkt[i].value,)
-      SetTracker(smkt[i].value);
+      console.log("Entrando");
       console.log("email:"+smkt[i].value);
-      
+      _paq.push(['setCustomVariable',
+        // Index, the number from 1 to 5 where this custom variable name is stored
+        1,
+        // Name, the name of the variable, for example: Gender, VisitorType
+        "email",
+        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+        smkt[i].value,
+        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+        "visit"
+    ]); 
+      _paq.push(['trackPageView']);
 
     } 
 		if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
@@ -97,75 +105,4 @@ function Array2Arg() {
   for(var i = 0; i < args; ++i) {
     var argument = args[i]; 
   }
-} 
-
-function ResetCookie(email,cvalue){
-  /**
-  */
-  var cname="smkt_"+website_id;
-  var d = new Date();
-  var email= ";email="+email;
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue +email+ "; " + expires;
-
 }
-
-function SetTracker(email){
-  _paq.push(['setCustomVariable',
-        // Index, the number from 1 to 5 where this custom variable name is stored
-        1,
-        // Name, the name of the variable, for example: Gender, VisitorType
-        "email",
-        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
-        email,
-        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
-        "visit"
-    ]); 
-      _paq.push(['trackPageView']);
-}
-
-
-
-
-
-
-
-function InspectEmail(){
-      var cname="smkt_"+website_id;
-      var cemail=getEmail(cname); 
-      //First time he logins
-      if(cemail == ""){ 
-        _paq.push(['setUserId', username]);
-        _paq.push(['setConversionAttributionFirstReferrer', true]);
-        _paq.push(['setCustomVariable',
-            // Index, the number from 1 to 5 where this custom variable name is stored
-            1,
-            // Name, the name of the variable, for example: Gender, VisitorType
-            "email",
-            // Value, for example: "Male", "Female" or "new", "engaged", "customer"
-            email,
-            // Scope of the custom variable, "visit" means the custom variable applies to the current visit
-            "visit"
-        ]); 
-        _paq.push(['trackPageView']); 
-      }
-      else if( cemail != email ){ //Change his email
-        _paq.push(['appendToTrackingUrl', 'new_visit=1']); // (1) forces a new visit 
-        _paq.push(["deleteCookies"]); // (2) deletes existing tracking cookies to start the new visit
-        // the two lines must be above the call to track* function 
-        $.ajax({
-          type: "POST",
-          url: "http://smarketeer.azurewebsites.net/GetVisitorId",
-          data: {"email":email},
-          success: function(data){
-            
-            setCookie(website_id,visitor_id,400);
-            _paq.push(['setUserId', visitor_id]);
-            _paq.push(['setConversionAttributionFirstReferrer', true]);
-          _paq.push(['trackPageView']); 
-          }
-          });
-
-      } 
-} 

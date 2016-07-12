@@ -252,21 +252,14 @@ var GetWebsiteDate=function (req,res,callback){
       }   
       //Getting current Date;
       var offset=parseInt(data[0].timezone.replace( /UTC/, "" )); 
-      var currentDate=new Date( new Date().getTime() + offset * 3600 * 1000).toISOString();//( / GMT$/, "" );
+      var currentDate=new Date( new Date().getTime() + offset * 3600 * 1000).toISOString(); 
       currentDate=currentDate.substring(0,currentDate.indexOf('T'));
 
       //Make creation website date
       var n    = data[0].ts_created.indexOf(' ');
       var creationDate=data[0].ts_created.substring(0, n != -1 ? n : data[0].ts_created.length);
-      if(creationDate==currentDate)
-      {   
-        
-              callback(res,req.body.idSite,'today',"day");
-      }
-      else{
-        var date = creationDate+",today"; 
-        callback(res,req.body.idSite,date,"range");
-      }
+      //RETURNNG
+      callback(res,req.body.idSite,creationDate+","+currentDate,"range"); 
       
     });
   }

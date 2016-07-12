@@ -19,6 +19,8 @@ var idSite= parseInt(document.currentScript.id);
 			//Cookie do not exist create one
 			var cname="smkt_"+idSite;
 			var username=getCookie(cname);
+			if(username)
+				username=(JSON.parse(getCookie(cname))).visitor_id;
 			console.log(username);
 			if(username == ""){  
 
@@ -29,7 +31,7 @@ var idSite= parseInt(document.currentScript.id);
 				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
 				  data: {"id":visitor_id},
 				  success: function(data){ 
-				  	setCookie(idSite,visitor_id,400);
+				  	setCookie(idSite,visitor_id,"",400);
 				  	_paq.push(['setUserId', visitor_id]); 
 				  }
 				  });
@@ -48,17 +50,7 @@ var idSite= parseInt(document.currentScript.id);
 	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s); 
 	    //resolve();
 	  } )();
-
-	/**
-	*We set the cookie
-	*/
-	function setCookie(id, cvalue, exdays) {
-		var cname="smkt_"+id;
-	    var d = new Date();
-	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	    var expires = "expires="+ d.toUTCString();
-	    document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
+ 
 	/**
 	* GET the id of the user
 	*/
@@ -79,6 +71,172 @@ var idSite= parseInt(document.currentScript.id);
 	/**
 	* Delete the cookie if the user already exists
 	*/
-	function deleteCookie(name) {
-	    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	function deleteCookie() {
+	    document.cookie = 'smkt_'+idSite+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	    console.log("deleting");
+	    _paq.push(['appendToTrackingUrl', 'new_visit=1']); // (1) forces a new visit 
+	    console.log("deleting"+visitor_id);
+	    visitor_id=null;
+		_paq.push(["deleteCookies"]);
+		_paq.push([ function() {  
+			visitor_id = this.getVisitorId(); 
+		}]);
+		console.log("deleting"+visitor_id);
 	}
+
+
+
+/**
+*Creating forms
+*/
+function createform(id){   
+  $.ajax({
+          type: "POST",
+          url: "http://smarketeer.azurewebsites.net/GetFormHTML",
+          data: {"id":id},
+          success: function(data){ 
+            document.getElementById(id).insertAdjacentHTML('afterend',data);
+          }
+        });
+}
+	//document.write("SOME SUPER CONTENT");
+
+function Send( form_id){   
+	  event.preventDefault();
+
+	  var values = {};
+	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField');
+	  values["pkw_id"]= visitor_id;
+	  values["form_id"]=form_id;
+		for(var i=0;i< smkt.length;i++){   
+			var name= smkt[i].name;
+			if( smkt[i].value == "-Seleccione una opcion-"){
+				smkt[i].value="";
+			} 
+    if(smkt[i].id.indexOf("smkt_email")>-1){ 
+   		var cemail=(JSON.parse( getCookie("smkt_"+idSite) )).email;
+   		var email=smkt[i].value
+   		console.log("smk:"+smkt[i].value); 
+   		console.log("cookie:"+cemail);  
+
+    	if(cemail==null){
+    		setCookie(idSite,visitor_id,email,400); 
+    		pushEmail(email);
+    	}
+    	else if(cemail!=email){  
+    		deleteCookie();
+    		$.ajax({
+				  type: "POST",
+				  crossDomain: true,
+				  url: "http://smarketeer.azurewebsites.net/GetVisitorId",
+				  data: {"id":visitor_id},
+				  success: function(data){ 
+				  	setCookie(idSite,visitor_id,email,400);
+				  	_paq.push(['setUserId', visitor_id]);
+				  	
+    				pushEmail(email); 
+				  }
+				  });
+    		
+    	} 	
+		
+    	} 
+		if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
+			if(smkt[i].checked) 
+				values[name]=smkt[i].value;  
+		}
+		else if(smkt[i].tagName == "SELECT"){
+			values[name]=getSelectValues(smkt[i]);  
+		}
+		else{
+			values[name]=smkt[i].value; 
+		}
+			
+	} 
+	ajax(values);
+}  
+
+
+function ajax(values) { 
+    var xmlHTTP;
+
+    if (window.XMLHttpRequest) { 
+        xmlHTTP = new XMLHttpRequest();
+    } else { 
+        xmlHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlHTTP.onreadystatechange = function () {
+        if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
+            //alert(xmlHTTP.responseText);
+        }
+    }
+
+    //Serialize the data
+    var queryString = JSON.stringify(values);
+    xmlHTTP.open("POST", "http://smarketeer.azurewebsites.net/ReceiveForms", true); 
+    xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHTTP.send(queryString); 
+}
+
+
+/**
+* GEt the selected values from a list.
+*/
+function getSelectValues(select) {
+  var result = [];
+  var options = select && select.options;
+  var opt;
+
+  for (var i=0, iLen=options.length; i<iLen; i++) {
+    opt = options[i];
+
+    if (opt.selected) {
+      result.push(opt.value || opt.text);
+    }
+  }
+  return result;
+} 
+ 
+
+function Array2Arg() {
+  var args = arguments;
+  for(var i = 0; i < args; ++i) {
+    var argument = args[i]; 
+  }
+}
+/**
+*Push the email to our tracking
+*/
+function pushEmail(email){
+	 _paq.push(['setCustomVariable',
+		        // Index, the number from 1 to 5 where this custom variable name is stored
+		        1,
+		        // Name, the name of the variable, for example: Gender, VisitorType
+		        "email",
+		        // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+		        email,
+		        // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+		        "visit"
+		    ]); 
+	_paq.push(['trackGoal', 1, -1]);
+	_paq.push(['trackPageView']);
+} 
+
+
+
+/**
+*Adds email to the cookie
+*/
+function setCookie(idSite,visitor_id,email,exdays){
+		var data={
+			"visitor_id":visitor_id,
+			"email":email
+		};
+
+		var cname="smkt_"+idSite;
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString(); 
+	    document.cookie = cname + "=" +JSON.stringify(data)+";" + expires;
+} 
