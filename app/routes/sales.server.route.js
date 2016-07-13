@@ -5,4 +5,5 @@ module.exports = function(app) {
 	app.post( "/home/funnel/GetSales*",salesController.GetSales );
 	app.post("/home/CountSales*",salesController.CountSales);
 	app.post("/home/GetSalesByChannel*",salesController.GetSalesByChannel); 
+	app.post("/sales/Export*",salesController.Export);
 };

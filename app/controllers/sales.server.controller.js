@@ -96,13 +96,32 @@ piwik.api({
   });
 } 
 
-/**
-
-
-  
-    
-} 
+/** 
 */
+
+exports.Export = function(req,res,next){
+  async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.getSales',
+                idSite:    req.body.idSite,
+                filter_offset:0 , 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) {console.log(err);
+          res.send(err);}
+          else{ 
+            html="<tr><td>Email</td><td>Campaña</td><td>Fuente</td><td>Medio</td><td>Contenido</td><td>URL del referido</td><td>Pagina de destino</td><td>Total vendido</td></tr>";  
+            var key, i = 0;
+            for(key in results.visitas) {
+              html+=json2table(results.visitas[i],req.body.idSite);  
+              i++;     
+            }    
+              res.send(html).status(200);;
+          }
+      });  
+}
 /**
 * This function gets the information of both, put it together and rock it
 */
@@ -140,7 +159,7 @@ function json2table(visita,idSite){
         NewVisitor += (visita.name) ? "<td>"+visita.name+"</td>" :  "<td></td>";
 
         //Status
-        NewVisitor+='<td>'+visita.total+'</td></tr>';  
+        NewVisitor+='<td>$'+Math.round(visita.total * 100) / 100 +'</td></tr>';  
         return NewVisitor;
 
 } 

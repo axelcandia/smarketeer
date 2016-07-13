@@ -78,7 +78,7 @@ html(lang='en')
             h3.page-title
               | Potenciales Clientes 
             .page-bar
-              ul.page-breadcrumb
+              //ul.page-breadcrumb
                 li
                   i.fa.fa-home
                   a(href='index') Home
@@ -91,14 +91,14 @@ html(lang='en')
               .page-toolbar
                 .btn-group.pull-right
                   button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Export 
+                    | Exportar 
                     i.fa.fa-angle-down
                   ul.dropdown-menu.pull-right(role='menu')
-                    li
-                      a(href='#') Export to Excel
-                    li
-                      a(href='#') Export to CSV
-                    li
+                    li#toXML
+                      a(href='#') Exportar Excel
+                    li#toCSV
+                      a(href='#') Exportar CSV
+                    //li
                       a(href='#') Export to PDF
               .page-toolbar
                 #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
@@ -212,9 +212,37 @@ html(lang='en')
     // BEGIN PAGE LEVEL SCRIPTS 
     script(src='/global/scripts/metronic.js', type='text/javascript')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
-    script(src='/admin/layout2/scripts/demo.js', type='text/javascript') 
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src="/global/plugins/export/jquery.tabletoCSV.js", type='text/javascript') 
     script.
       $( document ).ready(function(){ 
+
+          $("#toXML").click(function(){
+        $.ajax({
+          url:"/leads/Export",
+          data: {"idSite":idSite}, 
+          method: "POST",
+          success: function(data){
+          window.open('data:application/vnd.ms-excel,' +"<table>"+data+"</table>");
+          }
+        })
+      });
+
+      $("#toCSV").click(function(){
+        $.ajax({
+          url:"/leads/Export",
+          data: {"idSite":idSite}, 
+          method: "POST",
+          success: function(data){  
+          var table = "<table>"+
+          data+
+          "</table>";
+           $(table).tableToCSV();
+          }
+        })
+      });
+
+
           var page=0;
           var loading= false;
           var enable = true;
