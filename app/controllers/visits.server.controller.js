@@ -235,7 +235,7 @@ exports.GetVisitorAbout= function(req,res,next){
   });
 }
 
-exports.GetXML = function(req,res,next){
+exports.Export = function(req,res,next){
   async.series({
       visitas: function(callback){ 
             piwik.api({

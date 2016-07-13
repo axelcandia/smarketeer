@@ -6,5 +6,5 @@ module.exports = function(app) {
 	app.get("/visitors/seemore/:id/", visitsController.GetVisitData);
 	app.post("/home/CountVisitors*",visitsController.CountVisitors);
 	app.post("/visitors/seemore/GetVisitorAbout*",visitsController.GetVisitorAbout);
-	app.post("/visitors/GetXML*",visitsController.GetXML);
+	app.post("/visitors/Export*",visitsController.Export);
 };

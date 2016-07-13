@@ -7,4 +7,5 @@ module.exports = function(app) {
 	 app.post("/home/funnel/GetLeads*",leadsController.GetLeads); 
 	 app.post("/home/GetLeadsByChannel*",leadsController.GetLeadsByChannel);
 	 app.post("/home/funnel/leads/GetSale*",leadsController.GetSale);
+	 app.post("/leads/Export*",leadsController.Export);
 };

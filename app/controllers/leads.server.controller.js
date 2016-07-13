@@ -51,7 +51,7 @@ exports.GetLeads = function(req,res){
             html="";  
             var key, i = 0;
             for(key in results.visitas) {
-              html+=json2table(results.visitas[i],req.body.idSite);  
+              html+=json2table(results.visitas[i],req.body.idSite,true);  
               i++;     
             }  
             res.send(html).status(200); 
@@ -169,10 +169,37 @@ function GetReferrers(res,idSite,date,period){
 
 }
 
+
+exports.Export = function(req,res,next){
+  async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.getLeads',
+                idSite:    req.body.idSite,
+                filter_offset:0 , 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) {console.log(err);
+          res.send(err);}
+          else{ 
+           html="<tr><td>Fecha</td><td>Email</td><td>Campaña</td><td>Fuente</td><td>Medio</td><td>Contenido</td><td>URL del referido</td><td>Pagina de destino</td></tr>";  
+            var key, i = 0;
+            for(key in results.visitas) {
+              html+=json2table(results.visitas[i],req.body.idSite,false);  
+              i++;     
+            }    
+              res.send(html).status(200);;
+          }
+      });  
+}
+
+
+
 /**
 * This function gets the information of both, put it together and rock it
 */
-function json2table(visita,idSite){
+function json2table(visita,idSite,registrarVenta){
 	var query =""// url.parse(visita.actionDetails[0].url,true).query; 
   var email = visita.custom_var_v1 || "indefinido" ;
   var  totalVenta=0;
@@ -206,8 +233,9 @@ function json2table(visita,idSite){
 
 
         //Status
-        NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.user_id+'">'+
-            '<a href="javascript:;">Registrar Venta</a></td>';  
-        return NewVisitor;
+        if(registrarVenta)
+          NewVisitor+='<td class="try" data-email="'+email+'" id="'+visita.user_id+'">'+
+              '<a href="javascript:;">Registrar Venta</a></td>';  
+        return NewVisitor+"</tr>";
 
 } 

@@ -78,7 +78,7 @@ html(lang='en')
             h3.page-title
               | Visitas
             .page-bar
-              ul.page-breadcrumb
+              //ul.page-breadcrumb
                 li
                   i.fa.fa-home
                   a(href='index') Home
@@ -91,14 +91,14 @@ html(lang='en')
               .page-toolbar
                 .btn-group.pull-right
                   button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Actions 
+                    | Exportar 
                     i.fa.fa-angle-down
                   ul.dropdown-menu.pull-right(role='menu')
                     li#toXML
-                      a(href='#') Export to Excel
+                      a(href='#') Exportar Excel
                     li#toCSV
-                      a(href='#') Export to CSV
-                    li
+                      a(href='#') Exportar CSV
+                    //li
                       a(href='#') Export to PDF
               .page-toolbar
                 #dashboard-report-range.tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
@@ -203,7 +203,7 @@ html(lang='en')
       //Export
       $("#toXML").click(function(){
         $.ajax({
-          url:"/visitors/GetXML",
+          url:"/visitors/Export",
           data: {"idSite":idSite}, 
           method: "POST",
           success: function(data){
@@ -214,7 +214,7 @@ html(lang='en')
 
       $("#toCSV").click(function(){
         $.ajax({
-          url:"/visitors/GetXML",
+          url:"/visitors/Export",
           data: {"idSite":idSite}, 
           method: "POST",
           success: function(data){  
