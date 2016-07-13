@@ -5,7 +5,7 @@ var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
 var SolvedForms   = require("../models/solvedforms.server.model.js"); 
-
+var http           = require('http');
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
        idSite: req.query.idSite,
@@ -120,16 +120,19 @@ function GetDynamicProfile(userId,callback){
 */
 function GetProfilePicture(email,callback){
   var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
-  http.get(path, (res) => {
-        console.log(`Got response: ${res.statusCode}`);
-        // consume response body 
-        res.resume();
-      }).on('error', (e) => {
-        console.log(`Got error: ${e.message}`);
-      }); 
+  http.get(path, function(res) { 
+      res.on("data", function(chunk) {
+        var image_data=JSON.parse(chunk);
+        console.log("BODY: " + image_data.entry["gphoto$thumbnail"]["$t"]);
+        callback(image_data.entry["gphoto$thumbnail"]["$t"]);
+        
+      });
+    }).on('error', function(e) {
+      callback("");
+    });
 
 
-  callback("https://lh3.googleusercontent.com/-gv7m0ub7GxA/AAAAAAAAAAI/AAAAAAAAAAA/-JuTaoSL5Ck/s64-c/112864197834983498832.jpg");
+  //callback("https://lh3.googleusercontent.com/-gv7m0ub7GxA/AAAAAAAAAAI/AAAAAAAAAAA/-JuTaoSL5Ck/s64-c/112864197834983498832.jpg");
 }
 
 function GetCompletedForms(userId,callback){
