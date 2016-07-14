@@ -86,7 +86,7 @@ var idSite= parseInt(document.currentScript.id);
 function createform(id){   
   $.ajax({
           type: "POST",
-          url: "http://localhost:1337/GetFormHTML",
+          url: "http://smarketeer.azurewebsites.net/GetFormHTML",
           data: {"id":id},
           success: function(data){
           	console.log(data); 
@@ -116,7 +116,7 @@ function Send( form_id){
     		pushEmail(email);
     		//We have to update our DB to this new ID
     		$.ajax({
-			  url: "http://localhost:1337/UpdateID",
+			  url: "http://smarketeer.azurewebsites.net/UpdateID",
 			  data: {
 			    userId: userId,
 			    email: email
@@ -169,7 +169,7 @@ function ajax(values) {
 
     //Serialize the data
     var queryString = JSON.stringify(values);
-    xmlHTTP.open("POST", "http://localhost:1337/ReceiveForms", true); 
+    xmlHTTP.open("POST", "http://smarketeer.azurewebsites.net/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHTTP.send(queryString); 
 }

@@ -130,7 +130,6 @@ function json2table(visita,idSite){
   //Parseamos la url  
   var query =""// url.parse(visita.actionDetails[0].url,true).query; 
   var email = visita.custom_var_v1|| "indefinido" ;
-  var qemail = ( visita.custom_var_v1 ) ? "&email="+visita.custom_var_v1 : "";
 
   var  totalVenta=0;
   /*for(var i = 0; i<=Object.keys(visita.actionDetails).length;i++ ){
@@ -139,7 +138,7 @@ function json2table(visita,idSite){
 
   }*/
     var NewVisitor= '<tr><td>'+
-          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+qemail+'">';
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
       NewVisitor +=  email+'</a>'+'</td>'; 
         //Campaign name, we only display it if it was a campagin!!!

@@ -154,15 +154,13 @@ exports.Export = function(req,res,next){
 
 function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true).query; 
   var  totalVenta=0; 
-
-  var qemail = ( visita.custom_var_v1 ) ? "&email="+visita.custom_var_v1 : "";
-
+ 
   var NewVisitor='<tr><td>'+
         visita.visit_last_action_time+
         "</td>";
   //Visitor date
    NewVisitor+='<td>'+
-          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+qemail+'">';
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
       NewVisitor +=  visita.user_id+'</a>'+'</td>';
           

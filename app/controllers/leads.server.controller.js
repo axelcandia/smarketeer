@@ -202,14 +202,13 @@ exports.Export = function(req,res,next){
 function json2table(visita,idSite,registrarVenta){
 	var query =""// url.parse(visita.actionDetails[0].url,true).query; 
   var email = visita.custom_var_v1 || "indefinido" ;
-  var qemail = ( visita.custom_var_v1 ) ? "&email="+visita.custom_var_v1 : "";
   var  totalVenta=0;
   var NewVisitor='<tr><td>'+
         visita.visit_last_action_time.substring(0,visita.visit_last_action_time.indexOf(" "))+
         "</td>";
   //Visitor date
    NewVisitor+='<td>'+
-          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+qemail+'">';
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
       NewVisitor +=  email+'</a>'+'</td>';
           

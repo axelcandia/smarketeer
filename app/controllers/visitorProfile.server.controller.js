@@ -10,9 +10,7 @@ var Visitors      = require("../models/visitors.server.model");
 */
 exports.GetVisitData = function(req,res,next){ 
   if(req.query.email)
-    GetProfileByEmail(req,res,next);
-  else
-    GetProfileById(req,res,next);
+    GetProfileByEmail(req,res,next); 
 }
 
 
@@ -23,21 +21,21 @@ exports.GetVisitData = function(req,res,next){
 * That has the same key( EVEN MOBILE!! :D)
 */
 function GetProfileByEmail(req,res,next){
-   var segment= "userId=="+req.params.id
+   var segment= "userId=="+req.params.id;
    // an example using an object instead of an array
   async.series({
       StaticProfile: function(callback){
         GetStaticProfile(req.query.idSite,segment,callback)
       },
       Forms: function(callback){ 
-        GetCompletedForms(req.query.email, callback); 
+        GetCompletedForms(req.params.id, callback); 
       },
       DynamicProfile: function(callback){
-        GetDynamicProfile(req.query.email,callback); 
-      },
+        GetDynamicProfile(req.params.id,callback); 
+      }/*,
       GoogleData: function(callback){
-        GetGoogleData(req.query.email,callback)
-      }
+        GetGoogleData(req.params.id,callback)
+      }*/
 
   },
   function(err, results) {
@@ -60,47 +58,7 @@ function GetProfileByEmail(req,res,next){
   }); 
 }
 
-
-/**
-* If the user doesnot have email
-*/
-function GetProfileById(req,res,next){
-  var segment= "userId=="+req.params.id
-   // an example using an object instead of an array
-  async.series({
-      StaticProfile: function(callback){
-        GetStaticProfile(req.query.idSite,segment,callback)
-      },
-      Forms: function(callback){ 
-        GetCompletedForms(req.params.id, callback); 
-      },
-      DynamicProfile: function(callback){
-        GetDynamicProfile(req.params.id,callback); 
-      }
-
-  },
-  function(err, results) {
-    console.log("Visitas"+JSON.stringify(results));
-    GetProfilePicture("axelcandia2609@gmail.com",function(img){
-      res.render('home/funnel/visitorprofile', {  
-        idSite:       req.query.idSite,
-        UserId:       req.params.id,
-        totalVisits:  results.StaticProfile.totalVisits,
-        visits:       results.StaticProfile.lastVisits,
-        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
-        ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
-        ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
-        empty:        "",
-        about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
-        TotalForms:   Object.keys(results.Forms).length,
-        comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
-        img: img
-      }); 
-
-    })
-    
-  }); 
-}
+ 
 
 
 /**
@@ -159,7 +117,7 @@ function GetGoogleData(email,callback){
 }
 
 function GetCompletedForms(userId,callback){
-  SolvedForms.find({"pkwid":userId}, function(err, profile){
+  SolvedForms.find({"pkw_id":userId}, function(err, profile){
       if (err) return callback(err,null);
       return callback(null,profile);
   });

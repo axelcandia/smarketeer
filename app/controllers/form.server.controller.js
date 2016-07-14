@@ -8,6 +8,7 @@ var config			  = require("../../config/config");
 var PiwikClient   = require('piwik-client');
 var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var async           = require("async");
+
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
 		res.redirect("/login");
@@ -97,22 +98,18 @@ exports.UpdateForm = function(req,res,next){
 * Receives all the responses from froms
 */
 exports.ReceiveForms = function(req,res,next){
-	//var obj= JSON.parse([req.body]);   
-	if( Object.keys(req.body).length >2 ){ 
+	console.log("Reciviendo"+JSON.stringify(req.body));
+
+	//var obj= JSON.parse([req.body]);    
 		var  solved = SolvedForms({
 			date: new Date(),
-			fields  : req.body
+			fields: req.body
 		});
 		//Se guarda el campo
-		solved.save();
-		//Se ve en que estado esta nuestro pibe
-		//Si recibimos email, nombre o apellido añadir con el status a identificado
-		if( req.body.Apellido || req.body.Nombre || req.body.email )
-		{
-
-		}
-	}
-	//Si es mayor a 2 hagamos el guardado, si no, do not even bother
+		solved.save(function (err) {
+		  if (err) res.send("Error intente devuelta");;
+		  res.send("Gracias!");
+		}); 
 }
 /**
 * Delete the campaign from our DB
@@ -175,9 +172,7 @@ exports.GetFormHTML = function( req, res, next ){
 /**
 * Update the ID to thhe email addres
 */
-exports.UpdateID = function(req,res,next){
-	console.log(req.body.email);
-	console.log(req.body.userId);
+exports.UpdateID = function(req,res,next){ 
 	if(!req.body.email){
 		res.send("0").status("200");
 		return;
@@ -189,11 +184,23 @@ exports.UpdateID = function(req,res,next){
                 userId:    req.body.userId,
                 email: 	   req.body.email, 
               },callback);  
-          }
-      },function(err, results) {
+          }, 
+      UpdateForms:function(callback){
+
+	      	var conditions = { pkw_id : req.body.userId }
+			  , update = { pkw_id: req.body.email}
+			  , options = { multi: true };
+
+			SolvedForms.update(conditions, update, options, function(err,data){
+				if(err)
+					callback(err,null);
+				else
+					callback(null,err);
+			});  
+	 	}
+	 }	
+      ,function(err, results) {
         if(err) console.log(err);
-          console.log(results);
-
-      }); 
-
-}
+          console.log(results); 
+       }); 
+	}
