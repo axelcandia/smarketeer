@@ -4,8 +4,6 @@ var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var url           = require('url');
 var Visitors      = require("../models/visitors.server.model");
 var async         = require("async");
-var SolvedForms   = require("../models/solvedforms.server.model.js"); 
-var http           = require('http');
 exports.RenderVisitors = function ( req,res ){ 
     res.render('home/funnel/visitors', { 
        idSite: req.query.idSite,
@@ -42,116 +40,6 @@ exports.GetMoreVisitors =function (req,res){
           }
 
       }); 
-}
-/**
-* REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
-*/
-exports.GetVisitData = function(req,res,next){
-  var segment= "userId=="+req.params.id
-  // an example using an object instead of an array
-  async.series({
-      StaticProfile: function(callback){
-        GetStaticProfile(req.query.idSite,segment,callback)
-      },
-      Forms: function(callback){ 
-        GetCompletedForms(req.params.id, callback); 
-      },
-      DynamicProfile: function(callback){
-        GetDynamicProfile(req.params.id,callback); 
-      }
-
-  },
-  function(err, results) {
-    console.log("Visitas"+results);
-    GetProfilePicture("axelcandia2609@gmail.com",function(img){
-      res.render('home/funnel/visitorprofile', {  
-        idSite:       req.query.idSite,
-        UserId:       req.params.id,
-        totalVisits:  results.StaticProfile.totalVisits,
-        visits:       results.StaticProfile.lastVisits,
-        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
-        ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
-        ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
-        empty:        "",
-        about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
-        TotalForms:   Object.keys(results.Forms).length,
-        comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
-        img: img
-      }); 
-
-    })
-    
-  });
-};
-/**
-* Static profile is all the data that we save using the tracking code
-*/
-function GetStaticProfile(idSite,segment,callback){
-  piwik.api({
-    method:   'Live.getVisitorProfile',
-    idSite: idSite,
-    visitorId: '',
-    segment:'',
-    limitVisits: '',
-    segment: segment,
-  },function(err,data){
-    if(err){
-      callback(err,null)
-    }
-    else{
-      callback(null,data);
-    }
-
-  });
-}
-/**
-* Dynamic is all the data that a user can change any time he wants
-*/
-function GetDynamicProfile(userId,callback){
-
-  Visitors.findOne({"CookieId":userId}, function(err, profile){
-      if (err) return callback(err,null);
-      return callback(null,profile);
-  });
-} 
-
-/**
-*Receives the emails and gets all the available data from there
-*/
-function GetProfilePicture(email,callback){
-  var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
-  http.get(path, function(res) { 
-      res.on("data", function(chunk) {
-        var image_data=JSON.parse(chunk);
-        console.log("BODY: " + image_data.entry["gphoto$thumbnail"]["$t"]);
-        callback(image_data.entry["gphoto$thumbnail"]["$t"]);
-        
-      });
-    }).on('error', function(e) {
-      callback("");
-    });
-
-
-  //callback("https://lh3.googleusercontent.com/-gv7m0ub7GxA/AAAAAAAAAAI/AAAAAAAAAAA/-JuTaoSL5Ck/s64-c/112864197834983498832.jpg");
-}
-
-function GetCompletedForms(userId,callback){
-  SolvedForms.find({"pkwid":userId}, function(err, profile){
-      if (err) return callback(err,null);
-      return callback(null,profile);
-  });
-}
-/**
-* Get the status of the visitor
-*/
-function GetStatus(visita){
-  Visitors.findOne({ 'CookieId': visita.visitorId }, function (err, visit) {
-          if (err || !visit ) NewVisitor += '<td><span class="label label-sm label-success">Lead</span></td>';
-          else{  
-          } 
-           NewVisitor+="</tr>"; 
-           return NewVisitor;
-        });  
 }
 /**
 * Get all the data of the visit and convert it in table mode
@@ -265,13 +153,16 @@ exports.Export = function(req,res,next){
 }
 
 function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true).query; 
-  var  totalVenta=0;
+  var  totalVenta=0; 
+
+  var qemail = ( visita.custom_var_v1 ) ? "&email="+visita.custom_var_v1 : "";
+
   var NewVisitor='<tr><td>'+
         visita.visit_last_action_time+
         "</td>";
   //Visitor date
    NewVisitor+='<td>'+
-          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
+          '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+qemail+'">';
 
       NewVisitor +=  visita.user_id+'</a>'+'</td>';
           

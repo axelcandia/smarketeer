@@ -3,19 +3,11 @@ var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
 var SolvedForms		= require("../models/solvedforms.server.model"); 
 var Visitors		= require("../models/visitors.server.model");
-//var mysql      		= require('mysql'); 
-/**
-* Requires a name to build the form properly
-* status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
-*/
-    /*var tunnel = require('tunnel-ssh').tunnel;
-    //map port from remote 3306 to localhost 3306 
-    var server = tunnel({host: '52.165.38.47', dstPort: 3306, username:"axel",password:"AlfredHitchcock12"}, function (error, result) {
-        //you can start using your resources here. (mongodb, mysql, ....) 
-        console.log('connected');
-
-    });*/
-
+var Website 		= require('../models/websites.server.model');
+var config			  = require("../../config/config");
+var PiwikClient   = require('piwik-client');
+var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
+var async           = require("async");
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
 		res.redirect("/login");
@@ -51,17 +43,15 @@ exports.RenderFormBuilder= function(req, res, next){
 		Forms.findById(req.params.id, function (err, found) {
 			if(err)
 				console.log("err");
-			else{ 
-				var url 	= (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder_dev.js" : "http://smarketeer.azurewebsites.net/forms/formbuilder.js";
-				var script 	= "<script src= '"+url+"'></script>"+ 
-				                  "<script id='"+found.id+"'>"+
+			else{  
+				var script 	= "<script id='"+found.id+"'>"+
 				                    "(createform(document.currentScript.id,'"+req.query.idSite+"'));"+
 				               "</script>"; 
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
 		      		script 	   : script,
-		      		url: 		url,
+		      		url: 		"",
 		      		builderCode: found.builderCode,
 		      		idSite: req.query.idSite
 	      		});
@@ -183,36 +173,27 @@ exports.GetFormHTML = function( req, res, next ){
 	})
 }
 /**
-* Receives data of whatever and returns the properid
+* Update the ID to thhe email addres
 */
-exports.GetVisitorId = function( req, res, next){
-	if(!req.body)
-		return res.send("-1");
-	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
-	var query = { CookieId :req.body.id};
-	var update; 
-	if(req.body.email){
-		update = { 
-	    	"email"			: req.body.email
-	    };
-	}
-	else{
-		update = { 
-	    	$addToSet: { cookies			: {CookieId:req.body.id}}
-	    }; 
+exports.UpdateID = function(req,res,next){
+	console.log(req.body.email);
+	console.log(req.body.userId);
+	if(!req.body.email){
+		res.send("0").status("200");
+		return;
 	} 
+	async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.updateId',
+                userId:    req.body.userId,
+                email: 	   req.body.email, 
+              },callback);  
+          }
+      },function(err, results) {
+        if(err) console.log(err);
+          console.log(results);
 
-	Visitors.findOneAndUpdate( query, update, options, function(error, result) {
-		if(error){
-			console.log(error);
-			res.send(req.body.id);
-		}
-		else{ 
-			console.log(result._id);
-			res.send( result._id ).status(200);
-		}
-	}); 
-
-	
+      }); 
 
 }
