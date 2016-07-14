@@ -146,6 +146,7 @@ function Send( form_id){
 		}
 			
 	} 
+	console.log(values);
 	values["pkw_id"]= userId;
 	values["form_id"]=form_id;
 	ajax(values);

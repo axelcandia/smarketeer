@@ -8,8 +8,7 @@ var Visitors      = require("../models/visitors.server.model");
 /**
 * REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
 */
-exports.GetVisitData = function(req,res,next){ 
-  if(req.query.email)
+exports.GetVisitData = function(req,res,next){  
     GetProfileByEmail(req,res,next); 
 }
 
@@ -38,8 +37,7 @@ function GetProfileByEmail(req,res,next){
       }*/
 
   },
-  function(err, results) {
-    console.log("Visitas"+JSON.stringify(results)); 
+  function(err, results) { 
       res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -116,9 +114,14 @@ function GetGoogleData(email,callback){
 
 }
 
-function GetCompletedForms(userId,callback){
-  SolvedForms.find({"pkw_id":userId}, function(err, profile){
-      if (err) return callback(err,null);
+function GetCompletedForms(userId,callback){ 
+  console.log(userId);
+  SolvedForms.find({"userId" : userId}, function(err, profile){
+      if (err) {
+        console.log(err);
+      }
+       // return callback(err,null);
+      console.log(profile);
       return callback(null,profile);
   });
 }

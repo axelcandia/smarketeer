@@ -97,13 +97,11 @@ exports.UpdateForm = function(req,res,next){
 /*
 * Receives all the responses from froms
 */
-exports.ReceiveForms = function(req,res,next){
-	console.log("Reciviendo"+JSON.stringify(req.body));
-
-	//var obj= JSON.parse([req.body]);    
+exports.ReceiveForms = function(req,res,next){   
 		var  solved = SolvedForms({
 			date: new Date(),
-			fields: req.body
+			fields: req.body,
+			userId: req.body.userId
 		});
 		//Se guarda el campo
 		solved.save(function (err) {
@@ -186,9 +184,8 @@ exports.UpdateID = function(req,res,next){
               },callback);  
           }, 
       UpdateForms:function(callback){
-
-	      	var conditions = { pkw_id : req.body.userId }
-			  , update = { pkw_id: req.body.email}
+	      	var conditions = { userId : req.body.userId }
+			  , update = { userId: req.body.email}
 			  , options = { multi: true };
 
 			SolvedForms.update(conditions, update, options, function(err,data){
