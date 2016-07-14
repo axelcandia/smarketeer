@@ -38,6 +38,7 @@ function GetProfileByEmail(req,res,next){
 
   },
   function(err, results) { 
+    console.log(results.Forms);
       res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -50,7 +51,8 @@ function GetProfileByEmail(req,res,next){
         about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
         TotalForms:   Object.keys(results.Forms).length,
         comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
-        img:          results.GoogleData
+        img:          results.GoogleData,
+        forms:        results.Forms
       }); 
     
   }); 

@@ -339,16 +339,18 @@ html
                         .portlet-body
                           .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
                             .general-item-list
-                              -for (var i=0;i< totalForms; i++){
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar4.jpg')
-                                    a.item-name.primary-link(href='') Nombre
-                                    span.item-label 3 hrs ago
-                                .item-body
-                                  | Juan 
-                              -}
+                              each form in forms
+                                each value, key in form.fields 
+                                  if key!= "pkw_id" && key!="userId" && key!="Email" && key!="form_id"
+                                    .item
+                                      .item-head
+                                        .item-details
+                                          img.item-pic(src='/admin/layout3/img/avatar4.jpg')
+                                          a.item-name.primary-link(href='') #{key}
+                                          span.item-label 3 hrs ago
+                                      .item-body
+                                        | #{value} 
+                                
                       // END PORTLET
                     .col-md-6
                       // BEGIN PORTLET
