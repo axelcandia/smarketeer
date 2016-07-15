@@ -10,10 +10,30 @@ var Visitors      = require("../models/visitors.server.model");
 */
 exports.GetVisitData = function(req,res,next){  
     GetProfileByEmail(req,res,next); 
-}
+} 
 
 
+exports.AddComment = function(req,res,next){
+  console.log("ADDING A COMMENT");
+  var options={safe: true, upsert: true};
+  var update = { 
+        userId:req.body.currentUser,
+        userName:req.body.currentUserName,
+        text:req.body.text,
+        image: req.body.image,
+        date: req.body.date};
 
+  //Añadir el comentario
+  Visitors.findOneAndUpdate(
+    { 'userId': req.body.userId },
+    {$push: {"comments":update }},
+    options,
+    function(err, model) {
+        console.log(err);
+    }
+); 
+
+}  
 
 /**
 *If the user has an email it will execute this and retrieve EVERYTHING
@@ -31,14 +51,14 @@ function GetProfileByEmail(req,res,next){
       },
       DynamicProfile: function(callback){
         GetDynamicProfile(req.params.id,callback); 
-      }/*,
+      },
       GoogleData: function(callback){
         GetGoogleData(req.params.id,callback)
-      }*/
+      }
 
   },
   function(err, results) { 
-    console.log(results.Forms);
+    console.log(results.DynamicProfile);
       res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -90,10 +110,11 @@ function GetStaticProfile(idSite,segment,callback){
 */
 function GetDynamicProfile(userId,callback){
 
-  Visitors.findOne({"CookieId":userId}, function(err, profile){
+  Visitors.findOne({"userId":userId}, function(err, profile){
       if (err) return callback(err,null);
       return callback(null,profile);
   });
+
 } 
 
 /**
@@ -101,7 +122,6 @@ function GetDynamicProfile(userId,callback){
 */
 function GetGoogleData(email,callback){
   var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
-  console.log(path);
   http.get(path, function(res) { 
       res.on("data", function(chunk) {
         var image_data=JSON.parse(chunk);
@@ -116,14 +136,26 @@ function GetGoogleData(email,callback){
 
 }
 
-function GetCompletedForms(userId,callback){ 
-  console.log(userId);
+function GetCompletedForms(userId,callback){  
   SolvedForms.find({"userId" : userId}, function(err, profile){
       if (err) {
         console.log(err);
       }
-       // return callback(err,null);
-      console.log(profile);
+       // return callback(err,null); 
       return callback(null,profile);
   });
 }
+/**
+* It gets the information that was settet in /seemore in the "Escriba informacion personal"
+* @param about
+*/
+exports.GetVisitorAbout= function(req,res,next){
+  console.log(req.body);
+  Visitors.findOneAndUpdate( { 'userId': req.body.userId }, {"about":req.body.about}, {upsert:true},function(error, result) {
+    if(error){
+      console.log(err);
+    }
+    console.log(result);
+  });
+}
+

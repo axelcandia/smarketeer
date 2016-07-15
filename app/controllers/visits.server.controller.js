@@ -113,18 +113,7 @@ var GetWebsiteDate=function (req,res,callback){
   }
 
 }
-/**
-* It gets the information that was settet in /seemore in the "Escriba informacion personal"
-* @param about
-*/
-exports.GetVisitorAbout= function(req,res,next){
-  Visitors.findOneAndUpdate( { 'CookieId': req.body.UserId }, {"about":req.body.about}, function(error, result) {
-    if(error){
-      console.log(err);
-    }
-    console.log(result);
-  });
-}
+
 
 exports.Export = function(req,res,next){
   async.series({

@@ -21,7 +21,7 @@ $(document).ready(function() {
         $.ajax({
           url:"/visitors/seemore/GetVisitorAbout",
           data:{"about":about,
-                "UserId":UserId},
+                "userId":userId},
           type:"POST"
         });
       });
@@ -32,35 +32,55 @@ $(document).ready(function() {
         $(".action-edit").show();
         $(".edit").hide();
       });
-  function CreateComment(comment){
-    '<div class="item">'+
+
+
+  function CreateComment(comment,img,user,date){
+    return '<div class="item">'+
         '<div class="item-head">'+
           '<div class="item-details">'+
-            '<img src="#" class="item-pic"/>'+
-              '<a href="" class="item-name primary-link">'+
-              '</a>+
-            <span class="item-label">'+
+            '<img src="'+img+'" class="item-pic"/>'+
+              '<div class="item-name primary-link">'+user+
+              '</div>'+
+            '<span class="item-label">'+date+
             '</span>'+
           '</div>'+
         '</div>'+
       '<div class="item-body"></div>'+
+      comment+
     '</div>';
 
   }
   /**
   *For the comment section
   */
-  $("#SendComment").click(function(){
-    $(".commentSection").after($(".comment").val());
+  $("#SendComment").click(function(){ 
+    //Create de date
+    var date= new Date();
+    date= date.toISOString().substr(0,  (date.toISOString().indexOf('T'))); 
+    //Create de commend and append it
+    var comment= CreateComment($(".comment").val(),currentUserImage,currentUserName,date); 
+    $("#CommentList").append(comment); 
+    //Save everything before you clean
+    var text = $(".comment").val();
+    $(".comment").val("");
+    //Noooow you send it :D
+    $("#ComentScroller").animate({ scrollTop: $(document).height() }, 1000);
     $.ajax({
-      url:"/visitors/seemore/AddComment",
+      url:"/VisitorProfile/visitors/seemore/AddComment",
       data:{
-        "text": $(".comment").val(),
-        "user":  #{user.profile.name},
-        "image": #{user.profile.picture},
-        "date": new Date()
+        "text": text,
+        "userId":  userId,
+        "image": currentUserImage.toString(),
+        "date": new Date(),
+        "currentUser":currentUserId,
+        "currentUserName":currentUserName,
+        "site":idSite
       },
-      succes: function(data){
+      type:"POST",
+      success: function(data){
+        console.log(data);
+      }, 
+      error: function(data){
         console.log(data);
       }
     });
