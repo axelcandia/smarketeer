@@ -47,10 +47,10 @@ function GetProfileByEmail(req,res,next){
         GetStaticProfile(req.query.idSite,segment,callback)
       },
       Forms: function(callback){ 
-        GetCompletedForms(req.params.id, callback); 
+        GetCompletedForms(req.params.id,req.query.idSite, callback); 
       },
       DynamicProfile: function(callback){
-        GetDynamicProfile(req.params.id,callback); 
+        GetDynamicProfile(req.params.id,req.query.idSite,callback); 
       },
       GoogleData: function(callback){
         GetGoogleData(req.params.id,callback)
@@ -108,9 +108,9 @@ function GetStaticProfile(idSite,segment,callback){
 /**
 * Dynamic is all the data that a user can change any time he wants
 */
-function GetDynamicProfile(userId,callback){
+function GetDynamicProfile(userId,idSite,callback){
 
-  Visitors.findOne({"userId":userId}, function(err, profile){
+  Visitors.findOne({"userId":userId,"idSite":idSite}, function(err, profile){
       if (err) return callback(err,null);
       return callback(null,profile);
   });
@@ -136,8 +136,8 @@ function GetGoogleData(email,callback){
 
 }
 
-function GetCompletedForms(userId,callback){  
-  SolvedForms.find({"userId" : userId}, function(err, profile){
+function GetCompletedForms(userId,idsite,callback){  
+  SolvedForms.find({"userId" : userId,"idSite":idSite}, function(err, profile){
       if (err) {
         console.log(err);
       }
@@ -151,7 +151,7 @@ function GetCompletedForms(userId,callback){
 */
 exports.GetVisitorAbout= function(req,res,next){
   console.log(req.body);
-  Visitors.findOneAndUpdate( { 'userId': req.body.userId }, {"about":req.body.about}, {upsert:true},function(error, result) {
+  Visitors.findOneAndUpdate( {'userId': req.body.userId,"idSite":req.body.idSite }, {"about":req.body.about}, {upsert:true},function(error, result) {
     if(error){
       console.log(err);
     }

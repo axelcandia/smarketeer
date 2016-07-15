@@ -18,20 +18,19 @@ var idSite= parseInt(document.currentScript.id);
 			_paq.push([ function() {  
 				visitor_id = this.getVisitorId();  
 
-				var cname="smkt_"+idSite;
-				userId=getCookie(cname);
-				if(userId){
+				var cname="smkt_"+idSite; 
+
+				if(getCookie(cname)){
 					var jscookie = JSON.parse(getCookie(cname));
-					userId = (jscookie.visitor_id) ? jscookie.visitor_id : jscookie.email ;
+					userId = (jscookie.email) ?  jscookie.email : jscookie.visitor_id;
 				} 
 				else{
 					console.log("Setting cookie");
 					setCookie(idSite,visitor_id,"",400);
-				} 
-				//It is either the cooki or this
-				userId = userId||visitor_id; 
-				console.log("userId:"+userId); 
-				visitor_id=userId;
+				}  
+
+				userId = userId||visitor_id;
+				console.log("userId:"+userId);  
 				this.setUserId(userId); 
 		}]);
 			_paq.push(['trackPageView']);
@@ -96,7 +95,7 @@ function createform(id){
 }
 	//document.write("SOME SUPER CONTENT");
 
-function Send( form_id){   
+function SendSmkt(form_id,idSite){   
 	  event.preventDefault();
 	  var values = {};
 	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField'); 
@@ -126,11 +125,13 @@ function Send( form_id){
 			   console.log("Update Succeesfull!"+result);
 			  }
 			}); 
+			userId=email;
     	}
     	else if(cemail!=email){  
     		deleteCookie(email);
     		setCookie(idSite,visitor_id,email,400);
     		pushEmail(email); 
+    		userId=email;
     	} 	
 		
     	} 
@@ -146,9 +147,11 @@ function Send( form_id){
 		}
 			
 	} 
-	console.log(values);
-	values["pkw_id"]= userId;
+	values["userId"]= userId;
 	values["form_id"]=form_id;
+	values["idSite"]=idSite;
+	console.log(values);
+
 	ajax(values);
 }  
 

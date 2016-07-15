@@ -95,7 +95,7 @@ function createform(id){
 }
 	//document.write("SOME SUPER CONTENT");
 
-function Send( form_id){   
+function SendSmkt(form_id,idSite){   
 	  event.preventDefault();
 	  var values = {};
 	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField'); 
@@ -149,7 +149,7 @@ function Send( form_id){
 	} 
 	values["userId"]= userId;
 	values["form_id"]=form_id;
-
+	values["idSite"]=idSite;
 	console.log(values);
 
 	ajax(values);

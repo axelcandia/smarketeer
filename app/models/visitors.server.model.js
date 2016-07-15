@@ -14,7 +14,8 @@ var visitorsSchema = new mongoose.Schema({
 		image 		: String,
 		date 		: Date,
 		userName	: String 
-	}]
+	}],
+	idSite: String
 });
 
 

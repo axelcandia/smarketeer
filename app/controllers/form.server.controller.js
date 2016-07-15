@@ -83,7 +83,7 @@ exports.UpdateForm = function(req,res,next){
 	//Form it, minify it, sell it
 	var html= "<form class='form-horizontal smkt_form' id='form."+req.body.id+"'>" +
 				req.body.html+
-				"<button id='smkt_button' onclick="+send+">Enviar</button>"+
+				//"<button id='smkt_button' onclick="+send+">Enviar</button>"+
 			  "</form>";
 	var result = minify(html, {
 		  removeAttributeQuotes: false
@@ -94,6 +94,7 @@ exports.UpdateForm = function(req,res,next){
 	  res.send(tank);
 	}); 
 }
+
 /*
 * Receives all the responses from froms
 */

@@ -2,13 +2,13 @@ define([
        "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
-       , "text!data/input.json", "text!data/radio.json", "text!data/predeterminado.json"
+       , "text!data/input.json", "text!data/radio.json", "text!data/predeterminado.json","text!data/buttons.json"
        , "text!templates/app/render.html" 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
-  , inputJSON, radioJSON, predeterminadoJSON
+  , inputJSON, radioJSON, predeterminadoJSON,buttonsJSON
   , renderTab
 ){
   return {
@@ -24,6 +24,10 @@ define([
       new TabView({
         title: "Opciones"
         , collection: new SnippetsCollection(JSON.parse(radioJSON))
+      });
+      new TabView({
+        title: "Botones de envio"
+        , collection: new SnippetsCollection(JSON.parse(buttonsJSON))
       });
       new TabView({
         title: "Codigo"
