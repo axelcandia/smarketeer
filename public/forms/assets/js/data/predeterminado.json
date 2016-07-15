@@ -27,7 +27,11 @@
         "type": "eliminar",
         "value": ""
       },
-      
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
+      },
       "inputsize": {
         "label": "Tamaño",
         "type": "select",
@@ -88,6 +92,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -149,6 +158,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -211,6 +225,11 @@
         "type": "checkbox",
         "value": false
       }, 
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
+      },
       "inputsize": {
         "label": "Tamaño",
         "type": "select",
@@ -271,6 +290,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -332,6 +356,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -393,6 +422,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -454,6 +488,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -500,7 +539,7 @@
         "label": "Nombre",
         "type": "eliminar",
         "value": "Pais"
-      },
+      }, 
       "options": {
         "label": "Options",
         "type": "eliminar",
@@ -766,6 +805,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -817,6 +861,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "textarea": {
         "label": "Starting Text",
@@ -832,6 +881,11 @@
         "label": "ID / Name",
         "type": "eliminar",
         "value": "smkt_ship-zip"
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       },
       "label": {
         "label": "Nombre",
@@ -913,6 +967,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",

@@ -15,20 +15,41 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       helptext: 
         label: "Ayuda"
         type: "eliminar"
         value: ""
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: false
   - 
     title: "Text Input"
     fields: 
@@ -49,16 +70,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -79,16 +121,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -109,16 +172,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -139,16 +223,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -169,16 +274,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -199,16 +325,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -229,16 +376,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Select Basic"
     fields: 
@@ -250,11 +418,14 @@
         label: "Nombre"
         type: "eliminar"
         value: "Pais"
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       options: 
         label: "Options"
         type: "eliminar"
         value: 
-          - "- Elige un pais -"
           - "Afganistan"
           - "Albania"
           - "Alemania"
@@ -456,33 +627,29 @@
           - "Zambia"
           - "Zimbabue"
       inputsize: 
-        label: "Input Size"
+        label: "Tamaño"
         type: "select"
         value: 
           - 
             value: "input-mini"
-            label: "Mini"
+            label: "Muy chiquito"
             selected: false
           - 
-            value: "input-smktall"
-            label: "smktall"
+            value: "input-small"
+            label: "Chiquito"
             selected: false
           - 
             value: "input-medium"
-            label: "Medium"
-            selected: false
+            label: "Mediano"
+            selected: true
           - 
             value: "input-large"
-            label: "Large"
+            label: "Grande"
             selected: false
           - 
             value: "input-xlarge"
-            label: "Xlarge"
+            label: "Muy grande"
             selected: true
-          - 
-            value: "input-xxlarge"
-            label: "Xxlarge"
-            selected: false
   - 
     title: "Text Input"
     fields: 
@@ -503,16 +670,37 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Area"
     fields: 
@@ -525,9 +713,13 @@
         type: "eliminar"
         value: "Mensaje"
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       textarea: 
         label: "Starting Text"
         type: "textarea"
@@ -539,6 +731,10 @@
         label: "ID / Name"
         type: "eliminar"
         value: "smkt_ship-zip"
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       label: 
         label: "Nombre"
         type: "eliminar"
@@ -552,16 +748,33 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true
   - 
     title: "Text Input"
     fields: 
@@ -582,13 +795,34 @@
         type: "eliminar"
         value: ""
       required: 
-        label: "Required"
+        label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
-        label: "Input Size"
-        type: "eliminar"
+        label: "Tamaño"
+        type: "select"
         value: 
-          value: "input-xlarge"
-          label: "Xlarge"
-          selected: true
+          - 
+            value: "input-mini"
+            label: "Muy chiquito"
+            selected: false
+          - 
+            value: "input-small"
+            label: "Chiquito"
+            selected: false
+          - 
+            value: "input-medium"
+            label: "Mediano"
+            selected: true
+          - 
+            value: "input-large"
+            label: "Grande"
+            selected: false
+          - 
+            value: "input-xlarge"
+            label: "Muy grande"
+            selected: true

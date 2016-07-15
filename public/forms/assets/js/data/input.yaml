@@ -22,6 +22,10 @@
         label: "Obligatorio"
         type: "checkbox"
         value: false
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       inputsize: 
         label: "Tamaño"
         type: "select"
@@ -37,7 +41,7 @@
           - 
             value: "input-medium"
             label: "Mediano"
-            selected: false
+            selected: true
           - 
             value: "input-large"
             label: "Grande"
@@ -45,7 +49,7 @@
           - 
             value: "input-xlarge"
             label: "Muy grande"
-            selected: true
+            selected: false
   - 
     title: "Text Area"
     fields: 
@@ -57,11 +61,15 @@
         label: "Nombre"
         type: "input"
         value: "Texto grande"
+      customClass: 
+        label: "Clases"
+        type: "input"
+        value: ""
       required: 
         label: "Obligatorio"
         type: "checkbox"
         value: false
       textarea: 
-        label: "Comentario default"
+        label: "Texto de inicio"
         type: "textarea"
-        value: ""
+        value: "default text"

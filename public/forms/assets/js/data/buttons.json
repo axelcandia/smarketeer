@@ -7,6 +7,11 @@
         "type": "input",
         "value": "Button"
       },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
+      },
       "id": {
         "label": "ID",
         "type": "input",
