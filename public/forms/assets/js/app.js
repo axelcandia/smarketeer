@@ -41,12 +41,17 @@ define([
       new MyFormView({
         title: "Original"
         , collection: new MyFormSnippetsCollection([
-          { "title" : "Form Name"
+          { "title" : "Nombre del formulario"
             , "fields": {
               "name" : {
                 "label"   : "Nombre"
                 , "type"  : "input"
                 , "value" : "Escriba un nombre"
+              },
+              "customClass": {
+                "label": "Clases",
+                "type": "input",
+                "value": ""
               }
             }
           }

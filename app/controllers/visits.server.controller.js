@@ -16,30 +16,24 @@ exports.RenderVisitors = function ( req,res ){
 exports.GetMoreVisitors =function (req,res){   
   var page= req.body.page; 
   page =  ( page == 0 ) ? page  : page * 20;
+  console.log(page);
   //Form the pages
-  var data="" 
-  async.series({
-      visitas: function(callback){ 
-            piwik.api({
+  var data="";
+  piwik.api({
                 method:   'Smarketeer.getVisits',
                 idSite:    req.body.idSite,
                 filter_offset:page,
-                filter_limit:20, 
-              },callback);  
-          }
-      },function(err, results) {
-        if(err) res.send(err);
-          else{ 
-            html="";  
+                filter_limit:page+20, 
+              },function(err,data){
+                console.log(JSON.stringify(data));
+                html="";  
             var key, i = 0;
-            for(key in results.visitas) {
-              html+=json2table(results.visitas[i],req.body.idSite);  
+            for(key in data) {
+              html+=json2table(data[i],req.body.idSite);  
               i++;     
-            }  
+            }   
             res.send(html).status(200); 
-          }
-
-      }); 
+              });  
 }
 /**
 * Get all the data of the visit and convert it in table mode
@@ -74,8 +68,7 @@ function GetPiwikVisitsCounter(res,idSite,date,period){
       console.log(err);
       res.send(0).status(200);
       return 0;
-    }  
-      console.log("VISIT THIS"+JSON.stringify(visitas));
+    }   
       res.send(visitas.value.toString()).status(200);
   });
 }
@@ -151,9 +144,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
    NewVisitor+='<td>'+
           '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
-      NewVisitor +=  visita.user_id+'</a>'+'</td>';
-          
-        console.log(visita);
+      NewVisitor +=  visita.user_id+'</a>'+'</td>'; 
         //Campaign name, we only display it if it was a campagin!!!
         NewVisitor+= ( visita.referer_type == 6 ) ? 
                       '<td>'+visita.referer_name+'</td>':

@@ -195,9 +195,21 @@ exports.UpdateID = function(req,res,next){
 				else
 					callback(null,err);
 			});  
+	 	},
+	 UpdateVisitors:function(callback){
+	 	var conditions = { userId : req.body.userId, idSite:req.body.idSite }
+			  , update = { userId: req.body.email}
+			  , options = { multi: false };
+
+			Visitors.findOneAndUpdate(conditions, update, options, function(err,data){
+				if(err)
+					callback(err,null);
+				else
+					callback(null,err);
+			});
+
 	 	}
-	 }	
-      ,function(err, results) {
+	 },function(err, results) {
         if(err) console.log(err);
           console.log(results); 
        }); 

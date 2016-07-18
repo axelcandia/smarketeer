@@ -118,7 +118,8 @@ function SendSmkt(form_id,idSite){
 			  url: "http://localhost:1337/UpdateID",
 			  data: {
 			    userId: userId,
-			    email: email
+			    email: email,
+			    idSite:idSite
 			  },
 			  type:"POST",
 			  success: function( result ) {
