@@ -18,7 +18,7 @@ exports.GetMoreVisitors =function (req,res){
   page =  ( page == 0 ) ? page  : page * 20;
   console.log(page);
   //Form the pages
-  var data="";
+  var data=""; 
   piwik.api({
                 method:   'Smarketeer.getVisits',
                 idSite:    req.body.idSite,
