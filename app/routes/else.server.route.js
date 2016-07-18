@@ -67,9 +67,6 @@ module.exports = function(app) {
 	  /*
 	    Dashboards and other in home
 	  */
-	  app.get('/home/costs',function (req,res){
-	    res.render("home/costs");
-	  }); 
 	  app.get('/home/MyPlan',function (req,res){
 	    res.render("home/MyPlan");
 	  });
