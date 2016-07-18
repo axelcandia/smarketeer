@@ -40,7 +40,7 @@ exports.AddComment = function(req,res,next){
 * That has the same key( EVEN MOBILE!! :D)
 */
 function GetProfileByEmail(req,res,next){
-   var segment= "userId=="+req.params.id;
+   var segment= "userId=="+req.params.id; 
    // an example using an object instead of an array
   async.series({
       StaticProfile: function(callback){
@@ -57,8 +57,8 @@ function GetProfileByEmail(req,res,next){
       }
 
   },
-  function(err, results) { 
-    console.log(results.DynamicProfile);
+  function(err, results) {  
+    console.log(results.GetDynamicProfile)
       res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
@@ -85,16 +85,18 @@ function GetProfileByEmail(req,res,next){
 * Static profile is all the data that we save using the tracking code
 */
 function GetStaticProfile(idSite,segment,callback){
+  console.log(idSite);
+  console.log(segment);
   piwik.api({
     method:   'Live.getVisitorProfile',
-    idSite: idSite,
     visitorId: '',
     segment:'',
     limitVisits: '',
+    idSite:idSite,
     segment: segment,
   },function(err,data){
     if(err){
-      console.log(err);
+      console.log("Static profile:"+err);
       callback(err,null)
     }
     else{
@@ -136,7 +138,7 @@ function GetGoogleData(email,callback){
 
 }
 
-function GetCompletedForms(userId,idsite,callback){  
+function GetCompletedForms(userId,idSite,callback){  
   SolvedForms.find({"userId" : userId,"idSite":idSite}, function(err, profile){
       if (err) {
         console.log(err);
