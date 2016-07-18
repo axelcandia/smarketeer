@@ -126,12 +126,20 @@ function GetGoogleData(email,callback){
   var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
   http.get(path, function(res) { 
       res.on("data", function(chunk) {
-        var image_data=JSON.parse(chunk);
-        console.log("BODY: " + image_data.entry["gphoto$thumbnail"]["$t"]);
-        callback(null,image_data.entry["gphoto$thumbnail"]["$t"]);
+        console.log("heey data"+chunk);
+        var image_data;
+        try{
+            image_data=JSON.parse(chunk);
+            console.log("BODY: " + image_data.entry["gphoto$thumbnail"]["$t"]);
+            callback(null,image_data.entry["gphoto$thumbnail"]["$t"]);
+        }catch(e){
+            image_data=null;
+            callback(null,null)
+        }  
+        
         
       });
-    }).on('error', function(e) {
+    }).on('error', function(e) { 
       callback(null,"");
     });
 
@@ -142,7 +150,8 @@ function GetCompletedForms(userId,idSite,callback){
   SolvedForms.find({"userId" : userId,"idSite":idSite}, function(err, profile){
       if (err) {
         console.log(err);
-      }
+        callback(err,null);
+      } 
        // return callback(err,null); 
       return callback(null,profile);
   });

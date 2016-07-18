@@ -342,7 +342,11 @@ html(lang='en')
                 '</div>'+
                 '<div class="col-xs-6 text-right">'+
                   '<h1>Venta</h1>'+
-                '</div>'+/*
+                '</div>'+
+                  "<div class='seller'>"+
+                    '<h4>Vendedor:<input id="Vendedor"class="factura-inp" type="text" placeholder="Escriba su nombre"></h4>'+
+                  "</div>"+
+                /*
                 '<div class="row">'+
                   '<div class="col-xs-5">'+
                     '<div class="panel panel-default">'+
@@ -458,7 +462,7 @@ html(lang='en')
                             "idSite": idSite,
                             "ClientId":ClientId,
                             "ClientEmail":email, 
-                            "SellerId":SellerId, 
+                            "SellerName":$("#Vendedor").val(), 
                             "Total":$("#total").html().replace("$",""),
                             "IVA":$(".totalIVA").html().replace("$",""),  
                           }
@@ -490,7 +494,7 @@ html(lang='en')
                             data:JSON.stringify(compra),
                             method: "POST",
                             contentType: 'application/json; charset=utf-8',
-                            succes: function(data){
+                            success: function(data){
                               console.log(data); 
                             }
                           });
@@ -536,5 +540,9 @@ html(lang='en')
           text-align: center;
           font-family: "Open Sans", sans-serif;  
               margin-bottom: 50px
+        }
+        .seller{
+            padding-bottom: 6%;
+            padding-top: 12%;
         }
     
