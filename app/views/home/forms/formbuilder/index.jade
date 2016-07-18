@@ -65,6 +65,21 @@ html(lang='en')
         // / Components 
     //Values to add to main built.js
     script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/bootbox/bootbox.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    script(src='/forms/seeall.js', type='text/javascript')
+    script(src='/global/plugins/ladda/spin.min.js')
+    script(src='/global/plugins/ladda/ladda.min.js')
     script.
       //var formName   = "#{Name}";
       var formId    = "#{formId}";
@@ -84,6 +99,9 @@ html(lang='en')
       }
       .left{
         margin-left:42%!important;
+      } 
+      .component *{
+      cursor:all-scroll!important;
       }
 
     

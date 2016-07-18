@@ -24,28 +24,23 @@ exports.GetSales = function(req,res){
   page =  ( page == 0 ) ? page  : page * 20;
   //Form the pages
   var data="";
-  async.series({
-      visitas: function(callback){ 
-            piwik.api({
-                method:   'Smarketeer.getSales',
-                idSite:    req.body.idSite,
-                filter_offset: page,
-                filter_limit: 20, 
-              },callback);  
-          }
-      },function(err, results) {
-        if(err) res.send(err);
-          else{ 
-            html="";  
-            var key, i = 0;
-            for(key in results.visitas) { 
-              html+=json2table(results.visitas[i],req.body.idSite);  
-              i++;     
-            }  
-            res.send(html).status(200); 
-          }
-
-      });
+  piwik.api({
+    method:   'Smarketeer.getSales',
+    idSite:    req.body.idSite,
+    filter_offset: page,
+    filter_limit:page+20,
+  },function(err,results){
+    if(err) res.send(err);
+    else{ 
+      html="";  
+      var key, i = 0;
+      for(key in results) { 
+        html+=json2table(results[i],req.body.idSite);
+        i++;     
+      }  
+      res.send(html).status(200); 
+    }
+  });  
 }
 
 exports.CountSales = function(req,res){ 
@@ -130,6 +125,7 @@ function json2table(visita,idSite){
   //Parseamos la url  
   var query =""// url.parse(visita.actionDetails[0].url,true).query; 
   var email = visita.custom_var_v1|| "indefinido" ;
+
   var  totalVenta=0;
   /*for(var i = 0; i<=Object.keys(visita.actionDetails).length;i++ ){
     if(visita.actionDetails[i] && visita.actionDetails[i].goalId=="2")

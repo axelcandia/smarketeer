@@ -339,16 +339,18 @@ html
                         .portlet-body
                           .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
                             .general-item-list
-                              -for (var i=0;i< totalForms; i++){
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src='/admin/layout3/img/avatar4.jpg')
-                                    a.item-name.primary-link(href='') Nombre
-                                    span.item-label 3 hrs ago
-                                .item-body
-                                  | Juan 
-                              -}
+                              each form in forms
+                                each value, key in form.fields 
+                                  if key!= "pkw_id" && key!="userId" && key!="Email" && key!="form_id"
+                                    .item
+                                      .item-head
+                                        .item-details
+                                          img.item-pic(src='#{img}')
+                                          a.item-name.primary-link(href='') #{key}
+                                          //span.item-label 3 hrs ago
+                                      .item-body
+                                        | #{value} 
+                                
                       // END PORTLET
                     .col-md-6
                       // BEGIN PORTLET
@@ -359,17 +361,21 @@ html
                             span.caption-subject.font-blue-madison.bold.uppercase Comentarios
                             //span.caption-helper 16 pending 
                         .portlet-body
-                          .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
+                          .scroller(style='height: 305px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')#ComentScroller
                             .general-item-list#CommentList
-                              - for(var i=0;i<comments.length;i++){
-                              .item
-                                .item-head
-                                  .item-details
-                                    img.item-pic(src="#{comments[i].image}")
-                                    a.item-name.primary-link(href='') #{comments[i].user}
-                                    span.item-label #{comments[i].date}
-                                .item-body #{comments[i].text}
-                              -}
+                              -var date
+                              each value,key in comments
+                                //Decode de date
+                                - date=value.date.toISOString().substr(0,  (value.date.toISOString().indexOf('T'))) 
+                                  //Decode de image
+                                 -var image = value.image.replace(/&amp;/g, '&');
+                                .item
+                                  .item-head
+                                    .item-details
+                                      img.item-pic(src="#{image}")
+                                      div.item-name.primary-link(href='') #{value.userName}
+                                      span.item-label #{date}
+                                  .item-body #{value.text} 
                           .page-quick-sidebar-chat-user-form
                             .input-group
                               textarea.comment.form-control(type='text', placeholder='Escribe tu comentario' )
@@ -378,8 +384,7 @@ html
                                   i.fa.fa-reply
     script.
       var about= "#{about}" 
-      var UserId= "#{UserId}"
-      var currentUser="#{user.id}"
+      var userId= "#{UserId}"
     script(src='/global/plugins/jquery.min.js', type='text/javascript')
     script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip

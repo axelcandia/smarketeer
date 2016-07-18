@@ -2,13 +2,13 @@ define([
        "jquery" , "underscore" , "backbone"
        , "collections/snippets" , "collections/my-form-snippets"
        , "views/tab" , "views/my-form"
-       , "text!data/input.json", "text!data/radio.json", "text!data/predeterminado.json"
+       , "text!data/input.json", "text!data/radio.json", "text!data/predeterminado.json","text!data/buttons.json"
        , "text!templates/app/render.html" 
 ], function(
   $, _, Backbone
   , SnippetsCollection, MyFormSnippetsCollection
   , TabView, MyFormView
-  , inputJSON, radioJSON, predeterminadoJSON
+  , inputJSON, radioJSON, predeterminadoJSON,buttonsJSON
   , renderTab
 ){
   return {
@@ -26,6 +26,10 @@ define([
         , collection: new SnippetsCollection(JSON.parse(radioJSON))
       });
       new TabView({
+        title: "Botones de envio"
+        , collection: new SnippetsCollection(JSON.parse(buttonsJSON))
+      });
+      new TabView({
         title: "Codigo"
         , content: renderTab
       });
@@ -37,12 +41,17 @@ define([
       new MyFormView({
         title: "Original"
         , collection: new MyFormSnippetsCollection([
-          { "title" : "Form Name"
+          { "title" : "Nombre del formulario"
             , "fields": {
               "name" : {
                 "label"   : "Nombre"
                 , "type"  : "input"
                 , "value" : "Escriba un nombre"
+              },
+              "customClass": {
+                "label": "Clases",
+                "type": "input",
+                "value": ""
               }
             }
           }

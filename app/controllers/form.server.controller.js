@@ -3,18 +3,11 @@ var Forms 			= require("../models/form.server.model");
 var minify 			= require('html-minifier').minify;
 var SolvedForms		= require("../models/solvedforms.server.model"); 
 var Visitors		= require("../models/visitors.server.model");
-//var mysql      		= require('mysql'); 
-/**
-* Requires a name to build the form properly
-* status is eith:crear when you want to create a new form or cargar wheny ou want to load the data of a previously created one :D
-*/
-    /*var tunnel = require('tunnel-ssh').tunnel;
-    //map port from remote 3306 to localhost 3306 
-    var server = tunnel({host: '52.165.38.47', dstPort: 3306, username:"axel",password:"AlfredHitchcock12"}, function (error, result) {
-        //you can start using your resources here. (mongodb, mysql, ....) 
-        console.log('connected');
-
-    });*/
+var Website 		= require('../models/websites.server.model');
+var config			  = require("../../config/config");
+var PiwikClient   = require('piwik-client');
+var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
+var async           = require("async");
 
 exports.RenderFormBuilder= function(req, res, next){
 	if (!req.user) { 
@@ -51,17 +44,15 @@ exports.RenderFormBuilder= function(req, res, next){
 		Forms.findById(req.params.id, function (err, found) {
 			if(err)
 				console.log("err");
-			else{ 
-				var url 	= (process.env.NODE_ENV=="development")? "http://localhost:1337/forms/formbuilder_dev.js" : "http://smarketeer.azurewebsites.net/forms/formbuilder.js";
-				var script 	= "<script src= '"+url+"'></script>"+ 
-				                  "<script id='"+found.id+"'>"+
+			else{  
+				var script 	= "<script id='"+found.id+"'>"+
 				                    "(createform(document.currentScript.id,'"+req.query.idSite+"'));"+
 				               "</script>"; 
 				res.render("home/forms/formbuilder/index",{ 
 		      		Name       : found.name,
 		      		formId     : found.id,
 		      		script 	   : script,
-		      		url: 		url,
+		      		url: 		"",
 		      		builderCode: found.builderCode,
 		      		idSite: req.query.idSite
 	      		});
@@ -92,7 +83,7 @@ exports.UpdateForm = function(req,res,next){
 	//Form it, minify it, sell it
 	var html= "<form class='form-horizontal smkt_form' id='form."+req.body.id+"'>" +
 				req.body.html+
-				"<button id='smkt_button' onclick="+send+">Enviar</button>"+
+				//"<button id='smkt_button' onclick="+send+">Enviar</button>"+
 			  "</form>";
 	var result = minify(html, {
 		  removeAttributeQuotes: false
@@ -103,26 +94,21 @@ exports.UpdateForm = function(req,res,next){
 	  res.send(tank);
 	}); 
 }
+
 /*
 * Receives all the responses from froms
 */
-exports.ReceiveForms = function(req,res,next){
-	//var obj= JSON.parse([req.body]);   
-	if( Object.keys(req.body).length >2 ){ 
+exports.ReceiveForms = function(req,res,next){   
 		var  solved = SolvedForms({
 			date: new Date(),
-			fields  : req.body
+			fields: req.body,
+			userId: req.body.userId
 		});
 		//Se guarda el campo
-		solved.save();
-		//Se ve en que estado esta nuestro pibe
-		//Si recibimos email, nombre o apellido añadir con el status a identificado
-		if( req.body.Apellido || req.body.Nombre || req.body.email )
-		{
-
-		}
-	}
-	//Si es mayor a 2 hagamos el guardado, si no, do not even bother
+		solved.save(function (err) {
+		  if (err) res.send("Error intente devuelta");;
+		  res.send("Gracias!");
+		}); 
 }
 /**
 * Delete the campaign from our DB
@@ -183,36 +169,48 @@ exports.GetFormHTML = function( req, res, next ){
 	})
 }
 /**
-* Receives data of whatever and returns the properid
+* Update the ID to thhe email addres
 */
-exports.GetVisitorId = function( req, res, next){
-	if(!req.body)
-		return res.send("-1");
-	var options = { upsert: true, new: true, setDefaultsOnInsert: true }; 
-	var query = { CookieId :req.body.id};
-	var update; 
-	if(req.body.email){
-		update = { 
-	    	"email"			: req.body.email
-	    };
-	}
-	else{
-		update = { 
-	    	$addToSet: { cookies			: {CookieId:req.body.id}}
-	    }; 
+exports.UpdateID = function(req,res,next){ 
+	if(!req.body.email){
+		res.send("0").status("200");
+		return;
 	} 
+	async.series({
+      visitas: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.updateId',
+                userId:    req.body.userId,
+                email: 	   req.body.email, 
+              },callback);  
+          }, 
+      UpdateForms:function(callback){
+	      	var conditions = { userId : req.body.userId }
+			  , update = { userId: req.body.email}
+			  , options = { multi: true };
 
-	Visitors.findOneAndUpdate( query, update, options, function(error, result) {
-		if(error){
-			console.log(error);
-			res.send(req.body.id);
-		}
-		else{ 
-			console.log(result._id);
-			res.send( result._id ).status(200);
-		}
-	}); 
+			SolvedForms.update(conditions, update, options, function(err,data){
+				if(err)
+					callback(err,null);
+				else
+					callback(null,err);
+			});  
+	 	},
+	 UpdateVisitors:function(callback){
+	 	var conditions = { userId : req.body.userId, idSite:req.body.idSite }
+			  , update = { userId: req.body.email}
+			  , options = { multi: false };
 
-	
+			Visitors.findOneAndUpdate(conditions, update, options, function(err,data){
+				if(err)
+					callback(err,null);
+				else
+					callback(null,err);
+			});
 
-}
+	 	}
+	 },function(err, results) {
+        if(err) console.log(err);
+          console.log(results); 
+       }); 
+	}

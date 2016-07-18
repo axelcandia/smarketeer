@@ -26,6 +26,11 @@
         "label": "Obligatorio",
         "type": "checkbox",
         "value": false
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       }, 
       "inputsize": {
         "label": "Tamaño",
@@ -72,6 +77,11 @@
         "label": "Nombre",
         "type": "input",
         "value": "Texto grande"
+      },
+      "customClass": {
+        "label": "Clases",
+        "type": "input",
+        "value": ""
       },
        "required": {
         "label": "Obligatorio",

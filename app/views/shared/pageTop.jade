@@ -101,3 +101,7 @@
         // END PAGE TOP
       // END HEADER INNER
     // END HEADER
+script.
+  var currentUserId="#{user.id}";
+  var currentUserName="#{user.profile.name || user.email || user.id}"
+  var currentUserImage="#{user.profile.picture||user.gravatar(60)}"
