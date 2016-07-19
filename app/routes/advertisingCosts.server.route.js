@@ -3,4 +3,5 @@ var VerifyUser		   	  = require('../controllers/user').VerifyUser;
 
 module.exports = function(app) { 
 	app.get("/home/costs*",VerifyUser, advertisingController.RenderAdvertisingCosts); 
+	app.post("/home/SetAdvertisingCosts*", advertisingController.SetAdvertisingCosts); 
 };
