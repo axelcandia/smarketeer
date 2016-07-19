@@ -1,4 +1,40 @@
-<h3>Pega este codigo en tu pagina</h3>
+<div>
+<h3>¿Que quieres hacer al enviar el formulario?</h3>
+	<div data-toggle="buttons" class="btn-group btn-group-circle">
+		<label class="btn blue active" id="redirigir" >
+			<input type="radio" name="chk[]" class="toggle">Redirigir</label>
+		<label class="btn blue last" id="agradecer" >
+			<input type="radio" class="toggle"> Agradecer
+		</label>
+	</div>
+
+	<div class="redirect_field specialField">
+
+		<div class="control-group  ">
+			  <label class="control-label"> URL a redirigir </label> 
+			  <div class="controls "> 
+			    <input style="height:30px" autocorrect="off" name="url" type="text" placeholder="http://wwww.OtroSite.com.ar" class="input-medium ">
+			  </div>
+		 </div>
+
+
+
+	</div>
+
+	<div class="thanks_field specialField">
+		<div class="control-group ">
+		  <label class="control-label">Mensaje de agradecimiento</label>
+		  <div class="controls">                     
+		    <textarea class="input-xlarge" style="height:70px" name="Mensaje"></textarea> 
+		  </div>
+		</div>
+	</div>
+	<div class="saveButton">
+    <button name="" class="btn btn-primary green" id="smktSaveChanges">Guardar</button>
+  </div> 
+
+<div class="RedirectUrl">
+<h2>Pega este codigo en tu pagina</h2>
 <textarea style="display:none"id="render" class="span6" >
 </textarea>	
 <textarea rows="4" id="permanentcode">

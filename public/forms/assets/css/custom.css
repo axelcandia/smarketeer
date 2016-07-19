@@ -180,5 +180,14 @@ form .popover form {
   width: 80%;
   height: 25%;
 }
+.specialField{
+      margin-top:10px
+}
+.thanks_field{
+display:none;
+} 
+.saveButton{
+      margin-top: 20px;
+}
 .component #frmb-0-fld-3-edit {display:none;}
 .component:hover #frmb-0-fld-3-edit {display:inline;}
