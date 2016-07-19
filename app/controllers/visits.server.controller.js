@@ -58,7 +58,7 @@ function GetPiwikVisitsCounter(res,idSite,date,period){
   console.log("period:"+period);
   console.log("date:"+date);
   piwik.api({
-    method:"VisitsSummary.getVisits",
+    method:"VisitsSummary.getUsers",
     idSite:idSite,
     period:period,
     date:date,
@@ -151,7 +151,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td></td>';
+        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
         
         //Medium
         NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';

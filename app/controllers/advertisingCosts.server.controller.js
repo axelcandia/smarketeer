@@ -11,7 +11,7 @@ exports.RenderAdvertisingCosts= function(req, res){
 		
 		res.render("home/costs",{ 
 	       idSite: req.query.idSite,
-	       fields: data.fields||null
+	       fields: (data) ? data.fields :  null
 	     });
 	})
 	 
