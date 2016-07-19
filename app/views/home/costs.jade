@@ -180,9 +180,9 @@ html(lang='en')
                               td
                                 input.FechaInicio(placeholder="Final" type="text" value="#{row['Fecha de inicio'] || empty}")
                               td
-                                input.FechaCierre(placeholder="Salida" type="text")
+                                input.FechaCierre(placeholder="Salida" type="text" value="#{row['Fecha de cierre'] || empty}")
                               td
-                                input.monto(placeholder="$5000" type="number" value="$ #{row.Monto||row['Monto']|| empty}")
+                                input.monto(placeholder="$5000" type="number" value="#{row.Monto ||row['Monto']|| empty}")
                               td.btn.red.eliminar 
                                 | Eliminar  
                 // END EXAMPLE TABLE PORTLET

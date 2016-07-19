@@ -30,11 +30,16 @@
                   'Eliminar'+
                 '</td>'+
               "</tr>";
-              addDates();
+
+
+              
+              addDates(".FechaInicio");
+              addDates(".FechaCierre");
             //Add a new column
             $("#Add").click(function(){
               $("tbody").append(newColumn);
-              addDates();
+              addDates(".FechaInicio");
+              addDates(".FechaCierre");
             });
             //Recome a column
             $("#Costs").on("click",".eliminar",function(){
@@ -87,93 +92,53 @@
 
             });
             //Pick a date
-            function addDates(){ 
-              $('.FechaInicio').daterangepicker({
-                  "locale": {
-                      "format": "DD/MM/YYYY",
-                      "separator": " - ",
-                      "applyLabel": "Aplicar",
-                      "cancelLabel": "Cancelar",
-                      "fromLabel": "Desde",
-                      "toLabel": "Hasta",
-                      "customRangeLabel": "Customizar",
-                      "weekLabel": "W",
-                      "daysOfWeek": [
-                          "Dom",
-                          "Lun",
-                          "Mar",
-                          "Mier",
-                          "Jue",
-                          "Vier",
-                          "Sab"
-                      ],
-                      "monthNames": [
-                          "Enero",
-                           "Febrero",
-                           "Marzo",
-                           "Abril",
-                           "Mayo",
-                           "Junio",
-                           "Julio",
-                           "Agosto",
-                           "Septiembre",
-                           "Octubre",
-                           "Noviembre",
-                           "Diciembre"
-                      ],
-                      "firstDay": 1
-                  }, 
-                "singleDatePicker": true,
-                "linkedCalendars": false,
-                "startDate": "07/12/2016",
-                "endDate": "07/18/2016"
-              }, function(start, end, label) {  
-          });
+            function addDates(date){ 
+
+                $( date ).each(function() { 
+                      $(this).daterangepicker({
+                          "locale": {
+                              "format": "DD/MM/YYYY",
+                              "separator": " - ",
+                              "applyLabel": "Aplicar",
+                              "cancelLabel": "Cancelar",
+                              "fromLabel": "Desde",
+                              "toLabel": "Hasta",
+                              "customRangeLabel": "Customizar",
+                              "weekLabel": "W",
+                              "daysOfWeek": [
+                                  "Dom",
+                                  "Lun",
+                                  "Mar",
+                                  "Mier",
+                                  "Jue",
+                                  "Vier",
+                                  "Sab"
+                              ],
+                              "monthNames": [
+                                  "Enero",
+                                   "Febrero",
+                                   "Marzo",
+                                   "Abril",
+                                   "Mayo",
+                                   "Junio",
+                                   "Julio",
+                                   "Agosto",
+                                   "Septiembre",
+                                   "Octubre",
+                                   "Noviembre",
+                                   "Diciembre"
+                              ],
+                              "firstDay": 1
+                          }, 
+                        "singleDatePicker": true,
+                        "linkedCalendars": false,
+                        "startDate": $(this).val() || "07/12/2016",
+                        "endDate": "07/18/2016"
+                      }, function(start, end, label) { 
+                  });
+                });  
 
 
-          //Pick a date
-              $('.FechaCierre').daterangepicker({
-                  "locale": {
-                      "format": "DD/MM/YYYY",
-                      "separator": " - ",
-                      "applyLabel": "Aplicar",
-                      "cancelLabel": "Cancelar",
-                      "fromLabel": "Desde",
-                      "toLabel": "Hasta",
-                      "customRangeLabel": "Customizar",
-                      "weekLabel": "W",
-                      "daysOfWeek": [
-                          "Dom",
-                          "Lun",
-                          "Mar",
-                          "Mier",
-                          "Jue",
-                          "Vier",
-                          "Sab"
-                      ],
-                      "monthNames": [
-                          "Enero",
-                           "Febrero",
-                           "Marzo",
-                           "Abril",
-                           "Mayo",
-                           "Junio",
-                           "Julio",
-                           "Agosto",
-                           "Septiembre",
-                           "Octubre",
-                           "Noviembre",
-                           "Diciembre"
-                      ],
-                      "firstDay": 1
-                  }, 
-                "singleDatePicker": true,
-                "linkedCalendars": false,
-                "startDate": "07/12/2016",
-                "endDate": "07/18/2016"
-              }, function(start, end, label) { 
-                  
-          });
         }
 
 
