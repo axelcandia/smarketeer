@@ -203,66 +203,66 @@ html(lang='en')
     script.
       $( document ).ready(function(){
       //Export data
-        $("#toXML").click(function(){
-        $.ajax({
-          url:"/sales/Export",
-          data: {"idSite":idSite}, 
-          method: "POST",
-          success: function(data){
-          window.open('data:application/vnd.ms-excel,' +"<table>"+data+"</table>");
-          }
-        })
-      });
-
-      $("#toCSV").click(function(){
-        $.ajax({
-          url:"/sales/Export",
-          data: {"idSite":idSite}, 
-          method: "POST",
-          success: function(data){  
-          var table = "<table>"+
-          data+
-          "</table>";
-           $(table).tableToCSV();
-          }
-        })
-      });
-
-
-
-          var EnableScroll=true;
-          var page=0;
-          var loading= false; 
-          GetMoreSales();
-          //Detecting infintie scroll
-          $('.portlet-body').bind('scroll', function(){
-             if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight/4){
-                 $('#loading').show();
-                  if( EnableScroll && !loading){
-                    loading=true;
-                    GetMoreSales(); 
-                  }
-              }
-          });
-          //Inifnite scroll2
-          function GetMoreSales(){
-            $.ajax({
-                      url: '/home/funnel/GetSales', 
-                      method: "POST",
-                      data: { "page" : page,
-                              "idSite": #{idSite} },
-                      success: function(data) {
-                      console.log(data);
-                        page++;   
-                        $('#tsales').append(data);  
-                        loading=false;
-                        if(!data)EnableScroll= false;
-                      },
-                       error: function(XMLHttpRequest, textStatus, errorThrown) {
-                           console.log("error");
-                        }
-                    }); 
+          $("#toXML").click(function(){
+          $.ajax({
+            url:"/sales/Export",
+            data: {"idSite":idSite}, 
+            method: "POST",
+            success: function(data){
+            window.open('data:application/vnd.ms-excel,' +"<table>"+data+"</table>");
             }
+          })
+        });
+
+        $("#toCSV").click(function(){
+          $.ajax({
+            url:"/sales/Export",
+            data: {"idSite":idSite}, 
+            method: "POST",
+            success: function(data){  
+            var table = "<table>"+
+            data+
+            "</table>";
+             $(table).tableToCSV();
+            }
+          })
+        });
+
+
+
+            var EnableScroll=true;
+            var page=0;
+            var loading= false; 
+            GetMoreSales();
+            //Detecting infintie scroll
+            $('.portlet-body').bind('scroll', function(){
+               if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight/4){
+                   $('#loading').show();
+                    if( EnableScroll && !loading){
+                      loading=true;
+                      GetMoreSales(); 
+                    }
+                }
+            });
+            //Inifnite scroll2
+            function GetMoreSales(){
+              $.ajax({
+                        url: '/home/funnel/GetSales', 
+                        method: "POST",
+                        data: { "page" : page,
+                                "idSite": #{idSite} },
+                        success: function(data) {
+                        console.log(data);
+                          page++;   
+                          $('#tsales').append(data);  
+                          loading=false;
+                          if(!data)EnableScroll= false;
+                        },
+                         error: function(XMLHttpRequest, textStatus, errorThrown) {
+                             console.log("error");
+                          }
+                      }); 
+              }
 
       });
     style.
