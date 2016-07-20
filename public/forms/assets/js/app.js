@@ -36,7 +36,9 @@ define([
       //Make the first tab active!
       $("#components .tab-pane").first().addClass("active");
       $("#formtabs li").first().addClass("active");  
-      $("#permanentcode").val(script);
+      $("#permanentcode").val(script);  
+
+
       // Bootstrap "My Form" with 'Form Name' snippet.
       new MyFormView({
         title: "Original"
