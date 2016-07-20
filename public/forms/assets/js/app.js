@@ -30,7 +30,7 @@ define([
         , collection: new SnippetsCollection(JSON.parse(buttonsJSON))
       });
       new TabView({
-        title: "Codigo"
+        title: "Ver Código"
         , content: renderTab
       });
       //Make the first tab active!

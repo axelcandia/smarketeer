@@ -106,8 +106,13 @@ exports.ReceiveForms = function(req,res,next){
 		});
 		//Se guarda el campo
 		solved.save(function (err) {
-		  if (err) res.send("Error intente devuelta");;
-		  res.send("Gracias!");
+		  if (err){
+
+		  	res.send("Error intente devuelta");
+		  }
+		  else{
+		  		GetFinalAction(res, req.body.form_id );
+		  }
 		}); 
 }
 /**
@@ -167,6 +172,29 @@ exports.GetFormHTML = function( req, res, next ){
 				res.send(data.html).status(200); 
 		}
 	})
+}
+/**
+*Sets the final action AS
+*/
+exports.SetFinalAction=function( req,res,next){ 
+	console.log(req.body.id);
+	Forms.findByIdAndUpdate(req.body.id,{finalAction:req.body.finalAction},function(err,results){
+		if(err)
+			return 0;
+		else 
+		res.send("ok").status(200);
+	});
+
+}
+//Gets the final action and sends what we have to do next
+function GetFinalAction(res,formId){
+	console.log(formId);
+	Forms.findById(formId,function(err,forms){
+		console.log(forms.finalAction);
+		res.send(forms.finalAction).status(200);
+
+	});
+
 }
 /**
 * Update the ID to thhe email addres
