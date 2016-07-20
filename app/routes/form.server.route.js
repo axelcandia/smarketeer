@@ -17,4 +17,5 @@ module.exports = function(app) {
 	app.post("/home/forms/eliminar/:id", formController.DeleteForm );
 	app.post("/home/forms/clonar/:id", formController.CloneForm );
 	app.post("/UpdateID*",formController.UpdateID);
+	app.post("/forms/SetFinalAction",formController.SetFinalAction);
 }; 

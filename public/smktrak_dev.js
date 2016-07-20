@@ -90,9 +90,10 @@ function createform(id){
           type: "POST",
           url: "http://localhost:1337/GetFormHTML",
           data: {"id":id},
-          success: function(data){
-          	console.log(data); 
+          success: function(data){ 
+          	console.log(data);
             document.getElementById(id).insertAdjacentHTML('afterend',data);
+
           }
         });
 }
@@ -171,7 +172,16 @@ function ajax(values) {
 
     xmlHTTP.onreadystatechange = function () {
         if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
-            //alert(xmlHTTP.responseText);
+        	var finalAction=JSON.parse(xmlHTTP.responseText); 
+        	var redirect= finalAction.redirect||false;
+        	if(redirect){
+        		window.location.href = finalAction.redirectTo;
+        	}
+        	else{ 
+        		var form="#form\\."+values["form_id"]; 
+        		$( form ).html("<h2>"+finalAction.message+"</h2>");
+        	}
+
         }
     }
 
@@ -180,6 +190,8 @@ function ajax(values) {
     xmlHTTP.open("POST", "http://localhost:1337/ReceiveForms", true); 
     xmlHTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHTTP.send(queryString); 
+
+
 }
 
 

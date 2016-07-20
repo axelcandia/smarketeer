@@ -117,10 +117,41 @@ html(lang='en')
         $(".redirect_field").hide();
       }); 
 
-      $(".saveButton").on("click","#smktSaveChanges",function(){
+
+
+      $(document).on("keydown",".specialField",function(event){  
+        if(event.keyCode == 13) { 
+          event.preventDefault();
+          $("#smktSaveChanges").trigger("click");
+          return false;
+        }
+      });
+
+      $(document).on("click","#smktSaveChanges",function(){
        event.preventDefault();
-        alert("You are awesome!");
-      })
+       var redirect = ( $(".thanks_field").is(":visible") )  ? false : true;
+        $.ajax({
+          url:"/forms/SetFinalAction",
+          data:{
+            finalAction:{
+              redirect    : redirect,
+              message     : $(".thanksMessage").val(),
+              redirectTo  : $(".redirectTo").val()
+            },
+            id:formId
+          },
+          type:"POST",
+          success:function(){
+            alert("Success");
+          },
+          error:function(){
+            alert("error");
+          }
+        })
+        return false;
+      });
+
+
     script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')  
     style.
       .fade {
