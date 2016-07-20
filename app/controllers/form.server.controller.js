@@ -45,6 +45,7 @@ exports.RenderFormBuilder= function(req, res, next){
 			if(err)
 				console.log("err");
 			else{  
+				console.log(found);
 				var script 	= "<script id='"+found.id+"'>"+
 				                    "(createform(document.currentScript.id,'"+req.query.idSite+"'));"+
 				               "</script>"; 
@@ -52,6 +53,9 @@ exports.RenderFormBuilder= function(req, res, next){
 		      		Name       : found.name,
 		      		formId     : found.id,
 		      		script 	   : script,
+		      		redirectTo : found.finalAction.redirectTo,
+		      		message    : found.finalAction.message,
+		      		redirect   : found.finalAction.redirect || false,
 		      		url: 		"",
 		      		builderCode: found.builderCode,
 		      		idSite: req.query.idSite
@@ -192,7 +196,6 @@ function GetFinalAction(res,formId){
 	Forms.findById(formId,function(err,forms){
 		console.log(forms.finalAction);
 		res.send(forms.finalAction).status(200);
-
 	});
 
 }

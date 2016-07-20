@@ -13,7 +13,7 @@
 		<div class="control-group  ">
 			  <label class="control-label"> URL a redirigir </label> 
 			  <div class="controls "> 
-			    <input style="height:30px" autocorrect="off" name="url" type="text" placeholder="http://wwww.OtroSite.com.ar" class="input-medium redirectTo">
+			    <input style="height:30px" autocorrect="off" name="url" type="text" placeholder="http://wwww.OtroSite.com.ar" class="input-medium redirectTo" >
 			  </div>
 		 </div> 
 	</div>
@@ -36,3 +36,7 @@
 </textarea>	
 <textarea rows="4" id="permanentcode">
 </textarea>
+<%
+$(".redirectTo").val(redirectTo);
+      $(".thanksMessage").val("HOLAAAA");
+%>

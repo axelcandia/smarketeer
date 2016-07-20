@@ -98,25 +98,38 @@ html(lang='en')
     script(src='/global/plugins/ladda/ladda.min.js')
     script.
       //var formName   = "#{Name}";
-      var formId    = "#{formId}";
-      var url       = "#{url}"; 
-      var script  = "#{script}".replace(/&lt;/g,"\<")
-                               .replace(/&gt;/g,"\>");
-      console.log(script);
+      var formId      = "#{formId}";
+      var url         = "#{url}"; 
+      var redirectTo  = "#{redirectTo}"
+      var message     = "#{message}"
+      var redirect    = #{redirect}
+      var script      = "#{script}".replace(/&lt;/g,"\<")
+                               .replace(/&gt;/g,"\>"); 
+      var col         = !{builderCode};  
+      LoadOldData     = true;
 
-      var col       = !{builderCode}; 
-      
-      LoadOldData   = true;
     script.
       $(document).on("click","#redirigir",function(){
         $(".redirect_field").show();
         $(".thanks_field").hide();
       }); 
+      //Hide the other tab
       $(document).on("click","#agradecer",function(){
         $(".thanks_field").show();
         $(".redirect_field").hide();
-      }); 
+      });    
+      
+      //Set the values
+      $(document).on("click","li:last-child",function(){
+        if(!redirect){
+         $("#agradecer").trigger("click");
+        } 
 
+        $(".redirectTo").val(redirectTo);
+        $(".thanksMessage").val(message);
+          
+        
+      });
 
 
       $(document).on("keydown",".specialField",function(event){  
@@ -142,7 +155,7 @@ html(lang='en')
           },
           type:"POST",
           success:function(){
-            alert("Success");
+            bootbox.alert("Guardado!");
           },
           error:function(){
             alert("error");
@@ -152,7 +165,8 @@ html(lang='en')
       });
 
 
-    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')  
+    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')    
+
     style.
       .fade {
       left: 0!important;
@@ -168,6 +182,7 @@ html(lang='en')
         font-size: 15px!important;
           height: 35px!important;
       }
+
 
 
     
