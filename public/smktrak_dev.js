@@ -135,8 +135,22 @@ function SendSmkt(form_id,idSite){
     	else if(cemail!=email){  
     		deleteCookie(email);
     		setCookie(idSite,visitor_id,email,400);
+    		$.ajax({
+			  url: "http://localhost:1337/UpdateID",
+			  data: {
+			    userId: visitor_id,
+			    email: email,
+			    idSite:idSite
+			  },
+			  type:"POST",
+			  success: function( result ) {
+			   console.log("Update Succeesfull!"+result);
+			  }
+			});
+			
     		pushEmail(email); 
     		userId=email;
+
     	} 	
 		
     	} 

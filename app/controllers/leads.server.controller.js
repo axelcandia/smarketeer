@@ -103,7 +103,10 @@ exports.GetSale = function (req,res){
       res.send(0).status(200);
       return 0;
     } 
-    console.log(visit);  
+
+    var lastVisit  = visit.lastVisits.length-1;
+    var lastAction = visit.lastVisits[lastVisit].actionDetails.length-1; 
+
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
       "uid="+req.body.ClientId+
@@ -113,9 +116,9 @@ exports.GetSale = function (req,res){
       "&rand=1636495582"+
       "&idgoal="+2+
       '&_cvar={"1":["email","'+email+'"]}'+
-      //"&url="+compra._id+//IMPORTANT: We use URL to save the ID of the Salee!!
-      "&urlref="+visit.lastVisits[0].referrerUrl+
-      "&revenue="+req.body.Total; 
+      "&url="+visit.lastVisits[lastVisit].actionDetails[lastAction].url+
+      "&urlref="+visit.lastVisits[lastVisit].referrerUrl+
+      "&revenue="+200;//+req.body.Total; 
       console.log("URL:"+path);
 
         http.get(path, (res) => {

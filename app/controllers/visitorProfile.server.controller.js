@@ -152,6 +152,7 @@ function GetCompletedForms(userId,idSite,callback){
         console.log(err);
         callback(err,null);
       } 
+        console.log(profile);
        // return callback(err,null); 
       return callback(null,profile);
   });

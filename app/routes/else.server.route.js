@@ -71,9 +71,7 @@ module.exports = function(app) {
 	    res.render("home/MyPlan");
 	  });
 
-	  app.get('/home/reporting',function (req,res){
-	    res.render("home/reporting");
-	  });
+	  
 	   
 	  /*
 	    User

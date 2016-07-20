@@ -417,18 +417,18 @@ html
       Profile.init(); // init page demo
       });
     script.
-    $(document).on("click",".agregar_item",function(){
-          $("#tbody tr:last").after('<tr>'+
-                        '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
-                        '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
-                        '<td class=" text-right ">'+
-                          '<input type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
-                        '</td>'+
-                        '<td class=" text-right ">'+
-                          '<input id="name" name="name" type="number" placeholder="Tarifa/Precio" class="factura-inp tarifa"> ' +
-                        '<td class=" text-right subtotal1 ">'+
-                        '</td>'+
-                      '</tr>');
+      $(document).on("click",".agregar_item",function(){
+            $("#tbody tr:last").after('<tr>'+
+                          '<td><input class="factura-inp servicio" type="text" placeholder="Artículo"></td>'+
+                          '<td><input class="factura-inp descripcion" type="text" placeholder="Título de su artículo aquí"></td>'+
+                          '<td class=" text-right ">'+
+                            '<input type="number" placeholder="Unidades" class="factura-inp unidades"> ' +
+                          '</td>'+
+                          '<td class=" text-right ">'+
+                            '<input id="name" name="name" type="number" placeholder="Tarifa/Precio" class="factura-inp tarifa"> ' +
+                          '<td class=" text-right subtotal1 ">'+
+                          '</td>'+
+                        '</tr>');
         }); 
     // END JAVASCRIPTS
   // END BODY
