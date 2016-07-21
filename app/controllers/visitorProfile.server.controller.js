@@ -111,7 +111,6 @@ function GetStaticProfile(idSite,segment,callback){
 * Dynamic is all the data that a user can change any time he wants
 */
 function GetDynamicProfile(userId,idSite,callback){
-
   Visitors.findOne({"userId":userId,"idSite":idSite}, function(err, profile){
       if (err) return callback(err,null);
       return callback(null,profile);
@@ -125,8 +124,7 @@ function GetDynamicProfile(userId,idSite,callback){
 function GetGoogleData(email,callback){
   var path="http://picasaweb.google.com/data/entry/api/user/"+email+"?alt=json";
   http.get(path, function(res) { 
-      res.on("data", function(chunk) {
-        console.log("heey data"+chunk);
+      res.on("data", function(chunk) { 
         var image_data;
         try{
             image_data=JSON.parse(chunk);
@@ -152,6 +150,7 @@ function GetCompletedForms(userId,idSite,callback){
         console.log(err);
         callback(err,null);
       } 
+        console.log("My Forms"+profile);
        // return callback(err,null); 
       return callback(null,profile);
   });
@@ -160,8 +159,7 @@ function GetCompletedForms(userId,idSite,callback){
 * It gets the information that was settet in /seemore in the "Escriba informacion personal"
 * @param about
 */
-exports.GetVisitorAbout= function(req,res,next){
-  console.log(req.body);
+exports.GetVisitorAbout= function(req,res,next){ 
   Visitors.findOneAndUpdate( {'userId': req.body.userId,"idSite":req.body.idSite }, {"about":req.body.about}, {upsert:true},function(error, result) {
     if(error){
       console.log(err);
