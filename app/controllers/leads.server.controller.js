@@ -42,7 +42,10 @@ exports.GetLeads = function(req,res){
     filter_offset:page,
     filter_limit:page+20,
   },function(err, results) {
-        if(err) res.send(err);
+        if(err) {
+          console.log(err);
+          res.send(err);
+        }
           else{ 
             html="";  
             var key, i = 0;
