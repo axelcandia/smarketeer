@@ -106,7 +106,8 @@ exports.ReceiveForms = function(req,res,next){
 		var  solved = SolvedForms({
 			date: new Date(),
 			fields: req.body,
-			userId: req.body.userId
+			userId: req.body.userId,
+			idSite:req.body.idSite
 		});
 		//Se guarda el campo
 		solved.save(function (err) {

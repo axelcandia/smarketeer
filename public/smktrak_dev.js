@@ -26,7 +26,7 @@ var idSite= parseInt(document.currentScript.id);
 				} 
 				else{
 					console.log("Setting cookie");
-					setCookie(idSite,visitor_id,"",400);
+					setCookie(idSite,visitor_id,null,400);
 				}  
 
 				userId = userId||visitor_id;
@@ -128,6 +128,9 @@ function SendSmkt(form_id,idSite){
 			  type:"POST",
 			  success: function( result ) {
 			   console.log("Update Succeesfull!"+result);
+			  },
+			  error:function(data){
+			  	alert(data);
 			  }
 			}); 
 			userId=email;
@@ -135,6 +138,7 @@ function SendSmkt(form_id,idSite){
     	else if(cemail!=email){  
     		deleteCookie(email);
     		setCookie(idSite,visitor_id,email,400);
+
     		$.ajax({
 			  url: "http://localhost:1337/UpdateID",
 			  data: {
@@ -146,8 +150,8 @@ function SendSmkt(form_id,idSite){
 			  success: function( result ) {
 			   console.log("Update Succeesfull!"+result);
 			  }
-			});
-			
+			}); 
+
     		pushEmail(email); 
     		userId=email;
 
