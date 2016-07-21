@@ -26,7 +26,7 @@ var idSite= parseInt(document.currentScript.id);
 				} 
 				else{
 					console.log("Setting cookie");
-					setCookie(idSite,visitor_id,null,400);
+					setCookie(idSite,visitor_id,"",400);
 				}  
 
 				userId = userId||visitor_id;
@@ -110,10 +110,10 @@ function SendSmkt(form_id,idSite){
 			} 
     if(smkt[i].id.indexOf("smkt_email")>-1){ 
    		var cemail=(JSON.parse( getCookie("smkt_"+idSite) )).email;
-   		var email=smkt[i].value
+   		var email= smkt[i].value
    		console.log("smk:"+smkt[i].value); 
    		console.log("cookie:"+cemail);  
-
+   		console.log("Email"+email);
     	if(!cemail){ 
     		setCookie(idSite,visitor_id,email,400);
     		pushEmail(email);
@@ -138,7 +138,8 @@ function SendSmkt(form_id,idSite){
     	else if(cemail!=email){  
     		deleteCookie(email);
     		setCookie(idSite,visitor_id,email,400);
-
+    		pushEmail(email); 
+    		userId=email;
     		$.ajax({
 			  url: "http://localhost:1337/UpdateID",
 			  data: {
@@ -149,11 +150,9 @@ function SendSmkt(form_id,idSite){
 			  type:"POST",
 			  success: function( result ) {
 			   console.log("Update Succeesfull!"+result);
+			   userId=email;
 			  }
-			}); 
-
-    		pushEmail(email); 
-    		userId=email;
+			});
 
     	} 	
 		
