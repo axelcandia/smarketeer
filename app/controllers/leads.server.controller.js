@@ -121,7 +121,7 @@ exports.GetSale = function (req,res){
       '&_cvar={"1":["email","'+email+'"]}'+
       "&url="+visit.lastVisits[lastVisit].actionDetails[lastAction].url+
       "&urlref="+visit.lastVisits[lastVisit].referrerUrl+
-      "&revenue="+200;//+req.body.Total; 
+      "&revenue="+req.body.Total; 
       console.log("URL:"+path);
 
         http.get(path, (res) => {
