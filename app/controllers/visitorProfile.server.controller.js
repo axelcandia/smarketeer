@@ -53,12 +53,11 @@ function GetProfileByEmail(req,res,next){
         GetDynamicProfile(req.params.id,req.query.idSite,callback); 
       },
       GoogleData: function(callback){
-        GetGoogleData(req.params.id,callback)
+        GetGoogleData( req.params.id, callback)
       },
       TotalVisits: function(callback){
-        GetTotalVisits(req.params.id,req.query.idSite,callback); 
+        GetTotalVisits( req.params.id, req.query.idSite, callback ); 
       }
-
   },
   function(err, results) {  
     console.log(results.GetDynamicProfile)

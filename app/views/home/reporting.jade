@@ -70,24 +70,24 @@ html(lang='en')
           .page-content
             // BEGIN STYLE CUSTOMIZER
             .theme-panel.TrackingCode
-              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click para ver el codigo de traqueo')
-                i.icon-settings
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Click to see Tracking Pixel Code')
+                i.icon-settings 
                 // /.modal-content
               // /.modal-dialog
             // CODE MODAL
             // BEGIN PAGE HEADER
             .clearfix.text-center.attribution-button
-              h3 Attribution
+              h3 Atribuir a
               .btn-group.btn-group-circle(data-toggle='buttons')
-                label.btn.blue.active
+                label#lineal.btn.blue.active
                   input.toggle(type='radio')
-                  |  First Interaction
-                label.btn.blue
+                  |  Lineal
+                //label.btn.blue
                   input.toggle(type='radio')
                   |  Linear
-                label.btn.blue
+                label#last.btn.blue
                   input.toggle(type='radio')
-                  |  Last Interaction
+                  |  Ultima
             // END PAGE HEADER
             // BEGIN PAGE CONTENT 
             // END PAGE CONTENT
@@ -99,9 +99,9 @@ html(lang='en')
                   .portlet-title
                     .caption
                       i.fa.fa-globe
-                      | Sales
+                      | Reportes
                     .actions
-                      .btn-group
+                      //.btn-group
                         a.btn.default(href='javascript:;', data-toggle='dropdown')
                           | Columns 
                           i.fa.fa-angle-down
@@ -139,67 +139,43 @@ html(lang='en')
                   .portlet-body
                     table#sample_4.table.table-striped.table-bordered.table-hover
                       thead
-                        tr
+                        th.hidden-xs
+                            div.dropdown.dropdown-user
+                              a#CurrentContent.dropdown-toggle(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true') 
+                                | Fuente
+                              i.fa.fa-angle-down
+                              ul.dropdown-menu.dropdown-menu-default.pull-right
+                                li#campaign_source.GetNewField
+                                  a(href='javascript:;')
+                                    | Fuentes
+                                li#campaign_medium.GetNewField
+                                  a(href='javascript:;')
+                                    | Medios
+                                li#campaign_content.GetNewField
+                                  a(href='javascript:;')
+                                    | Contenidos
+                                li#url.GetNewField
+                                  a(href='javascript:;')
+                                    | Pagina destino
+                                li#campaign_name.GetNewField
+                                  a(href='javascript:;')
+                                    | Campañas 
+                        span.dropdown-wrapper(aria-hidden='true')
                           th.hidden-xs
-                            | Medium
+                            | Gastos
                           th.hidden-xs
-                            | Source
+                            | Ingresos
                           th.hidden-xs
-                            | Leads
+                            | Retorno de Inversión (ROI)
                           th.hidden-xs
-                            | Sales
+                            | Margen
                           th.hidden-xs
-                            | Cost
+                            | Clientes
                           th.hidden-xs
-                            | Revenue
+                            | Costo de Adquisicion (CAC)
                           th.hidden-xs
-                            | Margin
-                      tbody
-                        tr
-                          td
-                            | CPC
-                          td
-                            | Facebook
-                          td
-                            | 439
-                          td
-                            | 123
-                          td
-                            | $2,405.39
-                          td
-                            | $20,304.94
-                          td
-                            | 88%
-                        tr
-                          td
-                            | Organic
-                          td
-                            | Twitter
-                          td
-                            | 212
-                          td
-                            | 78
-                          td
-                            | $1,500.00
-                          td
-                            | $10,456.32
-                          td
-                            | 82%
-                        tr
-                          td
-                            | CPC
-                          td
-                            | Google
-                          td
-                            | 545
-                          td
-                            | 213
-                          td
-                            | $5,465.70
-                          td
-                            | $50,342.49
-                          td
-                            | 89%
+                            | Lifetime Value (LTV)
+                      tbody#Report
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
         // END CONTENT
@@ -234,14 +210,31 @@ html(lang='en')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/components-ion-sliders.js')
-    // END PAGE LEVEL SCRIPTS
     script.
-      jQuery(document).ready(function() {
-      // initiate layout and plugins
-      Metronic.init(); // init metronic core components
-      Layout.init(); // init current layout
-      Demo.init(); // init demo features  // set current page
-      ComponentsIonSliders.init();
+      $( document ).ready(function(){
+        $(".GetNewField").click(function(){
+          //We save the current ID we are going to send it later :D
+          var source = $(this).attr('id');
+          var newText = $("#"+source+" a ").text();
+          //Replace it
+          $("#CurrentContent").text(newText);
+          var lineal = ( $("#lineal").hasClass("active") ) ? true : false;
+          $.ajax({
+            url:"/home/reporting/GetReports",
+            type:"POST",
+            data:{
+              source:source,
+              idSite:idSite,
+              lineal:lineal
+            },
+            success:function(data){
+              console.log(data);
+              $("#Report").html(data);
+            }
+          }); 
+        });
+
       });
+    // END PAGE LEVEL SCRIPTS 
     // END JAVASCRIPTS
   // END BODY
