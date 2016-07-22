@@ -53,16 +53,18 @@ function GetProfileByEmail(req,res,next){
         GetDynamicProfile(req.params.id,req.query.idSite,callback); 
       },
       GoogleData: function(callback){
-        GetGoogleData(req.params.id,callback)
+        GetGoogleData( req.params.id, callback)
+      },
+      TotalVisits: function(callback){
+        GetTotalVisits( req.params.id, req.query.idSite, callback ); 
       }
-
   },
   function(err, results) {  
     console.log(results.GetDynamicProfile)
       res.render('home/funnel/visitorprofile', {  
         idSite:       req.query.idSite,
         UserId:       req.params.id,
-        totalVisits:  results.StaticProfile.totalVisits,
+        totalVisits:  results.TotalVisits.visitas,
         visits:       results.StaticProfile.lastVisits,
         email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
         ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
@@ -140,8 +142,6 @@ function GetGoogleData(email,callback){
     }).on('error', function(e) { 
       callback(null,"");
     });
-
-
 }
 
 function GetCompletedForms(userId,idSite,callback){  
@@ -155,6 +155,28 @@ function GetCompletedForms(userId,idSite,callback){
       return callback(null,profile);
   });
 }
+
+function GetTotalVisits(userId,idSite,callback){
+
+  piwik.api({
+    method:   'Smarketeer.GetUserTotalVisits',
+    userId: userId,
+    idSite:idSite
+  },function(err,data){
+    if(err){
+      console.log("Static profile:"+err);
+      callback(err,null)
+    }
+    else{
+      console.log(data[0]);
+      callback(null,data[0]);
+    }
+
+  });
+
+} 
+
+
 /**
 * It gets the information that was settet in /seemore in the "Escriba informacion personal"
 * @param about

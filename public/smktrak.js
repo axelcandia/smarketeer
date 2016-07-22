@@ -135,8 +135,7 @@ function SendSmkt(form_id,idSite){
 			}); 
 			userId=email;
     	}
-    	else if(cemail!=email){  
-    		deleteCookie(email);
+    	else if(cemail!=email){   
     		setCookie(idSite,visitor_id,email,400);
 
     		$.ajax({
