@@ -1,8 +1,8 @@
 $( document ).ready(function() {  
 	   
 
-          addDates(".FechaInicio");
-          addDates(".FechaCierre");
+          addDates(".from");
+          addDates(".to");
 
         function addDates(date){  
                 $( date ).each(function() { 
@@ -52,34 +52,38 @@ $( document ).ready(function() {
 
               } 
 
-	$(document).on("click",".guardar",function(){ 
+	$(".guardar").click(function(){ 
 		event.preventDefault();
-				alert("SAVE THIS");
+		if(!$(".campaign").val()){
+			bootbox.alert("Por favor escriba un nombre para la campaña");
+			return;
+		}
 				$.ajax({
 					type:'POST',
 					url:"/campaigns/save",
 					data: {
-						url:$(".url").val(),
-						campaign :$(".campaign").val(),
-						term:	  $(".term").val(),
-						source:	  $(".source").val(),
-						medium:	  $(".medium").val(),
-						content:  $(".content").val(),
-						from:	  $(".from").val(),
-						to :	  $(".to").val(),
-						total:	  $(".total").val(),
-						idSite:   idSite,
-						_id:	  this.id 
+						Data:{
+							url:$(".url").val(),
+							campaign :$(".campaign").val(),
+							term:	  $(".term").val(),
+							source:	  $(".source").val(),
+							medium:	  $(".medium").val(),
+							content:  $(".content").val(),
+							from:	  $(".from").val(),
+							to :	  $(".to").val(),
+							total:	  $(".total").val(),
+							idSite:   idSite
 						},
-					dataType: 'json',
-					contentType: 'application/json',
+						_id:	  this.id 
+					},
 					success: function( data ){
 						if(data=="-1")
 							bootbox.alert("Ocurrio un error intenta devuelta mas tarde");
 						else{
-							//window.location.href = "/campaigns/seeall/?idSite="+idSite;
+							console.log("Hola que tal como te va");
+							window.location.href = "/campaigns/seeall/?idSite="+idSite;
 						} 
-						},
+					},
 					 error: function(jqXHR, exception) {
 					        bootbox.alert(jqXHR.status); 
 					    } 

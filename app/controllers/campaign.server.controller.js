@@ -10,9 +10,10 @@ exports.RenderGetAll= function(req, res){
 		res.redirect("/login");
 	}
 	//GetAllCampaings for these user
-	Campaigns.find({"users._id" : req.user.id},function(err,data){
+	Campaigns.find({"idSite" : req.query.idSite},function(err,data){
 		if(err)
 			console.log(err);
+		console.log(data);
 		res.render("campaigns/viewcampaigns",{
 			campaigns:data,
 			idSite: req.query.idSite
@@ -73,22 +74,16 @@ exports.RenderSeeMore = function(req, res){
 * Saves the data of the campaign
 */
 exports.SaveCampaign = function(req, res){ 
-	console.log(req.body);
-	/*if(req.body){
-
-		var data = url.parse(req.body.url,true);
-		var costs=req.body.costs;
-
-		if(req.body.id == "idcampaign")
+	console.log(req.body); 
+		if(req.body._id == "idcampaign")
 		{
-			SetNewCampaign( req.user, data,res,req.query.idSite,costs );
+
+			SetNewCampaign( req,res);
 		}
 		else
 		{
-			UpdateCampaign( res, data, req.body.id,costs );
-		}  
-
-	}	*/
+			UpdateCampaign(req,res);
+		}   
 } 
 /**
 * Delete the campaign from our DB
@@ -137,21 +132,21 @@ exports.CloneCampaign = function( req, res ){
 	})
 }
 
-function SetNewCampaign(user,data,res,idSite){
-	var campaign = new Campaigns(data);
+function SetNewCampaign(req,res){ 
+	var campaign = new Campaigns(req.body.Data);
 	campaign.save(function(err) {
       if (err) {
       	res.send("-1");
-      }
-      res.send(campaign._id); 
+      } 
+      res.send(campaign._id).status(200); 
 	});
 }
 /**
 * Just an update
 */
-function UpdateCampaign( res, data, id ){  
-	var query = { "_id" : id };
-	var update = data;
+function UpdateCampaign( req,res ){  
+	var query = { "_id" : req.body._id };
+	var update = req.body.Data;
 
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 

@@ -83,15 +83,15 @@ html(lang='en')
                     form#UrlBuilder(role='form')
                       .form-body
                         .form-group.form-md-line-input
-                          input#WebsiteUrl.form-control(placeholder='Escriba la url de su pagina web' value="#{websiteUrl}" ng-model="tmp.url" )
+                          input.url.form-control(placeholder='Escriba la url de su pagina web' value="#{websiteUrl}" ng-model="tmp.url" )
                           label(for='form_control_1') Website URL *
                           span.help-block (e.g. http://www.proto.com/download)
                         .form-group.form-md-line-input
-                          input#Name.form-control(type='text', placeholder='Escriba el nombre de la campaña' value="#{campaign}" ng-model="tmp.campaign" )
+                          input.campaign.form-control(type='text', placeholder='Escriba el nombre de la campaña' value="#{campaign}" ng-model="tmp.campaign" )
                           label(for='form_control_1') Nombre de la campaña *
                           span.help-block (e.g. producto, codigo de promocion, slogan).  
                         .form-group.form-md-line-input 
-                            select.form-control(ng-model="tmp.source" placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
+                            select.source.form-control(ng-model="tmp.source" placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
                               option(value="AdWords" ) AdWords
                               option(value="Bing Ads") Bing Ads
                               option(value="Content/Blogs") Content/Blogs
@@ -105,7 +105,7 @@ html(lang='en')
                             label(for='form_control_1') Fuentes *
                             span.help-block (e.g. referrer: google, citysearch, newsletter4).
                         .form-group.form-md-line-input
-                          select.form-control(ng-model="tmp.medium" placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
+                          select.medium.form-control(ng-model="tmp.medium" placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
                             option(value="CPC") CPC
                             option(value="Content") Content
                             option(value="Email") Email
@@ -113,23 +113,23 @@ html(lang='en')
                           label(for='form_control_1') Medium
                           span.help-block (e.g. marketing medium: cpc, banner, email)
                         .form-group.form-md-line-input
-                          input#KeyWord.form-control(ng-model="tmp.term" type='text', placeholder='Escriba las palabras claves' value="#{keywords}")
+                          input.term.form-control(ng-model="tmp.term" type='text', placeholder='Escriba las palabras claves' value="#{keywords}")
                           label(for='form_control_1') Palabras claves
                           span.help-block (e.g. identify the paid keywords)
                         .form-group.form-md-line-input
-                          input#Content.form-control(ng-model="tmp.content" type='text', placeholder='Escriba el contenido de la campaña' value="#{content}")
+                          input.content.form-control(ng-model="tmp.content" type='text', placeholder='Escriba el contenido de la campaña' value="#{content}")
                           label(for='form_control_1') Contenido
                           span.help-block (e.g. use to differentiate ads)
                         .form-group.form-md-line-input
                           .input-group
-                            input.form-control(type='text', name='from')
+                            input.from.form-control(type='text', name='from')
                             span.input-group-addon  hasta 
-                            input.form-control(type='text', name='to')
+                            input.to.form-control(type='text', name='to')
                             label(for='form_control_1') Fecha 
                         .form-group.form-md-line-input
                           .input-group.bootstrap-touchspin 
                             span.input-group-addon.bootstrap-touchspin-prefix $
-                            input#touchspin_demo1.form-control(type='number', value='55', name='demo1', style='display: block;')
+                            input.total.form-control(type='number', name='demo1', style='display: block;')
                             span.input-group-addon.bootstrap-touchspin-postfix(style='display: none;')
                             label(for='form_control_1') Monto gastado
                             span.help-block Escriba el costo, puedes cambiarlo mas adelante
@@ -166,6 +166,9 @@ html(lang='en')
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js")
     script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript') 
     script(src="/campaigns/js/urlbuilder.js" type="text/javascript") 
+    script(type='text/javascript', src='//cdn.jsdelivr.net/momentjs/latest/moment.min.js')
+    script(type='text/javascript', src='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js')
+    link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css')
     script.
       var myAppModule = angular.module('myapp', []); 
       myAppModule.controller('GetSource', function($scope) {
