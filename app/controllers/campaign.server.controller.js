@@ -48,7 +48,8 @@ exports.RenderSeeMore = function(req, res){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
-	Campaigns.findOne({"_id":req.params.id},function(err,data){
+	console.log(req.params.id);
+	Campaigns.findById(req.params.id,function(err,data){
 		if(err)
 			res.redirect("/campaigns/seemore"); 
 		console.log(data);
