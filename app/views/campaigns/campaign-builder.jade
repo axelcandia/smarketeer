@@ -52,7 +52,7 @@ html(lang='en')
   // DOC: Apply "page-footer-fixed" class to the body element to have fixed footer
   // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
-  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo( ng-app="myapp")
     .page-header.navbar.navbar-fixed-top
       include ../shared/pageTop.jade
     // END HEADER
@@ -71,7 +71,7 @@ html(lang='en')
             // END STYLE CUSTOMIZER
             // BEGIN PAGE HEADER
             // BEGIN PAGE CONTENT
-            .row
+            .row(ng-controller="GetSource")
               .col-md-6
                 // BEGIN SAMPLE FORM PORTLET
                 .portlet.light
@@ -83,19 +83,33 @@ html(lang='en')
                     form#UrlBuilder(role='form')
                       .form-body
                         .form-group.form-md-line-input
-                          input#WebsiteUrl.form-control(type='text', placeholder='Escriba la url de su pagina web' value="#{websiteUrl}")
+                          input#WebsiteUrl.form-control(placeholder='Escriba la url de su pagina web' value="#{websiteUrl}" ng-model="websiteUrl" )
                           label(for='form_control_1') Website URL *
                           span.help-block (e.g. http://www.proto.com/download)
                         .form-group.form-md-line-input
-                          input#Name.form-control(type='text', placeholder='Escriba el nombre de la campaña' value="#{campaign}")
+                          input#Name.form-control(type='text', placeholder='Escriba el nombre de la campaña' value="#{campaign}" ng-model="utm_campaign" )
                           label(for='form_control_1') Nombre de la campaña *
                           span.help-block (e.g. producto, codigo de promocion, slogan).  
+                        .form-group.form-md-line-input 
+                            select.form-control(placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
+                              option(value="AdWords" ) AdWords
+                              option(value="Bing Ads") Bing Ads
+                              option(value="Content/Blogs") Content/Blogs
+                              option(value="Email/Newsletters") Email/Newsletters
+                              option(value="Facebook") Facebook
+                              option(value="Instagram") Instagram
+                              option(value="LinkedIn") LinkedIn
+                              option(value="Pinterest") Pinterest
+                              option(value="Twitter") Twitter
+                              option(value="Otros Ad Networks") Otros Ad Networks
+                            label(for='form_control_1') Fuentes *
+                            span.help-block (e.g. referrer: google, citysearch, newsletter4).
                         .form-group.form-md-line-input
-                          input#Source.form-control(type='text', placeholder='Escriba la funete de la campaña' value="#{source}")
-                          label(for='form_control_1') Campaign Source *
-                          span.help-block (e.g. referrer: google, citysearch, newsletter4).
-                        .form-group.form-md-line-input
-                          input#Medium.form-control(type='text', placeholder='Escriba el medium' value="#{medium}")
+                          select.form-control(placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important")
+                            option(value="CPC") CPC
+                            option(value="Content") Content
+                            option(value="Email") Email
+                            option(value="Organic") Organic
                           label(for='form_control_1') Medium
                           span.help-block (e.g. marketing medium: cpc, banner, email)
                         .form-group.form-md-line-input
@@ -106,11 +120,23 @@ html(lang='en')
                           input#Content.form-control(type='text', placeholder='Escriba el contenido de la campaña' value="#{content}")
                           label(for='form_control_1') Contenido
                           span.help-block (e.g. use to differentiate ads)
-                        #url.form-group.form-md-line-input 
-                          input#UrlName.form-control(type='text', placeholder='Click en GENERAR para ver su url' value="#{url}")
-                          label(for='form_control_1') url de campaña 
-                          span.help-block (Para generar una nueva url haga click en generar).
-                        button#generar.btn.blue(type='button') Generar
+                        .form-group.form-md-line-input
+                          .input-group
+                            input.form-control(type='text', name='from')
+                            span.input-group-addon  hasta 
+                            input.form-control(type='text', name='to')
+                            label(for='form_control_1') Fecha 
+                        .form-group.form-md-line-input
+                          .input-group.bootstrap-touchspin 
+                            span.input-group-addon.bootstrap-touchspin-prefix $
+                            input#touchspin_demo1.form-control(type='number', value='55', name='demo1', style='display: block;')
+                            span.input-group-addon.bootstrap-touchspin-postfix(style='display: none;')
+                            label(for='form_control_1') Monto gastado
+                            span.help-block Escriba el costo, puedes cambiarlo mas adelante
+                        .form-group.form-md-line-input
+                          input#WebsiteUrl.form-control(placeholder='Escriba la url de su pagina web' value='{{websiteUrl|webSiteUrl}}{{utm_campaign|newFilter:campaign}}')
+                          label(for='form_control_1') URL
+                          span.help-block (Copie este codigo)
                       .form-actions.noborder 
                         button.guardar.btn.green(type='button' id=campaignId ) Guardar 
                         button#limpiar.pull-right.btn.red(type='button') Limpiar 
@@ -137,7 +163,33 @@ html(lang='en')
     script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
     script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
     script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js")
     script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript') 
-    script(src="/campaigns/js/urlbuilder.js" type="text/javascript")
+    script(src="/campaigns/js/urlbuilder.js" type="text/javascript") 
+    script.
+      var myAppModule = angular.module('myapp', []);
+      myAppModule.filter('webSiteUrl', function() {
+       return function(name) { 
+        var replaced = name.split(' ').join('-')+"/?";
+        return replaced;
+        };
+      });
+
+      myAppModule.filter('newFilter', function() {
+       return function(name,term) { 
+        var replaced = term + name.split(' ').join('-');
+        return replaced;
+        };
+      });
+
+      function GetSource($scope) {
+          $scope.campaign ="utm_campaign=";
+          $scope.term   ="utm_term=";
+          $scope.source ="utm_source=";
+          $scope.medium ="utm_medium=";
+          $scope.content  ="utm_content=";
+        }
     // END JAVASCRIPTS
   // END BODY

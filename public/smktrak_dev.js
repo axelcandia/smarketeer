@@ -67,8 +67,9 @@ var idSite= parseInt(document.currentScript.id);
 	* Delete the cookie if the user already exists
 	*/
 	function deleteCookie(email) {
-	    document.cookie = 'smkt_'+idSite+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	    console.log("deleting");
+		//";domain="+window.location.hostname+";path=/;"
+	    document.cookie = 'smkt_'+idSite+'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'+
+	    					";domain="+window.location.hostname+";path=/;";
 	    _paq.push(['appendToTrackingUrl', 'new_visit=1']); // (1) forces a new visit 
 	    console.log("deleting"+visitor_id);
 	    visitor_id=null;
