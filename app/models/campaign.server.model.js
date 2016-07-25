@@ -1,18 +1,16 @@
 var mongoose  = require('mongoose');
-var campaignSchema = new mongoose.Schema({
-	websiteUrl : String,
+var campaignSchema = new mongoose.Schema({ 
+	url 	   : String,
 	campaign   : String,
 	source     : String,
 	medium     : String,
-	keywords   : String,
+	term	   : String,
 	content    : String,
 	url        : String,
+	total      : Number,
 	idSite	   : String,
-	users:[{
-		email : String,
-		_id	   : Object,
-	}],
-	creado: Date
+	from	   : Date,
+	to 		   : Date, 
 });
 
 var Campaign = mongoose.model('Campaign', campaignSchema);

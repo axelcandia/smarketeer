@@ -26,7 +26,7 @@ html(lang='en')
     meta(content='', name='description')
     meta(content='', name='author')
     // BEGIN GLOBAL MANDATORY STYLES
-    link(href='/http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
     link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
     link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
     link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
@@ -164,26 +164,27 @@ html(lang='en')
     script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
     script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js")
     script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript') 
     script(src="/campaigns/js/urlbuilder.js" type="text/javascript") 
     script.
-      var myAppModule = angular.module('myapp', []);
-      myAppModule.filter('webSiteUrl', function() {
-       return function(name) { 
-        var replaced = name.split(' ').join('-')+"/?";
-        return replaced;
-        };
-      }); 
-      function GetSource($scope) { 
+      var myAppModule = angular.module('myapp', []); 
+      myAppModule.controller('GetSource', function($scope) {
+          $scope.tmp={
+          url:"",
+          campaign:"",
+          term:"",
+          source:"",
+          medium:"",
+          content:"",
+
+          }
 
           $scope.final_url = '';
-          $scope.$watch('[tmp.url,tmp.campaign, tmp.term, tmp.source,tmp.medium, tmp.content]', function(newValues, oldValues, scope) { 
-
+          
+          $scope.$watchCollection('[tmp.url,tmp.campaign, tmp.term, tmp.source,tmp.medium, tmp.content]', function(newValues) { 
 
                 var url     = ($scope.tmp.url)  ? $scope.tmp.url+"/?"   : "" ;
-
+      
                 var campaign  = ($scope.tmp.campaign)  ? 
                               "utm_campaing="+$scope.tmp.campaign+"&"   : "" ;
 
@@ -198,10 +199,10 @@ html(lang='en')
 
                 var content= ($scope.tmp.content)      ? 
                               "content="+$scope.tmp.content             : "" ;
-
+                  
                 $scope.final_url=(url+campaign+term+source+medium+content).replace(/ /g, '-');
 
             }); 
-        }
+        });
     // END JAVASCRIPTS
   // END BODY

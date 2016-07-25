@@ -36,7 +36,8 @@ exports.RenderGetNew= function(req, res){
 		keywords:"",
 		content:"",
 		url:"",
-		thirdtitle:"Crea tu campaña"
+		thirdtitle:"Crea tu campaña",
+		idSite:req.query.idSite
 	});
 }
 /**
@@ -65,28 +66,29 @@ exports.RenderSeeMore = function(req, res){
 	});
 	
 }
+
+
+
 /**
 * Saves the data of the campaign
 */
-exports.SaveCampaign = function(req, res){
-	if (!req.user) { 
-		res.redirect("/login");
-	}
-	if(req.body){
+exports.SaveCampaign = function(req, res){ 
+	console.log(req.body);
+	/*if(req.body){
 
 		var data = url.parse(req.body.url,true);
-		var query="";
+		var costs=req.body.costs;
 
 		if(req.body.id == "idcampaign")
 		{
-			SetNewCampaign( req.user, data,res,req.query.idSite );
+			SetNewCampaign( req.user, data,res,req.query.idSite,costs );
 		}
 		else
 		{
-			UpdateCampaign( res, data, req.body.id );
+			UpdateCampaign( res, data, req.body.id,costs );
 		}  
 
-	}	
+	}	*/
 } 
 /**
 * Delete the campaign from our DB
@@ -136,21 +138,7 @@ exports.CloneCampaign = function( req, res ){
 }
 
 function SetNewCampaign(user,data,res,idSite){
-	var campaign = new Campaigns({
-		"campaign"			: data.query.utm_campaign,
-	    "keywords"			: data.query.utm_term,
-	    "source"  			: data.query.utm_source,
-	    "medium"  			: data.query.utm_medium,
-	    "content" 			: data.query.utm_content,
-	    "websiteUrl"		: data.pathname,
-	    "url"				: data.href,
-	    "idSite"			: idSite,
-	    "users"				:[{
-	    	"email":user.email,
-	    	"_id":user.id
-	    }],
-	    "creado"            : new Date()		
-	});
+	var campaign = new Campaigns(data);
 	campaign.save(function(err) {
       if (err) {
       	res.send("-1");
@@ -163,15 +151,7 @@ function SetNewCampaign(user,data,res,idSite){
 */
 function UpdateCampaign( res, data, id ){  
 	var query = { "_id" : id };
-	var update = { 
-	    	"campaign"			: data.query.utm_campaign,
-	    	"keywords"			: data.query.utm_term,
-	    	"source"  			: data.query.utm_source,
-	    	"medium"  			: data.query.utm_medium,
-	    	"content" 			: data.query.utm_content,
-	    	"websiteUrl"		: data.pathname,
-	    	"url"				: data.href, 
-	    };
+	var update = data;
 
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
