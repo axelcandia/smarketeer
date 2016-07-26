@@ -107,7 +107,7 @@ function SendSmkt(form_id,idSite){
 
 		    if(smkt[i].id.indexOf("smkt_email")>-1){ 
 
-		    	cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
+		    	var cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
 		   		var email=smkt[i].value;
 		   		console.log("smk:"+smkt[i].value); 
 		   		console.log("cookie:"+cemail);  

@@ -208,6 +208,7 @@ exports.UpdateID = function(req,res,next){
 		res.send("0").status("200");
 		return;
 	} 
+	console.log("Lets update ");
 	async.series({
       visitas: function(callback){ 
             piwik.api({
@@ -233,7 +234,7 @@ exports.UpdateID = function(req,res,next){
 			  , update = { userId: req.body.email}
 			  , options = { multi: false };
 
-			Visitors.findOneAndUpdate(conditions, update, options, function(err,data){
+			Visitors.findAndUpdate(conditions, update, options, function(err,data){
 				if(err)
 					callback(err,null);
 				else
