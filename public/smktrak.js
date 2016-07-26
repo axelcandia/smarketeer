@@ -49,8 +49,7 @@ var idSite= parseInt(document.currentScript.id);
 	/**
 	* GET the id of the user
 	*/
-	function getCookie(name) {
-		name="smkt_104";
+	function getCookie(name) { 
 	    var nameEQ = name + "=";
 		var ca = document.cookie.split(';');
 		for(var i=0;i < ca.length;i++) {
@@ -270,7 +269,7 @@ function setCookie(idSite,visitor_id,email,exdays){
 	    var d = new Date();
 	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	    var expires = "expires="+ d.toUTCString(); 
-	    var end=/*";domain="+window.location.hostname+*/";path=/;";
+	    var end=";domain="+window.location.hostname+";path=/;";
 	    document.cookie = cname + "=" +JSON.stringify(data)+end+expires;
 	    console.log( cname + "=" +JSON.stringify(data)+end+expires);
 } 
