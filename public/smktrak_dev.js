@@ -49,8 +49,7 @@ var idSite= parseInt(document.currentScript.id);
 	/**
 	* GET the id of the user
 	*/
-	function getCookie(name) {
-		name="smkt_104";
+	function getCookie(name) { 
 	    var nameEQ = name + "=";
 		var ca = document.cookie.split(';');
 		for(var i=0;i < ca.length;i++) {
@@ -109,13 +108,12 @@ function SendSmkt(form_id,idSite){
 		    if(smkt[i].id.indexOf("smkt_email")>-1){ 
 
 		    	cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
-		   		var email=smkt[i].value
+		   		var email=smkt[i].value;
 		   		console.log("smk:"+smkt[i].value); 
 		   		console.log("cookie:"+cemail);  
 
 		    	if(!cemail){ 
-		    		setCookie(idSite,visitor_id,email,400);
-		    		pushEmail(email);
+		    		
 		    		//We have to update our DB to this new ID
 		    		$.ajax({
 					  url: "http://localhost:1337/UpdateID",
@@ -124,14 +122,17 @@ function SendSmkt(form_id,idSite){
 					    email: email,
 					    idSite:idSite
 					  },
+					  crossDomain: true,
 					  type:"POST",
 					  success: function( result ) {
 					   console.log("Update Succeesfull!"+result);
 					  },
 					  error:function(data){
-					  	alert(data);
+					  	console.log(data);
 					  }
 					}); 
+					setCookie(idSite,visitor_id,email,400);
+		    		pushEmail(email);
 					userId=email;
 		    	}
 		    	else if(cemail!=email){  
@@ -146,8 +147,12 @@ function SendSmkt(form_id,idSite){
 					    idSite:idSite
 					  },
 					  type:"POST",
+					  crossDomain: true,
 					  success: function( result ) {
 					   console.log("Update Succeesfull!"+result);
+					  },
+					  error: function(err){
+					  	console.log(err);
 					  }
 					}); 
 
@@ -270,7 +275,7 @@ function setCookie(idSite,visitor_id,email,exdays){
 	    var d = new Date();
 	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	    var expires = "expires="+ d.toUTCString(); 
-	    var end=/*";domain="+window.location.hostname+*/";path=/;";
+	    var end=";domain="+window.location.hostname+";path=/;";
 	    document.cookie = cname + "=" +JSON.stringify(data)+end+expires;
 	    console.log( cname + "=" +JSON.stringify(data)+end+expires);
 } 
