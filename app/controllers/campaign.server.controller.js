@@ -10,9 +10,10 @@ exports.RenderGetAll= function(req, res){
 		res.redirect("/login");
 	}
 	//GetAllCampaings for these user
-	Campaigns.find({"users._id" : req.user.id},function(err,data){
+	Campaigns.find({"idSite" : req.query.idSite},function(err,data){
 		if(err)
 			console.log(err);
+		console.log(data);
 		res.render("campaigns/viewcampaigns",{
 			campaigns:data,
 			idSite: req.query.idSite
@@ -28,15 +29,19 @@ exports.RenderGetNew= function(req, res){
 		res.redirect("/login");
 	}
 	res.render( "campaigns/campaign-builder",{
-		campaignId:"idcampaign",
-		websiteUrl:"",
-		campaign:"",
-		source:"",
-		medium:"",
-		keywords:"",
+		total:"",
 		content:"",
-		url:"",
-		thirdtitle:"Crea tu campaña"
+		medium:"",
+		source:"",
+		term:"",
+		campaign:"",
+		url:"", 
+		campaignId:"idcampaign",  
+		idSite:req.query.idSite, 
+		empty    :"",
+		to:"",
+		from:"",
+		idSite:req.query.idSite 
 	});
 }
 /**
@@ -46,47 +51,47 @@ exports.RenderSeeMore = function(req, res){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
-	Campaigns.findOne({"_id":req.params.id},function(err,data){
+	console.log(req.params.id);
+	Campaigns.findById(req.params.id,function(err,data){
 		if(err)
 			res.redirect("/campaigns/seemore"); 
 		console.log(data);
+		var from=
 		res.render("campaigns/campaign-builder",{
-			campaignId: data._id,
-			websiteUrl: (data.websiteUrl) 	? data.websiteUrl 	: "",
-			campaign  : (data.campaign) 	? data.campaign 	: "",
-			source    : (data.source) 		? data.source 		: "",
-			medium    : (data.medium) 		? data.medium 		: "",
-			keywords  : (data.keywords) 	? data.keywords 	: "",
-			content   : (data.content) 		? data.content 		: "",
-			url       : (data.url) 			? data.url 			: "",
-			thirdtitle: "Crea tu campaña"
+			total 	:(data.total)? data.total 		: "",
+			to 		:(data.to)	 ? data.to 			: "12/07/16",
+			from	:(data.from)?data.from 			: "19/07/16",
+			content	:(data.content)?data.content 	: "",
+			medium	:(data.medium)?data.medium 		: "",
+			source	:(data.source)?data.source 		: "",
+			term 	:(data.term)?data.term 			: "",
+			campaign:(data.campaign)?data.campaign 	: "",
+			url 	:(data.url)?data.url 			: "",
+			campaignId:data._id,
+			empty    :"",
+			idSite: req.query.idSite 
 		});
 
 	});
 	
 }
+
+
+
 /**
 * Saves the data of the campaign
 */
-exports.SaveCampaign = function(req, res){
-	if (!req.user) { 
-		res.redirect("/login");
-	}
-	if(req.body){
-
-		var data = url.parse(req.body.url,true);
-		var query="";
-
-		if(req.body.id == "idcampaign")
+exports.SaveCampaign = function(req, res){ 
+	console.log(req.body); 
+		if(req.body._id == "idcampaign")
 		{
-			SetNewCampaign( req.user, data,res,req.query.idSite );
+
+			SetNewCampaign( req,res);
 		}
 		else
 		{
-			UpdateCampaign( res, data, req.body.id );
-		}  
-
-	}	
+			UpdateCampaign(req,res);
+		}   
 } 
 /**
 * Delete the campaign from our DB
@@ -135,43 +140,21 @@ exports.CloneCampaign = function( req, res ){
 	})
 }
 
-function SetNewCampaign(user,data,res,idSite){
-	var campaign = new Campaigns({
-		"campaign"			: data.query.utm_campaign,
-	    "keywords"			: data.query.utm_term,
-	    "source"  			: data.query.utm_source,
-	    "medium"  			: data.query.utm_medium,
-	    "content" 			: data.query.utm_content,
-	    "websiteUrl"		: data.pathname,
-	    "url"				: data.href,
-	    "idSite"			: idSite,
-	    "users"				:[{
-	    	"email":user.email,
-	    	"_id":user.id
-	    }],
-	    "creado"            : new Date()		
-	});
+function SetNewCampaign(req,res){ 
+	var campaign = new Campaigns(req.body.Data);
 	campaign.save(function(err) {
       if (err) {
       	res.send("-1");
-      }
-      res.send(campaign._id); 
+      } 
+      res.send(campaign._id).status(200); 
 	});
 }
 /**
 * Just an update
 */
-function UpdateCampaign( res, data, id ){  
-	var query = { "_id" : id };
-	var update = { 
-	    	"campaign"			: data.query.utm_campaign,
-	    	"keywords"			: data.query.utm_term,
-	    	"source"  			: data.query.utm_source,
-	    	"medium"  			: data.query.utm_medium,
-	    	"content" 			: data.query.utm_content,
-	    	"websiteUrl"		: data.pathname,
-	    	"url"				: data.href, 
-	    };
+function UpdateCampaign( req,res ){  
+	var query = { "_id" : req.body._id };
+	var update = req.body.Data;
 
 	var options = { upsert: true, new: true, setDefaultsOnInsert: true };
 

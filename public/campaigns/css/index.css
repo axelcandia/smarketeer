@@ -1,0 +1,7 @@
+ .editar{
+      width:100%;
+      }
+.portlet-body{
+  overflow-y: scroll;
+   height: 400px;  
+ } 

@@ -1,64 +1,99 @@
-$( document ).ready(function() { 
+$( document ).ready(function() {  
+	   
 
-	$("#generar").click(function(){
-		generateUrl();
-	}); 
+          addDates(".from");
+          addDates(".to");
 
-	$(".guardar").click(function(){
-		if( generateUrl() ){ 
-			$.ajax({
-				type:'POST',
-				url:"/campaigns/save",
-				data: JSON.stringify({
-					"url":$("#UrlName").val(),
-					 "id":  this.id
-					}),
-				contentType: 'application/json',
-				success: function( data ){
-					if(data=="-1")
-						bootbox.alert("Ocurrio un error intenta devuelta mas tarde");
-					else{
-						bootbox.alert("Su campaña fue guardada");
-					}
-						
-					$('#idcampaign').attr('id',data); 
+        function addDates(date){  
+                $( date ).each(function() { 
+                      $(this).daterangepicker({
+                          "locale": {
+                              "format": "DD/MM/YYYY",
+                              "separator": " - ",
+                              "applyLabel": "Aplicar",
+                              "cancelLabel": "Cancelar",
+                              "fromLabel": "Desde",
+                              "toLabel": "Hasta",
+                              "customRangeLabel": "Customizar",
+                              "weekLabel": "W",
+                              "daysOfWeek": [
+                                  "Dom",
+                                  "Lun",
+                                  "Mar",
+                                  "Mier",
+                                  "Jue",
+                                  "Vier",
+                                  "Sab"
+                              ],
+                              "monthNames": [
+                                  "Enero",
+                                   "Febrero",
+                                   "Marzo",
+                                   "Abril",
+                                   "Mayo",
+                                   "Junio",
+                                   "Julio",
+                                   "Agosto",
+                                   "Septiembre",
+                                   "Octubre",
+                                   "Noviembre",
+                                   "Diciembre"
+                              ],
+                              "firstDay": 1
+                          }, 
+                        "singleDatePicker": true,
+                        "linkedCalendars": false,
+                        "startDate": $(this).val() || "07/12/2016",
+                        "endDate": "07/18/2016"
+                      }, function(start, end, label) { 
+                  });
+                });  
+
+
+              } 
+
+	$(".guardar").click(function(){ 
+		event.preventDefault();
+		if(!$(".campaign").val()){
+			bootbox.alert("Por favor escriba un nombre para la campaña");
+			return;
+		}
+				$.ajax({
+					type:'POST',
+					url:"/campaigns/save",
+					data: {
+						Data:{
+							url:$(".url").val(),
+							campaign :$(".campaign").val(),
+							term:	    $(".term").val(),
+							source:	  $( ".source option:selected" ).text(),
+							medium:	  $( ".medium option:selected" ).text(),
+							content:  $(".content").val(),
+							from:	    $(".from").val(),
+							to :	    $(".to").val(),
+							total:	  $(".total").val(),
+							idSite:   idSite
+						},
+						_id:	  this.id 
 					},
-				 error: function(jqXHR, exception) {
-				        bootbox.alert(jqXHR.status); 
-				    } 
-			}); 
-		} 
+					success: function( data ){
+						if(data=="-1")
+							bootbox.alert("Ocurrio un error intenta devuelta mas tarde");
+						else{
+							console.log("Hola que tal como te va");
+							window.location.href = "/campaigns/seeall/?idSite="+idSite;
+						} 
+					},
+					 error: function(jqXHR, exception) {
+					        bootbox.alert(jqXHR.status); 
+					    } 
+				});  
 	});
 
 	$("#limpiar").click(function(){ 
 		$('.form-control').val('');
-	}); 
-
-	function generateUrl(){
-		if(! $("#WebsiteUrl").val() ){
-			bootbox.alert("Por favor escriba la URL de la pagina web");
-			return false;
-		}
-		else if( !$("#Name").val() ){
-			bootbox.alert("Por favor escriba el nombre de la campaña");
-			return false;
-		} 
-		else{
-			//write the obligatory fields
-			var url=$("#WebsiteUrl").val(); 
-			url += "/?utm_campaign=" + $("#Name").val(); 
-			//Write the opritonal fields
-			url += ( $("#KeyWord").val() ) ? "&utm_term="     + $("#KeyWord").val()  : "" ;  //Keyword with content
-			url += ( $("#Source").val() )  ? "&utm_source="   + $("#Source").val()   : "" ;  //source with content
-			url += ( $("#Medium").val() )  ? "&utm_medium="   + $("#Medium").val()   : "" ;  //Medium with Medium
-			url += ( $("#Content").val() ) ? "&utm_content="  + $("#Content").val()  : "" ;  //Medium with Medium
-			//Add the url
-			url = url.replace(/\ /g, '-');
-			$("#UrlName").val(url);
-			$("#url").show();
-			return true;
-		}
-	}
-
+	});  
 	
 });
+
+

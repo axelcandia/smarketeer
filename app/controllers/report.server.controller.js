@@ -35,8 +35,7 @@ exports.RenderReport=function(req,res,next){
  			res.send(err).status(200); 
  		else{  
 	     	html="";  
-	     	var key;
-	     	console.log(data);
+	     	var key; 
 	      	for(key in data.GetClientes) {  
 	        	html+=json2table(data.GetClientes[key],data.GetMedium[key]);  
 	      	}   
@@ -44,11 +43,11 @@ exports.RenderReport=function(req,res,next){
     	}
  	});
 } 
-
-function json2table(client,medium){ 
+ 
+function json2table(client,medium){  
 	var NewReport='<tr>';
-	//We add the Source 
-    NewReport += (client.nsource) ? "<td>"+client.nsource+"</td>" : '<td>Entrada Directa</td>';
+	//We add the Source ||client.secondSource
+    NewReport += ( client.nsource ) ? "<td>"+(client.nsource)+"</td>" : "<td>"+client.secondSource||"N/A"+"</td>";
 
     //We add gastos
     NewReport +='<td></td>';

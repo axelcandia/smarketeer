@@ -175,8 +175,15 @@ function GetTotalVisits(userId,idSite,callback){
   });
 
 } 
-
-
+/*
+function GetSellers(){
+  Sales.group : {
+           _id : { SellerName: { $month: "$date" }, day: { $dayOfMonth: "$date" }, year: { $year: "$date" } },
+           totalPrice: { $sum: { $multiply: [ "$price", "$quantity" ] } },
+           averageQuantity: { $avg: "$quantity" },
+           count: { $sum: 1 }
+        }
+}*/
 /**
 * It gets the information that was settet in /seemore in the "Escriba informacion personal"
 * @param about
