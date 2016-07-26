@@ -95,7 +95,8 @@ html(lang='en')
                             select.source.form-control(ng-model="tmp.source" placeholder='Select...', tabindex='-1', aria-hidden='true',style="width:100%!important" name="source")
                               option(value="AdWords" ) AdWords
                               option(value="Bing Ads") Bing Ads
-                              option(value="Content/Blogs") Content/Blogs
+                              option(value="Contenido") Contenido
+                              option(value="Blogs") Blogs 
                               option(value="Email/Newsletters") Email/Newsletters
                               option(value="Facebook") Facebook
                               option(value="Instagram") Instagram
@@ -193,7 +194,7 @@ html(lang='en')
                 var url     = ($scope.tmp.url)  ? $scope.tmp.url+"/?"   : "" ;
       
                 var campaign  = ($scope.tmp.campaign)  ? 
-                              "utm_campaing="+$scope.tmp.campaign+"&"   : "" ;
+                              "utm_campaign="+$scope.tmp.campaign+"&"   : "" ;
 
                 var term      = ($scope.tmp.term)      ? 
                               "utm_term="+$scope.tmp.term+"&"           : "" ;

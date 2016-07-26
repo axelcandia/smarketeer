@@ -10,7 +10,7 @@ var idSite= parseInt(document.currentScript.id);
 	  var _paq = _paq || [];
 	  var tracker; 
 	  var _paqid;  
-	  var u="//52.165.38.47/"; 
+	  var u="http://52.165.38.47/"; 
 	  var visitor_id="";
 	  var userId="";
 	  
@@ -49,19 +49,16 @@ var idSite= parseInt(document.currentScript.id);
 	/**
 	* GET the id of the user
 	*/
-	function getCookie(cname) {
-	    var name = cname + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i = 0; i <ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') {
-	            c = c.substring(1);
-	        }
-	        if (c.indexOf(name) == 0) {
-	            return c.substring(name.length,c.length);
-	        }
-	    }
-	    return "";
+	function getCookie(name) {
+		name="smkt_104";
+	    var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
 	}
 	/**
 	* Delete the cookie if the user already exists
@@ -91,8 +88,7 @@ function createform(id){
           type: "POST",
           url: "http://localhost:1337/GetFormHTML",
           data: {"id":id},
-          success: function(data){ 
-          	console.log(data);
+          success: function(data){  
             document.getElementById(id).insertAdjacentHTML('afterend',data);
 
           }
@@ -100,75 +96,77 @@ function createform(id){
 }
 	//document.write("SOME SUPER CONTENT");
 
-function SendSmkt(form_id,idSite){   
-	  event.preventDefault();
+function SendSmkt(form_id,idSite){ 
 	  var values = {};
 	  var smkt  =  document.getElementById("form."+form_id).getElementsByClassName('SmarketeerField'); 
 		for(var i=0;i< smkt.length;i++){   
 			var name= smkt[i].name;
+
 			if( smkt[i].value == "-Seleccione una opcion-"){
 				smkt[i].value="";
 			} 
-    if(smkt[i].id.indexOf("smkt_email")>-1){ 
-   		var cemail=(JSON.parse( getCookie("smkt_"+idSite) )).email;
-   		var email=smkt[i].value
-   		console.log("smk:"+smkt[i].value); 
-   		console.log("cookie:"+cemail);  
 
-    	if(!cemail){ 
-    		setCookie(idSite,visitor_id,email,400);
-    		pushEmail(email);
-    		//We have to update our DB to this new ID
-    		$.ajax({
-			  url: "http://localhost:1337/UpdateID",
-			  data: {
-			    userId: userId,
-			    email: email,
-			    idSite:idSite
-			  },
-			  type:"POST",
-			  success: function( result ) {
-			   console.log("Update Succeesfull!"+result);
-			  },
-			  error:function(data){
-			  	alert(data);
-			  }
-			}); 
-			userId=email;
-    	}
-    	else if(cemail!=email){  
-    		deleteCookie(email);
-    		setCookie(idSite,visitor_id,email,400);
+		    if(smkt[i].id.indexOf("smkt_email")>-1){ 
 
-    		$.ajax({
-			  url: "http://localhost:1337/UpdateID",
-			  data: {
-			    userId: visitor_id,
-			    email: email,
-			    idSite:idSite
-			  },
-			  type:"POST",
-			  success: function( result ) {
-			   console.log("Update Succeesfull!"+result);
-			  }
-			}); 
+		    	cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
+		   		var email=smkt[i].value
+		   		console.log("smk:"+smkt[i].value); 
+		   		console.log("cookie:"+cemail);  
 
-    		pushEmail(email); 
-    		userId=email;
+		    	if(!cemail){ 
+		    		setCookie(idSite,visitor_id,email,400);
+		    		pushEmail(email);
+		    		//We have to update our DB to this new ID
+		    		$.ajax({
+					  url: "http://localhost:1337/UpdateID",
+					  data: {
+					    userId: userId,
+					    email: email,
+					    idSite:idSite
+					  },
+					  type:"POST",
+					  success: function( result ) {
+					   console.log("Update Succeesfull!"+result);
+					  },
+					  error:function(data){
+					  	alert(data);
+					  }
+					}); 
+					userId=email;
+		    	}
+		    	else if(cemail!=email){  
+		    		deleteCookie(email);
+		    		setCookie(idSite,visitor_id,email,400);
 
-    	} 	
-		
-    	} 
-		if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
-			if(smkt[i].checked) 
-				values[name]=smkt[i].value;  
-		}
-		else if(smkt[i].tagName == "SELECT"){
-			values[name]=getSelectValues(smkt[i]);  
-		}
-		else{
-			values[name]=smkt[i].value; 
-		}
+		    		$.ajax({
+					  url: "http://localhost:1337/UpdateID",
+					  data: {
+					    userId: visitor_id,
+					    email: email,
+					    idSite:idSite
+					  },
+					  type:"POST",
+					  success: function( result ) {
+					   console.log("Update Succeesfull!"+result);
+					  }
+					}); 
+
+		    		pushEmail(email); 
+		    		userId=email;
+
+		    	} 	
+				
+		    	} 
+				if( (smkt[i].type=="checkbox" || smkt[i].type=="radio") ){
+					if(smkt[i].checked) 
+						values[name]=smkt[i].value;  
+				}
+				else if(smkt[i].tagName == "SELECT"){
+					values[name]=getSelectValues(smkt[i]);  
+				}
+				else{
+					values[name]=smkt[i].value; 
+				}
 			
 	} 
 	values["userId"]= userId;
