@@ -121,6 +121,7 @@ exports.GetSale = function (req,res){
       '&_cvar={"1":["email","'+email+'"]}'+
       "&url="+visit.lastVisits[lastVisit].actionDetails[lastAction].url+
       "&urlref="+visit.lastVisits[lastVisit].referrerUrl+
+      "action_name=Sale!"+
       "&revenue="+req.body.Total; 
       console.log("URL:"+path);
 

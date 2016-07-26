@@ -32,6 +32,7 @@ exports.GetSales = function(req,res){
   },function(err,results){
     if(err) res.send(err);
     else{ 
+      console.log(results);
       html="";  
       var key, i = 0;
       for(key in results) { 
