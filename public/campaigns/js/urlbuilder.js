@@ -65,12 +65,12 @@ $( document ).ready(function() {
 						Data:{
 							url:$(".url").val(),
 							campaign :$(".campaign").val(),
-							term:	  $(".term").val(),
-							source:	  $(".source").val(),
-							medium:	  $(".medium").val(),
+							term:	    $(".term").val(),
+							source:	  $( ".source option:selected" ).text(),
+							medium:	  $( ".medium option:selected" ).text(),
 							content:  $(".content").val(),
-							from:	  $(".from").val(),
-							to :	  $(".to").val(),
+							from:	    $(".from").val(),
+							to :	    $(".to").val(),
 							total:	  $(".total").val(),
 							idSite:   idSite
 						},

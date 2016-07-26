@@ -9,8 +9,8 @@ var campaignSchema = new mongoose.Schema({
 	url        : String,
 	total      : Number,
 	idSite	   : String,
-	from	   : Date,
-	to 		   : Date, 
+	from	   : String,
+	to 		   : String, 
 });
 
 var Campaign = mongoose.model('Campaign', campaignSchema);

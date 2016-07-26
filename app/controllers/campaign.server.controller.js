@@ -29,16 +29,19 @@ exports.RenderGetNew= function(req, res){
 		res.redirect("/login");
 	}
 	res.render( "campaigns/campaign-builder",{
-		campaignId:"idcampaign",
-		websiteUrl:"",
-		campaign:"",
-		source:"",
-		medium:"",
-		keywords:"",
+		total:"",
 		content:"",
-		url:"",
-		thirdtitle:"Crea tu campaña",
-		idSite:req.query.idSite
+		medium:"",
+		source:"",
+		term:"",
+		campaign:"",
+		url:"", 
+		campaignId:"idcampaign",  
+		idSite:req.query.idSite, 
+		empty    :"",
+		to:"",
+		from:"",
+		idSite:req.query.idSite 
 	});
 }
 /**
@@ -53,16 +56,20 @@ exports.RenderSeeMore = function(req, res){
 		if(err)
 			res.redirect("/campaigns/seemore"); 
 		console.log(data);
+		var from=
 		res.render("campaigns/campaign-builder",{
-			campaignId: data._id,
-			websiteUrl: (data.websiteUrl) 	? data.websiteUrl 	: "",
-			campaign  : (data.campaign) 	? data.campaign 	: "",
-			source    : (data.source) 		? data.source 		: "",
-			medium    : (data.medium) 		? data.medium 		: "",
-			keywords  : (data.keywords) 	? data.keywords 	: "",
-			content   : (data.content) 		? data.content 		: "",
-			url       : (data.url) 			? data.url 			: "",
-			thirdtitle: "Crea tu campaña"
+			total 	:(data.total)? data.total 		: "",
+			to 		:(data.to)	 ? data.to 			: "12/07/16",
+			from	:(data.from)?data.from 			: "19/07/16",
+			content	:(data.content)?data.content 	: "",
+			medium	:(data.medium)?data.medium 		: "",
+			source	:(data.source)?data.source 		: "",
+			term 	:(data.term)?data.term 			: "",
+			campaign:(data.campaign)?data.campaign 	: "",
+			url 	:(data.url)?data.url 			: "",
+			campaignId:data._id,
+			empty    :"",
+			idSite: req.query.idSite 
 		});
 
 	});

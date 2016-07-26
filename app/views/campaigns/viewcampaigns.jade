@@ -152,13 +152,9 @@ html(lang='en')
                             td
                               | #{campaign.url}   
                             td
-                              -ISO=campaign.from.toISOString();
-                              -date=ISO.substr(o,ISO.indexOf("T")) 
-                              | #{date}
+                              | #{campaign.from}
                             td
-                              -ISO=campaign.to.toISOString();
-                              -date=ISO.substr(o,ISO.indexOf("T")) 
-                              |#{date}
+                              |#{campaign.to}
                             td
                               | #{campaign.total} 
                             td.btn.blue.editar(id="#{campaign._id}") 
