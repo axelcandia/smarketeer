@@ -107,12 +107,12 @@ function SendSmkt(form_id,idSite){
 
 		    if(smkt[i].id.indexOf("smkt_email")>-1){ 
 
-		    	var cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
+		    	cemail=JSON.parse(getCookie("smkt_"+idSite)).email;
 		   		var email=smkt[i].value;
 		   		console.log("smk:"+smkt[i].value); 
 		   		console.log("cookie:"+cemail);  
 
-		    	if(!cemail){ 
+		    	if(!cemail||cemail=="null"||cemail==null){ 
 		    		
 		    		//We have to update our DB to this new ID
 		    		$.ajax({
