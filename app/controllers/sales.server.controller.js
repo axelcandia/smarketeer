@@ -121,11 +121,12 @@ exports.Export = function(req,res,next){
 /**
 * This function gets the information of both, put it together and rock it
 */
-function json2table(visita,idSite){  
+function json2table(visita,idSite){   
+  
     //First we create the href and the id
   //Parseamos la url  
   var query =""// url.parse(visita.actionDetails[0].url,true).query; 
-  var email = visita.custom_var_v1|| "indefinido" ;
+  var email = visita.custom_var_v1||visita.user_id|| "indefinido" ;
 
   var  totalVenta=0;
   /*for(var i = 0; i<=Object.keys(visita.actionDetails).length;i++ ){

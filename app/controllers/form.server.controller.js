@@ -166,13 +166,11 @@ exports.CloneForm = function( req, res ){
 * @Receives the id
 * @Posts the required html
 */
-exports.GetFormHTML = function( req, res, next ){
-	console.log("Form id:"+req.body.id);  
+exports.GetFormHTML = function( req, res, next ){ 
 	Forms.findById(req.body.id,function( err, data ){
 		if(err)
 			res.send("false");
-		else{
-			console.log(data);
+		else{ 
 			if(data) 
 				res.send(data.html).status(200); 
 		}
@@ -194,8 +192,7 @@ exports.SetFinalAction=function( req,res,next){
 //Gets the final action and sends what we have to do next
 function GetFinalAction(res,formId){
 	console.log(formId);
-	Forms.findById(formId,function(err,forms){
-		console.log(forms.finalAction);
+	Forms.findById(formId,function(err,forms){ 
 		res.send(forms.finalAction).status(200);
 	});
 
@@ -207,16 +204,25 @@ exports.UpdateID = function(req,res,next){
 	if(!req.body.email){
 		res.send("0").status("200");
 		return;
-	} 
-	console.log("Lets update ");
+	}  
+
 	async.series({
       visitas: function(callback){ 
             piwik.api({
                 method:   'Smarketeer.updateId',
                 userId:    req.body.userId,
                 email: 	   req.body.email, 
+                idSite:    req.body.idSite
               },callback);  
           }, 
+         visita2s: function(callback){ 
+            piwik.api({
+                method:   'Smarketeer.updateId',
+                userId:    req.body.userId,
+                email: 	   req.body.email, 
+                idSite:    req.body.idSite
+              },callback);  
+          },
       UpdateForms:function(callback){
 	      	var conditions = { userId : req.body.userId }
 			  , update = { userId: req.body.email}
@@ -234,7 +240,7 @@ exports.UpdateID = function(req,res,next){
 			  , update = { userId: req.body.email}
 			  , options = { multi: false };
 
-			Visitors.findAndUpdate(conditions, update, options, function(err,data){
+			Visitors.update(conditions, update, options, function(err,data){
 				if(err)
 					callback(err,null);
 				else
@@ -243,7 +249,7 @@ exports.UpdateID = function(req,res,next){
 
 	 	}
 	 },function(err, results) {
-        if(err) console.log(err);
-          console.log(results); 
+        if(err) console.log(err); 
+        console.log("LEST UPDATE:"+JSON.stringify(results));
        }); 
 	}

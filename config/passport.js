@@ -275,7 +275,6 @@ passport.use(new LinkedInStrategy({
     });
   }
 }));
-
 /**
  * Login Required middleware.
  */
