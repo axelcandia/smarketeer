@@ -112,16 +112,17 @@ exports.GetSale = function (req,res){
 
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
-      "uid="+req.body.ClientId+
+      "uid="+(email||req.body.ClientId)+
       "&idsite="+req.body.idSite+
       "&rec="+1+
       "&apiv="+1+
       "&rand=1636495582"+
       "&idgoal="+2+
+      "&_id"+visit.lastVisits[lastVisit].visitorId+
       '&_cvar={"1":["email","'+email+'"]}'+
       "&url="+visit.lastVisits[lastVisit].actionDetails[lastAction].url+
-      "&urlref="+visit.lastVisits[lastVisit].referrerUrl+
-      "action_name=Sale!"+
+      "&urlref="+visit.lastVisits[lastVisit].referrerUrl+ 
+      "&action_name=sale!"+
       "&revenue="+req.body.Total; 
       console.log("URL:"+path);
 
