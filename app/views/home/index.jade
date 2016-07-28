@@ -99,16 +99,16 @@ html.no-js(lang='en')
             // BEGIN DASHBOARD STATS
             .row
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/home/funnel/visitors')
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/funnel/visitors/?idSite=#{idSite}')
                   .visual
                     i.fa.fa-comments
                   .details
                     .number#nvisitors
                       | 0
                     .desc
-                      | visitors
+                      | Visitantes
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.red-soft(href='/home/funnel/leads')
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='/funnel/leads/?idSite=#{idSite}' )
                   .visual
                     i.fa.fa-trophy
                   .details
@@ -117,16 +117,16 @@ html.no-js(lang='en')
                     .desc
                       | Leads
               .col-lg.4.col-md-4.col-sm-4.col-xs-12
-                a.dashboard-stat.dashboard-stat-light.green-soft(href='/home/funnel/sales')
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='/funnel/sales/?idSite=#{idSite}' )
                   .visual
                     i.fa.fa-shopping-cart
                   .details
                     .number#nsales
                       | 
                     .desc
-                      | Sales
+                      | Clientes
             // END DASHBOARD STATS
-            .clearfix.text-center.attribution-button
+            //.clearfix.text-center.attribution-button
               h3 Attribuir
               .btn-group.btn-group-circle(data-toggle='buttons')
                 label.btn.blue.active
@@ -163,234 +163,74 @@ html.no-js(lang='en')
                   .portlet-body
                     #canvas-holder
                       canvas#chart-sales(width='481', height='295', style='width: 481px; height: 295px;')
-            // BEGIN STACK CHART CONTROLS PORTLET
-            //.row
-              .col-md-12.col-sm-12
-                .portlet.box.yellow
-                  .portlet-title
-                    .caption
-                      i.fa.fa-gift
-                      | Revenue & Cost By Source
-                    .tools
-                      a.collapse(href='/javascript:;')
-                      a.config(href='/#portlet-config', data-toggle='modal')
-                      a.reload(href='/javascript:;')
-                      a.remove(href='/javascript:;')
-                  .portlet-body
-                    #chart_5(style='height:350px;')
-                      .btn-toolbar
-                      .btn-group.stackControls
-                        input.btn.blue(type='button', value='With stacking')
-                        input.btn.red(type='button', value='Without stacking')
-                      .space5
-                      .btn-group.graphControls
-                        input.btn(type='button', value='Bars')
-                        input.btn(type='button', value='Lines')
-                        input.btn(type='button', value='Lines with steps')
-            // END STACK CHART CONTROLS PORTLET
-            //.row
-              .col-md-6.col-sm-6
-                // BEGIN PORTLET
-                .portlet.light
-                  .portlet-title
-                    .caption
-                      i.icon-bar-chart.font-green-sharp.hide
-                      span.caption-subject.font-green-sharp.bold.uppercase Site Visits
-                      span.caption-helper weekly stats...
-                    .actions
-                      .btn-group.btn-group-devided(data-toggle='buttons')
-                        label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm.active
-                          input#option1.toggle(type='radio', name='options')
-                          | New
-                        label.btn.btn-transparent.grey-salsa.btn-circle.btn-sm
-                          input#option2.toggle(type='radio', name='options')
-                          | Returning
-                  .portlet-body
-                    #site_statistics_loading
-                      img(src='//Images/dashboard/loading.gif', alt='loading')
-                    #site_statistics_content.display-none
-                      #site_statistics.chart
-                // END PORTLET
-              .col-md-6.col-sm-6
-                // BEGIN PORTLET
-                .portlet.light
-                  .portlet-title
-                    .caption
-                      i.icon-share.font-red-sunglo.hide
-                      span.caption-subject.font-red-sunglo.bold.uppercase Revenue
-                      span.caption-helper monthly stats...
-                    .actions
-                      .btn-group
-                        a.btn.grey-salsa.btn-circle.btn-sm.dropdown-toggle(href='/', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                          | Filter Range 
-                          span.fa.fa-angle-down
-                        ul.dropdown-menu.pull-right
-                          li
-                            a(href='/javascript:;')
-                              | Q1 2014 
-                              span.label.label-sm.label-default
-                                | past
-                          li
-                            a(href='/javascript:;')
-                              | Q2 2014 
-                              span.label.label-sm.label-default
-                                | past
-                          li.active
-                            a(href='/javascript:;')
-                              | Q3 2014 
-                              span.label.label-sm.label-success
-                                | current
-                          li
-                            a(href='/javascript:;')
-                              | Q4 2014 
-                              span.label.label-sm.label-warning
-                                | upcoming
-                  .portlet-body
-                    #site_activities_loading
-                      img(src='//Images/dashboard/loading.gif', alt='loading')
-                    #site_activities_content.display-none
-                      #site_activities(style='height: 228px;')
-                    div(style='margin: 20px 0 10px 30px')
-                      .row
-                        .col-md-3.col-sm-3.col-xs-6.text-stat
-                          span.label.label-sm.label-success
-                            | Revenue:
-                          h3 $13,234
-                        .col-md-3.col-sm-3.col-xs-6.text-stat
-                          span.label.label-sm.label-danger
-                            | Shipment:
-                          h3 $1,134
-                        .col-md-3.col-sm-3.col-xs-6.text-stat
-                          span.label.label-sm.label-primary
-                            | Orders:
-                          h3 235090
-                    //END PORTLET
+            // BEGIN STACK CHART CONTROLS PORTLET 
             .clearfix
-            //.row
-              .col-md-6.col-sm-6
-                .portlet.light
-                  .portlet-title
-                    .caption
-                      i.icon-cursor.font-purple-intense.hide
-                      span.caption-subject.font-purple-intense.bold.uppercase Revenue Stats
-                    .actions
-                      a.btn.btn-sm.btn-circle.btn-default.easy-pie-chart-reload(href='/javascript:;')
-                        i.fa.fa-repeat
-                        |  Reload
-                  .portlet-body
-                    .row
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.transactions(data-percent='55')
-                            span
-                              | +55
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Value Per Lead 
-                            i.icon-arrow-right
-                      .margin-bottom-10.visible-sm
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.visits(data-percent='85')
-                            span
-                              | +85
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Value Per Sale 
-                            i.icon-arrow-right
-                      .margin-bottom-10.visible-sm
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.bounce(data-percent='46')
-                            span
-                              | +46
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Revenue 
-                            i.icon-arrow-right
-              .col-md-6.col-sm-6
-                .portlet.light
-                  .portlet-title
-                    .caption
-                      i.icon-cursor.font-purple-intense.hide
-                      span.caption-subject.font-purple-intense.bold.uppercase Cost Stats
-                    .actions
-                      a.btn.btn-sm.btn-circle.btn-default.easy-pie-chart-reload(href='/javascript:;')
-                        i.fa.fa-repeat
-                        |  Reload
-                  .portlet-body
-                    .row
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.transactions(data-percent='55')
-                            span
-                              | -55
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Cost Per Lead 
-                            i.icon-arrow-right
-                      .margin-bottom-10.visible-sm
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.visits(data-percent='85')
-                            span
-                              | -85
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Cost Per Sale 
-                            i.icon-arrow-right
-                      .margin-bottom-10.visible-sm
-                      .col-md-4
-                        .easy-pie-chart
-                          .number.bounce(data-percent='46')
-                            span
-                              | -46
-                            | 												%
-                          a.title(href='/javascript:;')
-                            | Costs 
-                            i.icon-arrow-right
-            .clearfix
-          // BEGIN QUICK SIDEBAR
-          a.page-quick-sidebar-toggler(href='#')
-            i.icon-login
-          .page-quick-sidebar-wrapper
-            .page-quick-sidebar
-              .nav-justified
-                ul.nav.nav-tabs.nav-justified
-                  li.active
-                    a(href='/#quick_sidebar_tab_1', data-toggle='tab')
-                      | Users 
-                      span.badge.badge-danger 2
-                  li
-                    a(href='/#quick_sidebar_tab_2', data-toggle='tab')
-                      | Alerts 
-                      span.badge.badge-success 7
-                  li.dropdown
-                    a.dropdown-toggle(href='#', data-toggle='dropdown')
-                      | More
-                      i.fa.fa-angle-down
-                    ul.dropdown-menu.pull-right(role='menu')
-                      li
-                        a(href='/#quick_sidebar_tab_3', data-toggle='tab')
-                          i.icon-bell
-                          |  Alerts
-                      li
-                        a(href='/#quick_sidebar_tab_3', data-toggle='tab')
-                          i.icon-info
-                          |  Notifications
-                      li
-                        a(href='/#quick_sidebar_tab_3', data-toggle='tab')
-                          i.icon-speech
-                          |  Activities
-                      li.divider
-                      li
-                        a(href='/#quick_sidebar_tab_3', data-toggle='tab')
-                          i.icon-settings
-                          |  Settings
-                      li
-                        a(href='/login')
-                          i.icon-logout
-                          |  Logout
+            .row
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-green-sharp
+                        span(data-counter='counterup', data-value='7800') 7800
+                        small.font-green-sharp $
+                      small CAC
+                    .icon
+                      i.icon-pie-chart
+                  ////.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.green-sharp(style='width: 76%;')
+                        span.sr-only 76% progress
+                    .status
+                      .status-title  progress 
+                      .status-number  76% 
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-red-haze
+                        span(data-counter='counterup', data-value='1349') 1349
+                      small LTV
+                    .icon
+                      i.icon-like
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.red-haze(style='width: 85%;')
+                        span.sr-only 85% change
+                    .status
+                      .status-title  change 
+                      .status-number  85% 
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-blue-sharp
+                        span(data-counter='counterup', data-value='567') 567
+                      small LTV:CAC
+                    .icon
+                      i.icon-basket
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.blue-sharp(style='width: 45%;')
+                        span.sr-only 45% grow
+                    .status
+                      .status-title  grow 
+                      .status-number  45% 
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-purple-soft
+                        span(data-counter='counterup', data-value='276') 276
+                      small LTV-CAC
+                    .icon
+                      i.icon-user
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.purple-soft(style='width: 57%;')
+                        span.sr-only 56% change
+                    .status
+                      .status-title  change 
+                      .status-number  57% 
           // END QUICK SIDEBAR
         // END CONTENT
         // BEGIN QUICK SIDEBAR
@@ -462,6 +302,7 @@ html.no-js(lang='en')
       }
       
     script.
+      var totalCost="";
       var idSite="#{idSite}";
       var firstTime= true;
         var chartLeadsData = {
@@ -517,6 +358,8 @@ html.no-js(lang='en')
                 responsive: true
             }
         }
+
+
 
       //Create leads chart
         window.onload = function() {
@@ -575,11 +418,31 @@ html.no-js(lang='en')
         data: { "idSite" : idSite,
                 "date":date,
                 "period":period},
+        dataType: "json",        
         success: function(data) {  
-         data = (data) ? data : 0 ; 
-          $("#nsales").html(data);
+        console.log(data);
+        clientes=data.nb_visits_converted; 
+        revenue=data.revenue; 
+        console.log(revenue);
+          $("#nsales").html(clientes.toString());
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log(XMLHttpRequest);
+        }
+        });
+
+
+        $.ajax({
+        url: '/home/getTotalCost',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+        success: function(data) { 
+          totalCost=data;
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
         }
         });
 

@@ -159,7 +159,7 @@ exports.GetLeadsByChannel = function(req,res){
 
 function GetReferrers(res,idSite,date,period){
   piwik.api({
-    method:"Referrers.getReferrerType",
+    method:"AdvancedCampaignReporting.getSource",
     idSite:idSite,
     period:period,
     date:date,
@@ -169,6 +169,7 @@ function GetReferrers(res,idSite,date,period){
       console.log(err); 
       return 0;
     } 
+    console.log(referrers);
     res.send(referrers).status(200);    
   });
 

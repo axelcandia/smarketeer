@@ -107,46 +107,16 @@ exports.DeleteCampaign = function(req,res){
 			res.send("true");
 
 	})
-}
-/**
-* Get the id and clone dat madafaka
-*/
-exports.CloneCampaign = function( req, res ){
-	if (!req.user) { 
-		res.redirect("/login");
-	}
-	Campaigns.findById(req.params.id,function( err, data ){
-		if(err)
-			res.send("false");
-		else{
-			var campaign = new Campaigns({
-				websiteUrl : data.websiteUrl,
-				campaign   : data.campaign+("(CLON)"),
-				source     : data.source,
-				medium     : data.medium,
-				keywords   : data.keywords,
-				content    : data.content,
-				url        : data.url,
-				users      : data.users,
-				creado	   : new Date()
-			});
-			campaign.save(function(err){
-				if(err)
-					res.send("false");
-				else
-					res.send("true");
-			});
-		}
-	})
-}
+} 
 
 function SetNewCampaign(req,res){ 
 	var campaign = new Campaigns(req.body.Data);
 	campaign.save(function(err) {
       if (err) {
+      	console.log(err);
       	res.send("-1");
       } 
-      res.send(campaign._id).status(200); 
+      else res.send(campaign._id).status(200); 
 	});
 }
 /**
