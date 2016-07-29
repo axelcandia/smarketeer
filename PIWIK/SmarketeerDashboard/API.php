@@ -100,7 +100,6 @@ class API extends \Piwik\Plugin\API
     public function getLeadsReferrerByLastVisit(){
 
         return $value;
-    }
-
+    } 
 
 }

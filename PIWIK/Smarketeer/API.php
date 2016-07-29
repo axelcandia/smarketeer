@@ -32,8 +32,7 @@ class API extends \Piwik\Plugin\API
     public function getLeads($idSite,$filter_offset,$filter_limit)
     {
 	 Db::get();
- 	$sql="
-	SELECT
+ 	$sql="SELECT
                 piwik_log_visit.user_id,
                 piwik_log_visit.custom_var_v1,
                 piwik_log_visit.campaign_name,
@@ -48,16 +47,14 @@ class API extends \Piwik\Plugin\API
                 piwik_log_visit.visit_last_action_time,
                 piwik_log_visit.visit_total_actions,
                 piwik_log_conversion.url,
-                piwik_log_conversion.idgoal,
-                piwik_log_visit.referer_url 
+                piwik_log_conversion.idgoal 
         FROM piwik_log_visit
         INNER JOIN piwik_log_conversion 
             ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
-        WHERE piwik_log_visit.custom_var_v1 NOT IN (SELECT custom_var_v1 FROM piwik_log_conversion where
+        WHERE (piwik_log_visit.custom_var_v1 or piwik_log_visit.user_id)  NOT IN (SELECT custom_var_v1 FROM piwik_log_conversion where
             piwik_log_conversion.idgoal=2
             AND idSite =$idSite
             GROUP BY custom_var_v1
-
         )
         AND piwik_log_visit.idSite=$idSite
         GROUP BY piwik_log_visit.custom_var_v1
@@ -70,7 +67,7 @@ class API extends \Piwik\Plugin\API
      * Returns a custom object.
      * API format conversion will fail for this custom object.
      * If used internally, the data structure can be returned untouched by using
-     * the API parameter 'format=original'
+     * the API parameter 'format=originals'
      *
      * @return MagicObject Will return a standard Piwik error when called from the Web APIs
      */
@@ -98,12 +95,12 @@ class API extends \Piwik\Plugin\API
         FROM piwik_log_visit
         INNER JOIN piwik_log_conversion
         ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
-INNER JOIN piwik_log_action
-ON piwik_log_visit.visit_entry_idaction_url=piwik_log_action.idaction
-        WHERE  piwik_log_visit.idSite=$idSite
-        AND    piwik_log_visit.custom_var_v1 !=''
+        INNER JOIN piwik_log_action
+        ON piwik_log_visit.visit_entry_idaction_url=piwik_log_action.idaction
+        WHERE  piwik_log_visit.idSite=$idSite 
         AND    piwik_log_conversion.idgoal=2
-        GROUP BY piwik_log_visit.custom_var_v1
+        AND     piwik_log_visit.visit_entry_idaction_url>0
+        GROUP BY piwik_log_visit.user_id
         LIMIT $filter_offset,$filter_limit";
         $value = Db::fetchAll($sql);
         return $value;
@@ -149,43 +146,64 @@ ON piwik_log_visit.visit_entry_idaction_url=piwik_log_action.idaction
 
 	}
 
-    /**
+   /**
      * Updates every UserId to the email once we receive it
      */
-    public function updateId($email,$userId)
-    {
-	Db::get();
-		$query="
-	UPDATE piwik_log_visit 
-	SET user_id= '$email'
-	WHERE user_id='$userId'";
- 
-	$value = Db::query($query,array(23));
+    public function updateId($email,$userId,$idSite){
 
-        return $value;
+        Db::get();
+        set_time_limit(35);
+        $idvisitor="";
+        $query=""; 
+
+        while($idvisitor==null||$idvisitor==""||!$idvisitor){
+
+            $query="SELECT hex(idvisitor) AS idvisitor
+                    FROM piwik_log_visit 
+                    WHERE user_id = '$email' 
+                    AND idSite = $idSite"; 
+            $idvisitor = Db::fetchOne($query); 
+        } 
+
+
+        $query="UPDATE piwik_log_visit
+                SET idvisitor      = UNHEX('$idvisitor')
+                WHERE user_id='$userId'
+                AND idSite=$idSite";
+          $value=Db::exec($query);
+        
+        $query="DELETE  
+                FROM piwik_log_visit 
+                WHERE visit_total_time<=1"; 
+         $value=Db::exec($query);
+         return $value;
+         die();
+        /*
+                $query= " UPDATE piwik_log_visit
+                    SET user_id= '$email',
+                    idvisitor= CONV(hex($idvisitor, 10, 16),
+                    custom_var_v1='$email'
+                    WHERE (user_id='$userId'  
+                    OR  user_id='$email' OR custom_var_v1=$userId  ) AND idSite=$idSite";
+
+
+        $value=Db::exec($query);  
+             */  
+
     }
 
-    /**
-     * Returns a custom data table.
-     * This data table will be converted to all available formats
-     * when requested in the API request.
-     *
-     * @return DataTable
-     */
-    public function getCompetitionDatatable()
-    {
-        $dataTable = new DataTable();
 
-        $row1 = new Row();
-        $row1->setColumns(array('name' => 'piwik', 'license' => 'GPL'));
+    
+    public function GetUserTotalVisits($userId,$idSite){
+        Db::get();
+        $query="SELECT count(user_id) AS visitas
+                FROM  piwik_log_visit
+                WHERE user_id= '$userId'
+                AND idSite=$idSite
+                AND visit_total_actions>0";
 
-        // Rows Metadata is useful to store non stats data for example (logos, urls, etc.)
-        // When printed out, they are simply merged with columns
-        $row1->setMetadata('logo', 'logo.png');
-        $dataTable->addRow($row1);
 
-        $dataTable->addRowFromSimpleArray(array('name' => 'google analytics', 'license' => 'commercial'));
-
-        return $dataTable;
-  }
+        $value = Db::fetchAll($query);
+        return $value;
+    }
 }

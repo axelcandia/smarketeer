@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
-namespace Piwik\Plugins\SmarketeerDashboard;
+namespace Piwik\Plugins\SmarketeerReport;
 
 use Piwik\Piwik;
 use Piwik\Version;
@@ -29,76 +29,76 @@ class API extends \Piwik\Plugin\API
      * Gets the leads necesary for the table
      * @return integer
      */
-    public function getLeads($idSite,$filter_offset,$filter_limit)
-    {
-	 Db::get();
- 	  $sql="
-        	SELECT
-                        piwik_log_visit.user_id,
-                        piwik_log_visit.custom_var_v1,
-                        piwik_log_visit.campaign_name,
-                        piwik_log_visit.campaign_keyword,
-                        piwik_log_visit.campaign_source,
-                        piwik_log_visit.campaign_medium,
-                        piwik_log_visit.campaign_content,
-                        piwik_log_visit.referer_name,
-                        piwik_log_visit.referer_type,
-                        piwik_log_visit.referer_url,
-                        piwik_log_visit.custom_dimension_2,
-                        piwik_log_visit.visit_last_action_time,
-                        piwik_log_visit.visit_total_actions,
-                        piwik_log_conversion.url,
-                        piwik_log_conversion.idgoal,
-                        piwik_log_visit.referer_url 
-                FROM piwik_log_visit
-                INNER JOIN piwik_log_conversion 
-                    ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
-                WHERE piwik_log_visit.custom_var_v1 NOT IN (SELECT custom_var_v1 FROM piwik_log_conversion where
-                    piwik_log_conversion.idgoal=2
-                    AND idSite =$idSite
-                    GROUP BY custom_var_v1
-
-        )
-        AND piwik_log_visit.idSite=$idSite
-        GROUP BY piwik_log_visit.custom_var_v1
-	LIMIT $filter_offset,$filter_limit";
-	$value = Db::fetchAll($sql);	
-	return $value;
+    public function getRevenueByFirstVisit($idSite,$source)
+    {  
+        Db::get();
+       $source = "piwik_log_conversion.".$source; 
+ 	      $sql="SELECT $source AS nsource,
+               SUM(revenue) AS revenue,
+               piwik_log_conversion.referer_name as secondSource
+        FROM bitnami_piwik.piwik_log_conversion
+        WHERE piwik_log_conversion.idgoal=2
+        AND piwik_log_conversion.idSite=$idSite
+        GROUP BY $source";
+  	$value = Db::fetchAll($sql); 
+  	return $value;
     }
 
+    public function getCustomersByFirstVisit($idSite,$source){ 
+        Db::get();
+          $source = "piwik_log_conversion.".$source; 
+          $sql="SELECT $source AS nsource,
+          piwik_log_conversion.referer_name as secondSource,
+        count(distinct piwik_log_visit.idvisitor) AS Clientes
+        FROM bitnami_piwik.piwik_log_conversion
+        INNER JOIN piwik_log_visit 
+        ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
+        WHERE piwik_log_conversion.idgoal=2
+        AND piwik_log_conversion.idSite=$idSite
+        GROUP BY $source";
+        $value = Db::fetchAll($sql);
+        return $value;
+    }
 
-    /**
-    * Returns the referrer based in all the visits
-    */
-    public function getLeadsReferrerByAllVisits($from,$to,$idSite){
-        $query="SELECT piwik_log_visit.campaign_source,
-                SUM(CASE WHEN piwik_log_visit.campaign_source IS NULL THEN 1 ELSE 1 END) AS Total
+    public function getRevenueByLinealVisit($idSite,$source){ 
+    Db::get();
+         $source = ($source=="url") ? "piwik_log_action.name" : "piwik_log_visit.".$source; 
+
+
+          $sql="SELECT  $source  AS nsource,
+                    SUM(piwik_log_conversion.revenue) AS revenue,
+                    piwik_log_visit.referer_name as secondSource
                 FROM piwik_log_visit
                 INNER JOIN piwik_log_conversion
-                ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
-                WHERE piwik_log_visit.idsite=92
-               AND (piwik_log_visit.visit_last_action_time BETWEEN $from AND $to)
-                GROUP BY piwik_log_visit.campaign_source";
+                    ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
+                INNER JOIN piwik_log_action
+                  ON piwik_log_action.idaction= piwik_log_visit.visit_entry_idaction_url
+                WHERE piwik_log_visit.idsite=$idSite
+                AND piwik_log_conversion.revenue>-1
+                AND piwik_log_conversion.idgoal=2
+                GROUP BY  $source";
+
+      $value = Db::fetchAll($sql);
         return $value;
-    } 
-    /**
-    * Returns the referrer based in the first visits
-    */
-    public function getLeadsReferrerByFirstVisit($from,$to,$idSite){
-        $query="SELECT campaign_source,
-                SUM(CASE WHEN piwik_log_conversion.campaign_source IS NULL THEN 1 ELSE 1 END) AS Total
-                FROM piwik_log_conversion
-                WHERE piwik_log_conversion.idSite= $idSite
-                AND (piwik_log_conversion.server_time BETWEEN $from AND $to)
-                GROUP BY piwik_log_conversion.campaign_source";
-        return $value;
+
     }
 
-    /**
-    * Returns the referrer based in the last visit
-    */
-    public function getLeadsReferrerByLastVisit(){
+    public function getCustomersByLinealVisit($idSite,$source){
+         Db::get();
+         $source = ($source=="url") ? "piwik_log_action.name" : "piwik_log_visit.".$source;
 
+        $sql="SELECT  $source  AS nsource,
+                    COUNT(distinct piwik_log_visit.user_id) AS Clientes,
+                    piwik_log_visit.referer_name as secondSource
+              FROM piwik_log_visit
+              INNER JOIN piwik_log_conversion
+                ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
+              INNER JOIN piwik_log_action
+                ON piwik_log_action.idaction= piwik_log_visit.visit_entry_idaction_url
+              WHERE piwik_log_visit.idsite=$idSite 
+              AND piwik_log_conversion.idgoal=2
+              GROUP BY  $source";
+      $value = Db::fetchAll($sql);
         return $value;
     }
 

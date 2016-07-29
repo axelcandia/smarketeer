@@ -1,8 +1,8 @@
 {
-    "name": "SmarketeerDashboard",
-    "description": "This is the API for the dasbhoard of smarketeer. It contains COUNTS",
+    "name": "SmarketeerReport",
+    "description": "This is the API for the report of smarketeer. It contains COUNTS",
     "version": "0.1",
-    "keywords": ["smarketeer", "api", "dashboard"],
+    "keywords": ["smarketeer", "api", "report"],
     "homepage": "http://www.smarketeer.io/home",
     "license": "GPL v3+",
     "authors": [
