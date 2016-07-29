@@ -12,6 +12,7 @@ exports.RenderReport=function(req,res,next){
 }
 
  exports.GetReports=function(req,res,next){
+    console.log("HEEEY"+req.body.lineal );
  	var mediumMethod	=(req.body.lineal=="true") ? "getRevenueByLinealVisit" : "getRevenueByFirstVisit";
 
  	var clientsMethod	=(req.body.lineal=="true") ? "getCustomersByLinealVisit" : "getCustomersByFirstVisit";			 

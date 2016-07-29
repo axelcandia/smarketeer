@@ -79,13 +79,13 @@ html(lang='en')
             .clearfix.text-center.attribution-button
               h3 Atribuir a
               .btn-group.btn-group-circle(data-toggle='buttons')
-                label#last.GetNewField.btn.blue.active
+                label#first.ChangeMode.btn.blue.active
                   input.toggle(type='radio')
                   |  Primera
                 //label.btn.blue
                   input.toggle(type='radio')
                   |  Linear
-                label#lineal.GetNewField.btn.blue
+                label#lineal.ChangeMode.btn.blue
                   input.toggle(type='radio')
                   |  Lineal
             // END PAGE HEADER
@@ -217,6 +217,7 @@ html(lang='en')
       $( document ).ready(function(){ 
       
         $(".GetNewField").click(function(){
+          
           //We save the current ID we are going to send it later :D
           var source = $(this).attr('id');
           var newText = $("#"+source+" a ").text();
@@ -239,6 +240,33 @@ html(lang='en')
         });
         //Trigger in first visit
         $( "#campaign_source.GetNewField").trigger( "click" ); 
+        $(".ChangeMode").click(function(){
+          $("#Report").html("");
+          var value=""
+          switch($("#CurrentContent").text()){
+
+            case "Fuentes":
+              value="#campaign_source"
+                break;
+            case "Medios":
+              value="#campaign_medium"
+                break;
+            case "Contenidos":
+              value="#campaign_content"
+                break;
+            case "Pagina destino":
+              value="#url"
+                break;
+            case "Campañas":
+              value="#campaign_name"
+                break;
+            default :
+              value="#campaign_source";
+              break;
+          }
+          value+=".GetNewField";
+          $( value ).trigger( "click" ); 
+        })
       });
     // END PAGE LEVEL SCRIPTS 
     // END JAVASCRIPTS
