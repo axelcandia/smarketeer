@@ -455,11 +455,11 @@ html.no-js(lang='en')
                 "period":period},
         dataType: "json",        
         success: function(data) {  
-        console.log(data);
-        clientes=data.nb_visits_converted; 
-        revenue=data.revenue;  
+          console.log(data);
+          clientes=data.nb_visits_converted; 
+          revenue=data.revenue;  
+            $("#nsales").html(clientes.toString());
           SetNewBottomPannels();
-          $("#nsales").html(clientes.toString());
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
         console.log(XMLHttpRequest);
@@ -535,25 +535,26 @@ html.no-js(lang='en')
         });
 
         function SetNewBottomPannels(){ 
-        var CAC     = (totalCost/clientes)||0;
-        var LTV     = (revenue/clientes) ||0; 
-        var ltv2    = (CAC>0)? (LTV / CAC ) : 0;
-        var LTVmCAC = ( (LTV-CAC))||0;
-        totalCost= parseInt(totalCost);
-        var margen= revenue - totalCost; 
+            var CAC     = (totalCost/clientes)||0;
+            var LTV     = (revenue/clientes) ||0; 
+            var ltv2    = (CAC>0)? (LTV / CAC ) : 0;
+            var LTVmCAC = ( (LTV-CAC))||0;
+            totalCost= parseInt(totalCost);
+            var margen= revenue - totalCost; 
 
-        $("#Ingreso").text(parseInt(revenue));  
-        $("#Margen").text( margen);
-        if(totalCost>0)
-          $("#ROI").text(  ( margen / totalCost  ) );
-        else{
-          $("#ROI").text(0);
-        }
-        $("#CAC").text(CAC);
-        $("#LTV").text(LTV);
+            $("#Ingreso").text(parseInt(revenue));  
+            $("#Gasto").text(totalCost);
+            $("#Margen").text( margen);
+            if(totalCost>0)
+              $("#ROI").text(  ( margen / totalCost  ) );
+            else{
+              $("#ROI").text(0);
+            }
+            $("#CAC").text(CAC);
+            $("#LTV").text(LTV);
 
-        $("#LTVDCAC").text(ltv2);
-        $("#LTVmCAC").text(LTVmCAC);
+            $("#LTVDCAC").text(ltv2);
+            $("#LTVmCAC").text(LTVmCAC);
         }
       /**
       *Get the sales by channel
