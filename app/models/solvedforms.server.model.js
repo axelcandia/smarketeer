@@ -4,7 +4,7 @@ var solvedforms = new mongoose.Schema({
 	date 	: Date,
 	fields 	: Object,
 	userId	: String,
-	idSite  : String		
+	idSite  : String, 
 });
 
 var solvedforms = mongoose.model('Solved Forms', solvedforms);
