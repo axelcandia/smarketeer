@@ -179,12 +179,12 @@ html(lang='en')
         var myAppModule = angular.module('myapp', []); 
         myAppModule.controller('GetSource', function($scope) {
           $scope.tmp={
-          url:"#{url||empty}",
-          campaign:"#{campaign||empty}",
-          term:"#{term||empty}",
-          content:"#{content||empty}",
-          source:"#{source||'Otros Ad Networks'}",
-          medium:"#{medium||'CPC'}"
+            url     :"#{url||empty}",
+            campaign:"#{campaign||empty}",
+            term    :"#{term||empty}",
+            content :"#{content||empty}",
+            source  :"#{source||'Otros Ad Networks'}",
+            medium  :"#{medium||'CPC'}"
           }
 
           $scope.final_url = '';
@@ -206,7 +206,7 @@ html(lang='en')
                               "utm_medium="+$scope.tmp.medium+"&"       : "" ;
 
                 var content= ($scope.tmp.content)      ? 
-                              "content="+$scope.tmp.content             : "" ;
+                              "utm_content="+$scope.tmp.content             : "" ;
                   
                 $scope.final_url=(url+campaign+term+source+medium+content).replace(/ /g, '-');
 

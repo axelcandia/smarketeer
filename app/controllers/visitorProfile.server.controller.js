@@ -5,6 +5,7 @@ var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
 var http           = require('http');
 var SolvedForms   = require("../models/solvedforms.server.model.js"); 
 var Visitors      = require("../models/visitors.server.model");
+var Sales         = require("../models/sales.server.model");
 /**
 * REQUIRES the id and returns EVERYTHING WE HAVE ABOUT HIM 
 */
@@ -57,29 +58,35 @@ function GetProfileByEmail(req,res,next){
       },
       TotalVisits: function(callback){
         GetTotalVisits( req.params.id, req.query.idSite, callback ); 
+      },
+      GetByProduct: function(callback){
+        GetByProduct(req.query.idSite,req.params.id,callback)
       }
   },
-  function(err, results) {  
-    console.log(results.GetDynamicProfile)
-      res.render('home/funnel/visitorprofile', {  
-        idSite:       req.query.idSite,
-        UserId:       req.params.id,
-        totalVisits:  results.TotalVisits.visitas,
-        visits:       results.StaticProfile.lastVisits,
-        email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
-        ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
-        ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
-        empty:        "",
-        about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
-        TotalForms:   Object.keys(results.Forms).length,
-        comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
-        img:          results.GoogleData,
-        forms:        results.Forms
-      }); 
-    
-  }); 
+  function(err, results) { 
+    if(err){
+      console.log(err);
+    } else{
+        console.log(results.GetByProduct);
+          res.render('home/funnel/visitorprofile', {  
+            idSite:       req.query.idSite,
+            UserId:       req.params.id,
+            totalVisits:  results.TotalVisits.visitas,
+            visits:       results.StaticProfile.lastVisits,
+            email:        (results.StaticProfile.lastVisits[0].customVariables["1"]) ? results.StaticProfile.lastVisits[0].customVariables["1"].customVariableValue1 :"",
+            ventas:       (results.StaticProfile.totalConversionsByGoal && results.StaticProfile.totalConversionsByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] : "0",
+            ingresos:     (results.StaticProfile.totalRevenueByGoal && results.StaticProfile.totalRevenueByGoal["idgoal=2"]) ? results.StaticProfile.totalConversionsByGoal["idgoal=2"] :"0",
+            empty:        "",
+            about:        (results.DynamicProfile) ? results.DynamicProfile.about : "",
+            TotalForms:   Object.keys(results.Forms).length,
+            comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
+            img:          results.GoogleData,
+            forms:        results.Forms,
+            Sales:        (results.GetByProduct) ? results.GetByProduct : null
+          });  
+    }
+  });
 }
-
  
 
 
@@ -108,6 +115,35 @@ function GetStaticProfile(idSite,segment,callback){
   });
 }
 
+function GetByProduct(idSite,id,callback){ 
+  var agg = [{
+                $match:{
+                    'data.idSite'     :idSite,
+                    'data.ClientId': id 
+                }
+             },
+            
+                {
+                  $group: {
+                  _id: "$data.compras.Servicio",
+                  "total": {
+                        "$sum": "$data.Total"
+                    },
+                  "details": { "$first": "$data.compras" }
+
+                }
+              } 
+
+              ];
+
+              Sales.aggregate(agg, function(err, ventas){
+                if (err) { 
+                  console.log(err);
+                  callback(err,null); 
+                } 
+                callback(null,ventas);
+         });
+}
 
 /**
 * Dynamic is all the data that a user can change any time he wants

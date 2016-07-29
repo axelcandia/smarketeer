@@ -182,62 +182,23 @@ html
                                     | Ingresos
                                   .number
                                     | #{ingresos}
-                          .table-scrollable.table-scrollable-borderless
+                          .table-scrollable.table-scrollable-borderless 
                             table.table.table-hover.table-light
                               thead
-                                tr.uppercase
-                                  th(colspan='2')
-                                    | Vendedor
-                                  th
-                                    | Valor
-                                  th
-                                    | Productos
-                                  th
-                                    | Tasa
-                              tr
-                                td.fit
-                                  img.user-pic(src='/admin/layout3/img/avatar4.jpg')
-                                td
-                                  a.primary-link(href='javascript:;') Jose
-                                td
-                                  | $345
-                                td
-                                  | 1
-                                td
-                                  span.bold.theme-font 80%
-                              tr
-                                td.fit
-                                  img.user-pic(src='/admin/layout3/img/avatar5.jpg')
-                                td
-                                  a.primary-link(href='javascript:;') Fede
-                                td
-                                  | $560
-                                td
-                                  | 3
-                                td
-                                  span.bold.theme-font 67%
-                              tr
-                                td.fit
-                                  img.user-pic(src='/admin/layout3/img/avatar6.jpg')
-                                td
-                                  a.primary-link(href='javascript:;') Facu
-                                td
-                                  | $1,345
-                                td
-                                  | 6
-                                td
-                                  span.bold.theme-font 98%
-                              tr
-                                td.fit
-                                  img.user-pic(src='/admin/layout3/img/avatar7.jpg')
-                                td
-                                  a.primary-link(href='javascript:;') Santi
-                                td
-                                  | $645
-                                td
-                                  | 4
-                                td
-                                  span.bold.theme-font 58%
+                                tr
+                                  th Servicio
+                                  th Cantidad
+                                  th Tarifa/Precio
+                                  th Total
+                              tbody
+                                each sale in Sales
+                                  tr
+                                    td #{sale.details[0].Servicio}
+                                    td #{sale.details[0]['Hrs / Cantidad']}
+                                    td $ #{sale.details[0]['Tarifa / Precio']}
+                                    td $
+                                      span.bold.theme-font #{sale.total}
+                             
                       // END PORTLET
                     .col-md-6
                       // BEGIN PORTLET

@@ -76,19 +76,19 @@ function GetReferrers(res,idSite,date,period){
 */
 function GetPiwikSalesCounter(res,id,range){
 piwik.api({
-    method:"VisitsSummary.get",
-    idSite:id,
+    method:"Goals.get",
+    idSite:id, 
     period:"range",
-    date:range,
-    segment: 'visitConvertedGoalId==2', 
-    columns:"nb_visits"
-  },function(err,sales){
-    if(err || !sales.value){
+    date:range, 
+    idGoal:"2"
+  },function(err,sales){ 
+    if(err){
       console.log(err);
       res.send(0).status(200);
       return 0;
     }  
-      res.send(sales.value.toString()).status(200);
+      console.log("HEYHO"+sales);
+      res.send(sales).status(200);
   });
 } 
 

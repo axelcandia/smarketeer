@@ -54,13 +54,22 @@ exports.RenderSeeMore = function(req, res){
 	console.log(req.params.id);
 	Campaigns.findById(req.params.id,function(err,data){
 		if(err)
-			res.redirect("/campaigns/seemore"); 
-		console.log(data);
-		var from=
+			res.redirect("/campaigns/seemore");  
+		//make from
+		var from = data.from||new Date();
+		from 	 = from.toISOString();
+		from 	 = from.substr(from,from.indexOf("T")).split("-");
+		from	 = from[2]+"/"+from[1]+"/"+from[0]
+		//make to
+		var to = data.to||new Date();
+		to 	 = to.toISOString();
+		to 	 = to.substr(to,to.indexOf("T")).split("-");
+		to = to[2]  +"/"+to[1]  +"/"+to[0];
+
 		res.render("campaigns/campaign-builder",{
 			total 	:(data.total)? data.total 		: "",
-			to 		:(data.to)	 ? data.to 			: "12/07/16",
-			from	:(data.from)?data.from 			: "19/07/16",
+			to 		:to,
+			from	:from,
 			content	:(data.content)?data.content 	: "",
 			medium	:(data.medium)?data.medium 		: "",
 			source	:(data.source)?data.source 		: "",
@@ -107,46 +116,16 @@ exports.DeleteCampaign = function(req,res){
 			res.send("true");
 
 	})
-}
-/**
-* Get the id and clone dat madafaka
-*/
-exports.CloneCampaign = function( req, res ){
-	if (!req.user) { 
-		res.redirect("/login");
-	}
-	Campaigns.findById(req.params.id,function( err, data ){
-		if(err)
-			res.send("false");
-		else{
-			var campaign = new Campaigns({
-				websiteUrl : data.websiteUrl,
-				campaign   : data.campaign+("(CLON)"),
-				source     : data.source,
-				medium     : data.medium,
-				keywords   : data.keywords,
-				content    : data.content,
-				url        : data.url,
-				users      : data.users,
-				creado	   : new Date()
-			});
-			campaign.save(function(err){
-				if(err)
-					res.send("false");
-				else
-					res.send("true");
-			});
-		}
-	})
-}
+} 
 
 function SetNewCampaign(req,res){ 
 	var campaign = new Campaigns(req.body.Data);
 	campaign.save(function(err) {
       if (err) {
+      	console.log(err);
       	res.send("-1");
       } 
-      res.send(campaign._id).status(200); 
+      else res.send(campaign._id).status(200); 
 	});
 }
 /**

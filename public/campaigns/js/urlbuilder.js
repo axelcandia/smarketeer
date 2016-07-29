@@ -58,6 +58,8 @@ $( document ).ready(function() {
 			bootbox.alert("Por favor escriba un nombre para la campaña");
 			return;
 		}
+    var from  = $(".from").val().split("/");
+    var to    = $(".to").val().split("/");
 				$.ajax({
 					type:'POST',
 					url:"/campaigns/save",
@@ -69,8 +71,8 @@ $( document ).ready(function() {
 							source:	  $( ".source option:selected" ).text(),
 							medium:	  $( ".medium option:selected" ).text(),
 							content:  $(".content").val(),
-							from:	    $(".from").val(),
-							to :	    $(".to").val(),
+							from:	    new Date(from[2],from[1],from[0]),
+							to :	    new Date(to[2], to[1], to[0]),
 							total:	  $(".total").val(),
 							idSite:   idSite
 						},

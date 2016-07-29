@@ -144,7 +144,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
    NewVisitor+='<td>'+
           '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
 
-      NewVisitor +=  visita.user_id+'</a>'+'</td>'; 
+      NewVisitor +=  (visita.custom_var_v1||visita.user_id)+'</a>'+'</td>'; 
         //Campaign name, we only display it if it was a campagin!!!
         NewVisitor+= ( visita.referer_type == 6 ) ? 
                       '<td>'+visita.referer_name+'</td>':
