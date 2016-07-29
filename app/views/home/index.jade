@@ -39,7 +39,9 @@ html.no-js(lang='en')
     link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
     link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
     //NEW  
-    link(rel='shortcut icon', href='/favicon.ico')
+    link(rel='shortcut icon', href='/public.css')
+    link(href='/dashboard.css', rel='stylesheet', type='text/css')
+
   // END HEAD
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
     .page-header.navbar.navbar-fixed-top
@@ -201,13 +203,12 @@ html.no-js(lang='en')
                 .dashboard-stat2
                   .display
                     .number
-                      h3.font-green-sharp
-                        small.font-green-sharp $                        
+                      h3.font-green-sharp                       
                         span#CAC(data-counter='counterup', data-value='7800') 0 
                       small CAC
                     .number(style="float:right;")
                       h3.font-green-sharp
-                        small.font-green-sharp $                        
+                                             
                         span#Gasto(data-counter='counterup', data-value='7800') 0 
                       small Gastos
               .col-lg-3.col-md-3.col-sm-6.col-xs-12
@@ -318,22 +319,6 @@ html.no-js(lang='en')
     script(type='text/javascript', src='//cdn.jsdelivr.net/momentjs/latest/moment.min.js')
     script(type='text/javascript', src='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js')
     link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css')
-    style.
-      #MyCalendar{
-      width: 78%;
-      border: 0;
-      box-shadow: none;
-      background-color: inherit;
-      font-family: "Open Sans", sans-serif;
-      font-size: 13px;
-      margin-left: 8px;
-      margin-right: 8px;
-      margin-right: 8px;
-      }
-      .input-mini.form-control{
-        width:79%!important;
-      }
-
     script.
       var totalCost;
       var revenue;
@@ -453,7 +438,7 @@ html.no-js(lang='en')
         data: { "idSite" : idSite,
                 "date":date,
                 "period":period},
-        dataType: "json",        
+                dataType: "JSON",        
         success: function(data) {  
           console.log(data);
           clientes=data.nb_visits_converted; 
@@ -533,8 +518,14 @@ html.no-js(lang='en')
           console.log("error in leads");
         }
         });
+        function convertToCash(number){
+            var n=number.toFixed(2)
+            n=n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+            return "$"+n;
+          }
 
-        function SetNewBottomPannels(){ 
+
+        function SetNewBottomPannels(){  
             var CAC     = (totalCost/clientes)||0;
             var LTV     = (revenue/clientes) ||0; 
             var ltv2    = (CAC>0)? (LTV / CAC ) : 0;
@@ -542,19 +533,19 @@ html.no-js(lang='en')
             totalCost= parseInt(totalCost);
             var margen= revenue - totalCost; 
 
-            $("#Ingreso").text(parseInt(revenue));  
-            $("#Gasto").text(totalCost);
-            $("#Margen").text( margen);
+            $("#Ingreso").text(convertToCash(revenue));  
+            $("#Gasto").text(convertToCash(totalCost))
+            $("#Margen").text( convertToCash(margen));
             if(totalCost>0)
-              $("#ROI").text(  ( margen / totalCost  ) );
+              $("#ROI").text(  convertToCash(( margen / totalCost  ))  );
             else{
-              $("#ROI").text(0);
+              $("#ROI").text(convertToCash(0));
             }
-            $("#CAC").text(CAC);
-            $("#LTV").text(LTV);
+            $("#CAC").text(convertToCash(CAC));
+            $("#LTV").text(convertToCash(LTV));
 
-            $("#LTVDCAC").text(ltv2);
-            $("#LTVmCAC").text(LTVmCAC);
+            $("#LTVDCAC").text(convertToCash(ltv2));
+            $("#LTVmCAC").text(convertToCash(LTVmCAC));
         }
       /**
       *Get the sales by channel
@@ -597,6 +588,13 @@ html.no-js(lang='en')
         }
         });
       } 
+
+
+
+
+
+
+
   script.
     StartDate= "#{StartDate}" 
     var today = new Date();
