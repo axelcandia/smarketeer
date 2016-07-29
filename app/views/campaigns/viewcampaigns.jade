@@ -58,6 +58,12 @@ html(lang='en')
   // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+     -  function getDate(date) {  
+        - date   = date.toISOString();
+        - date   = date.substr(date,date.indexOf("T")).split("-")
+        - date = date[2]  +"/"+date[1]  +"/"+date[0];
+        - return date;
+      -}
     .page-header.navbar.navbar-fixed-top
       include ../shared/pageTop
     .clearfix
@@ -152,9 +158,9 @@ html(lang='en')
                             td
                               | #{campaign.url}   
                             td
-                              | #{campaign.from}
+                              | #{getDate(campaign.from)}
                             td
-                              |#{campaign.to}
+                              |#{getDate(campaign.to)}
                             td
                               | #{campaign.total} 
                             td.btn.blue.editar(id="#{campaign._id}") 

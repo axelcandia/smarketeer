@@ -163,7 +163,38 @@ html.no-js(lang='en')
                   .portlet-body
                     #canvas-holder
                       canvas#chart-sales(width='481', height='295', style='width: 481px; height: 295px;')
+            
             // BEGIN STACK CHART CONTROLS PORTLET 
+             .clearfix
+            //.row
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/funnel/visitors/?idSite=#{idSite}')
+                  .visual
+                    i.fa.fa-comments
+                  .details
+                    .number#nvisitors
+                      | 0
+                    .desc
+                      | Visitantes
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='/funnel/leads/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-trophy
+                  .details
+                    .number#nleads
+                      | 
+                    .desc
+                      | Leads
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='/funnel/sales/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-shopping-cart
+                  .details
+                    .number#nsales
+                      | 
+                    .desc
+                      | Clientes
+
             .clearfix
             .row
               .col-lg-3.col-md-3.col-sm-6.col-xs-12
@@ -171,27 +202,25 @@ html.no-js(lang='en')
                   .display
                     .number
                       h3.font-green-sharp
-                        span(data-counter='counterup', data-value='7800') 7800
-                        small.font-green-sharp $
+                        small.font-green-sharp $                        
+                        span#CAC(data-counter='counterup', data-value='7800') 0 
                       small CAC
-                    .icon
-                      i.icon-pie-chart
-                  ////.progress-info
-                    .progress
-                      span.progress-bar.progress-bar-success.green-sharp(style='width: 76%;')
-                        span.sr-only 76% progress
-                    .status
-                      .status-title  progress 
-                      .status-number  76% 
+                    .number(style="float:right;")
+                      h3.font-green-sharp
+                        small.font-green-sharp $                        
+                        span#Gasto(data-counter='counterup', data-value='7800') 0 
+                      small Gastos
               .col-lg-3.col-md-3.col-sm-6.col-xs-12
                 .dashboard-stat2
                   .display
                     .number
                       h3.font-red-haze
-                        span(data-counter='counterup', data-value='1349') 1349
+                        span#LTV(data-counter='counterup', data-value='1349') 1349
                       small LTV
-                    .icon
-                      i.icon-like
+                    .number(style="float:right;")
+                      h3.font-red-haze
+                        span#Ingreso(data-counter='counterup', data-value='1349') 0
+                      small Ingresos
                   //.progress-info
                     .progress
                       span.progress-bar.progress-bar-success.red-haze(style='width: 85%;')
@@ -204,10 +233,12 @@ html.no-js(lang='en')
                   .display
                     .number
                       h3.font-blue-sharp
-                        span(data-counter='counterup', data-value='567') 567
+                        span#LTVDCAC(data-counter='counterup', data-value='567') 0
                       small LTV:CAC
-                    .icon
-                      i.icon-basket
+                    .number(style="float:right;")
+                      h3.font-blue-sharp
+                        span#Margen(data-counter='counterup', data-value='567') 0
+                      small Margen
                   //.progress-info
                     .progress
                       span.progress-bar.progress-bar-success.blue-sharp(style='width: 45%;')
@@ -220,10 +251,12 @@ html.no-js(lang='en')
                   .display
                     .number
                       h3.font-purple-soft
-                        span(data-counter='counterup', data-value='276') 276
+                        span#LTVmCAC(data-counter='counterup', data-value='276') 0
                       small LTV-CAC
-                    .icon
-                      i.icon-user
+                    .number(style="float:right;")
+                      h3.font-purple-soft
+                        span#ROI(data-counter='counterup', data-value='276') 0
+                      small ROI
                   //.progress-info
                     .progress
                       span.progress-bar.progress-bar-success.purple-soft(style='width: 57%;')
@@ -302,7 +335,9 @@ html.no-js(lang='en')
       }
       
     script.
-      var totalCost="";
+      var totalCost;
+      var revenue;
+      var clientes;
       var idSite="#{idSite}";
       var firstTime= true;
         var chartLeadsData = {
@@ -422,8 +457,8 @@ html.no-js(lang='en')
         success: function(data) {  
         console.log(data);
         clientes=data.nb_visits_converted; 
-        revenue=data.revenue; 
-        console.log(revenue);
+        revenue=data.revenue;  
+          SetNewBottomPannels();
           $("#nsales").html(clientes.toString());
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -439,7 +474,7 @@ html.no-js(lang='en')
                 "date":date,
                 "period":period},
         success: function(data) { 
-          totalCost=data;
+          totalCost=data; 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log(XMLHttpRequest);
@@ -498,6 +533,28 @@ html.no-js(lang='en')
           console.log("error in leads");
         }
         });
+
+        function SetNewBottomPannels(){ 
+        var CAC     = (totalCost/clientes)||0;
+        var LTV     = (revenue/clientes) ||0; 
+        var ltv2    = (CAC>0)? (LTV / CAC ) : 0;
+        var LTVmCAC = ( (LTV-CAC))||0;
+        totalCost= parseInt(totalCost);
+        var margen= revenue - totalCost; 
+
+        $("#Ingreso").text(parseInt(revenue));  
+        $("#Margen").text( margen);
+        if(totalCost>0)
+          $("#ROI").text(  ( margen / totalCost  ) );
+        else{
+          $("#ROI").text(0);
+        }
+        $("#CAC").text(CAC);
+        $("#LTV").text(LTV);
+
+        $("#LTVDCAC").text(ltv2);
+        $("#LTVmCAC").text(LTVmCAC);
+        }
       /**
       *Get the sales by channel
       */

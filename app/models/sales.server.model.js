@@ -1,7 +1,24 @@
 var mongoose  = require('mongoose');
 
 var salesSchema = new mongoose.Schema({  
-	data: Object,
+	data: { 
+	    "compras" : [ 
+	        {
+	            "Sub-Total" : Number,
+	            "Tarifa / Precio" : Number,
+	            "Hrs / Cantidad" : Number,
+	            "Descripción" : String,
+	            "Servicio" : String
+	        }
+	    ],
+	    "IVA" : Number,
+	    "Total" : Number,
+	    "SellerName" : String,
+	    "ClientEmail" : String,
+	    "ClientId" : String,
+	    "idSite" : String 
+
+	},
 	sellerName:String,
 	sellerId:Object
 });

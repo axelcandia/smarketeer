@@ -56,10 +56,10 @@ function getCost(res,idSite,date,period){
                  res.send(0).status(200) 
                }
                else{
-                cost = (costs[0]) ? costs[0].total : 0; 
+                cost = (costs[0]) ? costs[0].total :  0 ; 
                 console.log("THIS IS DA COST:"+JSON.stringify(costs[0]));
-                console.log(cost);
-                res.send(cost).status(200);
+                console.log(cost.toString());
+                res.send(cost.toString()).status(200);
                }
                 
          });
