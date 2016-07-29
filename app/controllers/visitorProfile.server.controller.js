@@ -59,9 +59,9 @@ function GetProfileByEmail(req,res,next){
       TotalVisits: function(callback){
         GetTotalVisits( req.params.id, req.query.idSite, callback ); 
       },
-      /*GetByProduct: function(callback){
+      GetByProduct: function(callback){
         GetByProduct(req.query.idSite,req.params.id,callback)
-      }*/
+      }
   },
   function(err, results) { 
     if(err){
@@ -81,7 +81,8 @@ function GetProfileByEmail(req,res,next){
             TotalForms:   Object.keys(results.Forms).length,
             comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
             img:          results.GoogleData,
-            forms:        results.Forms
+            forms:        results.Forms,
+            Sales:        (results.GetByProduct) ? results.GetByProduct : null
           });  
     }
   });
@@ -114,32 +115,33 @@ function GetStaticProfile(idSite,segment,callback){
   });
 }
 
-function GetByProduct(email,idSite){
+function GetByProduct(idSite,id,callback){ 
   var agg = [{
                 $match:{
-                    idSite:idSite,
-                    ClientId:email
+                    'data.idSite'     :idSite,
+                    'data.ClientId': id 
                 }
              },
-               
-                {$group: {
-                  _id: "$Servicio",
+            
+                {
+                  $group: {
+                  _id: "$data.compras.Servicio",
                   "total": {
-                        "$sum": "$Total"
+                        "$sum": "$data.Total"
                     },
-                    "hrs / cantidad":$["Hrs / Cantidad"]
-                }},
+                  "details": { "$first": "$data.compras" }
+
+                }
+              } 
 
               ];
 
-              Sales.aggregate(agg, function(err, costs){
+              Sales.aggregate(agg, function(err, ventas){
                 if (err) { 
                   console.log(err);
                   callback(err,null); 
-                }
-                console.log(costs);
-
-                callback(null,costs);
+                } 
+                callback(null,ventas);
          });
 }
 

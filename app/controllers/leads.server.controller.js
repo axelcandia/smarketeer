@@ -84,11 +84,12 @@ piwik.api({
 * Guardo la compra que hizo un usuario
 * documentation: http://developer.piwik.org/api-reference/tracking-api
 */
-exports.GetSale = function (req,res){   
+exports.GetSale = function (req,res){ 
+
   var compra = new Sale({
-    "data": req.body
+    data:  req.body
   });
-  compra.save();
+  compra.save(); 
   //Piwik magic 
   var segment= "userId=="+req.body.ClientId;
 
