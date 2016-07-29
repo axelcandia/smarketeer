@@ -231,7 +231,7 @@ html
                                             | #{newDate}
                                       //Obtenemos la hora de cada uno
                                       -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length)
-                                      if parseInt(action.timeSpent) !=0 
+                                      if parseInt(action.timeSpent) !=0 || action.type == "goal" 
                                         li
                                           .col1
                                             .cont
