@@ -113,7 +113,7 @@ exports.GetSale = function (req,res){
 
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
     var path = "http://52.165.38.47/piwik.php?"+
-      "uid="+(email||req.body.ClientId)+
+      "uid="+req.body.ClientId+
       "&idsite="+req.body.idSite+
       "&rec="+1+
       "&apiv="+1+
