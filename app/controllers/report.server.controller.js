@@ -97,9 +97,9 @@ function json2table(client,medium,cost){
     //We add gastos
     //We search for the cost AND WE ADD IT MADAFAKER :DDD
     
-    NewReport += "<td>$"+Math.round(tCost).toFixed(2)+"</td>";
+    NewReport += "<td>"+convertToCash(tCost)+"</td>";
     //We add ingresos
-    NewReport +=(medium.revenue) ? "<td>$"+Math.round(medium.revenue).toFixed(2)+"</td>" : '<td>$0</td>';
+    NewReport +=(medium.revenue) ? "<td>"+convertToCash(medium.revenue)+"</td>" : '<td>$0</td>';
 
     
     //We add ROI
@@ -108,24 +108,29 @@ function json2table(client,medium,cost){
     NewReport +='<td>'+  ROI  +'%</td>';
 
     //We add margen
-    NewReport +='<td>$'+Math.round(margen).toFixed(2)+'</td>';
+    NewReport +='<td>'+convertToCash(margen)+'</td>';
 
     //We add Clients
     NewReport += (client.Clientes) ? "<td>"+client.Clientes+"</td>": '<td>0</td>';
 
     //We add CAC
     
-    NewReport +='<td>$'+Math.round(CAC||0).toFixed(2)+'</td>';
+    NewReport +='<td>'+convertToCash(CAC||0)+'</td>';
 
     //We add LTV
-    NewReport +='<td>$'+Math.round(LTV||0).toFixed(2)+'</td>';
+    NewReport +='<td>'+convertToCash(LTV||0)+'</td>';
 
     //We add LTV:cac
-    NewReport +='<td>$'+Math.round(LTVdivCAC||0).toFixed(2)+'</td>';
+    NewReport +='<td>'+convertToCash(LTVdivCAC||0)+'</td>';
 
     //We add LTV-CAC
-    NewReport +='<td>$'+Math.round((medium.revenue/client.Clientes)-(tCost/client.Clientes)).toFixed(2)+'</td>';
+    NewReport +='<td>'+Math.round((medium.revenue/client.Clientes)-(tCost/client.Clientes)).toFixed(2)+'</td>';
 
 	NewReport +='</tr>';    
 	return NewReport;
 }
+function convertToCash(number){
+            var n=Math.round(number).toFixed(2)
+            n=n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+            return "$"+n;
+          } 

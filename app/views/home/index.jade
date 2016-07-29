@@ -519,7 +519,7 @@ html.no-js(lang='en')
         }
         });
         function convertToCash(number){
-            var n=number.toFixed(2)
+             var n=Math.round(number).toFixed(2)
             n=n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
             return "$"+n;
           }
