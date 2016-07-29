@@ -181,7 +181,7 @@ function GetGoogleData(email,callback){
 }
 
 function GetCompletedForms(userId,idSite,callback){  
-  SolvedForms.find({"userId" : userId,"idSite":idSite}, function(err, profile){
+  SolvedForms.find({$or:[{"userId" : userId},{"secondId":userId}],"idSite":idSite}, function(err, profile){
       if (err) {
         console.log(err);
         callback(err,null);

@@ -4,6 +4,7 @@ var websitesSchema = new mongoose.Schema({
 	created 	: Date,
 	users   	: [],
 	piwik_id	: String, 
+	secondId	: String
 
 }); 
 

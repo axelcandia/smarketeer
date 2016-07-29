@@ -107,7 +107,8 @@ exports.ReceiveForms = function(req,res,next){
 			date: new Date(),
 			fields: req.body,
 			userId: req.body.userId,
-			idSite:req.body.idSite
+			idSite:req.body.idSite,
+			secondId:req.body.secondId
 		});
 		//Se guarda el campo
 		solved.save(function (err) {

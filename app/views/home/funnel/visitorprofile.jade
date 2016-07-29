@@ -230,31 +230,32 @@ html
                                           p.date
                                             | #{newDate}
                                       //Obtenemos la hora de cada uno
-                                      -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length) 
-                                      li
-                                        .col1
-                                          .cont
-                                            .cont-col1 
-                                              if action.type == "goal"
-                                                .label.label-sm.label-warning
-                                                  i.fa.fa-plus
-                                              else if action.type == "goalazo"
-                                                .label.label-sm.label-success
-                                                  i.fa.fa-bell-o
-                                              else
-                                                .label.label-sm.label-info
-                                                  i.fa.fa-bullhorn
-                                            .cont-col2
-                                              .desc
-                                                if action.goalName
-                                                 | #{action.goalName}
+                                      -var hora = action.serverTimePretty.substr((action.serverTimePretty.indexOf(':')-2),action.serverTimePretty.length)
+                                      if parseInt(action.timeSpent) !=0 
+                                        li
+                                          .col1
+                                            .cont
+                                              .cont-col1  
+                                                if action.type == "goal"
+                                                  .label.label-sm.label-warning
+                                                    i.fa.fa-plus
+                                                else if action.type == "goalazo"
+                                                  .label.label-sm.label-success
+                                                    i.fa.fa-bell-o
                                                 else
-                                                  | #{name||email||UserId} visitó 
-                                                  a(target="_blank" href="#{action.url}") #{action.pageTitle} 
-                                                  |  desde #{visit.referrerTypeName}
-                                        .col2
-                                          .date
-                                            | #{hora} 
+                                                  .label.label-sm.label-info
+                                                    i.fa.fa-bullhorn
+                                              .cont-col2
+                                                .desc
+                                                  if action.goalName
+                                                   | #{action.goalName}
+                                                  else
+                                                    | #{name||email||UserId} visitó 
+                                                    a(target="_blank" href="#{action.url}") #{action.pageTitle} 
+                                                    |  desde #{visit.referrerTypeName}
+                                          .col2
+                                            .date
+                                              | #{hora} 
                             //This is refferrer            
                             #tab_1_2.tab-pane
                               .scroller(style='height: 337px;', data-always-visible='1', data-rail-visible1='0', data-handle-color='#D7DCE2')
