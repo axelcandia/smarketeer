@@ -28,19 +28,18 @@ exports.getTotalCost = function(req,res){
 } 
 
 
+
 function getCost(res,idSite,date,period){ 
   var dateParts = date.split(",");  
   var from      = dateParts[0].split("-");
   var to        = dateParts[1].split("-");
-
+  console.log(idSite);
    var agg = [{
                 $match:{
                     idSite:idSite,
-                    from: {$gte : new Date(from[0], from[1], from[2]), $lt: new Date(to[0], to[1], to[2])},
-                    to  :{$gte : new Date(from[0], from[1], from[2])}
+                    from: {$gte : new Date(from[0], from[1], from[2]), $lt: new Date(to[0], to[1], to[2])} 
                   }
-                },
-               
+                }, 
                 {$group: {
                   _id: null,
                   "total": {
@@ -57,7 +56,7 @@ function getCost(res,idSite,date,period){
                }
                else{
                 cost = (costs[0]) ? costs[0].total :  0 ; 
-                console.log("THIS IS DA COST:"+JSON.stringify(costs[0]));
+                console.log("THIS IS DA COST:"+JSON.stringify(costs));
                 console.log(cost.toString());
                 res.send(cost.toString()).status(200);
                }

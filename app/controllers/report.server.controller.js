@@ -77,6 +77,7 @@ function json2table(client,medium,cost){
     console.log(client.nsource);
     var source=client.nsource || client.secondSource;
      var tCost  = 0; 
+
     for(var key in cost) {
         console.log(cost[key]._id );  
         if( (cost[key]._id && source ) && ( cost[key]._id == client.nsource || cost[key]._id==source.slice(0, -1) ) ){
@@ -88,7 +89,7 @@ function json2table(client,medium,cost){
     var ROI         = (tCost!=0) ? margen/tCost : 0;
     var CAC         = (client.Clientes!=0) ? tCost/client.Clientes : 0; 
     var LTV         = (client.Clientes!=0) ?  medium.revenue/client.Clientes : 0;
-    var LTVdivCAC   = (CAC!=0) ? ltv/cac : 0;
+    var LTVdivCAC   = (CAC!=0) ? LTV/CAC : 0;
 	var NewReport   ='<tr>';
 	//We add the Source ||client.secondSource
     NewReport += ( source ) ? "<td>"+source+"</td>" : "<td>N/A</td>";
@@ -96,34 +97,34 @@ function json2table(client,medium,cost){
     //We add gastos
     //We search for the cost AND WE ADD IT MADAFAKER :DDD
     
-    NewReport += "<td>$"+tCost+"</td>";
+    NewReport += "<td>$"+Math.round(tCost).toFixed(2)+"</td>";
     //We add ingresos
-    NewReport +=(medium.revenue) ? "<td>$"+medium.revenue+"</td>" : '<td>$0</td>';
+    NewReport +=(medium.revenue) ? "<td>$"+Math.round(medium.revenue).toFixed(2)+"</td>" : '<td>$0</td>';
 
     
     //We add ROI
     
 
-    NewReport +='<td>'+ ROI +'%</td>';
+    NewReport +='<td>'+  ROI  +'%</td>';
 
     //We add margen
-    NewReport +='<td>$'+margen+'</td>';
+    NewReport +='<td>$'+Math.round(margen).toFixed(2)+'</td>';
 
     //We add Clients
     NewReport += (client.Clientes) ? "<td>"+client.Clientes+"</td>": '<td>0</td>';
 
     //We add CAC
     
-    NewReport +='<td>$'+CAC||0+'</td>';
+    NewReport +='<td>$'+Math.round(CAC||0).toFixed(2)+'</td>';
 
     //We add LTV
-    NewReport +='<td>$'+LTV||0+'</td>';
+    NewReport +='<td>$'+Math.round(LTV||0).toFixed(2)+'</td>';
 
     //We add LTV:cac
-    NewReport +='<td>$'+LTVdivCAC||0+'</td>';
+    NewReport +='<td>$'+Math.round(LTVdivCAC||0).toFixed(2)+'</td>';
 
     //We add LTV-CAC
-    NewReport +='<td>$'+((medium.revenue/client.Clientes)-(tCost/client.Clientes))+'</td>';
+    NewReport +='<td>$'+Math.round((medium.revenue/client.Clientes)-(tCost/client.Clientes)).toFixed(2)+'</td>';
 
 	NewReport +='</tr>';    
 	return NewReport;
