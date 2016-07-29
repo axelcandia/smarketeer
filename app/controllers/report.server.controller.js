@@ -3,6 +3,8 @@ var PiwikClient   	 = require('piwik-client');
 var piwik         	 = new PiwikClient(config.piwik.url, config.piwik.token );
 var async            = require("async");
 var Campaigns        = require("../models/campaign.server.model"); 
+
+
 exports.RenderReport=function(req,res,next){
 	res.render("home/reporting",{
 			idSite:req.query.idSite
@@ -82,8 +84,12 @@ function json2table(client,medium,cost){
             console.log([key]._id );
         } 
     } 
-   
-	var NewReport='<tr>';
+    var margen      = medium.revenue-tCost; 
+    var ROI         = (tCost!=0) ? margen/tCost : 0;
+    var CAC         = (client.Clientes!=0) ? tCost/client.Clientes : 0; 
+    var LTV         = (client.Clientes!=0) ?  medium.revenue/client.Clientes : 0;
+    var LTVdivCAC   = (CAC!=0) ? ltv/cac : 0;
+	var NewReport   ='<tr>';
 	//We add the Source ||client.secondSource
     NewReport += ( source ) ? "<td>"+source+"</td>" : "<td>N/A</td>";
 
@@ -94,9 +100,11 @@ function json2table(client,medium,cost){
     //We add ingresos
     NewReport +=(medium.revenue) ? "<td>$"+medium.revenue+"</td>" : '<td>$0</td>';
 
-    var margen= medium.revenue-tCost; 
+    
     //We add ROI
-    NewReport +='<td>'+  ( ((margen/tCost)*100) || "0" ) +'%</td>';
+    
+
+    NewReport +='<td>'+ ROI +'%</td>';
 
     //We add margen
     NewReport +='<td>$'+margen+'</td>';
@@ -105,13 +113,14 @@ function json2table(client,medium,cost){
     NewReport += (client.Clientes) ? "<td>"+client.Clientes+"</td>": '<td>0</td>';
 
     //We add CAC
-    NewReport +='<td>$'+tCost/client.Clientes+'</td>';
+    
+    NewReport +='<td>$'+CAC||0+'</td>';
 
     //We add LTV
-    NewReport +='<td>$'+(medium.revenue/client.Clientes)+'</td>';
+    NewReport +='<td>$'+LTV||0+'</td>';
 
     //We add LTV:cac
-    NewReport +='<td>$'+(((medium.revenue/client.Clientes)/(tCost/client.Clientes))||0)+'</td>';
+    NewReport +='<td>$'+LTVdivCAC||0+'</td>';
 
     //We add LTV-CAC
     NewReport +='<td>$'+((medium.revenue/client.Clientes)-(tCost/client.Clientes))+'</td>';
