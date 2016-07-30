@@ -158,9 +158,9 @@ html(lang='en')
                             td
                               | #{campaign.url}   
                             td
-                              | #{getDate(campaign.from)}
+                              | #{getDate(campaign.from||"12/07/16")}
                             td
-                              |#{getDate(campaign.to)}
+                              |#{getDate(campaign.to||"12/07/16")}
                             td
                               | #{campaign.total} 
                             td.btn.blue.editar(id="#{campaign._id}") 
