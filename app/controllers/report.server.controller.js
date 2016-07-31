@@ -17,7 +17,7 @@ exports.RenderReport=function(req,res,next){
 
  	var clientsMethod	=(req.body.lineal=="true") ? "getCustomersByLinealVisit" : "getCustomersByFirstVisit";			 
  	var source=req.body.source.replace("campaign_","");
-    source=(source=="name") ? "$campaign":"$"+source;
+    source=(source=="name") ? "$campaign": "$"+source;
     console.log(source);
     async.series({
  		GetClientes: function(callback){
@@ -54,7 +54,7 @@ exports.RenderReport=function(req,res,next){
 
               Campaigns.aggregate(agg, function(err, costs){
                 if (err) { callback(err,null); }
-
+                console.log(costs);
                 callback(null,costs);
          });
 
@@ -81,7 +81,7 @@ function json2table(client,medium,cost){
 
     for(var key in cost) {
         console.log(cost[key]._id );  
-        if( (cost[key]._id && source ) && ( cost[key]._id == client.nsource || cost[key]._id==source.slice(0, -1) ) ){
+        if( (cost[key]._id && source ) && ( cost[key]._id == client.nsource ||cost[key]._id.toLowerCase() == client.nsource || cost[key]._id==source.slice(0, -1) ) ){
             tCost=cost[key].total;
             console.log([key]._id );
         } 
