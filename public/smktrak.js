@@ -171,11 +171,11 @@ function SendSmkt(form_id,idSite){
 				}
 			
 	} 
-	values["userId"]= userId;
-	values["ot"]= userId;
-	values["form_id"]=form_id;
-	values["secondId"]=idSite;
-	var cname="smkt_"+idSite; 
+	values["userId"] 	= userId;
+	values["idSite"] 	= idSite;
+	values["form_id"] 	= form_id;
+	values["secondId"]	= idSite;
+	var cname 			= "smkt_"+idSite; 
 	if(getCookie(cname)){
 					var jscookie = JSON.parse(getCookie(cname));
 					values["secondId"]=jscookie.visitor_id;
