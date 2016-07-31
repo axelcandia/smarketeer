@@ -5,6 +5,7 @@ var solvedforms = new mongoose.Schema({
 	fields 	: Object,
 	userId	: String,
 	idSite  : String, 
+	secondId:String
 });
 
 var solvedforms = mongoose.model('Solved Forms', solvedforms);
