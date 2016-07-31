@@ -63,14 +63,14 @@ function GetProfileByEmail(req,res,next){
         GetByProduct(req.query.idSite,req.params.id,callback)
       },
       GetSources: function(callback){
-        getSources(req.query.idSite,req.params.id,callback)
+        getSourcesById(req.query.idSite,req.params.id,callback)
       }
   },
   function(err, results) { 
     if(err){
       console.log(err);
     } else{
-        console.log(results.GetByProduct);
+        console.log(results.GetSources);
           res.render('home/funnel/visitorprofile', {  
             idSite:       req.query.idSite,
             UserId:       req.params.id,
@@ -85,7 +85,8 @@ function GetProfileByEmail(req,res,next){
             comments:     (results.DynamicProfile) ? results.DynamicProfile.comments : "", 
             img:          results.GoogleData,
             forms:        results.Forms,
-            Sales:        (results.GetByProduct) ? results.GetByProduct : null
+            Sales:        (results.GetByProduct) ? results.GetByProduct : null,
+            Sources:      results.GetSources
           });  
     }
   });
@@ -214,20 +215,19 @@ function GetTotalVisits(userId,idSite,callback){
   });
 
 } 
-
-
-function getSources(userId,idSite,callback){
+ 
+function getSourcesById(idSite,userId,callback){
   piwik.api({
-    method:   'Smarketeer.getVisitorsById',
+    method:   'Smarketeer.getSourcesById',
     userId: userId,
-    idSite:idSite
+    idSite: idSite
   },function(err,data){
     if(err){
-      console.log("Static profile:"+err);
+      console.log("Get sources:"+err);
       callback(err,null)
     }
-    else{
-      console.log(data[0]);
+    else{  
+      console.log(data);
       callback(null,data);
     }
 
