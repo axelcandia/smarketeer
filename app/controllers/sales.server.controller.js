@@ -55,12 +55,13 @@ exports.GetSalesByChannel = function(req,res){
   GetWebsiteDate(req,res,GetReferrers);
 }
 function GetReferrers(res,idSite,date,period){
+  var date= date.split(","); 
   piwik.api({
-    method:"Referrers.getReferrerType",
-    idSite:idSite,
-    period:period,
-    date:date,
-    segment: 'visitConvertedGoalId==2',  
+    method:"Smarketeer.GetAllSources",
+    idSite:idSite, 
+    idGoal: '2', 
+    from:date[0],
+    to:date[1] 
   },function(err,referrers){
     if(err){
       console.log(err); 

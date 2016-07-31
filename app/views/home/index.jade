@@ -502,8 +502,8 @@ html.no-js(lang='en')
                 ];
 
             for(var i=0; i<Object.keys(LeadsByChannel).length;i++){ 
-              chartLeadsData.data.datasets[0].data[i] = LeadsByChannel[i].nb_conversions;
-              chartLeadsData.data.labels.push(LeadsByChannel[i].label);
+              chartLeadsData.data.datasets[0].data[i] = LeadsByChannel[i].total; 
+              chartLeadsData.data.labels.push(LeadsByChannel[i].campaign_source||"Entrada directa");
             } 
           }
         else{
@@ -570,8 +570,8 @@ html.no-js(lang='en')
                     "#F7464A",
                 ];
             for(var i=0; i<Object.keys(SalesByChannel).length;i++){ 
-              chartSalesData.data.datasets[0].data[i] = SalesByChannel[i].nb_visits;
-              chartSalesData.data.labels.push(SalesByChannel[i].label);
+              chartSalesData.data.datasets[0].data[i] = SalesByChannel[i].total;
+              chartSalesData.data.labels.push(SalesByChannel[i].campaign_source||"Entrada directa");
             }  
               
           }
