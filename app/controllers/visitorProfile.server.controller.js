@@ -61,6 +61,9 @@ function GetProfileByEmail(req,res,next){
       },
       GetByProduct: function(callback){
         GetByProduct(req.query.idSite,req.params.id,callback)
+      },
+      GetSources: function(callback){
+        getSources(req.query.idSite,req.params.id,callback)
       }
   },
   function(err, results) { 
@@ -211,6 +214,26 @@ function GetTotalVisits(userId,idSite,callback){
   });
 
 } 
+
+
+function getSources(userId,idSite,callback){
+  piwik.api({
+    method:   'Smarketeer.getVisitorsById',
+    userId: userId,
+    idSite:idSite
+  },function(err,data){
+    if(err){
+      console.log("Static profile:"+err);
+      callback(err,null)
+    }
+    else{
+      console.log(data[0]);
+      callback(null,data);
+    }
+
+  });
+  
+}
 /*
 function GetSellers(){
   Sales.group : {

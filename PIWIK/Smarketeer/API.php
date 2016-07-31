@@ -51,14 +51,15 @@ class API extends \Piwik\Plugin\API
         FROM piwik_log_visit
         INNER JOIN piwik_log_conversion 
             ON piwik_log_visit.idvisitor=piwik_log_conversion.idvisitor
-        WHERE (piwik_log_visit.custom_var_v1 or piwik_log_visit.user_id)  NOT IN (SELECT custom_var_v1 FROM piwik_log_conversion where
+        WHERE (piwik_log_visit.idvisitor) NOT IN (SELECT idvisitor FROM piwik_log_conversion where
             piwik_log_conversion.idgoal=2
             AND idSite =$idSite
-            GROUP BY custom_var_v1
+            GROUP BY idvisitor
         )
         AND piwik_log_visit.idSite=$idSite
-        GROUP BY piwik_log_visit.custom_var_v1
-	LIMIT $filter_offset,$filter_limit";
+        GROUP BY piwik_log_visit.idvisitor
+        ORDER BY piwik_log_visit.visit_last_action_time DESC
+    LIMIT $filter_offset,$filter_limit";
 	$value = Db::fetchAll($sql);	
 	return $value;
     }
@@ -155,7 +156,7 @@ class API extends \Piwik\Plugin\API
         set_time_limit(35);
         $idvisitor="";
         $query=""; 
-
+        //GET THE NEW
         while($idvisitor==null||$idvisitor==""||!$idvisitor){
 
             $query="SELECT hex(idvisitor) AS idvisitor
@@ -164,18 +165,31 @@ class API extends \Piwik\Plugin\API
                     AND idSite = $idSite"; 
             $idvisitor = Db::fetchOne($query); 
         } 
+        //GET THE OLD
+        $query="SELECT  hex(idvisitor) AS oldVisit
+                from piwik_log_visit 
+                WHERE custom_var_v1 = '$email' 
+                AND idSite = $idSite";
+        $oldVisit=Db::fetchOne($query);    
 
-
+        //UPDATE visit
         $query="UPDATE piwik_log_visit
-                SET idvisitor      = UNHEX('$idvisitor')
-                WHERE user_id='$userId'
+                SET idvisitor      = UNHEX('$idvisitor'),
+                    user_id        = '$email'
+                WHERE idvisitor=UNHEX('$oldVisit')
                 AND idSite=$idSite";
-          $value=Db::exec($query);
-        
-        $query="DELETE  
-                FROM piwik_log_visit 
-                WHERE visit_total_time<=1"; 
-         $value=Db::exec($query);
+
+        $value=Db::exec($query); 
+
+
+        //UPDATE conversion
+        $query="UPDATE piwik_log_conversion
+                SET idvisitor      = UNHEX('$idvisitor')
+                WHERE idvisitor=UNHEX('$oldVisit')
+                AND idSite=$idSite";
+        $value=Db::exec($query); 
+
+
          return $value;
          die();
         /*
