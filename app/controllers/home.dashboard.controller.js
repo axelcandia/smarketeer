@@ -37,7 +37,7 @@ function getCost(res,idSite,date,period){
    var agg = [{
                 $match:{
                     idSite:idSite,
-                    from: {$gte : new Date(from[0], from[1], from[2]), $lt: new Date(to[0], to[1], to[2])} 
+                    from: {$gte : new Date(from[0], from[1], from[2])} 
                   }
                 }, 
                 {$group: {

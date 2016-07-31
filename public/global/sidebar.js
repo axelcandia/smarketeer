@@ -42,7 +42,7 @@ bootbox.dialog({
                 '<div class="form-group">  ' +
                         '<div class="form-group"> ' + 
                             '<textarea id="name" type="text" name="name" class="form-control">'+
-                            '<script src="http://smarketeer.azurewebsites.net/smktrak.js" id="'+idSite+
+                            '<script src="https://app.smarketeer.io/smktrak.js" id="'+idSite+
                             '" type="application/javascript"></script>'+
                             '</textarea>'+
                         '</div> '  +
