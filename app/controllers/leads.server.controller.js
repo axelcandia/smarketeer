@@ -159,18 +159,19 @@ exports.GetLeadsByChannel = function(req,res){
 }
 
 function GetReferrers(res,idSite,date,period){
+  var date= date.split(","); 
   piwik.api({
-    method:"AdvancedCampaignReporting.getSource",
-    idSite:idSite,
-    period:period,
-    date:date,
-    segment: 'visitConvertedGoalId==1', 
+    method:"Smarketeer.GetAllSources",
+    idSite:idSite, 
+    idGoal: '1', 
+    from:date[0],
+    to:date[1]
   },function(err,referrers){
     if(err){
       console.log(err); 
       return 0;
     } 
-    console.log(referrers);
+    console.log("ref"+JSON.stringify(referrers));
     res.send(referrers).status(200);    
   });
 

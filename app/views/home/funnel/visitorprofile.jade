@@ -262,14 +262,14 @@ html
                                 ul.feeds
                                   //Separamos por dia
                                   -var oldDate=""
-                                  for visit in visits
-                                    -var newDate = visit.lastActionDateTime.substr(0,  (visit.lastActionDateTime.indexOf(':')-2)) 
+                                  for source in Sources
+                                    -var newDate = source.lastActionDateTime.substr(0,  (source.lastActionDateTime.indexOf(':')-2)) 
                                      if newDate != oldDate
                                          - oldDate = newDate
                                          p.date
                                            | #{newDate}
                                      //Obtenemos la hora de cada uno
-                                     -var hora = visit.lastActionDateTime.substr((visit.lastActionDateTime.indexOf(':')-2),visit.lastActionDateTime.length) 
+                                     -var hora = source.lastActionDateTime.substr((source.lastActionDateTime.indexOf(':')-2),source.lastActionDateTime.length) 
                                      li
                                        .col1
                                          .cont
@@ -278,7 +278,7 @@ html
                                                i.fa.fa-bell-o
                                            .cont-col2
                                              .desc
-                                              | #{visit.referrerTypeName}
+                                              | #{source.campaign_source||source.referer_name||source.referer_url||'Entrada directa'}
                                        .col2
                                          .date
                                            | #{hora} 
