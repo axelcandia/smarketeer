@@ -17,6 +17,17 @@ var cookieParser      = require('cookie-parser');
 var errorHandler      = require('errorhandler');
 var flash             = require('express-flash');
 var passport          = require('passport');
+
+
+function requireHTTPS(req, res, next) {
+    if (req.get('x-site-deployment-id') && !req.get('x-arr-ssl')) {
+        return res.redirect('https://' + req.get('host') + req.url);
+    }
+    next();
+}
+ 
+app.use(requireHTTPS);
+
 module.exports = function() {
 	var app = express(); 
 
@@ -28,6 +39,7 @@ module.exports = function() {
 	  dest: path.join(__dirname, 'public'),
 	  sourceMap: true
 	}));*/
+	app.use(requireHTTPS);
 	app.use(logger('dev'));
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
