@@ -24,9 +24,7 @@ function requireHTTPS(req, res, next) {
         return res.redirect('https://' + req.get('host') + req.url);
     }
     next();
-}
- 
-app.use(requireHTTPS);
+} 
 
 module.exports = function() {
 	var app = express(); 
