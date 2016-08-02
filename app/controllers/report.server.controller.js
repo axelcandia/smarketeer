@@ -87,7 +87,7 @@ function json2table(client,medium,cost){
         } 
     } 
     var margen      = medium.revenue-tCost; 
-    var ROI         = (tCost!=0) ? margen/tCost : 0;
+    var ROI         = (tCost!=0) ? (margen/tCost)*100 : 0;
     var CAC         = (client.Clientes!=0) ? tCost/client.Clientes : 0; 
     var LTV         = (client.Clientes!=0) ?  medium.revenue/client.Clientes : 0;
     var LTVdivCAC   = (CAC!=0) ? LTV/CAC : 0;
@@ -106,7 +106,7 @@ function json2table(client,medium,cost){
     //We add ROI
     
 
-    NewReport +='<td>'+  ROI  +'%</td>';
+    NewReport +='<td>'+  ROI.toFixed(2) +'%</td>';
 
     //We add margen
     NewReport +='<td>'+convertToCash(margen)+'</td>';
@@ -122,10 +122,10 @@ function json2table(client,medium,cost){
     NewReport +='<td>'+convertToCash(LTV||0)+'</td>';
 
     //We add LTV:cac
-    NewReport +='<td>'+convertToCash(LTVdivCAC||0)+'</td>';
+    NewReport +='<td>'+(LTVdivCAC||0).toFixed(2)+'</td>';
 
     //We add LTV-CAC
-    NewReport +='<td>'+Math.round((medium.revenue/client.Clientes)-(tCost/client.Clientes)).toFixed(2)+'</td>';
+    NewReport +='<td>'+((medium.revenue/client.Clientes)-(tCost/client.Clientes)).toFixed(2)+'</td>';
 
 	NewReport +='</tr>';    
 	return NewReport;
