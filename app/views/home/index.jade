@@ -519,7 +519,7 @@ html.no-js(lang='en')
         }
         });
         function convertToCash(number){
-             var n=Math.round(number).toFixed(2)
+             var n=number.toFixed(2)
             n=n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
             return "$"+n;
           }
@@ -536,16 +536,14 @@ html.no-js(lang='en')
             $("#Ingreso").text(convertToCash(revenue));  
             $("#Gasto").text(convertToCash(totalCost))
             $("#Margen").text( convertToCash(margen));
-            if(totalCost>0)
-              $("#ROI").text(  convertToCash(( margen / totalCost  ))  );
-            else{
-              $("#ROI").text(convertToCash(0));
-            }
+
+            var roi= (totalCost!=0) ? ( ( margen / totalCost )*100 )   : 0;
+            $("#ROI").text(roi.toFixed(2)+"%"); 
             $("#CAC").text(convertToCash(CAC));
             $("#LTV").text(convertToCash(LTV));
 
-            $("#LTVDCAC").text(convertToCash(ltv2));
-            $("#LTVmCAC").text(convertToCash(LTVmCAC));
+            $("#LTVDCAC").text(  ltv2.toFixed(2) );
+            $("#LTVmCAC").text(  LTVmCAC.toFixed(2) );
         }
       /**
       *Get the sales by channel
