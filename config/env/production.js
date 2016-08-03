@@ -21,9 +21,9 @@ module.exports = {
 		callbackURL 	: 'http://smarketeer.io/auth/google/callback'
 	},
 	piwik:{
-		user             : "axel",
-		token			 : "b587089f5dc5e681218a6a2974eec3ca",
-		url              : "http://52.165.38.47/index.php"
+		user             : "User",
+		token			 : "2c814b54a75cdc575b73288119a2a951",
+		url              : "https://legend.smarketeer.io/index.php"
 	} 
 	
 };
