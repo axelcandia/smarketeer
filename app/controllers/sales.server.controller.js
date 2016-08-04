@@ -147,8 +147,8 @@ function json2table(visita,idSite){
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
-        
+         NewVisitor += (visita.campaign_source||visita.referer_name) ? '<td>'+visita.referer_name||visita.referer_url+'</td>' : '<td>Entrada Directa</td>';
+       
         //Medium
         NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
 

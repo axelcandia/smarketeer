@@ -23,12 +23,6 @@ module.exports = {
 	piwik:{
 		user             : "Axel",
 		token			 : "9dfa00d50370c6e2f533e375ff282a97",
-		url              : "http://legend.smarketeer.io/index.php"
+		url              : "http://13.88.181.254/index.php"
 	} 
-	/*piwik:{
-		user             : "axel",
-		token			 : "b587089f5dc5e681218a6a2974eec3ca",
-		url              : "http://52.165.38.47/index.php"
-	}*/
-	
 };

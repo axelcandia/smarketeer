@@ -64,11 +64,14 @@ function GetPiwikVisitsCounter(res,idSite,date,period){
     date:date,
     segment: 'visitConvertedGoalId!=2', 
   },function(err,visitas){  
-    if(err || !visitas.value){
+     console.log("Visitas"+visitas);
+
+    if(err){
       console.log(err);
       res.send(0).status(200);
       return 0;
     }   
+
       res.send(visitas.value.toString()).status(200);
   });
 }
@@ -151,7 +154,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
+        NewVisitor += (visita.campaign_source||visita.referer_name) ? '<td>'+visita.campaign_source||visita.referer_url+'</td>' : '<td>Entrada Directa</td>';
         
         //Medium
         NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';

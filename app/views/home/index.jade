@@ -404,12 +404,12 @@ html.no-js(lang='en')
                 "date":date,
                 "period":period},
         success: function(data) { 
-          
+          console.log("HEY"+data);
           data = (data) ? data : 0 ; 
           if(firstTime && (data==0 || data=="0") ){
             $(".TrackingCode").trigger( "click" );
             firstTime=false;
-          }
+          } 
           $("#nvisitors").html(data); 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {

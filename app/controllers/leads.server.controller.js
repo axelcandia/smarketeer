@@ -112,7 +112,7 @@ exports.GetSale = function (req,res){
     var lastAction = visit.lastVisits[lastVisit].actionDetails.length-1; 
 
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
-    var path = "http://52.165.38.47/piwik.php?"+
+    var path = "http://13.67.180.32/piwik.php?"+
       "uid="+req.body.ClientId+
       "&idsite="+req.body.idSite+
       "&rec="+1+
@@ -227,8 +227,8 @@ function json2table(visita,idSite,registrarVenta){
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
-        
+        NewVisitor += (visita.campaign_source||visita.referer_name) ? '<td>'+visita.referer_name||visita.referer_url+'</td>' : '<td>Entrada Directa</td>';
+       
         //Medium
         NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
 
