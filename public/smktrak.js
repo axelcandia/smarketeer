@@ -9,7 +9,7 @@ var idSite= parseInt(document.currentScript.id);
 	  var _paq = _paq || [];
 	  var tracker; 
 	  var _paqid;  
-	  var u="http://52.165.38.47/"; 
+	  var u="//legend.smarketeer.io/"; 
 	  var visitor_id="";
 	  var userId="";  
 	  (function() {

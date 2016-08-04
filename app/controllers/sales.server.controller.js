@@ -56,6 +56,7 @@ exports.GetSalesByChannel = function(req,res){
 }
 function GetReferrers(res,idSite,date,period){
   var date= date.split(","); 
+  console.log(date);
   piwik.api({
     method:"Smarketeer.GetAllSources",
     idSite:idSite, 
@@ -76,6 +77,7 @@ function GetReferrers(res,idSite,date,period){
 * Call the piwik counter and returns data
 */
 function GetPiwikSalesCounter(res,id,range){
+  console.log(range);
 piwik.api({
     method:"Goals.get",
     idSite:id, 

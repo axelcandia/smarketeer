@@ -4,9 +4,9 @@ var minify 			= require('html-minifier').minify;
 var SolvedForms		= require("../models/solvedforms.server.model"); 
 var Visitors		= require("../models/visitors.server.model");
 var Website 		= require('../models/websites.server.model');
-var config			  = require("../../config/config");
-var PiwikClient   = require('piwik-client');
-var piwik         = new PiwikClient(config.piwik.url, config.piwik.token )
+var config			= require("../../config/config");
+var PiwikClient   	= require('piwik-client');
+var piwik         	= new PiwikClient(config.piwik.url, config.piwik.token )
 var async           = require("async");
 
 exports.RenderFormBuilder= function(req, res, next){
