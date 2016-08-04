@@ -21,14 +21,8 @@ module.exports = {
 		callbackURL 	: 'http://localhost:1337/auth/google/callback'
 	},
 	piwik:{
-		user             : "User",
-		token			 : "2c814b54a75cdc575b73288119a2a951",
-		url              : "http://legend.smarketeer.io/index.php"
+		user             : "Axel",
+		token			 : "9dfa00d50370c6e2f533e375ff282a97",
+		url              : "http://13.88.181.254/index.php"
 	} 
-	/*piwik:{
-		user             : "axel",
-		token			 : "b587089f5dc5e681218a6a2974eec3ca",
-		url              : "http://52.165.38.47/index.php"
-	}*/
-	
 };
