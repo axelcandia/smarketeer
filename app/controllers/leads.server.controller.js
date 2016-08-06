@@ -112,7 +112,7 @@ exports.GetSale = function (req,res){
     var lastAction = visit.lastVisits[lastVisit].actionDetails.length-1; 
 
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
-    var path = "http://13.67.180.32/piwik.php?"+
+    var path = "http://13.88.181.254/piwik.php?"+
       "uid="+req.body.ClientId+
       "&idsite="+req.body.idSite+
       "&rec="+1+

@@ -154,7 +154,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
                       "<td></td>";
 
         //Source
-        NewVisitor += (visita.campaign_source||visita.referer_name) ? '<td>'+visita.campaign_source||visita.referer_url+'</td>' : '<td>Entrada Directa</td>';
+        NewVisitor += (visita.campaign_source||visita.referer_url) ? '<td>'+visita.campaign_source||visita.referer_url+'</td>' : '<td>Entrada Directa</td>';
         
         //Medium
         NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
