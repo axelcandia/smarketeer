@@ -39,7 +39,7 @@ var idSite= parseInt(document.currentScript.id);
 	}
 
  
-$('.SmarketeerForm').on('submit', function(e){
+$('form').on('submit', function(e){
 	if(preventDefault) {
 		e.preventDefault();
 		SendSmkt(this);
