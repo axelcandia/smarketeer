@@ -38,8 +38,8 @@ var idSite= parseInt(document.currentScript.id);
 		console.log("deleting"+visitor_id);
 	}
 
- 
-$('form').on('submit', function(e){
+$(document).on("form",'submit', function(e){ 
+	console.log("send")
 	if(preventDefault) {
 		e.preventDefault();
 		SendSmkt(this);
