@@ -112,7 +112,7 @@ exports.GetSale = function (req,res){
     var lastAction = visit.lastVisits[lastVisit].actionDetails.length-1; 
 
     var email = (req.body.ClientEmail ) ? req.body.ClientEmail :"undefined"; 
-    var path = "http://52.165.38.47/piwik.php?"+
+    var path = "https://legend.smarketeer.io/piwik.php?"+
       "uid="+req.body.ClientId+
       "&idsite="+req.body.idSite+
       "&rec="+1+
@@ -214,6 +214,16 @@ function json2table(visita,idSite,registrarVenta){
   var NewVisitor='<tr><td>'+
         visita.visit_last_action_time.substring(0,visita.visit_last_action_time.indexOf(" "))+
         "</td>";
+
+
+    var medio = (visita.referer_url!="null"&& visita.referer_url) ? "referido" : "Entrad directa";
+        medio = (visita.campaign_medium)     ?  visita.campaign_medium : medio;
+
+   var ref = (visita.referer_url!="null" &&  visita.referer_name ) ? visita.referer_name: "Entrad directa";
+       ref = (visita.campaign_source)     ?  visita.referer_name : ref;
+
+   medio= (ref=="Google"||ref=="Bing") ? "Organico" : medio;
+
   //Visitor date
    NewVisitor+='<td>'+
           '<a href="/visitors/seemore/'+visita.user_id+'/?idSite='+idSite+'">';
@@ -226,12 +236,12 @@ function json2table(visita,idSite,registrarVenta){
                       '<td>'+visita.referer_name+'</td>':
                       "<td></td>";
 
-        //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
+        //Source 
+        NewVisitor +=  '<td>'+ref+'</td>';
         
         //Medium
-        NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
-
+        NewVisitor += '<td>'+medio+'</td>';
+        
         //Content
         NewVisitor += (visita.campaign_content) ? '<td>'+visita.campaign_content+'</td>' : '<td></td>';
         //Refferer

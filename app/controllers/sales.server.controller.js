@@ -125,6 +125,12 @@ exports.Export = function(req,res,next){
 * This function gets the information of both, put it together and rock it
 */
 function json2table(visita,idSite){   
+  var medio = (visita.referer_url!="null"&& visita.referer_url) ? "referido" : "Entrad directa";
+        medio = (visita.campaign_medium)     ?  visita.campaign_medium : medio;
+
+   var ref = (visita.referer_url!="null" &&  visita.referer_name ) ? visita.referer_name: "Entrad directa";
+       ref = (visita.campaign_source)     ?  visita.referer_name : ref;
+
   
     //First we create the href and the id
   //Parseamos la url  
@@ -146,11 +152,11 @@ function json2table(visita,idSite){
                       '<td>'+visita.referer_name+'</td>':
                       "<td></td>";
 
-        //Source
-        NewVisitor += (visita.campaign_source) ? '<td>'+visita.campaign_source+'</td>' : '<td>Entrada Directa</td>';
+         //Source
+        NewVisitor +=  '<td>'+ref+'</td>';
         
         //Medium
-        NewVisitor += (visita.campaign_medium) ? '<td>'+visita.campaign_medium+'</td>' : '<td>Entrada Directa</td>';
+        NewVisitor += '<td>'+medio+'</td>';
 
         //Content
         NewVisitor += (visita.campaign_content) ? '<td>'+visita.campaign_content+'</td>' : '<td></td>';
