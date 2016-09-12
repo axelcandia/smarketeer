@@ -1,0 +1,579 @@
+doctype html
+//
+  Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+  Version: 4.1.0
+  Author: KeenThemes
+  Website: http://www.keenthemes.com/
+  Contact: support@keenthemes.com
+  Follow: www.twitter.com/keenthemes
+  Like: www.facebook.com/keenthemes
+  Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+  License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+//if IE 8
+  html.ie8.no-js(lang='en')  
+//if IE 9
+  html.ie9.no-js(lang='en')  
+// [if !IE] <!
+html(lang='en')
+  // <![endif]
+  // BEGIN HEAD
+  head
+    meta(charset='utf-8')
+    title Metronic | Pages - Todo
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL STYLES
+    link(rel='stylesheet', type='text/css', href='/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')
+    link(rel='stylesheet', type='text/css', href='/global/plugins/select2/select2.css')
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/pages/css/todo.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='favicon.ico')
+  // END HEAD
+  // BEGIN BODY
+  // DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices
+  // DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default
+  // DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle
+  // DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle
+  // DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle
+  // DOC: Apply "page-sidebar-fixed" class to have fixed sidebar
+  // DOC: Apply "page-footer-fixed" class to the body element to have fixed footer
+  // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
+  // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo.page-sidebar-closed
+    // BEGIN HEADER
+    .page-header.navbar.navbar-fixed-top
+      include ../shared/pageTop
+    // END HEADER
+    .clearfix
+    .container
+      // BEGIN CONTAINER
+      .page-container
+        include ../shared/leftBar
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM
+            #portlet-config.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+                    h4.modal-title Modal title
+                  .modal-body
+                    | Widget settings form goes here
+                  .modal-footer
+                    button.btn.blue(type='button') Save changes
+                    button.btn.default(type='button', data-dismiss='modal') Close
+                // /.modal-content
+              // /.modal-dialog
+            // /.modal
+            // END SAMPLE PORTLET CONFIGURATION MODAL FORM
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel
+              .toggler.tooltips(data-container='body', data-placement='left', data-html='true', data-original-title='Click to open advance theme customizer panel')
+                i.icon-settings
+              .toggler-close
+                i.icon-close
+              .theme-options
+                .theme-option.theme-colors.clearfix
+                  span
+                    | THEME COLOR
+                  ul
+                    li.color-default.current.tooltips(data-style='default', data-container='body', data-original-title='Default')
+                    li.color-grey.tooltips(data-style='grey', data-container='body', data-original-title='Grey')
+                    li.color-blue.tooltips(data-style='blue', data-container='body', data-original-title='Blue')
+                    li.color-dark.tooltips(data-style='dark', data-container='body', data-original-title='Dark')
+                    li.color-light.tooltips(data-style='light', data-container='body', data-original-title='Light')
+                .theme-option
+                  span
+                    | Theme Style
+                  select.layout-style-option.form-control.input-small
+                    option(value='square', selected='selected') Square corners
+                    option(value='rounded') Rounded corners
+                .theme-option
+                  span
+                    | Layout
+                  select.layout-option.form-control.input-small
+                    option(value='fluid', selected='selected') Fluid
+                    option(value='boxed') Boxed
+                .theme-option
+                  span
+                    | Header
+                  select.page-header-option.form-control.input-small
+                    option(value='fixed', selected='selected') Fixed
+                    option(value='default') Default
+                .theme-option
+                  span
+                    | Top Dropdown
+                  select.page-header-top-dropdown-style-option.form-control.input-small
+                    option(value='light', selected='selected') Light
+                    option(value='dark') Dark
+                .theme-option
+                  span
+                    | Sidebar Mode
+                  select.sidebar-option.form-control.input-small
+                    option(value='fixed') Fixed
+                    option(value='default', selected='selected') Default
+                .theme-option
+                  span
+                    | Sidebar Style
+                  select.sidebar-style-option.form-control.input-small
+                    option(value='default', selected='selected') Default
+                    option(value='compact') Compact
+                .theme-option
+                  span
+                    | Sidebar Menu
+                  select.sidebar-menu-option.form-control.input-small
+                    option(value='accordion', selected='selected') Accordion
+                    option(value='hover') Hover
+                .theme-option
+                  span
+                    | Sidebar Position
+                  select.sidebar-pos-option.form-control.input-small
+                    option(value='left', selected='selected') Left
+                    option(value='right') Right
+                .theme-option
+                  span
+                    | Footer
+                  select.page-footer-option.form-control.input-small
+                    option(value='fixed') Fixed
+                    option(value='default', selected='selected') Default
+            // END STYLE CUSTOMIZER
+            // BEGIN PAGE HEADER
+            h3.page-title
+              | Todo 
+              small todo & task management
+            .page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='index.html') Home
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Pages
+                  i.fa.fa-angle-right
+                li
+                  a(href='#') Todo
+              .page-toolbar
+                .btn-group.pull-right
+                  button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
+                    | Actions 
+                    i.fa.fa-angle-down
+                  ul.dropdown-menu.pull-right(role='menu')
+                    li
+                      a(href='#') Action
+                    li
+                      a(href='#') Another action
+                    li
+                      a(href='#') Something else here
+                    li.divider
+                    li
+                      a(href='#') Separated link
+            // END PAGE HEADER
+            // BEGIN PAGE CONTENT
+            .row
+              .col-md-12
+                // BEGIN TODO SIDEBAR
+                .todo-sidebar
+                  .portlet.light
+                    .portlet-title
+                      .caption(data-toggle='collapse', data-target='.todo-project-list-content')
+                        span.caption-subject.font-green-sharp.bold.uppercase PROJECTS 
+                        span.caption-helper.visible-sm-inline-block.visible-xs-inline-block click to view project list
+                      .actions
+                        .btn-group
+                          a.btn.green-haze.btn-circle.btn-sm.todo-projects-config(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                            i.icon-settings
+                            i.fa.fa-angle-down
+                          ul.dropdown-menu.pull-right
+                            li
+                              a(href='javascript:;')
+                                i.i
+                                |  New Project
+                            li.divider
+                            li
+                              a(href='javascript:;')
+                                | Pending 
+                                span.badge.badge-danger
+                                  | 4
+                            li
+                              a(href='javascript:;')
+                                | Completed 
+                                span.badge.badge-success
+                                  | 12
+                            li
+                              a(href='javascript:;')
+                                | Overdue 
+                                span.badge.badge-warning
+                                  | 9
+                            li.divider
+                            li
+                              a(href='javascript:;')
+                                i.i
+                                |  Archived Projects
+                    .portlet-body.todo-project-list-content
+                      .todo-project-list
+                        ul.nav.nav-pills.nav-stacked
+                          li
+                            a(href='javascript:;')
+                              span.badge.badge-success  6 
+                              |  AirAsia Ads
+                          li
+                            a(href='javascript:;')
+                              span.badge.badge-success  2 
+                              |  HSBC Promo
+                          li.active
+                            a(href='javascript:;')
+                              span.badge.badge-success.badge-active  3 
+                              |  GlobalEx System
+                          li
+                            a(href='javascript:;')
+                              span.badge.badge-default  14 
+                              |  Empire City
+                          li
+                            a(href='javascript:;')
+                              span.badge.badge-success  6 
+                              |  AirAsia Ads
+                          li
+                            a(href='javascript:;')
+                              span.badge.badge-success  2 
+                              |  Loop Inc Promo
+                // END TODO SIDEBAR
+                // BEGIN TODO CONTENT
+                .todo-content
+                  .portlet.light
+                    // PROJECT HEAD
+                    .portlet-title
+                      .caption
+                        i.icon-bar-chart.font-green-sharp.hide
+                        span.caption-helper PROJECT:
+                        span.caption-subject.font-green-sharp.bold.uppercase Tune Website
+                      .actions
+                        .btn-group
+                          a.btn.green-haze.btn-circle.btn-sm(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                            | MANAGE 
+                            i.fa.fa-angle-down
+                          ul.dropdown-menu.pull-right
+                            li
+                              a(href='javascript:;')
+                                i.i
+                                |  New Task
+                            li.divider
+                            li
+                              a(href='javascript:;')
+                                | Pending 
+                                span.badge.badge-danger
+                                  | 4
+                            li
+                              a(href='javascript:;')
+                                | Completed 
+                                span.badge.badge-success
+                                  | 12
+                            li
+                              a(href='javascript:;')
+                                | Overdue 
+                                span.badge.badge-warning
+                                  | 9
+                            li.divider
+                            li
+                              a(href='javascript:;')
+                                i.i
+                                |  Delete Project
+                    // end PROJECT HEAD
+                    .portlet-body
+                      .row
+                        .col-md-5.col-sm-4
+                          .scroller(style='max-height: 800px;', data-always-visible='0', data-rail-visible='0', data-handle-color='#dae3e7')
+                            .todo-tasklist
+                              .todo-tasklist-item.todo-tasklist-item-border-green
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Slider Redesign
+                                .todo-tasklist-item-text
+                                  | Lorem dolor sit amet ipsum dolor sit consectetuer dolore.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  21 Sep 2014
+                                  span.todo-tasklist-badge.badge.badge-roundless Urgent
+                              .todo-tasklist-item.todo-tasklist-item-border-red
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Homepage Alignments to adjust
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum dolor sit amet, consectetuer dolore dolor sit amet.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  14 Sep 2014
+                                  span.todo-tasklist-badge.badge.badge-roundless Important
+                              .todo-tasklist-item.todo-tasklist-item-border-green
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar9.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Slider Redesign
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  10 Feb 2015
+                                  span.todo-tasklist-badge.badge.badge-roundless Important
+                              .todo-tasklist-item.todo-tasklist-item-border-blue
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Contact Us Map Location changes
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum amet, consectetuer dolore dolor sit amet.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  04 Oct 2014
+                                  span.todo-tasklist-badge.badge.badge-roundless Postponed
+                                  span.todo-tasklist-badge.badge.badge-roundless Test
+                              .todo-tasklist-item.todo-tasklist-item-border-purple
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar7.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Projects list new Forms
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum dolor sit amet, consectetuer dolore psum dolor sit.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  19 Dec 2014
+                              .todo-tasklist-item.todo-tasklist-item-border-yellow
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar8.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | New Search Keywords
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum dolor sit amet, consectetuer sit amet ipsum dolor, consectetuer ipsum consectetuer sit amet dolore.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  02 Feb 2015
+                                  span.todo-tasklist-badge.badge.badge-roundless Postponed
+                              .todo-tasklist-item.todo-tasklist-item-border-green
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar9.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Slider Redesign
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  10 Feb 2015
+                                  span.todo-tasklist-badge.badge.badge-roundless Important
+                              .todo-tasklist-item.todo-tasklist-item-border-red
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Homepage Alignments to adjust
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum dolor sit amet, consectetuer dolore psum dolor sit.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  14 Sep 2014
+                                  span.todo-tasklist-badge.badge.badge-roundless Important
+                              .todo-tasklist-item.todo-tasklist-item-border-blue
+                                img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
+                                .todo-tasklist-item-title
+                                  | Contact Us Improvement
+                                .todo-tasklist-item-text
+                                  | Lorem ipsum amet, psum dolor sit consectetuer dolore.
+                                .todo-tasklist-controls.pull-left
+                                  span.todo-tasklist-date
+                                    i.fa.fa-calendar
+                                    |  21 Feb 2015
+                                  span.todo-tasklist-badge.badge.badge-roundless Postponed
+                                  span.todo-tasklist-badge.badge.badge-roundless Primary
+                        .todo-tasklist-devider
+                        .col-md-7.col-sm-8
+                          .scroller(style='max-height: 800px;', data-always-visible='0', data-rail-visible='0', data-handle-color='#dae3e7')
+                            form.form-horizontal(action='#')
+                              // TASK HEAD
+                              .form
+                                .form-group
+                                  .col-md-8.col-sm-8
+                                    .todo-taskbody-user
+                                      img.todo-userpic.pull-left(src='../admin/layout2/img/avatar6.jpg', width='50px', height='50px')
+                                      span.todo-username.pull-left Vanessa Bond
+                                      button.todo-username-btn.btn.btn-circle.btn-default.btn-xs(type='button')  edit 
+                                  .col-md-4.col-sm-4
+                                    .todo-taskbody-date.pull-right
+                                      button.todo-username-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Complete  
+                                // END TASK HEAD
+                                // TASK TITLE
+                                .form-group
+                                  .col-md-12
+                                    input.form-control.todo-taskbody-tasktitle(type='text', placeholder='Task Title...')
+                                // TASK DESC
+                                .form-group
+                                  .col-md-12
+                                    textarea.form-control.todo-taskbody-taskdesc(rows='8', placeholder='Task Description...')
+                                // END TASK DESC
+                                // TASK DUE DATE
+                                .form-group
+                                  .col-md-12
+                                    .input-icon
+                                      i.fa.fa-calendar
+                                      input.form-control.todo-taskbody-due(type='text', placeholder='Due Date...')
+                                // TASK TAGS
+                                .form-group
+                                  .col-md-12
+                                    input.form-control.todo-taskbody-tags(type='text', placeholder='Tags...', value='Pending, Requested')
+                                // TASK TAGS
+                                .form-actions.right.todo-form-actions
+                                  button.btn.btn-circle.btn-sm.green-haze Save Changes
+                                  button.btn.btn-circle.btn-sm.btn-default Cancel
+                              .tabbable-line
+                                ul.nav.nav-tabs
+                                  li.active
+                                    a(href='#tab_1', data-toggle='tab')
+                                      | Comments
+                                  li
+                                    a(href='#tab_2', data-toggle='tab')
+                                      | History
+                                .tab-content
+                                  #tab_1.tab-pane.active
+                                    // TASK COMMENTS
+                                    .form-group
+                                      .col-md-12
+                                        ul.media-list
+                                          li.media
+                                            a.pull-left(href='javascript:;')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar8.jpg', width='27px', height='27px')
+                                            .media-body.todo-comment
+                                              button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
+                                              p.todo-comment-head
+                                                span.todo-comment-username Christina Aguilera
+                                                span.todo-comment-date 17 Sep 2014 at 2:05pm
+                                              p.todo-text-color
+                                                | Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. 
+                                                br
+                                              // Nested media object
+                                              .media
+                                                a.pull-left(href='javascript:;')
+                                                  img.todo-userpic(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
+                                                .media-body
+                                                  p.todo-comment-head
+                                                    span.todo-comment-username Carles Puyol
+                                                    span.todo-comment-date 17 Sep 2014 at 4:30pm
+                                                  p.todo-text-color
+                                                    | Thanks so much my dear!
+                                          li.media
+                                            a.pull-left(href='javascript:;')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar5.jpg', width='27px', height='27px')
+                                            .media-body.todo-comment
+                                              button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
+                                              p.todo-comment-head
+                                                span.todo-comment-username Andres Iniesta
+                                                span.todo-comment-date 18 Sep 2014 at 9:22am
+                                              p.todo-text-color
+                                                | Cras sit amet nibh libero, in gravida nulla. Scelerisque ante sollicitudin commodo Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. 
+                                                br
+                                          li.media
+                                            a.pull-left(href='javascript:;')
+                                              img.todo-userpic(src='../admin/layout2/img/avatar6.jpg', width='27px', height='27px')
+                                            .media-body.todo-comment
+                                              button.todo-comment-btn.btn.btn-circle.btn-default.btn-xs(type='button')   Reply  
+                                              p.todo-comment-head
+                                                span.todo-comment-username Olivia Wilde
+                                                span.todo-comment-date 18 Sep 2014 at 11:50am
+                                              p.todo-text-color
+                                                | Cras sit amet nibh libero, in gravida nulla. Scelerisque ante sollicitudin commodo Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. 
+                                                br
+                                    // END TASK COMMENTS
+                                    // TASK COMMENT FORM
+                                    .form-group
+                                      .col-md-12
+                                        ul.media-list
+                                          li.media
+                                            img.todo-userpic.pull-left(src='../admin/layout2/img/avatar4.jpg', width='27px', height='27px')
+                                            .media-body
+                                              textarea.form-control.todo-taskbody-taskdesc(rows='4', placeholder='Type comment...')
+                                        button.pull-right.btn.btn-sm.btn-circle.green-haze(type='button')    Submit   
+                                    // END TASK COMMENT FORM
+                                  #tab_2.tab-pane
+                                    ul.todo-task-history
+                                      li
+                                        .todo-task-history-date
+                                          | 20 Jun, 2014 at 11:35am
+                                        .todo-task-history-desc
+                                          | Task created
+                                      li
+                                        .todo-task-history-date
+                                          | 21 Jun, 2014 at 10:35pm
+                                        .todo-task-history-desc
+                                          | Task category status changed to "Top Priority"
+                                      li
+                                        .todo-task-history-date
+                                          | 22 Jun, 2014 at 11:35am
+                                        .todo-task-history-desc
+                                          | Task owner changed to "Nick Larson"
+                                      li
+                                        .todo-task-history-date
+                                          | 30 Jun, 2014 at 8:09am
+                                        .todo-task-history-desc
+                                          | Task completed by "Nick Larson"
+                // END TODO CONTENT
+            // END PAGE CONTENT
+        // END CONTENT
+        // BEGIN QUICK SIDEBAR
+        // Cooming Soon...
+        // END QUICK SIDEBAR
+      // END CONTAINER
+      // BEGIN FOOTER
+      .page-footer
+        .page-footer-inner
+          | 2014 © Metronic by keenthemes. 
+          a(href='http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes', title='Purchase Metronic just for 27$ and get lifetime updates for free', target='_blank') Purchase Metronic!
+        .scroll-to-top
+          i.icon-arrow-up
+      // END FOOTER
+    // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
+    // BEGIN CORE PLUGINS
+    //if lt IE 9
+      script(src='../global/plugins/respond.min.js')
+      script(src='../global/plugins/excanvas.min.js')
+    script(src='../global/plugins/jquery.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='../global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='../global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='../global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='../global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE PLUGINS & SCRIPTS
+    script(type='text/javascript', src='../global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')
+    script(type='text/javascript', src='../global/plugins/select2/select2.min.js')
+    script(src='../admin/pages/scripts/todo.js', type='text/javascript')
+    // END PAGE PLUGINS & SCRIPTS
+    script(src='../global/scripts/metronic.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='../admin/layout2/scripts/demo.js', type='text/javascript')
+    script.
+      jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      Demo.init(); // init demo features
+      Todo.init(); // init todo page
+      });
+    // END JAVASCRIPTS
+  // END BODY

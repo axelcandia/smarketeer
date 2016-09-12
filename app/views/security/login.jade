@@ -1,0 +1,52 @@
+extends layout
+block content
+      // BEGIN LOGIN FORM
+      form.login-form( method='post')
+        h3.form-title Iniciar sesión
+        .alert.alert-danger.display-hide
+          button.close(data-close='alert')
+          span
+            | Escribe tu email y contraseña
+        .form-group
+          // ie8, ie9 does not support html5 placeholder, so we just show field title for that
+          label.control-label.visible-ie8.visible-ie9 Email
+          input.form-control.form-control-solid.placeholder-no-fix(type='email', autocomplete='off', placeholder='Email', id="email" name='email')
+        .form-group
+          label.control-label.visible-ie8.visible-ie9 Password
+          input.form-control.form-control-solid.placeholder-no-fix(type='password', autocomplete='off',id='password', placeholder='Password', name='password')
+        .form-actions
+          button.btn.btn-success.uppercase(type='submit')
+            | Sign in
+          label.rememberme.check
+            input(type='checkbox', name='remember', value='1')
+            | Recuerdame
+        .login-options
+          //h4 O inicia sesión con
+          //ul.social-icons
+            li
+              a.social-icon-color.facebook(data-original-title='facebook', href='javascript:;')
+            li
+              a.social-icon-color.twitter(data-original-title='Twitter', href='javascript:;')
+            li
+              a.social-icon-color.googleplus(data-original-title='Goole Plus', href='javascript:;')
+            li
+              a.social-icon-color.linkedin(data-original-title='Linkedin', href='javascript:;')
+          a#forget-password.forget-password(href='javascript:;' style="float:left") ¿Olvidaste tu contraseña?
+        .create-account
+          p
+            a#register-btn.uppercase(href='/signup') 
+              | Crear una cuenta
+      // END LOGIN FORM
+      // BEGIN FORGOT PASSWORD FORM
+      //form.forget-form(action='/RecoverPass', method='post')
+        h3 ¿Olvidaste tu contraseña?
+        p
+          | Escribe tu email abajo para reiniciar tu contraseña
+        .form-group
+          input.form-control.placeholder-no-fix(type='text', autocomplete='off', placeholder='Email', name='email')
+        .form-actions
+          button#back-btn.btn.btn-default(type='button') Volver
+          button.btn.btn-success.uppercase.pull-right(type='submit') Recuperar
+      // END FORGOT PASSWORD FORM
+      // BEGIN REGISTRATION FORM
+block scripts  

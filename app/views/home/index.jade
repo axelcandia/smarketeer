@@ -1,0 +1,664 @@
+
+doctype html
+//if IE 8
+  html.ie8.no-js(lang='en')  
+//if IE 9
+  html.ie9.no-js(lang='en')  
+// [if !IE] <!
+html.no-js(lang='en')
+  // <![endif]
+  // BEGIN HEAD
+  head
+    meta(charset='utf-8')
+    title Smarketeer Dashboard
+    meta(name='csrf-token', content=_csrf)
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1', name='viewport')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL PLUGIN STYLES
+    link(href='/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/jqvmap/jqvmap/jqvmap.css', rel='stylesheet', type='text/css')
+    // END PAGE LEVEL PLUGIN STYLES
+    // BEGIN PAGE STYLES
+    link(href='/admin/pages/css/tasks.css', rel='stylesheet', type='text/css')
+    // END PAGE STYLES
+    // BEGIN THEME STYLES
+    // DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    //NEW  
+    link(rel='shortcut icon', href='/public.css')
+    link(href='/dashboard.css', rel='stylesheet', type='text/css')
+
+  // END HEAD
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      // BEGIN HEADER INNER
+      include ../shared/pageTop.jade
+    // END HEADER
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../shared/leftBar.jade
+        // BEGIN CONTENT
+        .page-content-wrapper
+          .page-content
+            // BEGIN STYLE CUSTOMIZER
+            .theme-panel.TrackingCode
+              .toggler.tooltips(data-toggle='modal', href='#basic', data-container='body', data-placement='left', data-html='true', data-original-title='Ver el codigo de trackeo ')
+                i.icon-settings
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            // CODE MODAL
+            // BEGIN PAGE HEADER TO EDIT
+            li.dropdown(style="list-style-type:none")
+              a.dropdown-toggle(href='/javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                if ( !websites[0]  )
+                  h3.page-title(style='display: inline-block')
+                    | Dashboards 
+                else
+                 h3.page-title(style='display: inline-block',id=websites[0].WebsiteId)
+                   |#{websites[0].name} Dashboard
+                i.fa.fa-angle-down
+              if (websites.length > 1)
+                each website in websites
+                  ul.dropdown-menu
+                    a(href='/#') website.name
+            .page-bar
+              ul.page-breadcrumb
+                li
+                  i.fa.fa-home
+                  a(href='/index') Home
+                  i.fa.fa-angle-right
+                li 
+                  a(href='/index') Smarketeer
+                  i.fa.fa-angle-right
+                li
+                  a(href='/#') Otras paginas
+              .page-toolbar#CompleteCalendar
+                .tooltips.btn.btn-fit-height.btn-sm.green-haze.btn-dashboard-daterange(data-container='body', data-placement='left', data-original-title='Change dashboard date range')
+                  i.icon-calendar
+                  input#MyCalendar.pull-right(type='text', name='daterange')
+                  i.fa.fa-angle-down
+                  //
+                    uncomment this to display selected daterange in the button
+                    &nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp;
+                    <i class="fa fa-angle-down"></i>
+            // END PAGE HEADER
+            // BEGIN DASHBOARD STATS
+            .row
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/funnel/visitors/?idSite=#{idSite}')
+                  .visual
+                    i.fa.fa-comments
+                  .details
+                    .number#nvisitors
+                      | 0
+                    .desc
+                      | Visitantes
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='/funnel/leads/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-trophy
+                  .details
+                    .number#nleads
+                      | 
+                    .desc
+                      | Leads
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='/funnel/sales/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-shopping-cart
+                  .details
+                    .number#nsales
+                      | 
+                    .desc
+                      | Clientes
+            // END DASHBOARD STATS
+            //.clearfix.text-center.attribution-button
+              h3 Attribuir
+              .btn-group.btn-group-circle(data-toggle='buttons')
+                label.btn.blue.active
+                  input.toggle(type='radio' name="chk[]")
+                  |  Primera interaccion
+                label.btn.blue
+                  input.toggle(type='radio')
+                  |  Lineal
+                label.btn.blue.last
+                  input.toggle(type='radio')
+                  |  Ultima
+            .clearfix
+            .row
+              .col-md-6.col-sm-6
+                .portlet.box.blue
+                  .portlet-title
+                    .caption
+                      i.fa.fa-gift
+                      | Leads por canal
+                    //.tools
+                      a.config(href='/#portlet-config', data-toggle='modal')
+                      a.reload(href='/javascript:;')
+                  .portlet-body
+                    #canvas-holder
+                      canvas#chart-leads(width='481', height='295', style='width: 481px; height: 295px;')
+              .col-md-6.col-sm-6
+                .portlet.box.blue
+                  .portlet-title
+                    .caption
+                      i.fa.fa-gift
+                      | Ventas por canal 
+                   // .tools 
+                      a.reload(href='/javascript:;')
+                  .portlet-body
+                    #canvas-holder
+                      canvas#chart-sales(width='481', height='295', style='width: 481px; height: 295px;')
+            
+            // BEGIN STACK CHART CONTROLS PORTLET 
+             .clearfix
+            //.row
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.blue-soft(href='/funnel/visitors/?idSite=#{idSite}')
+                  .visual
+                    i.fa.fa-comments
+                  .details
+                    .number#nvisitors
+                      | 0
+                    .desc
+                      | Visitantes
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.red-soft(href='/funnel/leads/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-trophy
+                  .details
+                    .number#nleads
+                      | 
+                    .desc
+                      | Leads
+              .col-lg.4.col-md-4.col-sm-4.col-xs-12
+                a.dashboard-stat.dashboard-stat-light.green-soft(href='/funnel/sales/?idSite=#{idSite}' )
+                  .visual
+                    i.fa.fa-shopping-cart
+                  .details
+                    .number#nsales
+                      | 
+                    .desc
+                      | Clientes
+
+            .clearfix
+            .row
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-green-sharp                       
+                        span#CAC(data-counter='counterup', data-value='7800') 0 
+                      small CAC
+                    .number(style="float:right;")
+                      h3.font-green-sharp
+                                             
+                        span#Gasto(data-counter='counterup', data-value='7800') 0 
+                      small Gastos
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-red-haze
+                        span#LTV(data-counter='counterup', data-value='1349') 0
+                      small LTV
+                    .number(style="float:right;")
+                      h3.font-red-haze
+                        span#Ingreso(data-counter='counterup', data-value='1349') 0
+                      small Ingresos
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.red-haze(style='width: 85%;')
+                        span.sr-only 85% change
+                    .status
+                      .status-title  change 
+                      .status-number  85% 
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-blue-sharp
+                        span#LTVDCAC(data-counter='counterup', data-value='567') 0
+                      small LTV:CAC
+                    .number(style="float:right;")
+                      h3.font-blue-sharp
+                        span#Margen(data-counter='counterup', data-value='567') 0
+                      small Margen
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.blue-sharp(style='width: 45%;')
+                        span.sr-only 45% grow
+                    .status
+                      .status-title  grow 
+                      .status-number  45% 
+              .col-lg-3.col-md-3.col-sm-6.col-xs-12
+                .dashboard-stat2
+                  .display
+                    .number
+                      h3.font-purple-soft
+                        span#LTVmCAC(data-counter='counterup', data-value='276') 0
+                      small LTV-CAC
+                    .number(style="float:right;")
+                      h3.font-purple-soft
+                        span#ROI(data-counter='counterup', data-value='276') 0
+                      small ROI
+                  //.progress-info
+                    .progress
+                      span.progress-bar.progress-bar-success.purple-soft(style='width: 57%;')
+                        span.sr-only 56% change
+                    .status
+                      .status-title  change 
+                      .status-number  57% 
+          // END QUICK SIDEBAR
+        // END CONTENT
+        // BEGIN QUICK SIDEBAR
+        // Cooming Soon...
+        // END QUICK SIDEBAR
+      // END CONTAINER
+    // BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time)
+    // BEGIN CORE PLUGINS
+    //if lt IE 9
+      script(src='/global/plugins/respond.min.js')
+      script(src='/global/plugins/excanvas.min.js')  
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript') 
+    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(src='/global/plugins/flot/jquery.flot.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.resize.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.pulsate.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/moment.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/daterangepicker.js', type='text/javascript')
+    // IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support
+    script(src='/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/quick-sidebar.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/index.js', type='text/javascript')
+    script(src='/admin/pages/scripts/tasks.js', type='text/javascript')
+    // END PAGE LEVEL SCRIPTS 
+    // END CHARTS PLUGINS
+    // BEGIN CHARTS SCRIPTS 
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/charts-flotcharts.js')
+    //NEW SCRIPTS
+    script(src='/dashboard/js/dashboard.js') 
+    
+    //Calendar
+    script(src='/global/plugins/Chart/Chart.bundle.js')
+    script(type='text/javascript', src='//cdn.jsdelivr.net/momentjs/latest/moment.min.js')
+    script(type='text/javascript', src='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js')
+    link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css')
+    script.
+      var totalCost;
+      var revenue;
+      var clientes;
+      var idSite="#{idSite}";
+      var firstTime= true;
+        var chartLeadsData = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        1,
+                    ],
+                backgroundColor: [
+                    "#F7464A",
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360", 
+                ],
+
+                }],
+                labels: [
+                    "No data"
+                ]
+            },  
+            options: {
+                responsive: true,
+                legend: {
+                  display: true,
+                  labels: { 
+                  }
+              }
+            }
+        };
+        var chartSalesData = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        1,
+                    ],
+                backgroundColor: [
+                    "#F7464A",
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                ],
+
+                }],
+                labels: [ 
+                    "No data",
+                ]
+            },  
+            options: {
+                responsive: true
+            }
+        }
+
+
+
+      //Create leads chart
+        window.onload = function() {
+            var DivLeads = document.getElementById("chart-leads").getContext("2d");
+
+            var DivSales = document.getElementById("chart-sales").getContext("2d"); 
+            
+            //Generate Leads
+            window.LeadsChart = new Chart(DivLeads, chartLeadsData);//char //Append legend
+            //Genereate Sales
+            window.SalesChart = new Chart(DivSales, chartSalesData);//chart
+
+        };
+
+
+      NewDateRefresh(null,null);
+      function NewDateRefresh(date,period){
+      $.ajax({
+        url: '/home/CountVisitors',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+        success: function(data) { 
+          console.log("HEY"+data);
+          data = (data) ? data : 0 ; 
+          if(firstTime && (data==0 || data=="0") ){
+            $(".TrackingCode").trigger( "click" );
+            firstTime=false;
+          } 
+          $("#nvisitors").html(data); 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in visitors");
+        }
+        });
+
+      $.ajax({
+        url: '/home/CountLeads',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+        success: function(data) { 
+         data = (data) ? data : 0 ; 
+          $("#nleads").html(data); 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in leads");
+        }
+        });
+
+      $.ajax({
+        url: '/home/CountSales',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+                dataType: "JSON",        
+        success: function(data) {  
+          console.log(data);
+          clientes=data.nb_visits_converted; 
+          revenue=data.revenue;  
+            $("#nsales").html(clientes.toString());
+          SetNewBottomPannels();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        console.log(XMLHttpRequest);
+        }
+        });
+
+
+        $.ajax({
+        url: '/home/getTotalCost',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+        success: function(data) { 
+          totalCost=data; 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest);
+        }
+        });
+
+      /**
+      * Se comienza a agregaer los graficos
+      */
+        var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+        };
+        var randomColorFactor = function() {
+            return Math.round(Math.random() * 255);
+        };
+        var randomColor = function(opacity) {
+            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+        };
+        
+        /**
+        * Obtener la ultima informacion de los Leads ByChannel
+        */
+      $.ajax({
+        url: '/home/GetLeadsByChannel',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date"   : date,
+                "period" :period},
+        success: function(LeadsByChannel) {  
+          chartLeadsData.data.datasets[0].data=[];
+          chartLeadsData.data.labels=[]; 
+          if(Object.keys(LeadsByChannel).length>0){
+            //Restart the values
+            chartLeadsData.data.datasets[0].backgroundColor=[
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                    "#F7464A",
+                ];
+
+            for(var i=0; i<Object.keys(LeadsByChannel).length;i++){ 
+              chartLeadsData.data.datasets[0].data[i] = LeadsByChannel[i].total; 
+              chartLeadsData.data.labels.push(LeadsByChannel[i].campaign_source||"Entrada directa");
+            } 
+          }
+        else{
+          chartLeadsData.data.datasets[0].data[0]=1;
+          chartLeadsData.data.labels.push("No data");
+          chartLeadsData.data.datasets[0].backgroundColor=["#F7464A"];
+        }
+        window.LeadsChart.update(); 
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in leads");
+        }
+        });
+        function convertToCash(number){
+             var n=number.toFixed(2)
+            n=n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+            return "$"+n;
+          }
+
+
+        function SetNewBottomPannels(){  
+            var CAC     = (totalCost/clientes)||0;
+            var LTV     = (revenue/clientes) ||0; 
+            var ltv2    = (CAC>0)? (LTV / CAC ) : 0;
+            var LTVmCAC = ( (LTV-CAC))||0;
+            totalCost= parseInt(totalCost);
+            var margen= revenue - totalCost; 
+
+            $("#Ingreso").text(convertToCash(revenue));  
+            $("#Gasto").text(convertToCash(totalCost))
+            $("#Margen").text( convertToCash(margen));
+
+            var roi= (totalCost!=0) ? ( ( margen / totalCost )*100 )   : 0;
+            $("#ROI").text(roi.toFixed(2)+"%"); 
+            $("#CAC").text(convertToCash(CAC));
+            $("#LTV").text(convertToCash(LTV));
+
+            $("#LTVDCAC").text(  ltv2.toFixed(2) );
+            $("#LTVmCAC").text(  LTVmCAC.toFixed(2) );
+        }
+      /**
+      *Get the sales by channel
+      */
+      $.ajax({
+        url: '/home/GetSalesByChannel',
+        method: "POST",
+        data: { "idSite" : idSite,
+                "date":date,
+                "period":period},
+        success: function(SalesByChannel) {  
+          chartSalesData.data.datasets[0].data=[];
+          chartSalesData.data.labels=[];
+          if(Object.keys(SalesByChannel).length>0){
+            //Restart the values
+            
+            chartSalesData.data.datasets[0].backgroundColor=[
+                    "#46BFBD",
+                    "#FDB45C",
+                    "#949FB1",
+                    "#4D5360",
+                    "#F7464A",
+                ];
+            for(var i=0; i<Object.keys(SalesByChannel).length;i++){ 
+              chartSalesData.data.datasets[0].data[i] = SalesByChannel[i].total;
+              chartSalesData.data.labels.push(SalesByChannel[i].campaign_source||"Entrada directa");
+            }  
+              
+          }
+          else{
+          chartSalesData.data.datasets[0].data[0]=1;
+          chartSalesData.data.labels.push("No data");
+          chartSalesData.data.datasets[0].backgroundColor=["#F7464A"];
+        }
+        window.SalesChart.update();
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("error in sales");
+        }
+        });
+      } 
+
+
+
+
+
+
+
+  script.
+    StartDate= "#{StartDate}" 
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = dd+'/'+mm+'/'+yyyy;
+
+    $("#CompleteCalendar").click(function(){
+      $('#MyCalendar').trigger( "click" );
+    });
+
+    $('#MyCalendar').daterangepicker({
+        "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Aplicar",
+            "cancelLabel": "Cancelar",
+            "fromLabel": "Desde",
+            "toLabel": "Hasta",
+            "customRangeLabel": "Customizar",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Dom",
+                "Lun",
+                "Mar",
+                "Mier",
+                "Jue",
+                "Vier",
+                "Sab"
+            ],
+            "monthNames": [
+                "Enero",
+                 "Febrero",
+                 "Marzo",
+                 "Abril",
+                 "Mayo",
+                 "Junio",
+                 "Julio",
+                 "Agosto",
+                 "Septiembre",
+                 "Octubre",
+                 "Noviembre",
+                 "Diciembre"
+            ],
+            "firstDay": 1
+        },
+        "alwaysShowCalendars": true,
+        "startDate": StartDate,
+        "endDate": today,
+        "minDate": StartDate,
+        "maxDate":today,
+        "opens": "left"
+    }, function(start, end, label) { 
+      if(start.format('YYYY-MM-DD') == end.format('YYYY-MM-DD') )
+        NewDateRefresh(start.format('YYYY-MM-DD'),"day");
+      else{
+      var date = start.format('YYYY-MM-DD')+","+end.format('YYYY-MM-DD');
+         NewDateRefresh(date,"range");
+      }
+
+    });

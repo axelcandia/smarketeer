@@ -1,0 +1,189 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title Smarketeer Advertising Costs
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(http-equiv='Content-type', content='text/html; charset=utf-8')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    // BEGIN GLOBAL MANDATORY STYLES 
+    link(href='/http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    link(href='/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
+    //if lt IE 9
+      script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
+    // END GLOBAL MANDATORY STYLES
+    // BEGIN PAGE LEVEL STYLES
+    link(rel='stylesheet', type='text/css', href='/global/plugins/select2/select2.css')
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+    link#style_components(href='/global/css/components.css', rel='stylesheet', type='text/css')
+    link(href='/global/css/plugins.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
+    link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
+    link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    // END THEME STYLES
+    link(rel='shortcut icon', href='/favicon.ico')
+    link( href="/forms/assets/css/custom.css",rel="stylesheet")
+    // END PAGE LEVEL STYLES
+    // BEGIN THEME STYLES
+  body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    .page-header.navbar.navbar-fixed-top
+      include ../../../shared/pageTop
+    .clearfix
+    // BEGIN CONTAINER
+    .container
+      .page-container
+        include ../../../shared/leftBar
+        .page-content-wrapper
+          .page-content
+            // END STYLE CUSTOMIZER
+            // CODE MODAL
+            h3.page-title Crea tus formularios
+              small  Arrastra los elementos
+            .row
+              .row.clearfix
+              // Building Form.
+              #form.span6
+                .clearfix
+                  #build
+                    form#target.form-horizontal
+              // / Building Form.
+              // Components
+              .span6.clearfix.col-md-6  
+                .tabbable
+                  ul#formtabs.nav.nav-tabs
+                    // Tab nav
+                  form#components.form-horizontal
+                    fieldset
+                      .tab-content
+        // / Components 
+    //Values to add to main built.js
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript') 
+    script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
+    // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+    script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.cokie.min.js', type='text/javascript')
+    script(src='/global/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
+    // END CORE PLUGINS
+    // BEGIN PAGE LEVEL PLUGINS
+    script(src='/global/plugins/flot/jquery.flot.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.resize.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.pulsate.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/moment.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/daterangepicker.js', type='text/javascript')
+    // IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support
+    script(src='/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.sparkline.min.js', type='text/javascript')
+    // END PAGE LEVEL PLUGINS
+    // BEGIN PAGE LEVEL SCRIPTS
+    script(src='/global/scripts/metronic.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/quick-sidebar.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/index.js', type='text/javascript')
+    script(src='/admin/pages/scripts/tasks.js', type='text/javascript')
+    script(src='/forms/seeall.js', type='text/javascript')
+    script(src='/global/plugins/ladda/spin.min.js')
+    script(src='/global/plugins/ladda/ladda.min.js')
+    script.
+      //var formName   = "#{Name}";
+      var formId      = "#{formId}";
+      var url         = "#{url}"; 
+      var redirectTo  = "#{redirectTo}"
+      var message     = "#{message}"
+      var redirect    = #{redirect}
+      var script      = "#{script}".replace(/&lt;/g,"\<")
+                               .replace(/&gt;/g,"\>"); 
+      var col         = !{builderCode};  
+      LoadOldData     = true;
+
+    script.
+      $(document).on("click","#redirigir",function(){
+        $(".redirect_field").show();
+        $(".thanks_field").hide();
+      }); 
+      //Hide the other tab
+      $(document).on("click","#agradecer",function(){
+        $(".thanks_field").show();
+        $(".redirect_field").hide();
+      });    
+      
+      //Set the values
+      $(document).on("click","li:last-child",function(){
+        if(!redirect){
+         $("#agradecer").trigger("click");
+        } 
+
+        $(".redirectTo").val(redirectTo);
+        $(".thanksMessage").val(message);
+          
+        
+      });
+
+
+      $(document).on("keydown",".specialField",function(event){  
+        if(event.keyCode == 13) { 
+          event.preventDefault();
+          $("#smktSaveChanges").trigger("click");
+          return false;
+        }
+      });
+
+      $(document).on("click","#smktSaveChanges",function(){
+       event.preventDefault();
+       var redirect = ( $(".thanks_field").is(":visible") )  ? false : true;
+        $.ajax({
+          url:"/forms/SetFinalAction",
+          data:{
+            finalAction:{
+              redirect    : redirect,
+              message     : $(".thanksMessage").val(),
+              redirectTo  : $(".redirectTo").val()
+            },
+            id:formId
+          },
+          type:"POST",
+          success:function(){
+            bootbox.alert("Guardado!");
+          },
+          error:function(){
+            alert("error");
+          }
+        })
+        return false;
+      });
+
+
+    script(data-main='/forms/assets/js/main-built.js', src='/forms/assets/js/lib/require.js')    
+
+    style.
+      .fade {
+      left: 0!important;
+
+      }
+      .left{
+        margin-left:42%!important;
+      } 
+      .component *{
+      cursor:all-scroll!important;
+      }
+      .espbutton{
+        font-size: 15px!important;
+          height: 35px!important;
+      }
+
+
+
+    
+     

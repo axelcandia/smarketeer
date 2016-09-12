@@ -1,0 +1,725 @@
+[
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_first-name"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Nombre"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_last-name"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Apellido"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_tel"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Telefono"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_email"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Email"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_website"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Pagina Web"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_company"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Empresa"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_IngresosAnuales"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Ingresos anuales"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_city"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Ciudad"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Select Basic",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_ship-country"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Pais"
+      },
+      "options": {
+        "label": "Options",
+        "type": "eliminar",
+        "value": [
+        "- Elige un pais -",
+        "Afganistan", 
+        "Albania", 
+        "Alemania", 
+        "Andorra", 
+        "Angola", 
+        "Antartida", 
+        "Antigua y Barbuda", 
+        "Arabia Saudi", 
+        "Argelia", 
+        "Argentina", 
+        "Armenia", 
+        "Australia", 
+        "Austria", 
+        "Azerbaiyan", 
+        "Bahamas", 
+        "Bahrain", 
+        "Bangladesh", 
+        "Barbados", 
+        "Belgica", 
+        "Belice", 
+        "Benin", 
+        "Bermudas", 
+        "Bielorrusia", 
+        "Birmania Myanmar", 
+        "Bolivia", 
+        "Bosnia y Herzegovina", 
+        "Botswana", 
+        "Brasil", 
+        "Brunei", 
+        "Bulgaria", 
+        "Burkina Faso", 
+        "Burundi", 
+        "Butan", 
+        "Cabo Verde", 
+        "Camboya", 
+        "Camerun", 
+        "Canada", 
+        "Chad", 
+        "Chile", 
+        "China", 
+        "Chipre", 
+        "Colombia", 
+        "Comores", 
+        "Congo", 
+        "Corea del Norte", 
+        "Corea del Sur", 
+        "Costa de Marfil", 
+        "Costa Rica", 
+        "Croacia", 
+        "Cuba", 
+        "Dinamarca", 
+        "Dominica", 
+        "Ecuador", 
+        "Egipto", 
+        "El Salvador", 
+        "El Vaticano", 
+        "Emiratos arabes Unidos", 
+        "Eritrea", 
+        "Eslovaquia", 
+        "Eslovenia", 
+        "España", 
+        "Estados Unidos", 
+        "Estonia", 
+        "Etiopia", 
+        "Filipinas", 
+        "Finlandia", 
+        "Fiji", 
+        "Francia", 
+        "Gabon", 
+        "Gambia", 
+        "Georgia", 
+        "Ghana", 
+        "Gibraltar", 
+        "Granada", 
+        "Grecia", 
+        "Guam", 
+        "Guatemala", 
+        "Guinea", 
+        "Guinea Ecuatorial", 
+        "Guinea Bissau", 
+        "Guyana", 
+        "Haiti", 
+        "Honduras", 
+        "Hungria", 
+        "India", 
+        "Indian Ocean", 
+        "Indonesia", 
+        "Iran", 
+        "Iraq", 
+        "Irlanda", 
+        "Islandia", 
+        "Israel", 
+        "Italia", 
+        "Jamaica", 
+        "Japon", 
+        "Jersey", 
+        "Jordania", 
+        "Kazajstan", 
+        "Kenia", 
+        "Kirguistan", 
+        "Kiribati", 
+        "Kuwait", 
+        "Laos", 
+        "Lesoto", 
+        "Letonia", 
+        "Libano", 
+        "Liberia", 
+        "Libia", 
+        "Liechtenstein", 
+        "Lituania", 
+        "Luxemburgo", 
+        "Macedonia", 
+        "Madagascar", 
+        "Malasia", 
+        "Malawi", 
+        "Maldivas", 
+        "Mali", 
+        "Malta", 
+        "Marruecos", 
+        "Mauricio", 
+        "Mauritania", 
+        "Mexico", 
+        "Micronesia", 
+        "Moldavia", 
+        "Monaco", 
+        "Mongolia", 
+        "Montserrat", 
+        "Mozambique", 
+        "Namibia", 
+        "Nauru", 
+        "Nepal", 
+        "Nicaragua", 
+        "Niger", 
+        "Nigeria", 
+        "Noruega", 
+        "Nueva Zelanda", 
+        "Oman", 
+        "Paises Bajos", 
+        "Pakistan", 
+        "Palau", 
+        "Panama", 
+        "Papua Nueva Guinea", 
+        "Paraguay", 
+        "Peru", 
+        "Polonia", 
+        "Portugal", 
+        "Puerto Rico", 
+        "Qatar", 
+        "Reino Unido", 
+        "Republica Centroafricana", 
+        "Republica Checa", 
+        "Republica Democratica del Congo", 
+        "Republica Dominicana", 
+        "Ruanda", 
+        "Rumania", 
+        "Rusia", 
+        "Sahara Occidental", 
+        "Samoa", 
+        "San Cristobal y Nevis", 
+        "San Marino", 
+        "San Vicente y las Granadinas", 
+        "Santa Lucia", 
+        "Santo Tome y Principe", 
+        "Senegal", 
+        "Seychelles", 
+        "Sierra Leona", 
+        "Singapur", 
+        "Siria", 
+        "Somalia", 
+        "Southern Ocean", 
+        "Sri Lanka", 
+        "Swazilandia", 
+        "Sudafrica", 
+        "Sudan", 
+        "Suecia", 
+        "Suiza", 
+        "Surinam", 
+        "Tailandia", 
+        "Taiwan", 
+        "Tanzania", 
+        "Tayikistan", 
+        "Togo", 
+        "Tokelau", 
+        "Tonga", 
+        "Trinidad y Tobago", 
+        "Tunez", 
+        "Turkmekistan", 
+        "Turquia", 
+        "Tuvalu", 
+        "Ucrania", 
+        "Uganda", 
+        "Uruguay", 
+        "Uzbekistan", 
+        "Vanuatu", 
+        "Venezuela", 
+        "Vietnam", 
+        "Yemen", 
+        "Djibouti", 
+        "Zambia", 
+        "Zimbabue" ]
+      },
+      "inputsize": {
+        "label": "Input Size",
+        "type": "select",
+        "value": [
+          {
+            "value": "input-mini",
+            "label": "Mini",
+            "selected": false
+          },
+          {
+            "value": "input-smktall",
+            "label": "smktall",
+            "selected": false
+          },
+          {
+            "value": "input-medium",
+            "label": "Medium",
+            "selected": false
+          },
+          {
+            "value": "input-large",
+            "label": "Large",
+            "selected": false
+          },
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          },
+          {
+            "value": "input-xxlarge",
+            "label": "Xxlarge",
+            "selected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_title"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Titulo"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Area",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_comment"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Mensaje"
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "textarea": {
+        "label": "Starting Text",
+        "type": "textarea",
+        "value": ""
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_ship-zip"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Codigo postal"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      },
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  },
+  {
+    "title": "Text Input",
+    "fields": {
+      "id": {
+        "label": "ID / Name",
+        "type": "eliminar",
+        "value": "smkt_ship-address"
+      },
+      "label": {
+        "label": "Nombre",
+        "type": "eliminar",
+        "value": "Direccion"
+      },
+      "placeholder": {
+        "label": "Texto de fondo",
+        "type": "eliminar",
+        "value": ""
+      },
+      "helptext": {
+        "label": "Ayuda",
+        "type": "eliminar",
+        "value": ""
+      },
+      "required": {
+        "label": "Obligatorio",
+        "type": "checkbox",
+        "value": false
+      }, 
+      "inputsize": {
+        "label": "Input Size",
+        "type": "eliminar",
+        "value": 
+          {
+            "value": "input-xlarge",
+            "label": "Xlarge",
+            "selected": true
+          } 
+      }
+    }
+  }
+]
