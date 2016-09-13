@@ -44,6 +44,7 @@ html(lang='en')
     link(href='/admin/layout2/css/layout.css', rel='stylesheet', type='text/css')
     link#style_color(href='/admin/layout2/css/themes/grey.css', rel='stylesheet', type='text/css')
     link(href='/admin/layout2/css/custom.css', rel='stylesheet', type='text/css')
+    link(href='/integrations/index.css', rel='stylesheet', type='text/css')
     // END THEME STYLES
     link(rel='shortcut icon', href='favicon.ico')
   // END HEAD
@@ -94,18 +95,14 @@ html(lang='en')
                       li
                         a(href='javascript:;')  Necesito soporte
               .portlet-body
-                .row 
-                  .col-md-4
-                    // BEGIN BASIC PORTLET
-                    .portlet.mt-head.bg-blue-hoki
-                      .mt-widget-3
-                        .mt-head.bg-blue-hoki
-                          .mt-head-icon
-                            i.icon-social-twitter
-                          .mt-head-desc  Lorem Ipsum is simply dummy text of the ... 
-                          span.mt-head-date  25 Jan, 2015 
-                          .mt-head-button
-                            button.btn.btn-circle.btn-outline.white.btn-sm(type='button') Add 
+                .row
+                  .col-md-3(style="background-color:blue;") 
+                    // BEGIN GEOLOCATION PORTLET
+                    .portlet
+                      .portlet-body
+                        img(src="/Images/integrations/closeio.png")
+                      .bottom
+                      | Close.io
 
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET

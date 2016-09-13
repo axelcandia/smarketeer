@@ -125,7 +125,7 @@ exports.Export = function(req,res,next){
 * This function gets the information of both, put it together and rock it
 */
 function json2table(visita,idSite){   
-  var medio = (visita.referer_url!="null"&& visita.referer_url) ? "referido" : "Entrad directa";
+  var medio = (visita.referer_url!="null"&& visita.referer_url) ? "referido" : "Entrada directa";
         medio = (visita.campaign_medium)     ?  visita.campaign_medium : medio;
 
    var ref = (visita.referer_url!="null" &&  visita.referer_name ) ? visita.referer_name: "Entrad directa";

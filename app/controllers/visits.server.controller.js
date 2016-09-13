@@ -141,7 +141,7 @@ function json2table(visita,idSite){// url.parse(visita.actionDetails[0].url,true
   var medio = (visita.referer_url!="null"&& visita.referer_url) ? "referido" : "Entrad directa";
       medio = (visita.campaign_medium)     ?  visita.campaign_medium : medio;
 
- var ref = (visita.referer_url!="null" &&  visita.referer_name ) ? visita.referer_name: "Entrad directa";
+ var ref = (visita.referer_url!="null" &&  visita.referer_name ) ? visita.referer_name: "Entrada directa";
      ref = (visita.campaign_source)     ?  visita.referer_name : ref;
 
  medio= (ref=="Google"||ref=="Bing") ? "Organico" : medio;

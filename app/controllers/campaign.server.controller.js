@@ -116,6 +116,11 @@ exports.DeleteCampaign = function(req,res){
 			res.send("true");
 
 	})
+}
+//Requires a xls tranfsorm it to json and save
+exports.importCampaign = function(req,res){
+		console.log(req.files);
+		res.status(200);
 } 
 
 function SetNewCampaign(req,res){ 
