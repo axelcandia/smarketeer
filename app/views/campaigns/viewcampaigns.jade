@@ -212,15 +212,15 @@ html(lang='en')
               $("#importar").click(function(){ 
                  bootbox.dialog({ 
                   message:' <form enctype="multipart/form-data">'+  
-                              '<input id="file-es" name="file-es[]" type="file" multiple>'+ 
+                              '<input id="file-es" name="file-es" type="file" multiple="multiple">'+ 
                           '</form>',
                   onEscape: function() {},
                   backdrop: true, 
                   });  
                   $('#file-es').fileinput({
                     language: 'es',
-                    uploadUrl: '#',
-                    allowedFileExtensions : ['jpg', 'png','gif'],
+                    uploadUrl: '/campaigns/import/?idSite='+idSite,
+                    allowedFileExtensions : ['xls', 'xlsx','csv'],
                 }); 
            });
         });

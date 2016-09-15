@@ -1,6 +1,9 @@
-var Campaigns 	= require("../models/campaign.server.model.js"); 
-var url  = require('url');
-
+var Campaigns 	 	= require("../models/campaign.server.model.js"); 
+var url 		 	= require('url'); 
+var xlstojson 		= require("xls-to-json-lc");
+var xlsxtojson 		= require("xlsx-to-json-lc");
+var fs 				= require('fs');
+var async           = require("async");
 
 /**
 * Renders the view to see all campaigns
@@ -51,7 +54,7 @@ exports.RenderSeeMore = function(req, res){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
-	console.log(req.params.id);
+	console.log(req.body);
 	Campaigns.findById(req.params.id,function(err,data){
 		if(err)
 			res.redirect("/campaigns/seemore");  
@@ -116,8 +119,76 @@ exports.DeleteCampaign = function(req,res){
 			res.send("true");
 
 	})
-} 
+}
+exports.importCampaign = function(req,res){ 
+	
+	async.series({
+      json: function(callback){
+      	createImportJSON(req,res,callback)
+      }
+  },function(err, results) {
+  	if(err){
+  		res.send('{"err":"200"}').status(200);
+  		return;
+  	}  
+	  	Campaigns.create(results.json, function (err, data) {
+		  if (err) {
+		  	console.log(err);
+		  	return 0;
+		  };
+		  console.log(data);
+		  res.send({});
+		}); 
+  });
 
+}
+//Requires a xls tranfsorm it to json and save
+function createImportJSON(req,res,callback){  
+		var path=req.file.path; 
+		var exceltojson=""; 
+		var json;
+		//recognize if it xls or xlsx
+		if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+                exceltojson = xlsxtojson;
+            } else {
+                exceltojson = xlstojson;
+            }
+            try {
+                exceltojson({
+                    input: path,
+                    output: null, //since we don't need output.json
+                    lowerCaseHeaders:true //since we don't need output.json 
+                }, function(err,result){
+                	//Delete the file we dont need i
+                	fs.unlink(path, (err) => {
+					  if (err) callback(res.json({error_code:1,err_desc:err, data: null}),null);
+					  console.log('successfully deleted');
+					});
+					//Now we continue
+                    if(err) {
+                    	console.log(err);
+                        callback({error_code:1,err_desc:err, data: null},null);
+                    } 
+                    //now saave the data
+                  	var json = SetCampaignJSON(result,req.query.idSite);  
+                  	callback(null,json);
+                   
+                });
+            } catch (e){
+            	callback({error_code:1,err_desc:"Corupted excel file"},null); 
+            }
+
+} 
+/**
+*Adds idSite to every campaign
+*/
+function SetCampaignJSON(array,idSite){
+	for(var i=0; i<array.length;i++){
+		array[i].idSite=idSite;
+	}
+	return array;
+
+}
 function SetNewCampaign(req,res){ 
 	var campaign = new Campaigns(req.body.Data);
 	campaign.save(function(err) {
@@ -146,3 +217,6 @@ function UpdateCampaign( req,res ){
 		}
 	}); 
 }
+
+//exports
+exports.createImportJSON=createImportJSON;
