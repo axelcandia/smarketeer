@@ -16,7 +16,7 @@ exports.RenderGetAll= function(req, res){
 	Campaigns.find({"idSite" : req.query.idSite},function(err,data){
 		if(err)
 			console.log(err);
-		console.log(data);
+		console.log(JSON.data);
 		res.render("campaigns/viewcampaigns",{
 			campaigns:data,
 			idSite: req.query.idSite

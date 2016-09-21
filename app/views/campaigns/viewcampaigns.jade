@@ -63,6 +63,7 @@ html(lang='en')
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
      -  function getDate(date) {  
+        - date   = new Date(date) 
         - date   = date.toISOString();
         - date   = date.substr(date,date.indexOf("T")).split("-")
         - date = date[2]  +"/"+date[1]  +"/"+date[0];
@@ -163,9 +164,9 @@ html(lang='en')
                             td
                               | #{campaign.url}   
                             td
-                              | #{getDate(campaign.from||"12/07/16")}
+                              | #{getDate(campaign.from||"12-07-2016")}
                             td
-                              |#{getDate(campaign.to||"12/07/16")}
+                              |#{getDate(campaign.to||"12-07-2016")}
                             td
                               | #{campaign.total} 
                             td.btn.blue.editar(id="#{campaign._id}") 
