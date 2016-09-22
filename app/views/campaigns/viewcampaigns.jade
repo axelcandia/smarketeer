@@ -209,19 +209,5 @@ html(lang='en')
     link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css') 
     script(src='/global/plugins/dropzone/dropzone.min.js', type='text/javascript')
     script.
-        $(document).on('ready', function(){ 
-              $("#importar").click(function(){ 
-                 bootbox.dialog({ 
-                  message:' <form enctype="multipart/form-data">'+  
-                              '<input id="file-es" name="file-es" type="file" multiple="multiple">'+ 
-                          '</form>',
-                  onEscape: function() {},
-                  backdrop: true, 
-                  });  
-                  $('#file-es').fileinput({
-                    language: 'es',
-                    uploadUrl: '/campaigns/import/?idSite='+idSite,
-                    allowedFileExtensions : ['xls', 'xlsx','csv'],
-                }); 
-           });
-        });
+        var uploadUrl ='/campaigns/import/?idSite='+idSite;
+    script(src="/global/plugins/dropzone/import.js",type='text/javascript') 

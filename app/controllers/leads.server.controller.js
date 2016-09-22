@@ -7,6 +7,7 @@ var Visitors       = require("../models/visitors.server.model");
 var Sale           = require("../models/sales.server.model");
 var GetWebsiteDate = require("./visits.server.controller").GetWebsiteDate;
 var async           = require("async");
+var ImportXML2Json  = require("./Campaign.server.controller").ImportXML2Json;
 /**
 * Render lead view
 */
@@ -257,3 +258,20 @@ function json2table(visita,idSite,registrarVenta){
         return NewVisitor+"</tr>";
 
 } 
+
+exports.importLeads = function(req,res){ 
+  
+  async.series({
+      json: function(callback){
+        ImportXML2Json(req,res,callback)
+      }
+  },function(err, results) {
+    if(err){
+      res.send('{"err":"200"}').status(200);
+      return;
+    }  
+    console.log(data);
+    res.send({});
+ });
+
+}

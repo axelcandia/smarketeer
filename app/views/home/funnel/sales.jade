@@ -1,4 +1,4 @@
-doctype html
+fdoctype html
 //
   Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
   Version: 4.1.0
@@ -93,13 +93,15 @@ html(lang='en')
               .page-toolbar
                 .btn-group.pull-right
                   button.btn.btn-fit-height.grey-salt.dropdown-toggle(type='button', data-toggle='dropdown', data-hover='dropdown', data-delay='1000', data-close-others='true')
-                    | Exportar 
+                    | Acciones 
                     i.fa.fa-angle-down
                   ul.dropdown-menu.pull-right(role='menu')
                     li#toXML
                       a(href='#') Exportar Excel
                     li#toCSV
                       a(href='#') Exportar CSV
+                    li
+                      a#importar(href='#') Importar 
                     //li
                       a(href='#') Export to PDF
               .page-toolbar
@@ -200,6 +202,10 @@ html(lang='en')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src="/global/plugins/export/jquery.tabletoCSV.js", type='text/javascript')
+    script(src='/global/plugins/dropzone/dropzone.min.js', type='text/javascript')
+    script.
+        var uploadUrl ='/sales/import/?idSite='+idSite;
+    script(src="/global/plugins/dropzone/import.js",type='text/javascript') 
     script.
       $( document ).ready(function(){
       //Export data

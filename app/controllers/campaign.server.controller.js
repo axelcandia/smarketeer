@@ -124,7 +124,7 @@ exports.importCampaign = function(req,res){
 	
 	async.series({
       json: function(callback){
-      	createImportJSON(req,res,callback)
+      	ImportXML2Json(req,res,callback)
       }
   },function(err, results) {
   	if(err){
@@ -143,7 +143,7 @@ exports.importCampaign = function(req,res){
 
 }
 //Requires a xls tranfsorm it to json and save
-function createImportJSON(req,res,callback){  
+function ImportXML2Json(req,res,callback){  
 		var path=req.file.path; 
 		var exceltojson=""; 
 		var json;
@@ -219,4 +219,4 @@ function UpdateCampaign( req,res ){
 }
 
 //exports
-exports.createImportJSON=createImportJSON;
+exports.ImportXML2Json=ImportXML2Json;
