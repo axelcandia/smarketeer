@@ -7,6 +7,8 @@ var GetWebsiteDate   = require("./visits.server.controller").GetWebsiteDate;
 var piwik 			     = new PiwikClient(config.piwik.url, config.piwik.token ); 
 var async            = require("async");
 var Campaigns        = require('../models/campaign.server.model');
+
+
 exports.GetHome = function(req, res, next) {  
   async.series({ 
       FirstDate : function(callback){
@@ -23,7 +25,6 @@ exports.GetHome = function(req, res, next) {
 }  
 
 exports.getTotalCost = function(req,res){ 
-
   GetWebsiteDate(req,res,getCost);
 } 
 

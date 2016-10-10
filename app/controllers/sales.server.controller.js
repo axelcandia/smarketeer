@@ -5,6 +5,8 @@ var url             = require('url');
 var Sale            = require("../models/sales.server.model");
 var GetWebsiteDate  = require("./visits.server.controller").GetWebsiteDate;
 var async           = require("async");
+var ImportXML2Json  = require("./Campaign.server.controller").ImportXML2Json;
+
 exports.RenderSales = function ( req,res ){
 	if (!req.user) { 
 		res.redirect("/login");
@@ -121,6 +123,26 @@ exports.Export = function(req,res,next){
           }
       });  
 }
+
+
+exports.importSales = function(req,res){ 
+  
+  async.series({
+      json: function(callback){
+        ImportXML2Json(req,res,callback)
+      }
+  },function(err, results) {
+    if(err){
+      res.send('{"err":"200"}').status(200);
+      return;
+    }  
+    console.log(data);
+    res.send({});
+ });
+
+}
+
+
 /**
 * This function gets the information of both, put it together and rock it
 */
