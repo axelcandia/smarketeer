@@ -96,13 +96,24 @@ html(lang='en')
                         a(href='javascript:;')  Necesito soporte
               .portlet-body
                 .row
-                  .col-md-3(style="background-color:blue;") 
+                  .col-md-3
                     // BEGIN GEOLOCATION PORTLET
                     .portlet
                       .portlet-body
-                        img(src="/Images/integrations/closeio.png")
+                        a(href="/auth/facebook/?idSite=#{idSite}&source=facebook")
+                          img(src="/Images/integrations/facebook.png")
                       .bottom
-                      | Close.io
+                      | Facebook
+              .portlet-body
+                .row
+                  .col-md-3
+                    // BEGIN GEOLOCATION PORTLET
+                    .portlet
+                      .portlet-body
+                        a(href="/unlink/facebook")
+                          img(src="/Images/integrations/facebook.png")
+                      .bottom
+                      | Facebook
 
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET

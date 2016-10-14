@@ -28,7 +28,7 @@ module.exports = function(app) {
 	/**
 	 * API examples routes.
 	 */
-	app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
+	
 	app.get('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTwitter);
 	app.post('/api/twitter', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postTwitter);
 	app.get('/api/linkedin', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getLinkedin);
@@ -36,10 +36,7 @@ module.exports = function(app) {
 	/**
 	 * OAuth authentication routes. (Sign in)
 	 */ 
-	app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
-	  res.redirect(req.session.returnTo || '/');
-	}); 
+	
 	app.get('/auth/google', 
 		passport.authenticate('google')); 
 	app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
