@@ -59,6 +59,11 @@ html(lang='en')
   // DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side
   // DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu
   body.page-boxed.page-header-fixed.page-container-bg-solid.page-sidebar-closed-hide-logo
+    style.
+      .off {-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+      .integrations-logo{
+        height: 150px;
+      }
     .page-header.navbar.navbar-fixed-top
       include ../shared/pageTop
     .clearfix
@@ -100,11 +105,12 @@ html(lang='en')
                     // BEGIN GEOLOCATION PORTLET
                     .portlet
                       .portlet-body
-                        a(href="/home/integrations/facebook/auth/")
-                          img(src="/Images/integrations/facebook.png")
-                      .bottom
-                      | Facebook
-
+                        -if(  integrations.indexOf("facebook") >-1 )
+                            a#Facebook.alertUnlink(href="#")
+                                img.integrations-logo(src="/Images/integrations/facebook.png")
+                        -else 
+                          a(href="/auth/facebook/?idSite=#{idSite}&source=facebook")
+                            img.integrations-logo.off(src="/Images/integrations/facebook.png")
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
@@ -120,11 +126,10 @@ html(lang='en')
     //if lt IE 9
       script(src='/global/plugins/respond.min.js')
       script(src='/global/plugins/excanvas.min.js')
-    script(src='/global/plugins/jquery.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript') 
     script(src='/global/plugins/jquery-migrate.min.js', type='text/javascript')
     // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
-    script(src='/global/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
-    script(src='/global/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
     script(src='/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
     script(src='/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
     script(src='/global/plugins/jquery.blockui.min.js', type='text/javascript')
@@ -133,10 +138,55 @@ html(lang='en')
     script(src='/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
     // END CORE PLUGINS
     // BEGIN PAGE LEVEL PLUGINS
-    script(src='/global/plugins/ion.rangeslider/js/ion-rangeSlider/ion.rangeSlider.min.js')
+    script(src='/global/plugins/flot/jquery.flot.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.resize.min.js', type='text/javascript')
+    script(src='/global/plugins/flot/jquery.flot.categories.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.pulsate.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/moment.min.js', type='text/javascript')
+    script(src='/global/plugins/bootstrap-daterangepicker/daterangepicker.js', type='text/javascript')
+    // IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support
+    script(src='/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js', type='text/javascript')
+    script(src='/global/plugins/jquery.sparkline.min.js', type='text/javascript')
     // END PAGE LEVEL PLUGINS
     // BEGIN PAGE LEVEL SCRIPTS
     script(src='/global/scripts/metronic.js', type='text/javascript')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/quick-sidebar.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
-    script(src='/admin/pages/scripts/components-ion-sliders.js') 
+    script(src='/admin/pages/scripts/index.js', type='text/javascript')
+    script(src='/admin/pages/scripts/tasks.js', type='text/javascript')
+    // END PAGE LEVEL SCRIPTS 
+    // END CHARTS PLUGINS
+    // BEGIN CHARTS SCRIPTS 
+    script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
+    script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
+    script(src='/admin/pages/scripts/charts-flotcharts.js')
+    //NEW SCRIPTS 
+    script.
+        $(".alertUnlink").click(function(e){ 
+             var source=this.id;
+             bootbox.confirm({
+              message: "Estas a punto de eliminar tu integracion con "+source+".Estas seguro de querer continuar?",
+              buttons: {
+                  confirm: {
+                      label: 'Si' 
+                  },
+                  cancel: {
+                      label: 'No', 
+                  }
+              },
+              callback: function (result) {
+                if(result)
+                  $.ajax({
+                    url:"/auth/unlinK", 
+                    method: "POST",
+                    data: {'source':source,
+                            'idSite':idSite},
+                   success:function(data){
+                     location.reload();
+                   } 
+                  })
+                  
+              }
+          });
+        });

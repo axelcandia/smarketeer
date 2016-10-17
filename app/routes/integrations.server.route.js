@@ -7,8 +7,13 @@ var passportConfig	  = require("../../config/passport");
 module.exports = function(app){
 	app.get("/home/integrations*",integrations.RenderIntegrations);  
 
-	app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
-	  res.redirect("/ERROR!");
-	}); 
+	//Facebook integrations
+	app.get('/auth/facebook',integrations.SetIntegration, passport.authenticate('facebook', { scope : 'ads_management' }));
+	app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect : '/profile',
+            failureRedirect : '/'
+        }));
+	app.post('/auth/unlink',integrations.DeleteIntegration);
+
 }
