@@ -10,10 +10,10 @@ module.exports = function(app){
 	//Facebook integrations
 	app.get('/auth/facebook',integrations.SetIntegration, passport.authenticate('facebook', { scope : 'ads_management' }));
 	app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect : '/profile',
-            failureRedirect : '/'
+        passport.authenticate('facebook', { 
+            failureRedirect : '/integrations/facebook'
         }));
 	app.post('/auth/unlink',integrations.DeleteIntegration);
+	app.get('/integrations/facebook',integrations.SetFacebookIntegration);
 
 }

@@ -5,7 +5,7 @@ module.exports = {
 	secret:"SoyUnSuperSecretoSHHHHHH",
 	db: 'mongodb://db-smarketeer.cloudapp.net/Development',
 	facebook : {
-				clientID 		: '1539348089726612', // your App ID
+		clientID 		: '1539348089726612', // your App ID
 		clientSecret 	: '3cf68a04a1859ab4ab158a54ef34f4fe', // your App Secret
 		callbackURL 	: 'http://localhost:1337/auth/facebook/callback'
 	},

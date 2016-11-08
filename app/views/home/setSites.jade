@@ -81,36 +81,32 @@ html(lang='en')
                 // /.modal-content
               // /.modal-dialog
             // CODE MODAL
-            // BEGIN PAGE HEADER
+            // BEGIN PAGE HEADER 
             .clearfix.text-center.attribution-button
             .portlet.light.portlet-fit
               .portlet-title
                 .caption
                   i.icon-microphone.font-dark.hide
-                  span.caption-subject.bold.font-dark.uppercase  Integraciones 
-                  span.caption-helper a tu CRM favorito
-                .actions
-                  .btn-group
-                    a.btn.red.btn-outline.btn-circle.btn-sm(href='javascript:;', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
-                      | Pedir
-                      i.fa.fa-angle-down
-                    ul.dropdown-menu.pull-right
-                      li
-                        a(href='javascript:;')  No esta mi CRM
-                      li
-                        a(href='javascript:;')  Necesito soporte
+                  span.caption-subject.bold.font-dark.uppercase Integrate a #{integrateTo} 
+                  span.caption-helper  
               .portlet-body
-                .row
-                  .col-md-3
-                    // BEGIN GEOLOCATION PORTLET
-                    .portlet
-                      .portlet-body
-                        -if(  integrations.indexOf("facebook") >-1 )
-                            a#Facebook.alertUnlink(href="#")
-                                img.integrations-logo(src="/Images/integrations/facebook.png")
-                        -else 
-                          a(href="/auth/facebook/?idSite=#{idSite}&source=facebook")
-                            img.integrations-logo.off(src="/Images/integrations/facebook.png")
+                form(role='form')
+                  .form-body
+                    .form-group
+                      label Smarketeer
+                      select#integrateTo.form-control
+                        - for (var i = 0; i < sites.length; ++i) {
+                          option(value='#{sites[i].idSite}')
+                            | #{sites[i].name} 
+                        - }
+                     .form-group
+                      label Paginas de facebook
+                      select#integrateTo.form-control
+                        - for (var i = 0; i < options.length; ++i) {
+                          option(value='#{options[i].id}')
+                            | #{options[i].name} 
+                        - }
+
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
@@ -161,86 +157,3 @@ html(lang='en')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
-    //NEW SCRIPTS 
-    script.
-      var options = !{JSON.stringify(options)}; 
-      if(options){
-        var dropdown=setDropdown(options);
-        bootbox.confirm({
-              title: "Seleccione cual quiere integrar",
-              message:dropdown,
-              buttons: {
-                  confirm: {
-                      label: 'Continuar' 
-                  },
-                  cancel:{
-                    label:"cancelar"
-                  }
-              },
-              callback: function (result) {
-                console.log(result); 
-                if(result)
-                  $.ajax({
-                    url:"/integrate/"+medium+"/"+$( "#integrateTo" ).val();, 
-                    method: "POST",
-                    data: {'source':source,
-                            'idSite':idSite},
-                   success:function(data){
-                     location.reload();
-                   } 
-                  })
-                else{
-                  $.ajax({
-                    url:"/auth/unlinK", 
-                    method: "POST",
-                    data: {'source':source,
-                            'idSite':idSite},
-                   success:function(data){
-                     location.reload();
-                   } 
-                  })
-                }
-                  
-              }
-                }
-
-      });
-      } 
-        $(".alertUnlink").click(function(e){ 
-             var source=this.id;
-             bootbox.confirm({
-              message: "Estas a punto de eliminar tu integracion con "+source+".Estas seguro de querer continuar?",
-              buttons: {
-                  confirm: {
-                      label: 'Si' 
-                  },
-                  cancel: {
-                      label: 'No', 
-                  }
-              },
-              callback: function (result) {
-                if(result)
-                  $.ajax({
-                    url:"/auth/unlinK", 
-                    method: "POST",
-                    data: {'source':source,
-                            'idSite':idSite},
-                   success:function(data){
-                     location.reload();
-                   } 
-                  })
-                  
-              }
-          });
-        });
-
-        function setDropdown(options){
-        var html=  ' <select class="form-control" id="integrateTo">';
-              for (var i=0;i<options.length; i++) {
-                html+=' <option  value="'+ options[i].id+ '">'+options[i].name+'</option>';
-              }
-
-          html+=' </select>' ;
-       console.log(html);
-       return html;
-        }
