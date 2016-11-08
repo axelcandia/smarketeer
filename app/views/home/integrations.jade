@@ -163,49 +163,6 @@ html(lang='en')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
     //NEW SCRIPTS 
     script.
-      var options = !{JSON.stringify(options)}; 
-      if(options){
-        var dropdown=setDropdown(options);
-        bootbox.confirm({
-              title: "Seleccione cual quiere integrar",
-              message:dropdown,
-              buttons: {
-                  confirm: {
-                      label: 'Continuar' 
-                  },
-                  cancel:{
-                    label:"cancelar"
-                  }
-              },
-              callback: function (result) {
-                console.log(result); 
-                if(result)
-                  $.ajax({
-                    url:"/integrate/"+medium+"/"+$( "#integrateTo" ).val();, 
-                    method: "POST",
-                    data: {'source':source,
-                            'idSite':idSite},
-                   success:function(data){
-                     location.reload();
-                   } 
-                  })
-                else{
-                  $.ajax({
-                    url:"/auth/unlinK", 
-                    method: "POST",
-                    data: {'source':source,
-                            'idSite':idSite},
-                   success:function(data){
-                     location.reload();
-                   } 
-                  })
-                }
-                  
-              }
-                }
-
-      });
-      } 
         $(".alertUnlink").click(function(e){ 
              var source=this.id;
              bootbox.confirm({
@@ -232,15 +189,4 @@ html(lang='en')
                   
               }
           });
-        });
-
-        function setDropdown(options){
-        var html=  ' <select class="form-control" id="integrateTo">';
-              for (var i=0;i<options.length; i++) {
-                html+=' <option  value="'+ options[i].id+ '">'+options[i].name+'</option>';
-              }
-
-          html+=' </select>' ;
-       console.log(html);
-       return html;
-        }
+        }); 

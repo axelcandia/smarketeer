@@ -75,10 +75,21 @@ exports.DeleteIntegration= function(req,res){
                     sites: req.user.websites, 
                     integrations:JSON.stringify(data),
                     options: faceData.adaccounts.data,
-                    integrateTo:"facebook"
-
+                    integrateTo:"facebook" 
 
                 });
             }); 
         });
+ }
+
+ exports.SetIntegrationSite = function(req,res){
+  piwik.api({
+                method:    "SmarketeerIntegrate.SetIntegrationSite",
+                idSite:    req.body.idSite,
+                source:    req.body.source,
+                integrationSite: req.body.integrationSite
+              },function(error,data){  
+                console.log(error);
+                if(!error) res.send(0).status(200);
+            }); 
  }

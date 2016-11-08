@@ -90,23 +90,25 @@ html(lang='en')
                   span.caption-subject.bold.font-dark.uppercase Integrate a #{integrateTo} 
                   span.caption-helper  
               .portlet-body
-                form(role='form')
+                form#SetIntegrationSite(method="post")
                   .form-body
                     .form-group
-                      label Smarketeer
-                      select#integrateTo.form-control
+                      label Paginas de Smarketeer
+                      select#integrateTo.form-control(name="idSite")
                         - for (var i = 0; i < sites.length; ++i) {
                           option(value='#{sites[i].idSite}')
                             | #{sites[i].name} 
                         - }
                      .form-group
                       label Paginas de facebook
-                      select#integrateTo.form-control
+                      select.form-control(name="integrationSite")
                         - for (var i = 0; i < options.length; ++i) {
                           option(value='#{options[i].id}')
                             | #{options[i].name} 
-                        - }
-
+                        - } 
+                      input(name='source' value="#{integrateTo}" style="display:none")
+                  .form-actions.noborder 
+                    button.btn.green(type='submit') Integrar!
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT
@@ -157,3 +159,18 @@ html(lang='en')
     script(src='/admin/layout2/scripts/layout.js', type='text/javascript')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
+    script.
+      $( document ).ready(function(){ 
+
+        $('#SetIntegrationSite').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                url:'/integrations/SetIntegrationSite',
+                type:'POST',
+                data:$('#SetIntegrationSite').serialize(),
+                success:function(){
+                    window.location.href = "/home/integrations/?idSite="+$("#integrateTo").val();
+                }
+            });
+          });
+      });

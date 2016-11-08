@@ -15,5 +15,5 @@ module.exports = function(app){
         }));
 	app.post('/auth/unlink',integrations.DeleteIntegration);
 	app.get('/integrations/facebook',integrations.SetFacebookIntegration);
-
+	app.post('/integrations/SetIntegrationSite',integrations.SetIntegrationSite);
 }
