@@ -8,7 +8,7 @@ module.exports = function(app){
 	app.get("/home/integrations*",integrations.RenderIntegrations);  
 
 	//Facebook integrations
-	app.get('/auth/facebook',integrations.SetIntegration, passport.authenticate('facebook', { scope : 'ads_management' }));
+	app.get('/auth/facebook',integrations.SetIntegration, passport.authenticate('facebook', { scope : 'ads_management,manage_pages,ads_read,business_management' }));
 	app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { 
             failureRedirect : '/integrations/facebook'
@@ -16,4 +16,5 @@ module.exports = function(app){
 	app.post('/auth/unlink',integrations.DeleteIntegration);
 	app.get('/integrations/facebook',integrations.SetFacebookIntegration);
 	app.post('/integrations/SetIntegrationSite',integrations.SetIntegrationSite);
+	app.get("/integrations/trash",integrations.trash);
 }

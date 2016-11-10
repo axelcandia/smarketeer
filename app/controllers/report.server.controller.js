@@ -20,14 +20,7 @@ exports.RenderReport=function(req,res,next){
     source=(source=="name") ? "$campaign": "$"+source;
     console.log(source);
     async.series({
- 		GetClientes: function(callback){
- 			piwik.api({
-                method:    "SmarketeerReport." + clientsMethod,
-                idSite:    req.body.idSite,
-                source:    req.body.source, 
-              },callback);  
-          },
-
+ 		GetClientes: function(callback){GetClients(callback,source,idSite)},
         GetMedium: function(callback){
         	piwik.api({
                 method:    "SmarketeerReport." + mediumMethod,
@@ -73,6 +66,46 @@ exports.RenderReport=function(req,res,next){
     	}
  	});
 } 
+
+
+function GetClients(endApp){
+    //Integrations Enabled
+    async.series({
+        FacebookClients:function(callback){
+            //Keep an eye in what is based and in the date
+
+        },
+        HubsPotClients:function(callback){
+                //Keep an eye in what is based and in the date
+        },
+        PiwikClients:function(callback){
+            piwik.api({
+                method:    "SmarketeerReport." + clientsMethod, //Piwik should ignore everything that already has been integrated to :D
+                idSite:    req.body.idSite,
+                source:    req.body.source, 
+              },callback);  
+
+        }
+
+    },function(err,data){
+        if(err)
+            endApp(err,null);
+        else{
+            var join=data.FacebookClients;
+            endApp(null,data);
+        }
+        //Join the data of the clients
+
+
+    });
+    
+
+}
+
+//Si es la primera va directamente a las integraciones y se sasltean en proceso de analizado general
+//Si es lineal se agarran todas las visitas anteriores a la fecha de creacion de smarketeer y se suman a la cuenta
+//Si es ultima se usan los datos puros de SMKT 
+
 
 function json2table(client,medium,cost){  
     console.log(client.nsource);

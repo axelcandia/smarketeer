@@ -3,6 +3,8 @@ var async         	 = require("async");
 var PiwikClient     = require('piwik-client');
 var piwik 			    = new PiwikClient(config.piwik.url, config.piwik.token ); 
 var FB              = require('fb');
+FB.options({'appSecret': config.facebook.clientSecret});
+FB.options({version: 'v2.8'});
 exports.RenderIntegrations = function ( req, res ){   
 	piwik.api({
                 method:    "SmarketeerIntegrate.GetIntegration",
@@ -93,3 +95,16 @@ exports.DeleteIntegration= function(req,res){
                 if(!error) res.send(0).status(200);
             }); 
  }
+
+ exports.trash = function (req,res){
+  
+  FB.setAccessToken('EAAV4B2gS5pQBAP6ZA4gsW6pHuZBaMhn3lJ6DbJD037juE7ICOiafdeObxbereYKeFoZA0z6oWl0RjMvIMC9vyNlDy4cGfAYdHiZBHsm928R8qaBZCseFU85zTudcZAm1r1ZCQ8z0597rGT5m1g2Chb9ZAiVwKt7VwokZD');
+  FB.api('/act_42417167/adsets', function (faceData) {
+  if(!faceData || faceData.error) {
+    console.log(!faceData ? 'error occurred' : faceData.error);
+    return;
+  }
+  console.log(faceData);
+
+  });
+}
