@@ -106,7 +106,9 @@ html(lang='en')
                           option(value='#{options[i].id}')
                             | #{options[i].name} 
                         - } 
-                      input(name='source' value="#{integrateTo}" style="display:none")
+                      input(name='source'  value="#{integrateTo}" style="display:none")
+                      input(name="token"   value="#{token}"       style="display:none")
+                      input(name="userId"  value="#{user.email}"     style="display:none")
                   .form-actions.noborder 
                     button.btn.green(type='submit') Integrar!
                 // END BASIC PORTLET
@@ -160,14 +162,13 @@ html(lang='en')
     script(src='/admin/layout2/scripts/demo.js', type='text/javascript')
     script(src='/admin/pages/scripts/charts-flotcharts.js')
     script.
-      $( document ).ready(function(){ 
-
+      $( document ).ready(function(){  
         $('#SetIntegrationSite').submit(function(e){
             e.preventDefault();
             $.ajax({
-                url:'/integrations/SetIntegrationSite',
+                url:'/integrations/SetIntegration',
                 type:'POST',
-                data:$('#SetIntegrationSite').serialize(),
+                data: $('#SetIntegrationSite').serialize(),
                 success:function(){
                     window.location.href = "/home/integrations/?idSite="+$("#integrateTo").val();
                 }

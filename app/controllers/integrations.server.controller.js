@@ -25,14 +25,17 @@ exports.RenderIntegrations = function ( req, res ){
 exports.SetIntegration = function(req,res,next){  
   piwik.api({
                 method:    "SmarketeerIntegrate.SetIntegration",
-                idSite:    req.query.idSite,
-                source:    req.query.source,
-                userId:    req.user.email
+                idSite:    req.body.idSite,
+                source:    req.body.source,
+                userId:    req.body.userId,
+                token:     req.body.token,
+                integrationSite: req.body.integrationSite
               },function(error,data){  
                 if(error)
                   console.log("End:"+error);
                 else{
                   console.log(data);
+                  res.send(200);
                    next();
                 }
                   
@@ -57,44 +60,24 @@ exports.DeleteIntegration= function(req,res){
               });  
 } 
  
- exports.SetFacebookIntegration = function(req,res){
-  //Make the call to facebook 
-  FB.options({version: 'v2.7'});
-  FB.setAccessToken('EAAV4B2gS5pQBAP6ZA4gsW6pHuZBaMhn3lJ6DbJD037juE7ICOiafdeObxbereYKeFoZA0z6oWl0RjMvIMC9vyNlDy4cGfAYdHiZBHsm928R8qaBZCseFU85zTudcZAm1r1ZCQ8z0597rGT5m1g2Chb9ZAiVwKt7VwokZD');
+ exports.RenderSetPageIntegration = function(req,res){   
+  var token = req.session['token'] ; 
+  FB.setAccessToken(token);
   FB.api('me?fields=adaccounts{account_id,name}', function (faceData) {
-  if(!faceData || faceData.error) {
-    console.log(!faceData ? 'error occurred' : faceData.error);
-    return;
-  }
-  console.log(req.user);
-    piwik.api({
-                method:    "SmarketeerIntegrate.GetIntegration",
-                idSite:    req.query.idSite,
-                source:    "all"
-              },function(error,data){  
-                console.log(data)
-                 res.render("home/setSites",{
+    if(!faceData || faceData.error) {
+      console.log(!faceData ? 'error occurred' : faceData.error);
+        return;
+      }
+    
+    res.render("home/setSites",{
                     sites: req.user.websites, 
-                    integrations:JSON.stringify(data),
                     options: faceData.adaccounts.data,
-                    integrateTo:"facebook" 
+                    integrateTo:"facebook",
+                    token:token
 
                 });
-            }); 
-        });
- }
-
- exports.SetIntegrationSite = function(req,res){
-  piwik.api({
-                method:    "SmarketeerIntegrate.SetIntegrationSite",
-                idSite:    req.body.idSite,
-                source:    req.body.source,
-                integrationSite: req.body.integrationSite
-              },function(error,data){  
-                console.log(error);
-                if(!error) res.send(0).status(200);
-            }); 
- }
+            });   
+ } 
 
  exports.trash = function (req,res){
   

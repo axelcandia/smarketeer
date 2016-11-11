@@ -67,16 +67,11 @@ passport.use(new FacebookStrategy({
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
   passReqToCallback: true
 }, function(req, accessToken, refreshToken, profile, done) {
-    piwik.api({
-                method:    "SmarketeerIntegrate.SetToken",
-                userId:    req.user.email,
-                source:    "facebook", 
-                token:     accessToken
-              },function(error,res){ 
-                    done(null, false, { message: 'Incorrect password.' });
+    var token = (accessToken) ? accessToken : refreshToken; 
+    req.newToken=token;
+    return done(null, req);
 
-              });    
-}
+  }
 ));
 
 
