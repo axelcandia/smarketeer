@@ -8,7 +8,7 @@ module.exports = function(app){
 	app.get("/home/integrations*",integrations.RenderIntegrations);  
 
 	//Facebook integrations
-	app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'ads_management,manage_pages,ads_read' }));
+	app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['ads_management','manage_pages','ads_read'] }));
 	app.get('/auth/facebook/callback',
 		 passport.authenticate('facebook', { session: false }),
 		  function(req, res,next) { 

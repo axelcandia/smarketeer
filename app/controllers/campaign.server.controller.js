@@ -12,6 +12,8 @@ exports.RenderGetAll= function(req, res){
 	if (!req.user) { 
 		res.redirect("/login");
 	}
+
+	//act_204106777?fields=campaigns{insights{date_start,date_stop,spend,place_page_name,campaign_name}}
 	//GetAllCampaings for these user
 	Campaigns.find({"idSite" : req.query.idSite},function(err,data){
 		if(err)
