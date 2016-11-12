@@ -24,5 +24,11 @@ module.exports = {
 		user             : "Axel",
 		token			 : "9dfa00d50370c6e2f533e375ff282a97",
 		url              : "http://13.88.181.254/index.php"
+	},
+	hubspot:{
+		clientID:"4d56f0ba-439e-4c16-a1b2-7d76530978a6",
+		clientSecret:"3182730b-6c63-4d1b-825b-2b82f292bf44",
+		apppID:"37627",
+		callbackURL 	: 'http://localhost:1337/auth/hubspot/callback'
 	} 
 };

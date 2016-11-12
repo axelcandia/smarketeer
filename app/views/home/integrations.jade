@@ -111,6 +111,13 @@ html(lang='en')
                         -else 
                           a(href="/auth/facebook/?idSite=#{idSite}&source=facebook")
                             img.integrations-logo.off(src="/Images/integrations/facebook.png")
+
+                        -if(  integrations.indexOf("hubspot") >-1 )
+                            a#hubspot.alertUnlink(href="#")
+                                img.integrations-logo(src="/Images/integrations/hubspot.png" style="height: 40px;")
+                        -else 
+                          a(href="/auth/hubspot/?idSite=#{idSite}&source=hubspot")
+                            img.integrations-logo.off(src="/Images/integrations/hubspot.png" style="height: 40px;")
                 // END BASIC PORTLET
                 // END EXAMPLE TABLE PORTLET
             // END PAGE CONTENT

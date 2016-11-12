@@ -1,11 +1,16 @@
 var _                 = require('lodash');
 var passport          = require('passport');
 var request           = require('request'); 
+
+
+
 var LocalStrategy     = require('passport-local').Strategy;
 var FacebookStrategy  = require('passport-facebook').Strategy;
 var TwitterStrategy   = require('passport-twitter').Strategy;
 var GoogleStrategy    = require('passport-google-oauth').OAuth2Strategy;
 var LinkedInStrategy  = require('passport-linkedin-oauth2').Strategy;
+var HubSpotStrategy   = require('passport-hubspot').Strategy;
+
 var OpenIDStrategy    = require('passport-openid').Strategy;
 var OAuthStrategy     = require('passport-oauth').OAuthStrategy;
 var OAuth2Strategy    = require('passport-oauth').OAuth2Strategy;
@@ -73,6 +78,22 @@ passport.use(new FacebookStrategy({
 
   }
 ));
+
+
+
+
+/**
+ * Integrate in with Hubspot.
+ */
+passport.use(new HubSpotStrategy({
+  clientID: config.hubspot.clientID,
+  clientSecret: config.hubspot.clientSecret,
+  callbackURL: config.hubspot.callbackURL, 
+  passReqToCallback: true
+}, function() {
+   }
+));
+
 
 
 // Sign in with Twitter.

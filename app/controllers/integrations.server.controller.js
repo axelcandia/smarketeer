@@ -3,6 +3,7 @@ var async         	 = require("async");
 var PiwikClient     = require('piwik-client');
 var piwik 			    = new PiwikClient(config.piwik.url, config.piwik.token ); 
 var FB              = require('fb');
+var HubspotClient   = require('hubspot');
 FB.options({'appSecret': config.facebook.clientSecret});
 FB.options({version: 'v2.8'});
 exports.RenderIntegrations = function ( req, res ){   
@@ -61,27 +62,49 @@ exports.DeleteIntegration= function(req,res){
 } 
  
  exports.RenderSetPageIntegration = function(req,res){   
+
   var token = req.session['token'] ; 
-  FB.setAccessToken(token);
-  FB.api('me?fields=adaccounts{account_id,name}', function (faceData) {
-    if(!faceData || faceData.error) {
-      console.log(!faceData ? 'error occurred' : faceData.error);
-        return;
-      }
-    
-    res.render("home/setSites",{
+  switch(req.session['source']){
+
+    case "facebook":
+           FB.setAccessToken(token);
+            FB.api('me?fields=adaccounts{account_id,name}', function (faceData) {
+              if(!faceData || faceData.error) {
+                console.log(!faceData ? 'error occurred' : faceData.error);
+                  return;
+                }
+              RenderIntegration(req,res,faceData.adaccounts.data)
+             
+           });   
+        break;
+
+    case "hubspot":
+
+      break;
+    break;
+  }
+ 
+ } 
+function RenderIntegration(req,res,options){
+   res.render("home/setSites",{
                     sites: req.user.websites, 
-                    options: faceData.adaccounts.data,
-                    integrateTo:"facebook",
+                    options: options,
+                    integrateTo:req.session['source'],
                     token:token
 
                 });
-            });   
- } 
 
+}
  exports.trash = function (req,res){
-  
-  FB.setAccessToken('EAAV4B2gS5pQBAP6ZA4gsW6pHuZBaMhn3lJ6DbJD037juE7ICOiafdeObxbereYKeFoZA0z6oWl0RjMvIMC9vyNlDy4cGfAYdHiZBHsm928R8qaBZCseFU85zTudcZAm1r1ZCQ8z0597rGT5m1g2Chb9ZAiVwKt7VwokZD');
+  var hubspotClient = new HubspotClient();
+  hubspotClient.useToken("2f11f868-9923-48c5-99f1-bab52fffa964"); 
+  hubspotClient.contacts.get(function(err,data,res){
+    if(err){
+      console.log(err);
+    }
+    console.log(data);
+  });
+  /*FB.setAccessToken('EAAV4B2gS5pQBAP6ZA4gsW6pHuZBaMhn3lJ6DbJD037juE7ICOiafdeObxbereYKeFoZA0z6oWl0RjMvIMC9vyNlDy4cGfAYdHiZBHsm928R8qaBZCseFU85zTudcZAm1r1ZCQ8z0597rGT5m1g2Chb9ZAiVwKt7VwokZD');
   FB.api('/act_42417167/adsets', function (faceData) {
   if(!faceData || faceData.error) {
     console.log(!faceData ? 'error occurred' : faceData.error);
@@ -90,4 +113,12 @@ exports.DeleteIntegration= function(req,res){
   console.log(faceData);
 
   });
+  */
+  //GET EVERY DATAAH
 }
+
+ exports.hubspotwebhook = function(req,res){  
+    //WiF CREATES A NEW VISITOR
+    //IF CHANGES A STATUS
+    console.log(req);
+  }
